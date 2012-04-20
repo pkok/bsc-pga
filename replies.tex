@@ -1,0 +1,110 @@
+\documentclass[a4paper,11pt,twoside,openright]{article}
+
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage[english]{babel}
+\usepackage{color}
+\usepackage{hyperref}
+\usepackage{amsthm}
+\usepackage{xspace}
+
+\title{Replies to Leo's notes}
+\author{\href{mailto:pkok@science.uva.nl}{Patrick de Kok}}
+
+% markup for geometric terminology
+\newcommand{\textgt}[1]{\textsf{#1}} 
+% geometric terminology
+\newcommand{\pBrush}{\textgt{Brush}\xspace}
+\newcommand{\pBrushes}{\textgt{Brush}es\xspace}
+\newcommand{\ebrush}{\textgt{brush}\xspace}
+\newcommand{\ebrushes}{\textgt{brush}es\xspace}
+\newcommand{\pLine}{\textgt{Line}\xspace}
+\newcommand{\pLines}{\textgt{Line}s\xspace}
+\newcommand{\eline}{\textgt{line}\xspace}
+\newcommand{\elines}{\textgt{line}s\xspace}
+\newcommand{\pPencil}{\textgt{Pencil}\xspace}
+\newcommand{\pPencils}{\textgt{Pencil}s\xspace}
+\newcommand{\epencil}{\textgt{pencil}\xspace}
+\newcommand{\epencils}{\textgt{pencil}s\xspace}
+\newcommand{\pPlane}{\textgt{Plane}\xspace}
+\newcommand{\pPlanes}{\textgt{Plane}s\xspace}
+\newcommand{\eplane}{\textgt{plane}\xspace}
+\newcommand{\eplanes}{\textgt{plane}s\xspace}
+\newcommand{\pPoint}{\textgt{Point}\xspace}
+\newcommand{\pPoints}{\textgt{Point}s\xspace}
+\newcommand{\epoint}{\textgt{point}\xspace}
+\newcommand{\epoints}{\textgt{point}s\xspace}
+
+% Math-like symbols
+\newcommand{\Rl}{\ensuremath{\mathbb{R}^{3,3}}}
+\newcommand{\en}{\ensuremath{\mathbin{\mbox{and}}}}
+\newcommand{\of}{\ensuremath{\mathbin{\mbox{or}}}}
+\newcommand{\eql}{\ensuremath{\Leftrightarrow}}
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}{Lemma}
+
+\definecolor{nicered}{rgb}{0.6, 0, 0.24}
+\definecolor{nicegreen}{rgb}{0.0, 0.5, 0.24}
+\definecolor{niceblue}{rgb}{0, 0.4, 1}
+
+\hypersetup{
+  colorlinks=true,
+  urlcolor=nicegreen,
+  linkcolor=niceblue,
+  citecolor=nicered,
+}
+
+\begin{document}
+\maketitle
+
+\section{2-blades}
+\begin{theorem}
+Show that \emph{any} 2-blade of \Rl contains at least two \pLines
+\end{theorem}
+
+\begin{lemma}
+A 2-blade of two intersecting \pLines $\ell_1 \wedge \ell_2$ contains at least two \pLines.
+\end{lemma}
+See Leo's notes, 2.2, April 19.  Also: per definition.
+
+\begin{lemma}
+A 2-blade of two skew \pLines $\ell_1 \wedge \ell_2$ contains at least two \pLines.
+\end{lemma}
+See Leo's notes, 2.2, April 19.  Also: per definition.
+
+\begin{lemma}
+A 2-blade of two non-\pLines $k_1 \wedge k_2$ contains at least two \pLines.
+\end{lemma}
+
+We are looking for \pLines. As every null vector is a \pLine, we have the constraint $x^2 = 0$.
+
+\[
+\begin{array}{rlcl}
+ & x \wedge (k_1 \wedge k_2) = 0 &\en& x^2 = 0 \\
+\eql& x = \alpha k_1 + \beta k_2 &\en& 2\alpha\beta k_1 \cdot k_2 = 0
+\end{array}
+\]
+
+For $2\alpha\beta k_1 \cdot k_2 = 0$ to hold, $\alpha$ or $\beta$ should be 0. $k_1 \cdot k_2 \not= 0$, as that would mean $k_1$ and $k_2$ would be intersecting lines, which they are not by definition.
+
+This would mean that $x = \alpha k_1 \of x = \beta k_2$. {\color{red}As the representation is homgeneous, $\alpha k_1 = k_1$, and thus $x$ will not be a $\pLine$.}
+
+\begin{lemma}
+A 2-blade of one \pLine and a non-\pLine $\ell \wedge k$ contains at least two \pLines.
+\end{lemma}
+
+This will be similar to the previous lemma:
+
+\[
+\begin{array}{rlcl}
+ & x \wedge (\ell \wedge k) = 0 &\en& x^2 = 0 \\
+\eql& x = \alpha \ell + \beta k &\en& 2\alpha\beta \ell \cdot k = 0 \\
+\eql& x = \alpha \ell \of x = \beta k \\
+\eql& x = \ell \of x = k
+\end{array}
+\]
+
+{\color{red}This blade seems to contain just one line, being $\ell$.}
+
+\end{document}
