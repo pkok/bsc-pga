@@ -12,28 +12,32 @@
 \author{\href{mailto:pkok@science.uva.nl}{Patrick de Kok}}
 
 % markup for geometric terminology
-\newcommand{\textgt}[1]{\textsf{#1}} 
+\newcommand{\textgt}[1]{\textsf{#1}\xspace} 
 % geometric terminology
-\newcommand{\pBrush}{\textgt{Brush}\xspace}
-\newcommand{\pBrushes}{\textgt{Brush}es\xspace}
-\newcommand{\ebrush}{\textgt{brush}\xspace}
-\newcommand{\ebrushes}{\textgt{brush}es\xspace}
-\newcommand{\pLine}{\textgt{Line}\xspace}
-\newcommand{\pLines}{\textgt{Line}s\xspace}
-\newcommand{\eline}{\textgt{line}\xspace}
-\newcommand{\elines}{\textgt{line}s\xspace}
-\newcommand{\pPencil}{\textgt{Pencil}\xspace}
-\newcommand{\pPencils}{\textgt{Pencil}s\xspace}
-\newcommand{\epencil}{\textgt{pencil}\xspace}
-\newcommand{\epencils}{\textgt{pencil}s\xspace}
-\newcommand{\pPlane}{\textgt{Plane}\xspace}
-\newcommand{\pPlanes}{\textgt{Plane}s\xspace}
-\newcommand{\eplane}{\textgt{plane}\xspace}
-\newcommand{\eplanes}{\textgt{plane}s\xspace}
-\newcommand{\pPoint}{\textgt{Point}\xspace}
-\newcommand{\pPoints}{\textgt{Point}s\xspace}
-\newcommand{\epoint}{\textgt{point}\xspace}
-\newcommand{\epoints}{\textgt{point}s\xspace}
+\newcommand{\pBrush}{\textgt{Brush}}
+\newcommand{\pBrushes}{\textgt{Brushes}}
+\newcommand{\ebrush}{\textgt{brush}}
+\newcommand{\ebrushes}{\textgt{brushes}}
+\newcommand{\pLine}{\textgt{Line}}
+\newcommand{\pLines}{\textgt{Lines}}
+\newcommand{\eline}{\textgt{line}}
+\newcommand{\elines}{\textgt{lines}}
+\newcommand{\pPencil}{\textgt{Pencil}}
+\newcommand{\pPencils}{\textgt{Pencils}}
+\newcommand{\epencil}{\textgt{pencil}}
+\newcommand{\epencils}{\textgt{pencils}}
+\newcommand{\pPlane}{\textgt{Plane}}
+\newcommand{\pPlanes}{\textgt{Planes}}
+\newcommand{\eplane}{\textgt{plane}}
+\newcommand{\eplanes}{\textgt{planes}}
+\newcommand{\pPoint}{\textgt{Point}}
+\newcommand{\pPoints}{\textgt{Points}}
+\newcommand{\epoint}{\textgt{point}}
+\newcommand{\epoints}{\textgt{points}}
+\newcommand{\pRegulus}{\textgt{Regulus}}
+\newcommand{\pReguli}{\textgt{Reguli}}
+\newcommand{\pRegPen}{\textgt{Regulus Pencil}}
+\newcommand{\pRegPens}{\textgt{Regulus Pencils}}
 
 % Math-like symbols
 \newcommand{\Rl}{\ensuremath{\mathbb{R}^{3,3}}}
@@ -42,6 +46,7 @@
 \newcommand{\eql}{\ensuremath{\Leftrightarrow}}
 
 \newtheorem{theorem}{Theorem}
+\newtheorem{question}{Question}
 \newtheorem{lemma}{Lemma}
 
 \definecolor{nicered}{rgb}{0.6, 0, 0.24}
@@ -59,23 +64,22 @@
 \maketitle
 
 \section{2-blades}
-\begin{theorem}
-Show that \emph{any} 2-blade of \Rl contains at least two \pLines
-\end{theorem}
+\begin{question} 
+Show that \emph{any} 2-blade of \Rl contains at least two \pLines.
+\end{question}
 
-\begin{lemma}
-A 2-blade of two intersecting \pLines $\ell_1 \wedge \ell_2$ contains at least two \pLines.
-\end{lemma}
+This can be split up in 4 distinct cases.
+
+\begin{enumerate}
+\item \emph{A 2-blade of two intersecting \pLines $\ell_1 \wedge \ell_2$ contains at least two \pLines.}
+
 See Leo's notes, 2.2, April 19.  Also: per definition.
 
-\begin{lemma}
-A 2-blade of two skew \pLines $\ell_1 \wedge \ell_2$ contains at least two \pLines.
-\end{lemma}
+\item \emph{A 2-blade of two skew \pLines $\ell_1 \wedge \ell_2$ contains at least two \pLines.}
+
 See Leo's notes, 2.2, April 19.  Also: per definition.
 
-\begin{lemma}
-A 2-blade of one \pLine and a non-\pLine $\ell \wedge k$ contains at least two \pLines.
-\end{lemma}
+\item \emph{A 2-blade of one \pLine and a non-\pLine $\ell \wedge k$ contains at least two \pLines.}
 
 We are looking for \pLines.  As every null vector is a \pLine, we have the constraint $x^2 = 0$.
 
@@ -91,9 +95,7 @@ We are looking for \pLines.  As every null vector is a \pLine, we have the const
 \end{array}
 \]
 
-\begin{lemma}
-A 2-blade of two non-\pLines $k_1 \wedge k_2$ contains at least two \pLines.
-\end{lemma}
+\item \emph{A 2-blade of two non-\pLines $k_1 \wedge k_2$ contains at least two \pLines.}
 
 Again, $x$ should be a \pLine.  We have the same constraint $x^2 = 0$.
 
@@ -121,4 +123,10 @@ This is according to Wolfram Alpha... I couldn't get further than this:
 \]
 
 I don't see how to get all $\alpha$'s or $\beta$'s on one side of the $=$...
+\end{enumerate}
+\qed
+
+\begin{question}
+Show that $\ell_1 \wedge \ell_2 \wedge \ell_3$, for relatively skew \pLines $\ell_1, \ell_2, \ell_3$ is a \pRegPen.
+\end{question}
 \end{document}
