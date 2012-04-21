@@ -74,37 +74,49 @@ A 2-blade of two skew \pLines $\ell_1 \wedge \ell_2$ contains at least two \pLin
 See Leo's notes, 2.2, April 19.  Also: per definition.
 
 \begin{lemma}
-A 2-blade of two non-\pLines $k_1 \wedge k_2$ contains at least two \pLines.
-\end{lemma}
-
-We are looking for \pLines. As every null vector is a \pLine, we have the constraint $x^2 = 0$.
-
-\[
-\begin{array}{rlcl}
- & x \wedge (k_1 \wedge k_2) = 0 &\en& x^2 = 0 \\
-\eql& x = \alpha k_1 + \beta k_2 &\en& 2\alpha\beta k_1 \cdot k_2 = 0
-\end{array}
-\]
-
-For $2\alpha\beta k_1 \cdot k_2 = 0$ to hold, $\alpha$ or $\beta$ should be 0. $k_1 \cdot k_2 \not= 0$, as that would mean $k_1$ and $k_2$ would be intersecting lines, which they are not by definition.
-
-This would mean that $x = \alpha k_1 \of x = \beta k_2$. {\color{red}As the representation is homgeneous, $\alpha k_1 = k_1$, and thus $x$ will not be a $\pLine$.}
-
-\begin{lemma}
 A 2-blade of one \pLine and a non-\pLine $\ell \wedge k$ contains at least two \pLines.
 \end{lemma}
 
-This will be similar to the previous lemma:
+We are looking for \pLines.  As every null vector is a \pLine, we have the constraint $x^2 = 0$.
 
 \[
 \begin{array}{rlcl}
  & x \wedge (\ell \wedge k) = 0 &\en& x^2 = 0 \\
-\eql& x = \alpha \ell + \beta k &\en& 2\alpha\beta \ell \cdot k = 0 \\
-\eql& x = \alpha \ell \of x = \beta k \\
-\eql& x = \ell \of x = k
+\eql& x = \alpha \ell + \beta k &\en& x^2 = 0 \\
+\eql& (\alpha \ell + \beta k)^2 = 0 \\
+\eql& \alpha^2 \ell^2 + \alpha \beta \left(\ell \cdot k\right) + \beta^2 k^2 = 0 \\
+\eql& \alpha \beta \left(\ell \cdot k\right) + \beta^2 k^2 = 0 \\
+\eql& \alpha \left(\ell \cdot k\right) = -\beta k^2 \\
+\eql& \alpha = -\frac{\beta k^2}{\ell \cdot k} &\of& \beta = -\frac{\alpha\left(\ell \cdot k\right)}{k^2}
 \end{array}
 \]
 
-{\color{red}This blade seems to contain just one line, being $\ell$.}
+\begin{lemma}
+A 2-blade of two non-\pLines $k_1 \wedge k_2$ contains at least two \pLines.
+\end{lemma}
 
+Again, $x$ should be a \pLine.  We have the same constraint $x^2 = 0$.
+
+\[
+\begin{array}{rlcl}
+ & x \wedge (k_1 \wedge k_2) = 0 &\en& x^2 = 0 \\
+\eql& x = \alpha k_1 + \beta k_2 &\en& x^2 = 0 \\
+\eql& \left(\alpha k_1 + \beta k_2\right)^2 = 0 \\
+\eql& \alpha^2 k_1^2 + \alpha \beta (k_1 \cdot k_2) + \beta^2 k_2^2 = 0 \\
+\eql& \alpha \not= 0 \en \beta = \frac{\imath \left( \sqrt{3} \alpha k_1 \pm \imath \alpha k_1\right)}{2k_2} &\of& \beta \not= 0 \en \alpha = \frac{\imath \left( \sqrt{3} \beta k_2 \pm \imath \beta k_2\right)}{2k_1}
+\end{array}
+\]
+This is according to Wolfram Alpha... I couldn't get further than this:
+
+\[
+\begin{array}{rlcl}
+ & x \wedge (k_1 \wedge k_2) = 0 &\en& x^2 = 0 \\
+\eql& x = \alpha k_1 + \beta k_2 &\en& x^2 = 0 \\
+\eql& \left(\alpha k_1 + \beta k_2\right)^2 = 0 \\
+\eql& \alpha^2 k_1^2 + \alpha \beta (k_1 \cdot k_2) + \beta^2 k_2^2 = 0 \\
+\eql& \alpha \beta (k_1 \cdot k_2) = -\alpha^2 k_1^2 - \beta^2 k_2^2 \\
+\eql& \alpha = - \frac{\alpha^2 k_1^2 + \beta^2 k_2^2}{\beta k_1 \cdot k_2} &\of& \beta = - \frac{\alpha^2 k_1^2 + \beta^2 k_2^2}{\alpha k_1 \cdot k_2} \\
+\eql& \alpha^2 = -\frac{\alpha \beta (k_1 \cdot k_2) + \beta^2 k_2^2}{k_1^2} &\of& \beta^2 = -\frac{\alpha \beta (k_1 \cdot k_2) + \alpha^2 k_1^2}{k_2^2}
+\end{array}
+\]
 \end{document}
