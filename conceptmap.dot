@@ -1,0 +1,59 @@
+digraph conceptmap {
+node [shape=ellipse]; 
+ga [label="geometric algebra"];
+projective [label="projective geometry"]; 
+
+vector;
+nullvector [label="null vector"];
+notnullvector [label="not-null vector"];
+twoblade [label="2-blade"];
+threeblade [label="3-blade"];
+fourblade [label="4-blade"];
+fiveblade [label="5-blade"];
+sixblade [label="6-blade"];
+blade [label="blade"];
+
+line; 
+linepair [label="line pair"];
+pencil [label="pencil"];
+brush [label="brush"];
+regulus [label="regulus"];
+doublewheelpencil [label="2-wheel pencil"];
+q1 [label="???"];
+q2 [label="???"];
+q3 [label="???"];
+q4 [label="???"];
+q5 [label="???"];
+q6 [label="???"];
+
+ga -> projective [label="models"];
+
+blade -> ga [label="basic element of"];
+vector -> ga [label="basic element of"];
+vector -> blade [label="is a"];
+
+nullvector -> vector [label="is a"];
+nullvector -> line [label="represents"];
+
+notnullvector -> vector [label="is a"];
+notnullvector -> q1 [label="represents"];
+
+twoblade -> linepair [label="represents"];
+twoblade -> pencil [label="represents"];
+twoblade -> q2 [label="represents"];
+
+threeblade -> regulus [label="represents"];
+threeblade -> doublewheelpencil [label="represents"];
+threeblade -> brush [label="represents"];
+threeblade -> q3 [label="represents"];
+
+fourblade -> q4 [label="represents"];
+fiveblade -> q5 [label="represents"];
+sixblade -> q6 [label="represents"];
+
+twoblade -> blade [label="is a"];
+threeblade -> blade [label="is a"];
+fourblade -> blade [label="is a"];
+fiveblade -> blade [label="is a"];
+sixblade -> blade [label="is a"];
+}
