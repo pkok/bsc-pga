@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+<g25spec 
+    license="BSD" 
+    language="java"
+    namespace="pl3ga"
+    coordStorage="variables"
+    defaultOperatorBindings="true"
+    dimension="6"
+    reportUsage="false" 
+    gmvCode="expand"
+    parser="builtin"
+    testSuite="true"
+    copyright="Patrick de Kok, bachelor thesis 2012"
+>
+
+<inline 
+	constructors="true" 
+	set="true" 
+	assign="true" 
+	operators="true" 
+	functions="true"
+	/>
+
+<floatType type="float" />
+<!--<floatType type="double" />-->
+<!--<floatType type="float" suffix="_f" />-->
+
+<basisVectorNames 
+	name1="e01"
+	name2="e02"
+	name3="e03"
+	name4="e12"
+  name5="e23"
+  name6="e31"
+	/>
+	
+<metric name="default" round="true">e01.e23=e02.e31=e03.e12=1</metric>
+<!--
+<metric name="euclidean">e01.e01=e02.e02=e03.e03=1</metric>
+<metric name="conformal">e01.e01=e02.e02=e03.e03=e12.e12=e23.e23=e31.e31=-1</metric>
+-->
+
+<mv name="mv" compress="byGrade" coordinateOrder="default"
+memAlloc="full">
+</mv>
+
+
+  <smv name="e01" const="true" type="blade">e01=1</smv>
+  <smv name="e02" const="true" type="blade">e02=1</smv>
+  <smv name="e03" const="true" type="blade">e03=1</smv>
+  <smv name="e12" const="true" type="blade">e12=1</smv>
+  <smv name="e23" const="true" type="blade">e23=1</smv>
+  <smv name="e31" const="true" type="blade">e31=1</smv>
+  <smv name="I3r" const="true" type="blade">e01^e02^e03=1</smv>
+  <smv name="I3i" const="true" type="blade">e12^e23^e31=1</smv>
+  <smv name="I6" const="true" type="blade">e01^e02^e03^e12^e23^e31=1</smv>
+
+  <smv name="line" type="blade">e01 e02 e03</smv>
+  <smv name="idealLine" type="blade">e12 e23 e31</smv>
+  <smv name="vector" type="blade">e01 e02 e03 e12 e23 e31</smv>
+  <smv name="pencil" type="blade">e01^e02 e02^e03 e03^e01</smv>
+  <smv name="idealPencil" type="blade">e12^e23 e23^e31 e31^e12</smv>
+  <smv name="mixedPencil" type="blade">e01^e12 e01^e23 e01^e31 e02^e12 e02^e23 e02^e31 e03^e12 e03^e23 e03^e31</smv>
+  <smv name="pseudoscalar" type="blade">e01^e02^e03^e12^e23^e31</smv>
+  <smv name="evenVersor" type="versor">
+    scalar
+    e01^e02 e01^e12 e01^e23 e01^e31 e02^e03 e02^e12 e02^e23 e02^e31 
+    e03^e01 e03^e12 e03^e23 e03^e31 e12^e23 e23^e31 e31^e12 
+    e01^e02^e03^e12 e01^e02^e03^e23 e01^e02^e03^e31 
+    e01^e02^e12^e23 e01^e02^e12^e31 e01^e02^e23^e31
+    e01^e03^e12^e23 e01^e03^e12^e31 e01^e03^e23^e31
+    e02^e03^e12^e23 e02^e03^e12^e31 e02^e03^e23^e31
+    e01^e12^e23^e31 e02^e12^e23^e31 e03^e12^e23^e31
+    e01^e02^e03^e12^e23^e31
+  </smv>
+  <smv name="oddVersor" type="versor">
+    e01 e02 e03 e12 e23 e31
+    e01^e02^e03 
+    e01^e02^e12 e01^e02^e23 e01^e02^e31 
+    e01^e03^e12 e01^e03^e23 e01^e03^e31
+    e01^e12^e23 e01^e12^e31 e01^e23^e31 
+    e02^e03^e12 e02^e03^e23 e02^e03^e31
+    e02^e12^e23 e02^e12^e31 e02^e23^e31 
+    e03^e12^e23 e03^e12^e31 e03^e23^e31 
+    e12^e23^e31
+    e01^e02^e03^e12^e23
+    e01^e02^e03^e12^e31
+    e01^e02^e03^e23^e31
+    e01^e02^e12^e23^e31
+    e01^e03^e12^e23^e31
+    e02^e03^e12^e23^e31
+  </smv>
+  <constant name="lineE01" type="line">e01=1 e02=0 e03=0</constant>
+  <constant name="lineE02" type="line">e01=0 e02=1 e03=0</constant>
+  <constant name="lineE03" type="line">e01=0 e02=0 e03=1</constant>
+  <constant name="lineE12" type="idealLine">e12=1 e23=0 e31=0</constant>
+  <constant name="lineE23" type="idealLine">e12=0 e23=1 e31=0</constant>
+  <constant name="lineE31" type="idealLine">e12=0 e23=0 e31=1</constant>
+
+  <om name="om" coordinateOrder="default" />
+  <!-- Zoiets stond in C3GA
+  <som name="grade1OM_E3GA">
+  <domain>e1 e2 e3</domain>
+  </som>
+  
+ <som name="grade1OM">
+ <domain>no e1 e2 e3 ni</domain>
+ </som>
+
+  <som name="flatPointOM">
+  <domain>e1^ni e2^ni e3^ni no^ni</domain>
+  <range>e1^ni e2^ni e3^ni no^ni</range> 
+  </som>
+  -->
+  <function name="add" arg1="mv" arg2="mv" />
+  <function name="subtract" arg1="mv" arg2="mv" />
+  <function name="applyOM" arg1="om" arg2="mv" />
+  <function name="applyVersor" arg1="mv" arg2="mv" />
+  <function name="applyUnitVersor" arg1="mv" arg2="mv" />
+  <function name="applyVersorWI" arg1="mv" arg2="mv" arg3="mv" />
+  <!--<function name="div" arg1="mv" arg2="mv" />-->
+  <function name="div" arg1="mv" arg2="float" />
+  <function name="dual" arg1="mv" />
+  <function name="undual" arg1="mv" />
+  <function name="equals" arg1="mv" arg2="mv" arg3="float" />
+  <!--<function name="equals" arg1="mv" arg2="mv" arg3="double" />-->
+  <!--<function name="equals" arg1="mv" arg2="mv" arg3="double" floatType="double" />-->
+  <!--<function name="equals" arg1="mv" arg2="mv" arg3="float" floatType="float" />-->
+  <function name="extractGrade" arg1="mv" />
+  <!--<function name="extractGradeX" arg1="mv" />-->
+  <function name="gp" arg1="mv" arg2="mv" />
+  <!--<function name="gradeBitmap" arg1="mv" arg2="double" />-->
+  <!--<function name="gradeBitmap" arg1="mv" arg2="double" floatType="double" />-->
+  <function name="hp" arg1="mv" arg2="mv" />
+  <function name="ihp" arg1="mv" arg2="mv" />
+  <function name="igp" arg1="mv" arg2="mv" />
+  <function name="increment" arg1="mv" />
+  <function name="decrement" arg1="mv" />
+  <function name="hip" arg1="mv" arg2="mv" />
+  <function name="mhip" arg1="mv" arg2="mv" />
+  <function name="lc" arg1="mv" arg2="mv" />
+  <function name="rc" arg1="mv" arg2="mv" />
+  <function name="sp" arg1="mv" arg2="mv" />
+  <function name="norm" arg1="mv" />
+  <function name="norm2" arg1="mv" />
+  <function name="op" arg1="mv" arg2="mv" />
+  <!--<function name="random_blade" />-->
+  <!--<function name="random_blade" floatType="double" />-->
+  <!--<function name="random_blade" floatType="float" />-->
+  <!--<function name="random_versor" />-->
+  <!--<function name="random_double" outputName="genrand" optionGen="libc" />-->
+  <!--<function name="random_float" optionGen="libc" />-->
+  <function name="sas" arg1="mv" arg2="float" arg3="float" />
+  <!--<function name="sas" arg1="mv" arg2="double" arg3="double" floatType="double" />-->
+  <function name="exp" arg1="mv" /> <!-- in exp kan veel geoptimaliseerd worden! -->
+  <function name="sin" arg1="mv" />
+  <function name="cos" arg1="mv" />
+  <function name="sinh" arg1="mv" />
+  <function name="cosh" arg1="mv" />
+  <function name="negate" arg1="mv" />
+  <function name="reverse" arg1="mv" />
+  <function name="cliffordConjugate" arg1="mv" />
+  <function name="gradeInvolution" arg1="mv" />
+  <function name="unit" arg1="mv" />
+  <function name="versorInverse" arg1="mv" />
+  <function name="zero" arg1="mv" arg2="float" />
+  <!--<function name="zero" arg1="mv" arg2="double" floatType="double" />-->
+  <!--<function name="zero" arg1="mv" arg2="float" floatType="float" />-->
+
+  <!-- g25.exe wilde dat ik dit toevoegde... -->
+  <!--<function name="div" outputName="div_dont_mangle_1" arg1="mv" arg2="float" />-->
+  <function name="gp" outputName="gp_dont_mangle_2" arg1="mv" arg2="float" />
+  <!--<function name="div" outputName="div_dont_mangle_1" arg1="mv" arg2="double" floatType="double" />-->
+  <!--<function name="div" outputName="div_dont_mangle_6" arg1="mv" arg2="float" floatType="float" />-->
+  <!--<function name="div" outputName="gp_dont_mangle_3" arg1="mv" arg2="double" floatType="double" />-->
+  <!--<function name="div" outputName="gp_dont_mangle_2" arg1="mv" arg2="float" floatType="float" />-->
+  <!--<function name="sas" outputName="sas_dont_mangle_16" arg1="mv" arg2="float" arg3="float" floatType="float" />-->
+
+  <!--<function name="gp" outputName="gp_dont_mangle_1" arg1="mv" arg2="double" floatType="double" />-->
+  <!--<function name="gp" outputName="gp_dont_mangle_2" arg1="mv" arg2="float" floatType="float" />-->
+
+</g25spec>
