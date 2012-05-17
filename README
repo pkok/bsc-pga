@@ -1,1 +1,1 @@
-This branch contains the literature my thesis is based on.
+This repository contains the work I have done so far for my Bachelor's thesis of Artificial Intelligence at the University of Amsterdam.  I will investigate which geometric elements can be represented in a 6-dimensional (Plücker) model for geometric algebra of 3D projective line geometry, and implement a visualization module for GAViewer.
