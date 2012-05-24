@@ -5,6 +5,12 @@ package plviewer;
  */
 public class ConformalToPluckerFilter implements Filter {
   /**
+   * This constructor does nothing.
+   */
+  public ConformalToPluckerFilter() {
+  }
+
+  /**
    * Changes a string denoting a CGA entity into one denoting a PLGA entity.
    *
    * @param conformal A string representing entities in conformal geometric

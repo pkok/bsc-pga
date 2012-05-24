@@ -20,10 +20,41 @@ import plviewer.Inform;
  * and receive data from that instance.
  */
 public class GAViewerClient implements Closeable {
+  /**
+   * A reference to the external GAViewer process.
+   */
   protected Process process;
+  /**
+   * Contains the settings for running the right GAViewer with the right
+   * settings.
+   *
+   * Currently, the following keys are needed:
+   * <ul>
+   * <li> GAViewer.OSX: the path to the GAViewer executable for OS X
+   * <li> GAViewer.Win.32: the path to the GAViewer executable for 32-bit
+   * <li>   installations of Windows
+   * <li> GAViewer.Win.64: the path to the GAViewer executable for 64-bit
+   * <li>   installations of Windows
+   * <li> GAViewer.Lin.32: the path to the GAViewer executable for 32-bit 
+   * <li>   installations of Linux.
+   * <li> GAViewer.Lin.64: the path to the GAViewer executable for 64-bit 
+   * <li>   installations of Linux.
+   * <li> GAViewer.port: the socket port to connect to.
+   * <li> GAViewer.options: the command line options that should be passed on.
+   * </ul>
+   */
   protected Properties configuration;
+  /**
+   * A socket to the GAViewer process.
+   */
   protected Socket connection;
+  /**
+   * A Reader object connected to the GAViewer socket.
+   */
   protected Reader reader;
+  /**
+   * A Writer object connected to the GAViewer socket.
+   */
   protected Writer writer;
 
   /**
@@ -94,7 +125,7 @@ public class GAViewerClient implements Closeable {
         return false;
       }
       catch (IOException e) {
-        new Inform("No application is listening at port " + port + ". We will retry this.");
+        new Inform("No application is listening at port " + port + ". We will retry this.", true);
         return this.connect(port);
       }
     }

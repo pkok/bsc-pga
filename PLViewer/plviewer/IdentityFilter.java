@@ -6,6 +6,12 @@ package plviewer;
  */
 public class IdentityFilter implements Filter {
   /**
+   * This constructor does nothing.
+   */
+  public IdentityFilter() {
+  }
+
+  /**
    * Returns its input.
    *
    * @param input The string to be filtered.
