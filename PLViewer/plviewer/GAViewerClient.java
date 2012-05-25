@@ -67,22 +67,25 @@ public class GAViewerClient implements Closeable {
    */
   public GAViewerClient(Properties configuration) {
     this.configuration = configuration;
-
-    String os_suffix = "Unix";
-    String os = System.getProperty("os.name").toLowerCase();
-    String arch_bit = System.getProperty("sun.arch.data.model");
-    if (runningOnMac()) {
-      os_suffix = ".OSX";
-    } else if (runningOnWindows()) {
-      os_suffix = ".Win." + arch_bit;
-    } else if (runningOnLinux()) {
-      os_suffix = ".Lin." + arch_bit;
-    } else {
-      System.err.println("GAViewer does not run on this OS.");
-    }
-    
-    String gaviewerLocation = this.configuration.getProperty("GAViewer." + os_suffix);
     String gaviewerOptions = this.configuration.getProperty("GAViewer.options", "");
+    String gaviewerLocation = this.configuration.getProperty("GAViewer.custom");
+
+    if (gaviewerLocation == null) {
+      String os_suffix = "Unix";
+      String os = System.getProperty("os.name").toLowerCase();
+      String arch_bit = System.getProperty("sun.arch.data.model");
+      if (runningOnMac()) {
+        os_suffix = ".OSX";
+      } else if (runningOnWindows()) {
+        os_suffix = ".Win." + arch_bit;
+      } else if (runningOnLinux()) {
+        os_suffix = ".Lin." + arch_bit;
+      } else {
+        System.err.println("GAViewer does not run on this OS.");
+      }
+
+      gaviewerLocation = this.configuration.getProperty("GAViewer" + os_suffix);
+    }
 
     if (gaviewerLocation.length() == 0) {
       throw new ServiceConfigurationError("No GAViewer specified for this OS.");
