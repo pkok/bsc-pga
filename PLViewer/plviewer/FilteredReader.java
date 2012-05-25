@@ -4,6 +4,16 @@ import java.io.Reader;
 import java.io.BufferedReader;
 
 /**
+ * Reads text from a character-input stream, buffers characters, and applies a
+ * filter to the returned characters.
+ *
+ * The filter, represented by a {@link plviewer.Filter} object, is meant to 
+ * do jobs like:
+ * <ul>
+ * <li> Filtering out repeated input;
+ * <li> Translating from one language to another;
+ * <li> Transform mathematical formulae from one algebra to another
+ * </ul>
  */
 public class FilteredReader extends BufferedReader {
   /**

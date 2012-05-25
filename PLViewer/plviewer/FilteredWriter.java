@@ -3,6 +3,18 @@ package plviewer;
 import java.io.Writer;
 import java.io.BufferedWriter;
 
+/**
+ * Writes text from a character-input stream, buffers characters, and applies
+ * a filter to the returned characters.
+ *
+ * The filter, represented by a {@link plviewer.Filter} object, is meant to 
+ * do jobs like:
+ * <ul>
+ * <li> Filtering out repeated input;
+ * <li> Translating from one language to another;
+ * <li> Transform mathematical formulae from one algebra to another
+ * </ul>
+ */
 public class FilteredWriter extends BufferedWriter {
   /**
    * The filtering object.  This object should supply the method to transform
