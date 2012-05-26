@@ -64,6 +64,9 @@ public class PLViewer {
     {{"-p", "--port"}, {"GAViewer.port", "Network port to use for communication with GAViewer."}},
     };
 
+  /**
+   * The main loop for user interaction.
+   */
   public static void main(String[] args) {
     // 1. Read from configuration file where GAViewer is located.
     Properties custom = processArgs(args);
@@ -80,10 +83,6 @@ public class PLViewer {
     }
 
     // 4. Do REPL-like stuff.
-    //    1. Read user input
-    //    2. Evaluate user input
-    //    3. Print user input (and visualize in GAViewer)
-    //    4. Loop; go back to 4.1
     BufferedReader userReader = new BufferedReader(new InputStreamReader(System.in));
     PrintWriter userWriter = new PrintWriter(new BufferedWriter(new OutputStreamWriter(System.out)));
     BufferedReader gavReader = new BufferedReader(new FilteredReader(gaviewer.getReader(), 
@@ -97,6 +96,21 @@ public class PLViewer {
     quit(new Closeable[]{gaviewer});
   }
 
+  /**
+   * The user interface to PLViewer.  Acts like a REPL:
+   * <ol>
+   * <li>Read user input
+   * <li>Evaluate user input
+   * <li>Print user input (and visualize in GAViewer)
+   * <li>Loop; go back to 4.1
+   * </ol>
+   * @param userReader Reads user input.
+   * @param userWriter Writes information to the user screen.
+   * @param systemReader Reads data from the processing system.  In our case,
+   * that would be GAViewer.
+   * @param systemWriter Writes data to the processing system.  In our case,
+   * that would be GAViewer.
+   */
   public static void repl(BufferedReader userReader, PrintWriter userWriter, BufferedReader systemReader, PrintWriter systemWriter) {
   }
 
