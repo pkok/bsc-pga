@@ -48,31 +48,6 @@ public class FilteredWriter extends BufferedWriter {
    * @param filter Filters the text read from <code>out</code>.
    */
   public FilteredWriter(Writer out, Filter filter) {
-    this(out, filter, -1);
-  }
-
-  /**
-   * Create a new BufferedWriter, without any filtering.  As the filter is set
-   * to the {@link plviewer.IdentityFilter}, no filtering of the read text 
-   * will occur.
-   *
-   * @param out The {@link java.io.Writer} to decorate.
-   * @param size The buffer size, as specified for {@link
-   * java.io.BufferedWriter}
-   */
-  public FilteredWriter(Writer out, int size) {
-    this(out, new IdentityFilter(), size);
-  }
-
-  /**
-   * Create a new Writer that alters what it has read, according to
-   * the {@link plviewer.Filter}.
-   *
-   * @param out The {@link java.io.Writer} to decorate.
-   * @param filter Filters the text read from <code>out</code>.
-   * @param size The buffer size, as specified for {@link java.io.BufferedWriter}.
-   */
-  public FilteredWriter(Writer out, Filter filter, int size) {
     super(out);
     if (filter == null) {
       filter = new IdentityFilter();
