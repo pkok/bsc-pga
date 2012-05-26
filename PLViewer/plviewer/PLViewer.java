@@ -101,7 +101,7 @@ public class PLViewer {
    * <ol>
    * <li>Read user input
    * <li>Evaluate user input
-   * <li>Print user input (and visualize in GAViewer)
+   * <li>Print evaluation (and visualize in GAViewer)
    * <li>Loop; go back to 4.1
    * </ol>
    * @param userReader Reads user input.
@@ -111,7 +111,51 @@ public class PLViewer {
    * @param systemWriter Writes data to the processing system.  In our case,
    * that would be GAViewer.
    */
-  public static void repl(BufferedReader userReader, PrintWriter userWriter, BufferedReader systemReader, PrintWriter systemWriter) {
+  public static void repl(BufferedReader userReader, PrintWriter userWriter, 
+      BufferedReader systemReader, PrintWriter systemWriter) {
+    String userInput, systemOutput;
+    String[] commands;
+
+    try {
+      while (true) {
+        userWriter.print(">> ");
+        userWriter.flush();
+        /* Read user input */
+        userInput = userReader.readLine() + ",$";
+
+        /* Evaluate user input */
+        /* This phase consists of several stages:
+         * 1. Parse user input;
+         * 2. Transform the parsed version from PL3GA to GAViewer code;
+         * 3. Send transformed input to GAViewer instance.
+         */
+
+        // Temporary solution. Should be replaced by ANTLR code!
+        if (userInput.indexOf("quit") >= 0) {
+          break;
+        }
+
+        systemWriter.print(userInput);
+        systemWriter.flush();
+
+        /* Print evaluation */
+        /* GAViewer dumps all variables it contains currently. When printing,
+         * filter out only the ones you have sent last time, and truncate the
+         * floating point precision.
+         */
+        systemOutput = "";
+        while (systemReader.ready()) {
+          systemOutput += (char) systemReader.read();
+        }
+        userWriter.println("<< " + systemOutput);
+        userWriter.flush();
+
+        /* Loop (until user has said otherwise) */
+      }
+    }
+    catch (IOException e) {
+      new Inform(e.getMessage(), System.err);
+    }
   }
 
   /**
@@ -145,17 +189,11 @@ public class PLViewer {
     boolean optionFound = false;
     if (args.length > 0) {
       for (int i = 0; i < args.length; i++) {
-        for (String[][] flaggroup : flags) {
-          if (Arrays.binarySearch(flaggroup[0], args[i]) > -1) {
-            custom.setProperty(flaggroup[-1][0], flaggroup[-1][1]);
-            optionFound = true;
-            break;
-          }
-        }
-        if (!optionFound) {
-          for (String[][] arggroup : arguments) {
+        for (String[][][] arggroups : new String[][][][]{flags, arguments}) {
+          for (String[][] arggroup : arggroups) {
             if (Arrays.binarySearch(arggroup[0], args[i]) > -1) {
-              custom.setProperty(arggroup[-1][0], args[++i]);
+              custom.setProperty(arggroup[1][0], 
+                  (arggroup[1].length > 2) ? arggroup[1][1] : args[++i]);
               optionFound = true;
               break;
             }
@@ -170,7 +208,7 @@ public class PLViewer {
       }
     }
 
-    if (custom.getProperty("DisplayHelp").equals("true")) {
+    if (custom.getProperty("DisplayHelp", "").equals("true")) {
       displayArgs(System.out);
       System.exit(-1);
     }
@@ -191,8 +229,8 @@ public class PLViewer {
           legalArguments += " " + arg;
         }
         if (arggroup.length > 1) {
-          if (arggroup[-1].length > 1 && !arggroup[-1][-1].isEmpty()) {
-            legalArguments += " -- " + arggroup[-1][-1];
+          if (arggroup[1].length > 1 && !arggroup[1][1].isEmpty()) {
+            legalArguments += " -- " + arggroup[1][1];
           }
         }
         legalArguments += "\n";
@@ -279,11 +317,11 @@ public class PLViewer {
    */
   protected static Properties getDefaultConfiguration() {
     Properties defaultConfig = new Properties();
-    defaultConfig.setProperty("GAViewer.Win.32", "./GAViewers/GAViewer_Win32.exe");
-    defaultConfig.setProperty("GAViewer.Win.64", "./GAViewers/GAViewer_Win64.exe");
-    defaultConfig.setProperty("GAViewer.Lin.32", "./GAViewers/gaviewer_linux_32");
-    defaultConfig.setProperty("GAViewer.Lin.64", "./GAViewers/gaviewer_linux_64");
-    defaultConfig.setProperty("GAViewer.OSX", "./GAViewers/gaviewer_osx");
+    defaultConfig.setProperty("GAViewer.Win.32", "GAViewers/GAViewer_Win32.exe");
+    defaultConfig.setProperty("GAViewer.Win.64", "GAViewers/GAViewer_Win64.exe");
+    defaultConfig.setProperty("GAViewer.Lin.32", "GAViewers/gaviewer_linux_32");
+    defaultConfig.setProperty("GAViewer.Lin.64", "GAViewers/gaviewer_linux_64");
+    defaultConfig.setProperty("GAViewer.OSX", "GAViewers/gaviewer_osx");
     defaultConfig.setProperty("GAViewer.port", "666");
     defaultConfig.setProperty("GAViewer.options", "");
     return defaultConfig;

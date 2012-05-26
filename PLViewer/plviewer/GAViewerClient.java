@@ -11,7 +11,7 @@ import java.io.Writer;
 import java.net.Socket;
 import java.net.UnknownHostException;
 
-import plviewer.Inform;
+import java.io.BufferedReader;
 
 /**
  * An interface to an instance of GAViewer.
@@ -92,6 +92,11 @@ public class GAViewerClient implements Closeable {
     }
 
     try {
+      try {
+        gaviewerLocation = this.getClass().getClassLoader().getResource(gaviewerLocation).getFile();
+      }
+      catch (NullPointerException e) {
+      }
       this.process = Runtime.getRuntime().exec(gaviewerLocation + gaviewerOptions);
     }
     catch (IOException e) {
@@ -120,15 +125,24 @@ public class GAViewerClient implements Closeable {
       new Inform("    add_net_port(" + port + ");", true);
       try {
         this.connection = new Socket("localhost", port);
-        this.reader = new InputStreamReader(this.connection.getInputStream());
         this.writer = new OutputStreamWriter(this.connection.getOutputStream());
+        this.reader = new InputStreamReader(this.connection.getInputStream());
+        // GAViewer always dumps all variable values it is currently holding.
+        // Clear the stream from this.
+        try {
+          while (this.reader.ready()) {
+            this.reader.read();
+          }
+        }
+        catch (IOException e) {
+        }
       }
       catch (UnknownHostException e) {
         new Inform("Host 'localhost' unreachable.  Wow.  You screwed up.", System.err);
         return false;
       }
       catch (IOException e) {
-        new Inform("No application is listening at port " + port + ". We will retry this.", true);
+        new Inform("No application is listening at port " + port + ". We will retry this.");
         return this.connect(port);
       }
     }
@@ -165,7 +179,7 @@ public class GAViewerClient implements Closeable {
   public void close() {
     try {
       this.connection.close();
-      this.process.exitValue();
+      this.process.destroy();
     }
     catch (IOException e) {
       // this.connection was already closed, or cannot be closed.
