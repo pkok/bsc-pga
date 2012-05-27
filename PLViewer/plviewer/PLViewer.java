@@ -252,8 +252,8 @@ public class PLViewer {
     Properties configuration = new Properties(getDefaultConfiguration());
     InputStream is;
     try {
-      if (filename.isEmpty()) {
-        is = PLViewer.class.getResourceAsStream(DEFAULT_PROPERTIES);
+      if (filename == null) {
+        is = PLViewer.class.getClassLoader().getResourceAsStream(DEFAULT_PROPERTIES);
       }
       else {
         is = new FileInputStream(filename);
