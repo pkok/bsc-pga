@@ -86,11 +86,10 @@ public class GAViewerClient implements Closeable {
 
       gaviewerLocation = this.configuration.getProperty("GAViewer" + os_suffix);
 
-      if (gaviewerLocation.endsWith(".exe")) {
-        gaviewerLocation = gaviewerLocation.substring(0, gaviewerLocation.length() - 4);
-      }
     }
-    new Inform("gaviewerLocation: " + gaviewerLocation);
+    if (gaviewerLocation.endsWith(".exe")) {
+      gaviewerLocation = gaviewerLocation.substring(0, gaviewerLocation.length() - 4);
+    }
 
     if (gaviewerLocation.length() == 0) {
       throw new ServiceConfigurationError("No GAViewer specified for this OS.");
