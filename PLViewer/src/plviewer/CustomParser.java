@@ -4,7 +4,6 @@ import java.util.Map;
 import java.util.TreeMap;
 import java.util.AbstractMap;
 import java.util.Queue;
-import java.util.LinkedList;
 
 import org.antlr.runtime.Parser;
 import org.antlr.runtime.RecognizerSharedState;

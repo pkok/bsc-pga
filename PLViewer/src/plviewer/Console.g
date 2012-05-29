@@ -16,6 +16,10 @@ tokens {
  NIL;
 }
 
+@lexer::header {
+package plviewer;
+}
+
 @header {
 package plviewer;
 

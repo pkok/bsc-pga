@@ -1,4 +1,7 @@
-// $ANTLR 3.4 plviewer/Console.g 2012-05-29 01:17:06
+// $ANTLR 3.4 src/plviewer/Console.g 2012-05-29 17:07:43
+
+package plviewer;
+
 
 import org.antlr.runtime.*;
 import java.util.Stack;
@@ -50,15 +53,15 @@ public class ConsoleLexer extends Lexer {
     public ConsoleLexer(CharStream input, RecognizerSharedState state) {
         super(input,state);
     }
-    public String getGrammarFileName() { return "plviewer/Console.g"; }
+    public String getGrammarFileName() { return "src/plviewer/Console.g"; }
 
     // $ANTLR start "COMMA"
     public final void mCOMMA() throws RecognitionException {
         try {
             int _type = COMMA;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // plviewer/Console.g:136:11: ( ',' )
-            // plviewer/Console.g:136:13: ','
+            // src/plviewer/Console.g:140:11: ( ',' )
+            // src/plviewer/Console.g:140:13: ','
             {
             match(','); 
 
@@ -78,8 +81,8 @@ public class ConsoleLexer extends Lexer {
         try {
             int _type = SEMICOLON;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // plviewer/Console.g:137:11: ( ';' )
-            // plviewer/Console.g:137:13: ';'
+            // src/plviewer/Console.g:141:11: ( ';' )
+            // src/plviewer/Console.g:141:13: ';'
             {
             match(';'); 
 
@@ -99,8 +102,8 @@ public class ConsoleLexer extends Lexer {
         try {
             int _type = ASSIGN;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // plviewer/Console.g:138:11: ( '=' )
-            // plviewer/Console.g:138:13: '='
+            // src/plviewer/Console.g:142:11: ( '=' )
+            // src/plviewer/Console.g:142:13: '='
             {
             match('='); 
 
@@ -120,8 +123,8 @@ public class ConsoleLexer extends Lexer {
         try {
             int _type = PLUS;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // plviewer/Console.g:139:11: ( '+' )
-            // plviewer/Console.g:139:13: '+'
+            // src/plviewer/Console.g:143:11: ( '+' )
+            // src/plviewer/Console.g:143:13: '+'
             {
             match('+'); 
 
@@ -141,8 +144,8 @@ public class ConsoleLexer extends Lexer {
         try {
             int _type = MINUS;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // plviewer/Console.g:140:11: ( '-' )
-            // plviewer/Console.g:140:13: '-'
+            // src/plviewer/Console.g:144:11: ( '-' )
+            // src/plviewer/Console.g:144:13: '-'
             {
             match('-'); 
 
@@ -162,8 +165,8 @@ public class ConsoleLexer extends Lexer {
         try {
             int _type = MULT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // plviewer/Console.g:141:11: ( '*' )
-            // plviewer/Console.g:141:13: '*'
+            // src/plviewer/Console.g:145:11: ( '*' )
+            // src/plviewer/Console.g:145:13: '*'
             {
             match('*'); 
 
@@ -183,8 +186,8 @@ public class ConsoleLexer extends Lexer {
         try {
             int _type = DIV;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // plviewer/Console.g:142:11: ( '/' )
-            // plviewer/Console.g:142:13: '/'
+            // src/plviewer/Console.g:146:11: ( '/' )
+            // src/plviewer/Console.g:146:13: '/'
             {
             match('/'); 
 
@@ -204,8 +207,8 @@ public class ConsoleLexer extends Lexer {
         try {
             int _type = DOT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // plviewer/Console.g:143:11: ( '.' )
-            // plviewer/Console.g:143:13: '.'
+            // src/plviewer/Console.g:147:11: ( '.' )
+            // src/plviewer/Console.g:147:13: '.'
             {
             match('.'); 
 
@@ -225,8 +228,8 @@ public class ConsoleLexer extends Lexer {
         try {
             int _type = WEDGE;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // plviewer/Console.g:144:11: ( '^' )
-            // plviewer/Console.g:144:13: '^'
+            // src/plviewer/Console.g:148:11: ( '^' )
+            // src/plviewer/Console.g:148:13: '^'
             {
             match('^'); 
 
@@ -246,8 +249,8 @@ public class ConsoleLexer extends Lexer {
         try {
             int _type = NEGATE;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // plviewer/Console.g:145:11: ( '!' )
-            // plviewer/Console.g:145:13: '!'
+            // src/plviewer/Console.g:149:11: ( '!' )
+            // src/plviewer/Console.g:149:13: '!'
             {
             match('!'); 
 
@@ -267,8 +270,8 @@ public class ConsoleLexer extends Lexer {
         try {
             int _type = REVERSE;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // plviewer/Console.g:146:11: ( '~' )
-            // plviewer/Console.g:146:13: '~'
+            // src/plviewer/Console.g:150:11: ( '~' )
+            // src/plviewer/Console.g:150:13: '~'
             {
             match('~'); 
 
@@ -288,8 +291,8 @@ public class ConsoleLexer extends Lexer {
         try {
             int _type = RPAREN;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // plviewer/Console.g:147:11: ( ')' )
-            // plviewer/Console.g:147:13: ')'
+            // src/plviewer/Console.g:151:11: ( ')' )
+            // src/plviewer/Console.g:151:13: ')'
             {
             match(')'); 
 
@@ -309,8 +312,8 @@ public class ConsoleLexer extends Lexer {
         try {
             int _type = LPAREN;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // plviewer/Console.g:148:11: ( '(' )
-            // plviewer/Console.g:148:13: '('
+            // src/plviewer/Console.g:152:11: ( '(' )
+            // src/plviewer/Console.g:152:13: '('
             {
             match('('); 
 
@@ -330,13 +333,13 @@ public class ConsoleLexer extends Lexer {
         try {
             int _type = NEWLINE;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // plviewer/Console.g:150:9: ( ( ( '\\r' )? '\\n' ) )
-            // plviewer/Console.g:150:11: ( ( '\\r' )? '\\n' )
+            // src/plviewer/Console.g:154:9: ( ( ( '\\r' )? '\\n' ) )
+            // src/plviewer/Console.g:154:11: ( ( '\\r' )? '\\n' )
             {
-            // plviewer/Console.g:150:11: ( ( '\\r' )? '\\n' )
-            // plviewer/Console.g:150:12: ( '\\r' )? '\\n'
+            // src/plviewer/Console.g:154:11: ( ( '\\r' )? '\\n' )
+            // src/plviewer/Console.g:154:12: ( '\\r' )? '\\n'
             {
-            // plviewer/Console.g:150:12: ( '\\r' )?
+            // src/plviewer/Console.g:154:12: ( '\\r' )?
             int alt1=2;
             int LA1_0 = input.LA(1);
 
@@ -345,7 +348,7 @@ public class ConsoleLexer extends Lexer {
             }
             switch (alt1) {
                 case 1 :
-                    // plviewer/Console.g:150:12: '\\r'
+                    // src/plviewer/Console.g:154:12: '\\r'
                     {
                     match('\r'); 
 
@@ -376,10 +379,10 @@ public class ConsoleLexer extends Lexer {
         try {
             int _type = WHITESPACE;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // plviewer/Console.g:152:12: ( ( '\\t' | ' ' | '\\n' | '\\r' | '\\u000C' )+ )
-            // plviewer/Console.g:152:14: ( '\\t' | ' ' | '\\n' | '\\r' | '\\u000C' )+
+            // src/plviewer/Console.g:156:12: ( ( '\\t' | ' ' | '\\n' | '\\r' | '\\u000C' )+ )
+            // src/plviewer/Console.g:156:14: ( '\\t' | ' ' | '\\n' | '\\r' | '\\u000C' )+
             {
-            // plviewer/Console.g:152:14: ( '\\t' | ' ' | '\\n' | '\\r' | '\\u000C' )+
+            // src/plviewer/Console.g:156:14: ( '\\t' | ' ' | '\\n' | '\\r' | '\\u000C' )+
             int cnt2=0;
             loop2:
             do {
@@ -393,7 +396,7 @@ public class ConsoleLexer extends Lexer {
 
                 switch (alt2) {
             	case 1 :
-            	    // plviewer/Console.g:
+            	    // src/plviewer/Console.g:
             	    {
             	    if ( (input.LA(1) >= '\t' && input.LA(1) <= '\n')||(input.LA(1) >= '\f' && input.LA(1) <= '\r')||input.LA(1)==' ' ) {
             	        input.consume();
@@ -436,7 +439,7 @@ public class ConsoleLexer extends Lexer {
         try {
             int _type = CONSTANT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // plviewer/Console.g:154:10: ( 'e01' | 'e02' | 'e03' | 'e12' | 'e23' | 'e31' )
+            // src/plviewer/Console.g:158:10: ( 'e01' | 'e02' | 'e03' | 'e12' | 'e23' | 'e31' )
             int alt3=6;
             int LA3_0 = input.LA(1);
 
@@ -503,7 +506,7 @@ public class ConsoleLexer extends Lexer {
             }
             switch (alt3) {
                 case 1 :
-                    // plviewer/Console.g:154:12: 'e01'
+                    // src/plviewer/Console.g:158:12: 'e01'
                     {
                     match("e01"); 
 
@@ -512,7 +515,7 @@ public class ConsoleLexer extends Lexer {
                     }
                     break;
                 case 2 :
-                    // plviewer/Console.g:154:20: 'e02'
+                    // src/plviewer/Console.g:158:20: 'e02'
                     {
                     match("e02"); 
 
@@ -521,7 +524,7 @@ public class ConsoleLexer extends Lexer {
                     }
                     break;
                 case 3 :
-                    // plviewer/Console.g:154:28: 'e03'
+                    // src/plviewer/Console.g:158:28: 'e03'
                     {
                     match("e03"); 
 
@@ -530,7 +533,7 @@ public class ConsoleLexer extends Lexer {
                     }
                     break;
                 case 4 :
-                    // plviewer/Console.g:154:36: 'e12'
+                    // src/plviewer/Console.g:158:36: 'e12'
                     {
                     match("e12"); 
 
@@ -539,7 +542,7 @@ public class ConsoleLexer extends Lexer {
                     }
                     break;
                 case 5 :
-                    // plviewer/Console.g:154:44: 'e23'
+                    // src/plviewer/Console.g:158:44: 'e23'
                     {
                     match("e23"); 
 
@@ -548,7 +551,7 @@ public class ConsoleLexer extends Lexer {
                     }
                     break;
                 case 6 :
-                    // plviewer/Console.g:154:52: 'e31'
+                    // src/plviewer/Console.g:158:52: 'e31'
                     {
                     match("e31"); 
 
@@ -572,13 +575,13 @@ public class ConsoleLexer extends Lexer {
         try {
             int _type = NAME;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // plviewer/Console.g:156:6: ( CHARACTER ( CHARACTER | DIGIT )* )
-            // plviewer/Console.g:156:8: CHARACTER ( CHARACTER | DIGIT )*
+            // src/plviewer/Console.g:160:6: ( CHARACTER ( CHARACTER | DIGIT )* )
+            // src/plviewer/Console.g:160:8: CHARACTER ( CHARACTER | DIGIT )*
             {
             mCHARACTER(); 
 
 
-            // plviewer/Console.g:156:18: ( CHARACTER | DIGIT )*
+            // src/plviewer/Console.g:160:18: ( CHARACTER | DIGIT )*
             loop4:
             do {
                 int alt4=2;
@@ -591,7 +594,7 @@ public class ConsoleLexer extends Lexer {
 
                 switch (alt4) {
             	case 1 :
-            	    // plviewer/Console.g:
+            	    // src/plviewer/Console.g:
             	    {
             	    if ( (input.LA(1) >= '0' && input.LA(1) <= '9')||(input.LA(1) >= 'A' && input.LA(1) <= 'Z')||input.LA(1)=='_'||(input.LA(1) >= 'a' && input.LA(1) <= 'z') ) {
             	        input.consume();
@@ -628,10 +631,10 @@ public class ConsoleLexer extends Lexer {
         try {
             int _type = NUMBER;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // plviewer/Console.g:158:8: ( ( PLUS | MINUS )? ( DIGIT )+ ( '.' ( DIGIT )* )? ( EXPONENT )? )
-            // plviewer/Console.g:158:10: ( PLUS | MINUS )? ( DIGIT )+ ( '.' ( DIGIT )* )? ( EXPONENT )?
+            // src/plviewer/Console.g:162:8: ( ( PLUS | MINUS )? ( DIGIT )+ ( '.' ( DIGIT )* )? ( EXPONENT )? )
+            // src/plviewer/Console.g:162:10: ( PLUS | MINUS )? ( DIGIT )+ ( '.' ( DIGIT )* )? ( EXPONENT )?
             {
-            // plviewer/Console.g:158:10: ( PLUS | MINUS )?
+            // src/plviewer/Console.g:162:10: ( PLUS | MINUS )?
             int alt5=2;
             int LA5_0 = input.LA(1);
 
@@ -640,7 +643,7 @@ public class ConsoleLexer extends Lexer {
             }
             switch (alt5) {
                 case 1 :
-                    // plviewer/Console.g:
+                    // src/plviewer/Console.g:
                     {
                     if ( input.LA(1)=='+'||input.LA(1)=='-' ) {
                         input.consume();
@@ -658,7 +661,7 @@ public class ConsoleLexer extends Lexer {
             }
 
 
-            // plviewer/Console.g:158:26: ( DIGIT )+
+            // src/plviewer/Console.g:162:26: ( DIGIT )+
             int cnt6=0;
             loop6:
             do {
@@ -672,7 +675,7 @@ public class ConsoleLexer extends Lexer {
 
                 switch (alt6) {
             	case 1 :
-            	    // plviewer/Console.g:
+            	    // src/plviewer/Console.g:
             	    {
             	    if ( (input.LA(1) >= '0' && input.LA(1) <= '9') ) {
             	        input.consume();
@@ -697,7 +700,7 @@ public class ConsoleLexer extends Lexer {
             } while (true);
 
 
-            // plviewer/Console.g:158:33: ( '.' ( DIGIT )* )?
+            // src/plviewer/Console.g:162:33: ( '.' ( DIGIT )* )?
             int alt8=2;
             int LA8_0 = input.LA(1);
 
@@ -706,11 +709,11 @@ public class ConsoleLexer extends Lexer {
             }
             switch (alt8) {
                 case 1 :
-                    // plviewer/Console.g:158:34: '.' ( DIGIT )*
+                    // src/plviewer/Console.g:162:34: '.' ( DIGIT )*
                     {
                     match('.'); 
 
-                    // plviewer/Console.g:158:38: ( DIGIT )*
+                    // src/plviewer/Console.g:162:38: ( DIGIT )*
                     loop7:
                     do {
                         int alt7=2;
@@ -723,7 +726,7 @@ public class ConsoleLexer extends Lexer {
 
                         switch (alt7) {
                     	case 1 :
-                    	    // plviewer/Console.g:
+                    	    // src/plviewer/Console.g:
                     	    {
                     	    if ( (input.LA(1) >= '0' && input.LA(1) <= '9') ) {
                     	        input.consume();
@@ -750,7 +753,7 @@ public class ConsoleLexer extends Lexer {
             }
 
 
-            // plviewer/Console.g:158:47: ( EXPONENT )?
+            // src/plviewer/Console.g:162:47: ( EXPONENT )?
             int alt9=2;
             int LA9_0 = input.LA(1);
 
@@ -759,7 +762,7 @@ public class ConsoleLexer extends Lexer {
             }
             switch (alt9) {
                 case 1 :
-                    // plviewer/Console.g:158:47: EXPONENT
+                    // src/plviewer/Console.g:162:47: EXPONENT
                     {
                     mEXPONENT(); 
 
@@ -784,8 +787,8 @@ public class ConsoleLexer extends Lexer {
     // $ANTLR start "EXPONENT"
     public final void mEXPONENT() throws RecognitionException {
         try {
-            // plviewer/Console.g:160:19: ( ( 'e' | 'E' ) ( PLUS | MINUS )? ( DIGIT )+ )
-            // plviewer/Console.g:160:21: ( 'e' | 'E' ) ( PLUS | MINUS )? ( DIGIT )+
+            // src/plviewer/Console.g:164:19: ( ( 'e' | 'E' ) ( PLUS | MINUS )? ( DIGIT )+ )
+            // src/plviewer/Console.g:164:21: ( 'e' | 'E' ) ( PLUS | MINUS )? ( DIGIT )+
             {
             if ( input.LA(1)=='E'||input.LA(1)=='e' ) {
                 input.consume();
@@ -797,7 +800,7 @@ public class ConsoleLexer extends Lexer {
             }
 
 
-            // plviewer/Console.g:160:31: ( PLUS | MINUS )?
+            // src/plviewer/Console.g:164:31: ( PLUS | MINUS )?
             int alt10=2;
             int LA10_0 = input.LA(1);
 
@@ -806,7 +809,7 @@ public class ConsoleLexer extends Lexer {
             }
             switch (alt10) {
                 case 1 :
-                    // plviewer/Console.g:
+                    // src/plviewer/Console.g:
                     {
                     if ( input.LA(1)=='+'||input.LA(1)=='-' ) {
                         input.consume();
@@ -824,7 +827,7 @@ public class ConsoleLexer extends Lexer {
             }
 
 
-            // plviewer/Console.g:160:47: ( DIGIT )+
+            // src/plviewer/Console.g:164:47: ( DIGIT )+
             int cnt11=0;
             loop11:
             do {
@@ -838,7 +841,7 @@ public class ConsoleLexer extends Lexer {
 
                 switch (alt11) {
             	case 1 :
-            	    // plviewer/Console.g:
+            	    // src/plviewer/Console.g:
             	    {
             	    if ( (input.LA(1) >= '0' && input.LA(1) <= '9') ) {
             	        input.consume();
@@ -876,8 +879,8 @@ public class ConsoleLexer extends Lexer {
     // $ANTLR start "CHARACTER"
     public final void mCHARACTER() throws RecognitionException {
         try {
-            // plviewer/Console.g:162:20: ( ( 'a' .. 'z' | 'A' .. 'Z' | '_' ) )
-            // plviewer/Console.g:
+            // src/plviewer/Console.g:166:20: ( ( 'a' .. 'z' | 'A' .. 'Z' | '_' ) )
+            // src/plviewer/Console.g:
             {
             if ( (input.LA(1) >= 'A' && input.LA(1) <= 'Z')||input.LA(1)=='_'||(input.LA(1) >= 'a' && input.LA(1) <= 'z') ) {
                 input.consume();
@@ -902,8 +905,8 @@ public class ConsoleLexer extends Lexer {
     // $ANTLR start "DIGIT"
     public final void mDIGIT() throws RecognitionException {
         try {
-            // plviewer/Console.g:164:16: ( '0' .. '9' )
-            // plviewer/Console.g:
+            // src/plviewer/Console.g:168:16: ( '0' .. '9' )
+            // src/plviewer/Console.g:
             {
             if ( (input.LA(1) >= '0' && input.LA(1) <= '9') ) {
                 input.consume();
@@ -926,7 +929,7 @@ public class ConsoleLexer extends Lexer {
     // $ANTLR end "DIGIT"
 
     public void mTokens() throws RecognitionException {
-        // plviewer/Console.g:1:8: ( COMMA | SEMICOLON | ASSIGN | PLUS | MINUS | MULT | DIV | DOT | WEDGE | NEGATE | REVERSE | RPAREN | LPAREN | NEWLINE | WHITESPACE | CONSTANT | NAME | NUMBER )
+        // src/plviewer/Console.g:1:8: ( COMMA | SEMICOLON | ASSIGN | PLUS | MINUS | MULT | DIV | DOT | WEDGE | NEGATE | REVERSE | RPAREN | LPAREN | NEWLINE | WHITESPACE | CONSTANT | NAME | NUMBER )
         int alt12=18;
         switch ( input.LA(1) ) {
         case ',':
@@ -1237,7 +1240,7 @@ public class ConsoleLexer extends Lexer {
 
         switch (alt12) {
             case 1 :
-                // plviewer/Console.g:1:10: COMMA
+                // src/plviewer/Console.g:1:10: COMMA
                 {
                 mCOMMA(); 
 
@@ -1245,7 +1248,7 @@ public class ConsoleLexer extends Lexer {
                 }
                 break;
             case 2 :
-                // plviewer/Console.g:1:16: SEMICOLON
+                // src/plviewer/Console.g:1:16: SEMICOLON
                 {
                 mSEMICOLON(); 
 
@@ -1253,7 +1256,7 @@ public class ConsoleLexer extends Lexer {
                 }
                 break;
             case 3 :
-                // plviewer/Console.g:1:26: ASSIGN
+                // src/plviewer/Console.g:1:26: ASSIGN
                 {
                 mASSIGN(); 
 
@@ -1261,7 +1264,7 @@ public class ConsoleLexer extends Lexer {
                 }
                 break;
             case 4 :
-                // plviewer/Console.g:1:33: PLUS
+                // src/plviewer/Console.g:1:33: PLUS
                 {
                 mPLUS(); 
 
@@ -1269,7 +1272,7 @@ public class ConsoleLexer extends Lexer {
                 }
                 break;
             case 5 :
-                // plviewer/Console.g:1:38: MINUS
+                // src/plviewer/Console.g:1:38: MINUS
                 {
                 mMINUS(); 
 
@@ -1277,7 +1280,7 @@ public class ConsoleLexer extends Lexer {
                 }
                 break;
             case 6 :
-                // plviewer/Console.g:1:44: MULT
+                // src/plviewer/Console.g:1:44: MULT
                 {
                 mMULT(); 
 
@@ -1285,7 +1288,7 @@ public class ConsoleLexer extends Lexer {
                 }
                 break;
             case 7 :
-                // plviewer/Console.g:1:49: DIV
+                // src/plviewer/Console.g:1:49: DIV
                 {
                 mDIV(); 
 
@@ -1293,7 +1296,7 @@ public class ConsoleLexer extends Lexer {
                 }
                 break;
             case 8 :
-                // plviewer/Console.g:1:53: DOT
+                // src/plviewer/Console.g:1:53: DOT
                 {
                 mDOT(); 
 
@@ -1301,7 +1304,7 @@ public class ConsoleLexer extends Lexer {
                 }
                 break;
             case 9 :
-                // plviewer/Console.g:1:57: WEDGE
+                // src/plviewer/Console.g:1:57: WEDGE
                 {
                 mWEDGE(); 
 
@@ -1309,7 +1312,7 @@ public class ConsoleLexer extends Lexer {
                 }
                 break;
             case 10 :
-                // plviewer/Console.g:1:63: NEGATE
+                // src/plviewer/Console.g:1:63: NEGATE
                 {
                 mNEGATE(); 
 
@@ -1317,7 +1320,7 @@ public class ConsoleLexer extends Lexer {
                 }
                 break;
             case 11 :
-                // plviewer/Console.g:1:70: REVERSE
+                // src/plviewer/Console.g:1:70: REVERSE
                 {
                 mREVERSE(); 
 
@@ -1325,7 +1328,7 @@ public class ConsoleLexer extends Lexer {
                 }
                 break;
             case 12 :
-                // plviewer/Console.g:1:78: RPAREN
+                // src/plviewer/Console.g:1:78: RPAREN
                 {
                 mRPAREN(); 
 
@@ -1333,7 +1336,7 @@ public class ConsoleLexer extends Lexer {
                 }
                 break;
             case 13 :
-                // plviewer/Console.g:1:85: LPAREN
+                // src/plviewer/Console.g:1:85: LPAREN
                 {
                 mLPAREN(); 
 
@@ -1341,7 +1344,7 @@ public class ConsoleLexer extends Lexer {
                 }
                 break;
             case 14 :
-                // plviewer/Console.g:1:92: NEWLINE
+                // src/plviewer/Console.g:1:92: NEWLINE
                 {
                 mNEWLINE(); 
 
@@ -1349,7 +1352,7 @@ public class ConsoleLexer extends Lexer {
                 }
                 break;
             case 15 :
-                // plviewer/Console.g:1:100: WHITESPACE
+                // src/plviewer/Console.g:1:100: WHITESPACE
                 {
                 mWHITESPACE(); 
 
@@ -1357,7 +1360,7 @@ public class ConsoleLexer extends Lexer {
                 }
                 break;
             case 16 :
-                // plviewer/Console.g:1:111: CONSTANT
+                // src/plviewer/Console.g:1:111: CONSTANT
                 {
                 mCONSTANT(); 
 
@@ -1365,7 +1368,7 @@ public class ConsoleLexer extends Lexer {
                 }
                 break;
             case 17 :
-                // plviewer/Console.g:1:120: NAME
+                // src/plviewer/Console.g:1:120: NAME
                 {
                 mNAME(); 
 
@@ -1373,7 +1376,7 @@ public class ConsoleLexer extends Lexer {
                 }
                 break;
             case 18 :
-                // plviewer/Console.g:1:125: NUMBER
+                // src/plviewer/Console.g:1:125: NUMBER
                 {
                 mNUMBER(); 
 
