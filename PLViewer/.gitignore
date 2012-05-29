@@ -1,5 +1,0 @@
-# Javadoc should be ignored. Everyone can generate that.
-*.html
-*.css
-resources/*
-package-list
