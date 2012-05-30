@@ -1,0 +1,75 @@
+\documentclass[a4paper,11pt,twoside]{article}
+
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage[english]{babel}
+\usepackage{cite}
+\usepackage{cleveref}
+\usepackage{color}
+\usepackage{fancyhdr} % For the page headers
+\usepackage{graphicx} % Including images
+\usepackage{hyperref} % Including links
+\usepackage{ifthen}
+\usepackage{sectsty} % Makes changing \chapter, \section, etc. easier
+
+\usepackage{catoptions}
+
+\definecolor{nicered}{rgb}{0.6, 0, 0.24}
+\definecolor{nicegreen}{rgb}{0.0, 0.5, 0.24}
+%\definecolor{niceblue}{rgb}{0, 0.4, 1}
+\definecolor{niceblue}{rgb}{0,0,0}
+\definecolor{gray}{rgb}{0.2,0.2,0.2}
+\definecolor{lightgray}{rgb}{0.4,0.4,0.4}
+
+\hypersetup{
+  colorlinks=true,
+%  urlcolor=nicegreen,
+%  linkcolor=niceblue,
+%  citecolor=nicered,
+  urlcolor=gray,
+  linkcolor=gray,
+  citecolor=lightgray,
+}
+
+\title{Visualization of the projective line geometry for geometric algebra} % FIXME betere titel
+\author{\href{mailto:pkok@science.uva.nl}{Patrick de Kok}\\ Supervisor: \href{mailto:L.Dorst@uva.nl}{Leo Dorst}}
+
+\include{includes}
+
+\def\isdraft{true}
+%\def\isdraft{false}
+
+%%% Adding own commands, renew old ones
+%\renewcommand{\familydefault}{\sfdefault}
+\ifthenelse{\equal{\isdraft}{true}}{
+  \newcommand{\comment}[1]{\colorbox{red}{\bfseries\color{white}#1}}
+  \newcommand{\TODO}[1]{\colorbox{niceblue}{\bfseries\color{white}TODO: #1}}}
+  {
+  \newcommand{\comment}[1]{}
+  \newcommand{\TODO}[1]{}}
+
+\begin{document}
+%\frontmatter
+\maketitle
+\begin{abstract}
+\input{abstract}
+\end{abstract}
+\tableofcontents
+
+%\mainmatter
+\include{introduction}
+\include{background}
+\include{research}
+\include{results}
+\include{conclusion}
+
+\appendix
+
+%\backmatter
+\clearpage
+\bibliographystyle{plain}
+\phantomsection
+\addcontentsline{toc}{section}{Bibliography}
+\bibliography{citations}
+
+\end{document}
