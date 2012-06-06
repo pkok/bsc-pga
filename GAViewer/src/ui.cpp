@@ -60,7 +60,7 @@ UIstate::UIstate(int argc, char *argv[]) {
 	m_interactiveMouse = true;
 
 	m_tubeDraw.setLineWidth((float)2);
-	m_tubeDraw.setUseOpenGL(false);
+	m_tubeDraw.setUseOpenGL(true);
 	m_tubeDraw.setNbSegments(8);
 
 	initToNothing();
@@ -569,7 +569,7 @@ Fl_Menu_Item gui_menuTable[] = {
     {"Console",	0, ui_menuCallback, (void*)MI_HIDE_CONSOLE, FL_MENU_TOGGLE | FL_MENU_VALUE},
     {"&Labels always on top",	FL_ALT+'l', ui_menuCallback, (void*)MI_LABELSALWAYSONTOP, FL_MENU_TOGGLE | FL_MENU_VALUE},
     {"&Object description in statusbar",	0, ui_menuCallback, (void*)MI_OBJECTDESCRIPTIONINSTATUSBAR, FL_MENU_TOGGLE | FL_MENU_VALUE},
-    {"&GL lines",	0, ui_menuCallback, (void*)MI_GLLINES, FL_MENU_TOGGLE},
+    {"&GL lines",	0, ui_menuCallback, (void*)MI_GLLINES, FL_MENU_TOGGLE | FL_MENU_VALUE},
 //    {"Enable clipping planes",	0, ui_menuCallback, (void*)MI_CLIPPINGPLANES, FL_MENU_TOGGLE},
 	{"F&ullscreen", FL_ALT+'u', ui_menuCallback, (void*)MI_FULLSCREEN, FL_MENU_TOGGLE},
     {0},
