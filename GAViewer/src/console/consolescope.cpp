@@ -36,7 +36,7 @@ int consoleScope::m_idCount = 0;
 // important: adjust when new models are introduced...
 // todo: merge with the same function in 'consolefunctions.cpp
 static inline int model(int v) {
-	return v & (MVI_E3GA | MVI_P3GA | MVI_C3GA | MVI_I2GA | CVF_ANY_MODEL);
+	return v & (MVI_E3GA | MVI_P3GA | MVI_C3GA | MVI_I2GA | MVI_PL3GA | CVF_ANY_MODEL);
 }
 
 static inline int compareModel(int m1, int m2) {
@@ -339,13 +339,14 @@ static int distance(int nbArg, const int *formalArg, const int *actualArg) {
 	int i, d = 0, mf, ma;
 
 	// update when new models are introduced
-	int dmatrix[5][5] = {
-		//{MVI_E3GA, MVI_P3GA, MVI_C3GA, MVI_I2GA, MVI_C5GA}
-		{       0,        1,        2,     5,   3}, // from E3GA to ...
-		{100+1,        0,        1,     6,   2}, // from P3GA to ...
-		{100+2, 100+1,        0,     5,  1}, // from C3GA to ...
-		{100+2, 100+3, 100+1,     0, 100+1}, // from I2GA to ...
-		{100+3, 100+2,        100+1,     5,  0}, // from C5GA to ...
+	int dmatrix[6][6] = {
+		//{MVI_E3GA, MVI_P3GA, MVI_C3GA, MVI_I2GA, MVI_C5GA, PL3GA}
+		{     0,        1,        2,        5,      3,  1000+1}, // from E3GA to ...
+		{ 100+1,        0,        1,        6,      2,  1000+1}, // from P3GA to ...
+		{ 100+2,    100+1,        0,        5,      1,  1000+1}, // from C3GA to ...
+		{ 100+2,    100+3,    100+1,        0,  100+1,  1000+1}, // from I2GA to ...
+		{ 100+3,    100+2,    100+1,        5,      0,  1000+1}, // from C5GA to ...
+    {1000+5,   1000+1,   1000+2,   1000+4, 1000+2,       0}, // from PL3GA to ...
 
 	};
 
@@ -664,6 +665,9 @@ int consoleScope::processConstant(consoleVariable **variable) {
 		else if (m_defaultModel == MVI_I2GA) {
 			*variable = consoleExecFunc(this, "cast_i2ga", *variable);	
 		}
+		else if (m_defaultModel == MVI_PL3GA) {
+			*variable = consoleExecFunc(this, "cast_pl3ga", *variable);	
+		}
 	}
 	(*variable)->rhs(1);
 	(*variable)->lhs(0);
@@ -929,6 +933,7 @@ consoleVariable *consoleGlobalScope::assignVariable(consoleVariable *target, con
 		g_state->addC5gaObject(value->c5(), target->name(), drawMode, value->creationFlags(), value->forceFlags());
 	else if (value->model() == MVI_I2GA)
 		g_state->addI2gaObject(value->i2(), target->name(), drawMode, value->creationFlags(), value->forceFlags());
+		g_state->addPL3gaObject(value->pl(), target->name(), drawMode, value->creationFlags(), value->forceFlags());
 
 	// restore color state
 	g_state->setColor("fgcolor", tempC);
@@ -1000,6 +1005,9 @@ int consoleGlobalScope::lookupVariable(int sid, const std::string &name, int glo
 		break;
 	case OT_I2GA:
 		*variable = new consoleVariable(name, &((i2gaObject*)objectPtr)->m_mv);
+		break;
+	case OT_PL3GA:
+		*variable = new consoleVariable(name, &((pl3gaObject*)objectPtr)->m_mv);
 		break;
 	default: 
 		return -1; // object is not of GA type 

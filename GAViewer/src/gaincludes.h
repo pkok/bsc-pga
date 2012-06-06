@@ -22,6 +22,7 @@
 #include "c3ga/c3ga.h"
 #include "c5ga/c5ga.h"
 #include "i2ga/i2ga.h"
+#include "pl3ga/pl3ga.h"
 
 #endif /* _GA_INCLUDES_H_ */
 

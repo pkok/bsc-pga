@@ -33,6 +33,7 @@ consoleVariable::consoleVariable(const std::string &pname, const consoleVariable
 	else if (cv->model() == MVI_C3GA) set((pname.length() > 0) ? pname : cv->name(), &cv->c());
 	else if (cv->model() == MVI_C5GA) set((pname.length() > 0) ? pname : cv->name(), &cv->c5());
 	else if (cv->model() == MVI_I2GA) set((pname.length() > 0) ? pname : cv->name(), &cv->i2());
+	else if (cv->model() == MVI_PL3GA) set((pname.length() > 0) ? pname : cv->name(), &cv->pl());
 
 	// copy other properties
 	m_op = cv->op();
@@ -72,6 +73,11 @@ consoleVariable::consoleVariable(const std::string &name, const i2ga *mv) {
 	set(name, mv);
 }
 
+consoleVariable::consoleVariable(const std::string &name, const pl3ga *mv) {
+	initToNothing();
+	set(name, mv);
+}
+
 consoleVariable::consoleVariable(const std::string &name, const e3ga &mv) {
 	initToNothing();
 	set(name, &mv);
@@ -93,6 +99,11 @@ consoleVariable::consoleVariable(const std::string &name, const c5ga &mv) {
 }
 
 consoleVariable::consoleVariable(const std::string &name, const i2ga &mv) {
+	initToNothing();
+	set(name, &mv);
+}
+
+consoleVariable::consoleVariable(const std::string &name, const pl3ga &mv) {
 	initToNothing();
 	set(name, &mv);
 }
@@ -139,6 +150,8 @@ void consoleVariable::deleteMV() {
 			break;
 		case MVI_I2GA:
 			delete (i2ga*)m_mv;
+		case MVI_PL3GA:
+			delete (pl3ga*)m_mv;
 			break;
 		}
 	}
@@ -173,6 +186,8 @@ void consoleVariable::set(const consoleVariable &cv) {
 		break;
 	case MVI_I2GA:
 		m_mv = new i2ga(*(i2ga*)cv.m_mv);
+  case MVI_PL3GA:
+    m_mv = new pl3ga(*(pl3ga*)cv.m_mv);
 		break;
 	}
 
@@ -260,6 +275,21 @@ int consoleVariable::set(const std::string &pname, const i2ga *mv) {
 	return (m_mv == NULL) ? -1 : 0;
 }
 
+int consoleVariable::set(const std::string &pname, const pl3ga *mv) {
+	int err;
+	if (err = name(pname)) return err;
+
+	int i;
+	m_drawMode = OD_MAGNITUDE; // | OD_ORI;
+	for (i = 0; i < 4; i++) m_color[i] = g_state->m_fgColor[i];
+
+	m_mv = (void*)(new pl3ga(*mv));
+
+	m_model = MVI_PL3GA;
+
+	return (m_mv == NULL) ? -1 : 0;
+}
+
 
 
 e3ga &consoleVariable::e() const {
@@ -287,6 +317,11 @@ i2ga &consoleVariable::i2() const {
 	return (model() == MVI_I2GA) ? *(i2ga*)m_mv : null;
 }
 
+pl3ga &consoleVariable::pl() const {
+  static pl3ga null;
+  return (model() == MVI_PL3GA) ? *(pl3ga*)m_mv : null;
+}
+
 int consoleVariable::model() const {
 	return m_model;
 }
@@ -309,6 +344,9 @@ mvInt *consoleVariable::interpretation() const {
 	case MVI_I2GA:
 		mvi = new mvInt(i2());
 		break;
+  case MVI_PL3GA:
+    mvi = new mvInt(pl());
+    break;
 	}
 	return mvi;
 }
@@ -330,6 +368,9 @@ int consoleVariable::grade() const {
 		break;
 	case MVI_I2GA:
 		type = i2().mvType(&grade); 
+		break;
+	case MVI_PL3GA:
+		type = pl().mvType(&grade); 
 		break;
 	}
 
@@ -358,6 +399,9 @@ int consoleVariable::print(const char *str) const {
 	case MVI_I2GA:
 		i2().print(str, "%f");
 		break;
+	case MVI_PL3GA:
+		pl().print(str, "%f");
+		break;
 	default:
 		printf("%s: unknown model\n", str);
 		break;
@@ -381,6 +425,9 @@ const char *consoleVariable::string() const {
 		
 	case MVI_I2GA:
 		return i2().string("%e");
+		
+	case MVI_PL3GA:
+		return pl().string("%e");
 		
 	default:
 		return "unknown model";
@@ -407,6 +454,9 @@ int consoleVariable::isTrue() const {
 	case MVI_I2GA:
 		return (i2().norm_a() != 0.0);
 		break;
+	case MVI_PL3GA:
+		return (pl().norm_a() != 0.0);
+		break;
 	}
 	return 0;
 }
@@ -425,8 +475,8 @@ GAIM_FLOAT consoleVariable::scalar() const {
 	case MVI_C5GA:
 		return c5().scalar();
 		break;
-	case MVI_I2GA:
-		return i2().scalar();
+	case MVI_PL3GA:
+		return pl().scalar();
 		break;
 	}
 	return 0;
@@ -1033,6 +1083,7 @@ consoleVariable *consoleVariable::castE3gaToI2ga() const {
 	return new consoleVariable("", vi2);
 }
 
+
 consoleVariable *consoleVariable::castP3gaToI2ga() const {
 	i2ga vi2;
 	const p3ga &vp = p();
@@ -1230,6 +1281,45 @@ consoleVariable *consoleVariable::castI2gaToC5ga() const {
 
 }
 
+consoleVariable *consoleVariable::castPL3gaToE3ga() const {
+  return new consoleVariable("", e());
+}
+
+consoleVariable *consoleVariable::castPL3gaToP3ga() const {
+  return new consoleVariable("", p());
+}
+
+consoleVariable *consoleVariable::castPL3gaToC3ga() const {
+  return new consoleVariable("", c());
+}
+
+consoleVariable *consoleVariable::castPL3gaToC5ga() const {
+  return new consoleVariable("", c5());
+}
+
+consoleVariable *consoleVariable::castPL3gaToI2ga() const {
+  return new consoleVariable("", i2());
+}
+
+consoleVariable *consoleVariable::castE3gaToPL3ga() const {
+  return new consoleVariable("", pl());
+}
+
+consoleVariable *consoleVariable::castP3gaToPL3ga() const {
+  return new consoleVariable("", pl());
+}
+
+consoleVariable *consoleVariable::castC3gaToPL3ga() const {
+  return new consoleVariable("", pl());
+}
+
+consoleVariable *consoleVariable::castC5gaToPL3ga() const {
+  return new consoleVariable("", pl());
+}
+
+consoleVariable *consoleVariable::castI2gaToPL3ga() const {
+  return new consoleVariable("", pl());
+}
 
 consoleVariable *consoleVariable::castToE3ga() const {
 	switch (model()) {
@@ -1247,6 +1337,9 @@ consoleVariable *consoleVariable::castToE3ga() const {
 		break;
 	case MVI_I2GA:
 		return castI2gaToE3ga();
+		break;
+	case MVI_PL3GA:
+		return castPL3gaToE3ga();
 		break;
 	}
 	return NULL;
@@ -1269,6 +1362,9 @@ consoleVariable *consoleVariable::castToP3ga() const {
 	case MVI_I2GA:
 		return castI2gaToP3ga();
 		break;
+	case MVI_PL3GA:
+		return castPL3gaToP3ga();
+		break;
 	}
 	return NULL;
 }
@@ -1289,6 +1385,9 @@ consoleVariable *consoleVariable::castToC3ga() const {
 		break;
 	case MVI_I2GA:
 		return castI2gaToC3ga();
+		break;
+	case MVI_PL3GA:
+		return castPL3gaToC3ga();
 		break;
 	}
 	return NULL;
@@ -1311,6 +1410,9 @@ consoleVariable *consoleVariable::castToC5ga() const {
 	case MVI_I2GA:
 		return castI2gaToC5ga();
 		break;
+	case MVI_PL3GA:
+		return castPL3gaToC5ga();
+		break;
 	}
 	return NULL;
 }
@@ -1331,6 +1433,33 @@ consoleVariable *consoleVariable::castToI2ga() const {
 		break;
 	case MVI_I2GA:
 		return new consoleVariable("", i2());
+		break;
+	case MVI_PL3GA:
+		return castPL3gaToI2ga();
+		break;
+	}
+	return NULL;
+}
+
+consoleVariable *consoleVariable::castToPL3ga() const {
+	switch (model()) {
+	case MVI_E3GA:
+		return castE3gaToPL3ga();
+		break;
+	case MVI_P3GA:
+		return castP3gaToPL3ga();
+		break;
+	case MVI_C3GA:
+		return castC3gaToPL3ga();
+		break;
+	case MVI_C5GA:
+		return castC5gaToPL3ga();
+		break;
+	case MVI_I2GA:
+		return castI2gaToPL3ga();
+		break;
+	case MVI_PL3GA:
+		return new consoleVariable("", pl());
 		break;
 	}
 	return NULL;

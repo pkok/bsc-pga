@@ -34,7 +34,7 @@ int consoleFreeCvList(consoleVariable *cv, consoleVariable *exempt = NULL);
 
 // important: adjust when new models are introduced...
 static inline int model(int v) {
-	return v & (MVI_E3GA | MVI_P3GA | MVI_C3GA | MVI_C5GA | MVI_I2GA | CVF_ANY_MODEL);
+	return v & (MVI_E3GA | MVI_P3GA | MVI_C3GA | MVI_C5GA | MVI_I2GA | MVI_PL3GA | CVF_ANY_MODEL);
 }
 
 static inline int compareModel(int m1, int m2) {
@@ -156,6 +156,17 @@ consoleVariable *consoleExecFunc(consoleScope *s_in, const std::string &name, co
 
 				cvCast = consoleExecFunc(s_in, "cast_i2ga", arg[i]);
 			}
+			else if (model(f->arg[i]) == MVI_PL3GA) {
+				if (!(arg[i]->e().norm_a() - arg[i]->e()(GRADE0).norm_a() < 10e-6)) {
+					if (!s_in->supressWarnings()) {
+						if (s_in->globalScope())
+							cprintf("Coerced '%s' to pl3ga\n", arg[i]->name().c_str());
+						else cprintf("Coerced '%s' to pl3ga (in function %s)\n", arg[i]->name().c_str(), s_in->functionName().c_str());
+					}
+				}
+
+				cvCast = consoleExecFunc(s_in, "cast_pl3ga", arg[i]);
+			}
 			else {
 				if (!s_in->supressErrors()) {
 					cprintf("Coerce '%s' failure!\n", arg[i]->name().c_str());
@@ -259,6 +270,9 @@ std::string getFuncStringNameWithArguments(const consoleFunc *f, int argNames) {
 			case MVI_I2GA:
 				nameWithArguments += "i2ga ";
 				break;
+			case MVI_PL3GA:
+				nameWithArguments += "pl3ga ";
+				break;
 			default:
 				nameWithArguments += " ";
 				break;
@@ -290,6 +304,9 @@ std::string getFuncStringNameWithArguments(const consoleFunc *f, int argNames) {
 				break;
 			case MVI_I2GA:
 				nameWithArguments += "i2ga ";
+				break;
+			case MVI_PL3GA:
+				nameWithArguments += "pl3ga ";
 				break;
 			default:
 				nameWithArguments += " ";

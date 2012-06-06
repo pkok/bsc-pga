@@ -23,6 +23,7 @@
 #define MVI_C3GA (3 << 13)
 #define MVI_I2GA (4 << 13)
 #define MVI_C5GA (5 << 13)
+#define MVI_PL3GA (6 << 13)
 #define MVI_MODEL_MASK (7 << 13)
 // more to come???
 

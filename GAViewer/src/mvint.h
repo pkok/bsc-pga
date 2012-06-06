@@ -29,6 +29,7 @@ e3ga: euclidean 3D geometric algebra for 3D Euclidean Geometry
 p3ga: projective 4D geometric algebra for 3D Euclidean Geometry
 c3ga: conformal 5D geometric algebra for 3D Euclidean Geometry
 i2ga: conformal 6D image algebra for '2.5D' image manipulation
+pl3ga: projective 6d line algebra for 3D projective geometry
 
 First the distinction between blade, versors and general multivector is made.
 Blades can be interpreted as objects like lines and planes, versors
@@ -111,6 +112,7 @@ public:
 	mvInt(const c3ga &mv, int creationFlags = 0);
 	mvInt(const c5ga &mv, int creationFlags = 0);
 	mvInt(const i2ga &mv, int creationFlags = 0);
+  mvInt(const pl3ga &mv, int creationFlags = 0);
 	~mvInt();
 	void initToNothing();
 
@@ -122,6 +124,7 @@ public:
 	int interpret(const c3ga &mv, int creationFlags = 0);
 	int interpret(const c5ga &mv, int creationFlags = 0);
 	int interpret(const i2ga &mv, int creationFlags = 0);
+  int interpret(const pl3ga &mv, int creationFlags = 0);
 
 	int m_type;
 	inline const int type() {return (m_type & 0x7FF);};
@@ -158,6 +161,13 @@ protected:
 	// Factors 'B' into factor 1 and factor 2, taking into account possible user factorization (g_state->m_p3gaFactor[0] & g_state->m_p3gaFactor[1])
 	// Also returns the unit normal vector. If {normal, factor1, factor2} is NULL, it isn't set
 	int p3gaFactorBivector(const p3ga &B, GAIM_FLOAT *normal, GAIM_FLOAT *factor1, GAIM_FLOAT *factor2);
+
+  /* Must be deleted when really working on PL3GA */
+	int pl3gaEuclideanSubspace(const pl3ga &X, int grade, const pl3ga &ori, GAIM_FLOAT size2);
+	int pl3gaHomogeneousSubspace(const pl3ga &X, int grade, const pl3ga &ori, const pl3ga &pos, GAIM_FLOAT size2);
+	// Factors 'B' into factor 1 and factor 2, taking into account possible user factorization (g_state->m_pl3gaFactor[0] & g_state->m_pl3gaFactor[1])
+	// Also returns the unit normal vector. If {normal, factor1, factor2} is NULL, it isn't set
+	int pl3gaFactorBivector(const pl3ga &B, GAIM_FLOAT *normal, GAIM_FLOAT *factor1, GAIM_FLOAT *factor2);
 
 	int m_creationFlags;
 

@@ -272,6 +272,7 @@ const GAIM_FLOAT *object::getPoint(int idx) {
 	else if (m_type == OT_C3GA) return ((c3gaObject*)this)->m_int.m_point[idx];
 	else if (m_type == OT_C5GA) return ((c5gaObject*)this)->m_int.m_point[idx];
 	else if (m_type == OT_I2GA) return ((i2gaObject*)this)->m_int.m_point[idx];
+  else if (m_type == OT_PL3GA) return ((pl3gaObject*)this)->m_int.m_point[idx];
 	else if (m_type == OT_TEXT) return ((textObject*)this)->m_pos[GRADE1];
 	else if (m_type == OT_POLYGON) {
 		const polygonObject *p = (polygonObject *)this;
@@ -291,6 +292,7 @@ const GAIM_FLOAT *object::getNormal(int idx) {
 	else if (m_type == OT_C3GA) return ((c3gaObject*)this)->m_int.m_vector[idx];
 	else if (m_type == OT_C5GA) return ((c5gaObject*)this)->m_int.m_vector[idx];
 	else if (m_type == OT_I2GA) return ((i2gaObject*)this)->m_int.m_vector[idx];
+  else if (m_type == OT_PL3GA) return ((pl3gaObject*)this)->m_int.m_vector[idx];
 	else if (m_type == OT_TEXT) return ((textObject*)this)->m_pos[GRADE1];
 	// todo: fix this for more type of normals (c3ga?)
 	else return NULL;

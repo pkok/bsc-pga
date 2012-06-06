@@ -63,6 +63,11 @@ mvInt::mvInt(const i2ga &mv, int creationFlags /*= 0 */) {
 	interpret(mv, creationFlags);
 }
 
+mvInt::mvInt(const pl3ga &mv, int creationFlags /*= 0 */) {
+	initToNothing();
+	interpret(mv, creationFlags);
+}
+
 mvInt::~mvInt() {
 	initToNothing();
 }

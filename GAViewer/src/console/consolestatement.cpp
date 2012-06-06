@@ -413,6 +413,9 @@ consoleVariable *consoleConstantScalarStmt::execute(consoleScope *s) {
 	case MVI_I2GA:
 		result = new consoleVariable(str, i2ga(m_value));
 		break;
+	case MVI_PL3GA:
+		result = new consoleVariable(str, pl3ga(m_value));
+		break;
 	default:
 		result = new consoleVariable(str, e3ga(m_value));
 		break;
@@ -1737,6 +1740,9 @@ char *consoleFuncArgSpecStmt::string(int cr /*= 0*/, int tl /* = 0 */) {
 	case MVI_I2GA:
 		model = (char*)"i2ga ";
 		break;
+	case MVI_PL3GA:
+		model = (char*)"pl3ga ";
+		break;
 	default:
 		model = (char*)"";
 		break;
@@ -1993,7 +1999,8 @@ char *consoleSetStmt::string(int cr /*= 0*/, int tl /*= 0*/) {
 		sprintf(str + i, "%s(%s)%s", m_what.c_str(), 
 			(m_intValue == -1) ? "none" : 
 			((m_intValue == MVI_E3GA) ? "e3ga" : 
-			((m_intValue == MVI_P3GA) ? "p3ga" : "c3ga")),
+			((m_intValue == MVI_P3GA) ? "p3ga" : 
+      ((m_intValue == MVI_PL3GA) ? "pl3ga" : "c3ga"))),
 			(cr) ? "\n" : "");
 	}
 	else {

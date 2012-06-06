@@ -622,6 +622,22 @@ int state::addI2gaObject(const i2ga &mv, const std::string &name, int drawMode /
 	return 0;
 }
 
+int state::addPL3gaObject(const pl3ga &mv, const std::string &name, int drawMode /* = 0 */, int creationFlags /* = 0 */, int forceFlags /* = 0 */) {
+
+	pl3gaObject *o = new pl3gaObject(mv, name, drawMode, creationFlags, forceFlags);
+	if (!o->m_int.m_valid) {
+		if (mv.norm_a() > 1e-5) {
+			if (!m_globalScope->supressWarnings()) {
+				cprintf("Interpretation of object '%s' with coordinates %s failed.\n", name.c_str(), mv.string());
+			}
+		}
+	}
+	
+	addObject(o, forceFlags);
+
+	return 0;
+}
+
 
 
 int state::addTextObject(const char *text, const e3ga &pos, const std::string &name, int labelFlags, int width) {

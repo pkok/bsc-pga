@@ -183,6 +183,7 @@ public:
 	int addC3gaObject(const c3ga &mv, const std::string &name, int drawMode = 0, int creationFlags = 0, int forceFlags = 0);
 	int addC5gaObject(const c5ga &mv, const std::string &name, int drawMode = 0, int creationFlags = 0, int forceFlags = 0);
 	int addI2gaObject(const i2ga &mv, const std::string &name, int drawMode = 0, int creationFlags = 0, int forceFlags = 0);
+	int addPL3gaObject(const pl3ga &mv, const std::string &name, int drawMode = 0, int creationFlags = 0, int forceFlags = 0);
 	int addTextObject(const char *text, const std::string &pointName, const std::string &name, int labelFlags, int width);
 	int addTextObject(const char *text, const e3ga &pos, const std::string &name, int labelFlags, int width);
 	int addObject(object *o, int forceFlags = -1);
@@ -282,10 +283,12 @@ public:
 	int setE3gaFactor(const e3ga &mv, int idx);
 	int setP3gaFactor(const p3ga &mv, int idx);
 	int setC3gaFactor(const c3ga &mv, int idx);
+	int setPL3gaFactor(const pl3ga &mv, int idx);
 	inline int setI2gaFactor(const i2ga &mv, int idx) {return -1;} // todo
 	inline int setC5gaFactor(const c5ga &mv, int idx) {return -1;} // todo
 	e3ga m_e3gaFactor[3];
 	p3ga m_p3gaFactor[4];
+	pl3ga m_pl3gaFactor[4]; // TODO: update to [6] when working on PL3GA
 	c3ga m_c3gaFactor[5];
 
 	// typesetting labels...

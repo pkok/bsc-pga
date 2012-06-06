@@ -1,4 +1,4 @@
-SUBDIRS = console typeset c3ga p3ga e3ga i2ga c5ga
+SUBDIRS = console typeset c3ga p3ga e3ga i2ga c5ga pl3ga
 
 bin_PROGRAMS = gaviewer
 
@@ -6,7 +6,7 @@ AM_CPPFLAGS = $(GL_CFLAGS) $(AQSIS_FLTK_GL_CFLAGS) -I/opt/local/include
 	
 gaviewer_LDADD = \
         console/libconsole.a typeset/libtypeset.a \
-        c5ga/libc5ga.a c3ga/libc3ga.a i2ga/libi2ga.a p3ga/libp3ga.a e3ga/libe3ga.a \
+        c5ga/libc5ga.a c3ga/libc3ga.a i2ga/libi2ga.a p3ga/libp3ga.a e3ga/libe3ga.a pl3ga/libpl3ga.a \
         $(AQSIS_FLTK_GL_LIBS) \
 	     $(ANTLR_LIBS) -lpng -lz
 
@@ -21,7 +21,7 @@ gaviewer_SOURCES = \
         geosphere.cpp textobject.cpp conformalobject.cpp \
         e3gaobject.cpp mvint.cpp netclient.cpp \
         pngwrapper.cpp selectwindow.cpp tubedraw.cpp writestate.cpp \
-        mt19937-2.cpp
+        mt19937-2.cpp mvintpl3ga.cpp pl3gaobject.cpp
  
 noinst_HEADERS = \
 	draw.h mvint.h netclient.h pngwrapper.h selectwindow.h  tubedraw.h \
@@ -31,5 +31,5 @@ noinst_HEADERS = \
         openglfont.h gl_includes.h mt19937-2.h c3gadraw.h
         
 
-EXTRA_DIST = c5ga.gas c3ga.gas e3ga.gas p3ga.gas i2ga.gas gaviewer.rc gaviewer.xbm icon1.ico
+EXTRA_DIST = c5ga.gas c3ga.gas e3ga.gas p3ga.gas i2ga.gas pl3ga.gas gaviewer.rc gaviewer.xbm icon1.ico
         

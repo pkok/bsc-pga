@@ -148,6 +148,7 @@ options {
 	else if (s == "c3ga") $setType(TK_c3ga);
 	else if (s == "c5ga") $setType(TK_c5ga);
 	else if (s == "i2ga") $setType(TK_i2ga);
+  else if (s == "pl3ga") $setType(TK_pl3ga);
 	else {/* determine if this is an identifier or function */
 		if ((!inQuotes) && g_currentParsingScope->isFunction($getText)) $setType(FUNCNAME); 
 		else $setType(IDENTIFIER);
