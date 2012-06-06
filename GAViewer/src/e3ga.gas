@@ -1,0 +1,43 @@
+#profile for 3 dimensional geometric algebra 'e3ga'
+dimension 3
+name "e3ga"
+dirname "e3ga_gaviewer"
+floattype double
+customfloatheader 
+customfloatclass 
+memman tight
+memfactor 1.500000
+function 66059263
+license 0
+licensefile "custom_license.txt"
+generateoption 131
+signature 0: 1
+basisvectorname 0: e1
+signature 1: 1
+basisvectorname 1: e2
+signature 2: 1
+basisvectorname 2: e3
+sign 0: 1
+sign 1: 1
+sign 2: 1
+sign 3: 1
+sign 4: 1
+sign 5: -1
+sign 6: 1
+sign 7: 1
+order 0: 0
+order 1: 1
+order 2: 2
+order 3: 4
+order 4: 6
+order 5: 5
+order 6: 3
+order 7: 7
+product gp
+product lcont
+product op
+product scp
+product hip
+product mhip
+product rcont
+dispatch ifelse

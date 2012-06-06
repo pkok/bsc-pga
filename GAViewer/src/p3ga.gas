@@ -1,0 +1,61 @@
+#profile for 4 dimensional geometric algebra 'p3ga'
+dimension 4
+name "p3ga"
+dirname "p3ga_gaviewer"
+floattype double
+customfloatheader 
+customfloatclass 
+memman tight
+memfactor 1.500000
+function 66055167
+license 0
+licensefile "custom_license.txt"
+generateoption 195
+signature 0: 1
+basisvectorname 0: e1
+signature 1: 1
+basisvectorname 1: e2
+signature 2: 1
+basisvectorname 2: e3
+signature 3: 1
+basisvectorname 3: e0
+sign 0: 1
+sign 1: 1
+sign 2: 1
+sign 3: 1
+sign 4: 1
+sign 5: -1
+sign 6: 1
+sign 7: 1
+sign 8: 1
+sign 9: 1
+sign 10: 1
+sign 11: 1
+sign 12: 1
+sign 13: -1
+sign 14: 1
+sign 15: 1
+order 0: 0
+order 1: 1
+order 2: 2
+order 3: 4
+order 4: 8
+order 5: 6
+order 6: 5
+order 7: 3
+order 8: 9
+order 9: 10
+order 10: 12
+order 11: 14
+order 12: 13
+order 13: 11
+order 14: 7
+order 15: 15
+product gp
+product lcont
+product op
+product scp
+product hip
+product mhip
+product rcont
+dispatch ifelse

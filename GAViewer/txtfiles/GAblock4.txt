@@ -1,0 +1,41 @@
+clear
+
+status "GABlock4: Line intersects line"
+
+bgcolor black
+olcolor black
+fontsize 20
+
+fgcolor b
+e3ga p [1.000000e+000*e2] magnitude
+e3ga "p - 2 * u" [-2.000000e+000*e1 + 6.000000e-001*e2] hide magnitude
+e3ga "p + 2 * u" [2.000000e+000*e1 + 1.400000e+000*e2] hide magnitude
+polygon "line 1" 2 "p - 2 * u" "p + 2 * u" dm2
+
+fgcolor g
+e3ga q [1.000000e+000*e1] magnitude
+e3ga "q - 2 * v" [5.000000e+000*e1 + -2.000000e+000*e2] hide magnitude
+e3ga "q + 2 * v" [-3.000000e+000*e1 + 2.000000e+000*e2] hide magnitude
+polygon "line 2" 2 "q - 2 * v" "q + 2 * v" dm2
+
+status "Refer to the tutorial before continuing"
+wait
+
+
+fgcolor m
+e3ga U [7.142857e-001*e1 + 1.428571e-001*e2] magnitude
+status "Drawn 'U'"
+wait
+
+e3ga V [-1.428571e+000*e1 + 7.142857e-001*e2] magnitude
+status "Drawn 'V'"
+wait
+
+fgcolor r
+e3ga "U + V" [-7.142857e-001*e1 + 8.571429e-001*e2] magnitude
+status "Drawn 'U + V'"
+
+
+sleep 10.0
+
+status "End of GABlock4"

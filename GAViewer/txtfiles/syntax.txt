@@ -1,0 +1,354 @@
+Syntax of input:
+
+------------------------------------------------------------------------------------
+Keywords: title
+
+Sets the title bar of the viewer window
+
+> title "this is my demo"
+Sets the title bar of the window to 'GAViewer: this is my demo'
+
+------------------------------------------------------------------------------------
+Keywords: fgcolor, bgcolor, olcolor, cvcolor
+
+Determine the current foreground, background outline and canvas color.
+All objects read after these keywords will be drawn in those colors.
+The canvas color affects only the canvas (background) of the viewing window.
+Syntax:
+
+> fgcolor colorName
+Sets the color to 'colorName'. This can currently be
+"r": red
+"g": green
+"b": blue
+"w": white
+"p": purple
+"y": yellow
+You can add new constants in function: state::setColor()
+
+> bgcolor redFloat greenFloat blueFloat alphaFloat
+Sets the color to the values specified by the three floats.
+Range: [0.0 1.0]
+Use the optional 'alphaFloat' for transparency.
+
+------------------------------------------------------------------------------------
+Keywords: fontsize
+
+Sets the size of the font in pixels.
+Syntax:
+
+> fontsize sizeFloat
+
+------------------------------------------------------------------------------------
+Keywords: clip
+
+Sets the distance of the clipping planes to the origin
+Syntax:
+
+> clip distanceFloat
+
+------------------------------------------------------------------------------------
+Keywords: label
+
+Adds a label to the scene
+Syntax:
+
+> label "name" "point" "text" flag1 flag2 ... flagn
+Draws a label (in current colors and font size) at position 'point'
+'point' can be any previously specified multivector object which has
+a point interpretation.
+The "name" argument is optional.
+
+The flags can be some of the following:
+flag_2d: label coordinates are in 2D window coordinates
+flag_3d: label coordinates are in 3D world coordinates
+flag_cx: x-axis origin is in center of window (only in combination with 2D)
+flag_cy: y-axis origin is in center of window (only in combination with 2D)
+flag_px: positive x axis is in towards the right (only in combination with 2D)
+flag_nx: positive x axis is in towards the left (only in combination with 2D)
+flag_py: positive y axis is in towards the bottom (only in combination with 2D)
+flag_ny: positive y axis is in towards the top (only in combination with 2D)
+flag_acx: the label is x-aligned in the center of the window (overrides all other commands related to the 'X'-axis, only in combination with 2D)
+flag_dynamic: the point used for the label will follow the point
+flag_image: the label text is actually a filename of a .png image that will be displayed inside the label
+flag_fullscreen: scales the images such that it fill the viewer/screen (only in combination with image) (image width/height proportion is not fixed)
+------------------------------------------------------------------------------------
+Keywords: eyepos / campos
+
+Sets the position of the eye/camera
+Syntax:
+
+> eyepos [multivectorCoordinates]
+
+------------------------------------------------------------------------------------
+Keywords: eyetrl / camtrl
+
+Translates the eye/camera over a specified vector per second during a specified time.
+Syntax:
+
+> eyepos timeFloat [multivectorCoordinates]
+If (timeFloat == 0.0), the translation in instantanious.
+
+------------------------------------------------------------------------------------
+Keywords: eyeori / camori
+
+Sets the orientation of the eye/camera
+Syntax:
+
+> eyeori [multivectorCoordinates]
+The [multivectorCoordinates] specify a bivector that will be exponentiated 
+to create a rotor.
+
+------------------------------------------------------------------------------------
+Keywords: eyerot / camrot
+
+Rotates the eye/camera over a specified plane/angle per second during  a specified time.
+Syntax:
+
+> eyerot timeFloat [multivectorCoordinates]
+The [multivectorCoordinates] specify a bivector that will be exponentiated 
+to create a rotor.
+If (timeFloat == 0.0), the rotation in instantanious
+
+------------------------------------------------------------------------------------
+Keywords: sleep
+
+Pauses the reading of the input file for a specified number of seconds.
+User interface will be fully functional during this sleep.
+Syntax:
+
+> sleep timeFloat
+Sleeps for 'timeFloat' seconds.
+The maximum resolution is about 1/30th of a second.
+
+------------------------------------------------------------------------------------
+Keywords: wait
+
+Pauses the reading of the input file until the 'waiting' button is pressed
+Syntax:
+
+> wait
+
+------------------------------------------------------------------------------------
+Keywords: hide, show
+
+Hides or shows a specified object.
+Syntax:
+
+> show "name of object"
+> hide "name of object"
+The name of the object is used to retrieve the object.
+If the "name of object" is "controls", the controls (on the right
+of the window) are shown or hidden.
+
+------------------------------------------------------------------------------------
+Keywords: c3ga, ca5d
+
+Draws an object from the conformal model of 3D Euclidean Geometry.
+Syntax:
+
+> c3ga "object name" [multivectorCoordinates] flag1 flag2 flagn
+The "object name" argument is optional. 
+The flags (current maximum 8) to alter certain properties of the object 
+Current flags::
+> hide: immediatelly hides the object
+> show: immediatelly draws the object (default)
+> stipple: draws the object stippled
+> orientation: draws something related to the orientation of the object (if possible)
+> wireframe: draws the object in wireframe (if possible)
+> magnitude: draws the magnitude of the object (if possible)
+> shade: shades the object (if possible)
+> versor: force versor interpretation of the multivector (e.g. to interpret a blade like a versor)
+> blade: force blade interpretation of the multivector (e.g. to interpret '0' as a blade)
+> grade0 ... grade 8: force gradeX interpretation of multivector (e.g. to interpret '0' as a vector)
+> dm1 ... dm7: use draw method 1 to 7, if supported by the object
+
+------------------------------------------------------------------------------------
+Keywords: e3ga, ca3d
+
+Draws an object from the 3D geometric algebra model of 3D Euclidean Geometry.
+Syntax:
+
+> e3ga "object name" [multivectorCoordinates] flag1 flag2 flagn
+The "object name" argument is optional. 
+The flags (current maximum 8) to alter certain properties of the object.
+See 'c3ga' and 'ca5d' for the possible flags.
+
+------------------------------------------------------------------------------------
+Keywords: factor
+
+Specifies a custom factor for factorization. These are used during
+the interpretation of some multivectors.
+(currently only the e3ga bivector)
+Syntax:
+
+> factor model idx [vectorCoordinates]
+'model' specifies for which model this factor is intended (c3ga, ca5d), (p3ga, ca4d), (e3ga, ca3d)
+'idx' specifwies the index of the factor [1 ... d] (d = dimension of model algebra).
+
+------------------------------------------------------------------------------------
+Keywords: polygon, simplex
+Syntax:
+
+> polygon "polygon name" nbVectices "point 1" "point 2" "point n" flag1 flag2 flagn
+> simplex "simplex name" nbVectices "point 1" "point 2" "point n" flag1 flag2 flagn
+
+The "polygon name" or "simplex name" is optional.
+'nbVectices' gives the number of vertices of the polygon/simplex (max 3 for a simplex)
+Currently, the polygon must be flat and convex, 
+or the resulting graphics will be unpredicatble.
+The "point 1" ... "point n" are names of objects that have some
+kind of point interpretation. These can be vectors in the 3D model,
+or points in the conformal model.
+
+Possible flags:
+> dynamic: the vertices of the polygon will lookup their position from the original 
+	point objects everytime the polygon gets redrawn
+> outline: draws an outline around the polygon
+> dm1 ... dm7: use draw method 1 to 7
+   (dm1: filled, dm2: line strip, dm3: line loop, dm4: 1d simplex is drawn as true vector)
+
+------------------------------------------------------------------------------------
+Keywords: exit
+
+Terminates the GAViewer immediatelly
+Syntax:
+
+> exit
+
+------------------------------------------------------------------------------------
+Keywords: delete
+
+Specifies to delete this file or not when
+-a new file is opened
+-the viewer is terminated
+Syntax:
+
+> delete [yes|no|ask] "question to ask"
+If the argument is 'ask' the user is asked whether to delete or not.
+The question to ask can be supplied as the optional second argument.
+If you use '%s' in the question string, this will be replaced
+by the name of the file.
+
+------------------------------------------------------------------------------------
+Keywords: resize
+
+Changes the size and optionally the position of the GAViewer window
+Syntax:
+
+> resize w h
+> resize x y w h
+The first format (with 2 arguments) changes the width and height of the window
+to 'w' and 'h'. The second format (with 4 arguments) also sets the position to
+'x' and 'y'.
+
+------------------------------------------------------------------------------------
+Keywords: fullscreen
+
+Sets the viewer to fullscreen mode or normal mode
+Syntax:
+
+> fullscreen
+> fullscreen on
+> fullscreen off
+The first two lines turn fullscreen mode on, the second line turns it off.
+
+------------------------------------------------------------------------------------
+Keywords: open TODO: document switchto, import behaviour of file levels...
+
+Opens another file for input
+Syntax:
+
+> open "name of file.txt"
+Opens "name of file.txt" for input. Closes the current file.
+
+------------------------------------------------------------------------------------
+Keywords: bookmark
+
+Indicates a bookmark in the file
+Syntax:
+
+> bookmark "optional name which is not used yet"
+Indicates a bookmark. When the user clicks 
+'utils->search for next bookmark', input will be parsed
+quickly until such a bookmark is found. Useful for skipping
+through a (slow) demo quickly.
+
+------------------------------------------------------------------------------------
+Keywords: tsmode
+
+Sets the initial parsing mode of the typesetting system for labels
+Syntax:
+
+> tsmode mode
+Mode can be any of: 'text', 'equation', 'verbatim', uppercase or lowercase.
+In fact, only the first character of the string is used to determine
+the mode. Verbatim mode bypasses the whole typesetting system
+and displays labels using the regular ASCII characters directly.
+
+------------------------------------------------------------------------------------
+Keywords: tsfont
+
+Sets the initial font of the typesetting system for labels
+Syntax:
+
+> tsmode font
+'font' can be any of: 'regular', 'bold', 'italic', 'greek', uppercase or lowercase.
+In fact, only the first character of the string is used to determine
+the font.
+
+------------------------------------------------------------------------------------
+Keywords: tsreset
+
+Resets the typesetting system to its initial mode.
+Syntax:
+
+> tsreset
+
+------------------------------------------------------------------------------------
+Keywords: tsinterpret
+
+Sends text to the typesetting system. It is then parsed and interpreted,
+but not displayed. This is useful for adding custom commands and colors
+to the system.
+
+Syntax:
+
+> tsinterpret "some string"
+Sends "some string" to the typesetting system. The typesettings system
+mode (as set with tsmode) is always forced to 'text' during a tsinterpret!
+
+
+------------------------------------------------------------------------------------
+todo: document 'remove'
+
+todo: document 'play' (playlist only)
+
+todo: document clearconsole
+
+document mesh, meshvertex, meshnormal, meshface
+
+document console
+
+todo: document 'fade'
+Keywords: bookmark
+		if (!strcmpnc(entryname, "fade")) action = FADE_NOTHING;
+		else if (!strcmpnc(entryname, "fade_and_remove")) action = FADE_REMOVE;
+		else if (!strcmpnc(entryname, "fade_and_hide")) action = FADE_HIDE;
+		else if (!strcmpnc(entryname, "show_and_fade")) {
+			o->show(); // show object
+			action = FADE_NOTHING;
+		}
+
+		if ( (n = sscanf(line + idx, "%f %f %f", &f1, &f2, &f3)) < 2) {
+			printf("warning: GAfile::parseLine(): invalid '%s' entry at line '%d'\n", entryname, m_lineNb);
+			return 0;
+		}
+		if (n < 3) f3 = -1.0f;
+
+		f1 *= (float)g_state->m_playbackSpeed;
+		o->setFade(f1, f2, action, f3);
+
+		gui_state->m_glWindow->redraw();
+
+todo: control over the fade slider!

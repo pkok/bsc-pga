@@ -1,0 +1,4 @@
+fgcolor g
+c3ga [     e1^e2^e3 + e1^e2^no + -0.5*e1^e2^ni + -1*e1^e3^no + 0.5*e1^e3^ni + e2^e3^no + -0.5*e2^e3^ni]
+fgcolor r
+c3ga [     -1*e1^e2^e3^no + -0.5*e1^e2^no^ni + 0.5*e1^e3^no^ni + -0.5*e2^e3^no^ni]

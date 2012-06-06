@@ -1,0 +1,25 @@
+clear
+
+status "GABlock2: Rotation Exercise"
+
+bgcolor black
+olcolor black
+fontsize 20
+
+
+fgcolor b
+e3ga "a" [1.000000e+000*e1 + 1.000000e+000*e2] magnitude
+fgcolor m
+e3ga "Ra" [1.000000e+000*e1 + 4.753288e-007*e2 + -9.999995e-001*e3] magnitude
+fgcolor r
+e3ga "RRa" [4.753292e-007*e1 + 9.999995e-001*e2 + -1.000000e+000*e3] magnitude
+wait
+
+fgcolor g
+e3ga "axisR" [5.773504e-001*e1 + 5.773504e-001*e2 - 5.773501e-001*e3] magnitude
+status "Refer to the tutorial before continuing..."
+wait
+status ""
+e3ga "planeR" [-5.773501e-001*e1^e2 - 5.773504e-001*e1^e3 + 5.773504e-001*e2^e3] orientation
+
+status "End of GABlock2"

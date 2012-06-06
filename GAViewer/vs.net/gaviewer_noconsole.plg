@@ -1,0 +1,174 @@
+<html>
+<body>
+<pre>
+<h1>Build Log</h1>
+<h3>
+--------------------Configuration: gaviewer_noconsole - Win32 Release--------------------
+</h3>
+<h3>Command Lines</h3>
+Creating temporary file "C:\DOCUME~1\fontijne\LOCALS~1\Temp\RSP690.tmp" with contents
+[
+/nologo /ML /W3 /GX /O2 /D "WIN32" /D "NDEBUG" /D "_WINDOWS" /D "_MBCS" /D "WIN32_NO_CONSOLE" /Fp"gaviewer_noconsole___Win32_Release/gaviewer_noconsole.pch" /YX /Fo"gaviewer_noconsole___Win32_Release/" /Fd"gaviewer_noconsole___Win32_Release/" /FD /c 
+"E:\ga\gaviewer\basisvectors.cpp"
+"E:\ga\algebras\c3ga_gaviewer\c3ga.cpp"
+"E:\ga\algebras\c3ga_gaviewer\c3ga_optc.cpp"
+"E:\ga\gaviewer\c3gaobject.cpp"
+"E:\ga\gaviewer\consolewindow.cpp"
+"E:\ga\gaviewer\draw.cpp"
+"E:\ga\algebras\e3ga_gaviewer\e3ga.cpp"
+"E:\ga\algebras\e3ga_gaviewer\e3ga_optc.cpp"
+"E:\ga\gaviewer\e3gaobject.cpp"
+"E:\ga\gaviewer\fl_console.cpp"
+"E:\ga\gaviewer\gafile.cpp"
+"E:\ga\gaviewer\geosphere.cpp"
+"E:\ga\gaviewer\glwindow.cpp"
+"E:\ga\gaviewer\main.cpp"
+"E:\ga\gaviewer\mainwindow.cpp"
+"E:\ga\gaviewer\meshobject.cpp"
+"E:\ga\gaviewer\mvint.cpp"
+"E:\ga\gaviewer\mvintc3ga.cpp"
+"E:\ga\gaviewer\mvinte3ga.cpp"
+"E:\ga\gaviewer\object.cpp"
+"E:\ga\gaviewer\osdep.cpp"
+"E:\ga\algebras\p3ga_gaviewer\p3ga.cpp"
+"E:\ga\algebras\p3ga_gaviewer\p3ga_optc.cpp"
+"E:\ga\gaviewer\pngwrapper.cpp"
+"E:\ga\gaviewer\polygonobject.cpp"
+"E:\ga\gaviewer\selectwindow.cpp"
+"E:\ga\gaviewer\softpic.cpp"
+"E:\ga\gaviewer\state.cpp"
+"E:\ga\gaviewer\textobject.cpp"
+"E:\ga\gaviewer\ui.cpp"
+"E:\ga\gaviewer\util.cpp"
+"E:\ga\gaviewer\typeset\fontdata.cpp"
+"E:\ga\gaviewer\typeset\fontlex.c"
+"E:\ga\gaviewer\typeset\fontparse.cpp"
+"E:\ga\gaviewer\typeset\fontyacc.c"
+"E:\ga\gaviewer\typeset\openglfont.cpp"
+"E:\ga\gaviewer\typeset\typeset.cpp"
+"E:\ga\gaviewer\typeset\typesetbox.cpp"
+]
+Creating command line "cl.exe @C:\DOCUME~1\fontijne\LOCALS~1\Temp\RSP690.tmp" 
+Creating temporary file "C:\DOCUME~1\fontijne\LOCALS~1\Temp\RSP691.tmp" with contents
+[
+kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib opengl32.lib wsock32.lib fltk.lib glu32.lib fltkgl.lib comctl32.lib libpng.lib zlib.lib /nologo /subsystem:windows /incremental:no /pdb:"gaviewer_noconsole___Win32_Release/gaviewer_noconsole.pdb" /machine:I386 /out:"gaviewer_noconsole___Win32_Release/gaviewer_noconsole.exe" 
+.\gaviewer_noconsole___Win32_Release\basisvectors.obj
+.\gaviewer_noconsole___Win32_Release\c3ga.obj
+.\gaviewer_noconsole___Win32_Release\c3ga_optc.obj
+.\gaviewer_noconsole___Win32_Release\c3gaobject.obj
+.\gaviewer_noconsole___Win32_Release\consolewindow.obj
+.\gaviewer_noconsole___Win32_Release\draw.obj
+.\gaviewer_noconsole___Win32_Release\e3ga.obj
+.\gaviewer_noconsole___Win32_Release\e3ga_optc.obj
+.\gaviewer_noconsole___Win32_Release\e3gaobject.obj
+.\gaviewer_noconsole___Win32_Release\fl_console.obj
+.\gaviewer_noconsole___Win32_Release\gafile.obj
+.\gaviewer_noconsole___Win32_Release\geosphere.obj
+.\gaviewer_noconsole___Win32_Release\glwindow.obj
+.\gaviewer_noconsole___Win32_Release\main.obj
+.\gaviewer_noconsole___Win32_Release\mainwindow.obj
+.\gaviewer_noconsole___Win32_Release\meshobject.obj
+.\gaviewer_noconsole___Win32_Release\mvint.obj
+.\gaviewer_noconsole___Win32_Release\mvintc3ga.obj
+.\gaviewer_noconsole___Win32_Release\mvinte3ga.obj
+.\gaviewer_noconsole___Win32_Release\object.obj
+.\gaviewer_noconsole___Win32_Release\osdep.obj
+.\gaviewer_noconsole___Win32_Release\p3ga.obj
+.\gaviewer_noconsole___Win32_Release\p3ga_optc.obj
+.\gaviewer_noconsole___Win32_Release\pngwrapper.obj
+.\gaviewer_noconsole___Win32_Release\polygonobject.obj
+.\gaviewer_noconsole___Win32_Release\selectwindow.obj
+.\gaviewer_noconsole___Win32_Release\softpic.obj
+.\gaviewer_noconsole___Win32_Release\state.obj
+.\gaviewer_noconsole___Win32_Release\textobject.obj
+.\gaviewer_noconsole___Win32_Release\ui.obj
+.\gaviewer_noconsole___Win32_Release\util.obj
+.\gaviewer_noconsole___Win32_Release\fontdata.obj
+.\gaviewer_noconsole___Win32_Release\fontlex.obj
+.\gaviewer_noconsole___Win32_Release\fontparse.obj
+.\gaviewer_noconsole___Win32_Release\fontyacc.obj
+.\gaviewer_noconsole___Win32_Release\openglfont.obj
+.\gaviewer_noconsole___Win32_Release\typeset.obj
+.\gaviewer_noconsole___Win32_Release\typesetbox.obj
+]
+Creating command line "link.exe @C:\DOCUME~1\fontijne\LOCALS~1\Temp\RSP691.tmp"
+<h3>Output Window</h3>
+Compiling...
+basisvectors.cpp
+c3ga.cpp
+c3ga_optc.cpp
+c3gaobject.cpp
+consolewindow.cpp
+draw.cpp
+e3ga.cpp
+e3ga_optc.cpp
+e3gaobject.cpp
+fl_console.cpp
+gafile.cpp
+geosphere.cpp
+glwindow.cpp
+E:\ga\gaviewer\glwindow.cpp(164) : warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
+main.cpp
+mainwindow.cpp
+meshobject.cpp
+mvint.cpp
+mvintc3ga.cpp
+mvinte3ga.cpp
+object.cpp
+osdep.cpp
+p3ga.cpp
+p3ga_optc.cpp
+pngwrapper.cpp
+polygonobject.cpp
+selectwindow.cpp
+softpic.cpp
+E:\ga\gaviewer\softpic.cpp(172) : warning C4018: '!=' : signed/unsigned mismatch
+E:\ga\gaviewer\softpic.cpp(468) : warning C4018: '!=' : signed/unsigned mismatch
+E:\ga\gaviewer\softpic.cpp(489) : warning C4018: '!=' : signed/unsigned mismatch
+state.cpp
+textobject.cpp
+E:\ga\gaviewer\textobject.cpp(338) : warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
+E:\ga\gaviewer\textobject.cpp(339) : warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
+E:\ga\gaviewer\textobject.cpp(340) : warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
+E:\ga\gaviewer\textobject.cpp(345) : warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
+E:\ga\gaviewer\textobject.cpp(346) : warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
+E:\ga\gaviewer\textobject.cpp(347) : warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
+E:\ga\gaviewer\textobject.cpp(388) : warning C4244: 'argument' : conversion from 'double' to 'int', possible loss of data
+E:\ga\gaviewer\textobject.cpp(389) : warning C4244: 'argument' : conversion from 'double' to 'int', possible loss of data
+E:\ga\gaviewer\textobject.cpp(389) : warning C4244: 'argument' : conversion from 'double' to 'int', possible loss of data
+E:\ga\gaviewer\textobject.cpp(390) : warning C4244: 'argument' : conversion from 'double' to 'int', possible loss of data
+E:\ga\gaviewer\textobject.cpp(402) : warning C4244: 'argument' : conversion from 'double' to 'int', possible loss of data
+E:\ga\gaviewer\textobject.cpp(403) : warning C4244: 'argument' : conversion from 'double' to 'int', possible loss of data
+E:\ga\gaviewer\textobject.cpp(403) : warning C4244: 'argument' : conversion from 'double' to 'int', possible loss of data
+E:\ga\gaviewer\textobject.cpp(404) : warning C4244: 'argument' : conversion from 'double' to 'int', possible loss of data
+E:\ga\gaviewer\textobject.cpp(424) : warning C4244: 'argument' : conversion from 'double' to 'int', possible loss of data
+E:\ga\gaviewer\textobject.cpp(427) : warning C4244: 'argument' : conversion from 'double' to 'int', possible loss of data
+E:\ga\gaviewer\textobject.cpp(427) : warning C4244: 'argument' : conversion from 'double' to 'int', possible loss of data
+E:\ga\gaviewer\textobject.cpp(430) : warning C4244: 'argument' : conversion from 'double' to 'int', possible loss of data
+E:\ga\gaviewer\textobject.cpp(502) : warning C4244: 'argument' : conversion from 'double' to 'int', possible loss of data
+E:\ga\gaviewer\textobject.cpp(503) : warning C4244: 'argument' : conversion from 'double' to 'int', possible loss of data
+E:\ga\gaviewer\textobject.cpp(503) : warning C4244: 'argument' : conversion from 'double' to 'int', possible loss of data
+E:\ga\gaviewer\textobject.cpp(504) : warning C4244: 'argument' : conversion from 'double' to 'int', possible loss of data
+ui.cpp
+util.cpp
+fontdata.cpp
+fontlex.c
+fontparse.cpp
+fontyacc.c
+E:\ga\gaviewer\typeset\fontyacc.c(411) : warning C4102: 'yyerrlab' : unreferenced label
+E:\ga\gaviewer\typeset\fontyacc.c(406) : warning C4102: 'yynewerror' : unreferenced label
+openglfont.cpp
+typeset.cpp
+typesetbox.cpp
+E:\ga\gaviewer\typeset\typeset.cpp(162) : warning C4700: local variable 'w' used without having been initialized
+E:\ga\gaviewer\typeset\typesetbox.cpp(1129) : warning C4244: '+=' : conversion from 'const double' to 'int', possible loss of data
+E:\ga\gaviewer\typeset\typesetbox.cpp(1219) : warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+Linking...
+
+
+
+<h3>Results</h3>
+gaviewer_noconsole.exe - 0 error(s), 31 warning(s)
+</pre>
+</body>
+</html>

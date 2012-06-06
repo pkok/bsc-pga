@@ -1,0 +1,84 @@
+On my MNP gaviewer kept crashing after the first use of OpenGL.(OSX 10.6)
+The solution was to link the same way that FLTK does. I summarized
+this in src/OSX_link_command (after make, delete gaviewer exe, and run
+OSX_link_command).
+
+Also, for some reason some .o were 64 bit and some were 32 bit. I solved
+this by setting
+CFLAGS = CCFLAGS = LDFLAGS = CXXFLAGS = -arch i386
+
+
+
+
+
+
+
+Daniel, I got the gaviewer to work with some help from Google.
+
+It turns out that I FLTK on a mac requires that a resource fork be attached to the executable using the FL/mac.r file which comes with the fltk source. I put the fltk source in your directory if it helps. I found a posting by the guy who did the FLTK port for OS X here:
+
+    http://pari.math.u-bordeaux.fr/archives/pari-dev-0406/msg00024.html
+
+I copied your gaviewer-0.71 directory into my own, and had the fltk-1.1.7 directory parallel to it, and when I went into the src/ directory and typed this:
+
+    /Developer/Tools/Rez -t APPL -o gaviewer ../../fltk-1.1.7/FL/mac.r
+
+then ./gaviewer worked just fine. I downloaded the figures and was able to view and manipulate them just fine. Perhaps that means that the gaviewer source can have the mac.r file included and somehow added to the build as its final step for macs?
+
+I have PPC macs here if you'd like me to try running through a build scenario. I also haven't tried building the GASandbox or the raytracer source.
+
+-Jeff 
+
+
+
+
+
+
+
+
+The page 
+http://pari.math.u-bordeaux.fr/archives/pari-dev-0406/msg00024.html
+contains the following:
+
+
+I am not sure if you guys still follow the thread, but I stumbled 
+across the mail. I am the developer who ported FLTK to OS X. The 
+solution is very simple: OS X requires that your program has a resource 
+fork. FLTK provides a default resource fork in FL/mac.r . Simply attach 
+the resource via
+
+/Developer/Tools/Rez -t APPL -o myappname FL/mac.r
+
+This should make your window responsive and top-level. If threading is 
+a problem (FLTK prefers to be the main thread, and only one FLTK thread 
+can run per application, unless you dive into the depth of Fl::lock() 
+and Fl::unlock()), you can simply use FLTK in the main thread to run 
+PARI as the second thread. Some communication to open windows, etc. is 
+probably required.
+
+For more help, feel free to drop by on the FLTK mailing list.
+
+www.fltk.org
+
+On Friday, November 7, 2003, at 10:46 AM, Karim BELABAS wrote:
+
+ > Hi,
+ >
+ >   I have ported gp hi-res graphics to the MacOS X platform, using the
+ > lightweight fltk library (www.fltk.org). Provided, fltk is installed,
+ > this is enabled by
+ >
+ >     Configure --with-fltk
+ >
+ > There are two problems:
+[snip]
+
+I built fltk (downloaded source from www.fltk.org) and installed on
+10.3.  I rebuilt (--with-fltk) gp, with the BROKEN_FORK macro commented
+out.  When I run gp and type
+? ploth(x=-2,2,x^2-2)
+
+I get a pretty picture in a nice brushed-metal window labled "PARI/GP".
+   The window departs the scene nicely when I click in the pane, but I
+can't do any "window-like-things" to that window (e.g., drag, grow,
+...).  The "x/-/+" buttons are live and do what they should.

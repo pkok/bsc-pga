@@ -1,0 +1,147 @@
+fgcolor w # foreground color (white)
+bgcolor 0.7 0.7 0.7 1.0 # background color (grey)
+olcolor 0.0 0.0 0.0 1.0 # outline color (black)
+fontsize 20 # font size (height of font in pixels)
+clip 5.0 # half size of the clipping 'cube'
+
+#c3ga "c3ga multivector numero uno" [- 3*e1 + 1.0 * e2 - 1.0 * ni + 1.0 * no]
+#c3ga blade_1 [e1^e2^ni^no + 1.0 * e2^e3^ni^no] # blah blah blah this will be ignored
+#c3ga [-456.66*e2^e1] # multivector without a name
+# this is a comment
+
+fgcolor r # foreground color (red)
+fontsize 10
+label [3.1*e1 + 0.1*e2 + 1.1*e3] "label name" "this is a label"
+
+#c3ga point1 [1.00*e0]
+
+#label point "this is a label at 'point'"
+
+
+#c3ga point_dual [-1.00*e1^e2^e3^e0 + -5.00*e1^e2^e3^einf + -1.00*e1^e2^e0^einf + -3.00*e2^e3^e0^einf]
+fgcolor r
+#c3ga sphere [-54.00*e1^e2^e3^e0 + 216.00*e1^e2^e3^einf + -54.00*e1^e2^e0^einf]
+
+fgcolor b
+#c3ga sphere [-2.00*e1^e2^e3^e0 + 2.00*e1^e2^e0^einf]
+
+
+fgcolor w
+#c3ga plane1 [36.00*e1^e2^e3^einf + 18.00*e1^e2^e0^einf]
+
+fgcolor g
+#c3ga plane2 [-2.00*e1^e2^e3^einf + 2.00*e1^e2^e0^einf]
+#c3ga [1.00*e1 + 1.00*e2 + 1.00*e3 + 1.00*e0 + -1.50*einf]
+#c3ga [2.00*e1 + 2.00*e2 + 2.00*e3 + 1.00*e0 + -6.00*einf]
+#c3ga [3.00*e1 + 3.00*e2 + 3.00*e3 + 1.00*e0 + -13.50*einf]
+#c3ga [4.00*e1 + 4.00*e2 + 4.00*e3 + 1.00*e0 + -24.00*einf]
+#c3ga [5.00*e1 + 5.00*e2 + 5.00*e3 + 1.00*e0 + -37.50*einf]
+#c3ga [6.00*e1 + 6.00*e2 + 6.00*e3 + 1.00*e0 + -54.00*einf]
+#c3ga [7.00*e1 + 7.00*e2 + 7.00*e3 + 1.00*e0 + -73.50*einf]
+#c3ga [8.00*e1 + 8.00*e2 + 8.00*e3 + 1.00*e0 + -96.00*einf]
+#c3ga [9.00*e1 + 9.00*e2 + 9.00*e3 + 1.00*e0 + -121.50*einf]
+#c3ga [10.00*e1 + 10.00*e2 + 10.00*e3 + 1.00*e0 + -150.00*einf]
+#c3ga [11.00*e1 + 11.00*e2 + 11.00*e3 + 1.00*e0 + -181.50*einf]
+#c3ga [12.00*e1 + 12.00*e2 + 12.00*e3 + 1.00*e0 + -216.00*einf]
+#c3ga [13.00*e1 + 13.00*e2 + 13.00*e3 + 1.00*e0 + -253.50*einf]
+#c3ga [14.00*e1 + 14.00*e2 + 14.00*e3 + 1.00*e0 + -294.00*einf]
+#c3ga [15.00*e1 + 15.00*e2 + 15.00*e3 + 1.00*e0 + -337.50*einf]
+#c3ga [16.00*e1 + 16.00*e2 + 16.00*e3 + 1.00*e0 + -384.00*einf]
+#c3ga [16.00*e1 + 16.00*e2 + 16.00*e3 + 1.00*e0 + -384.00*einf]
+
+#set eye position to:
+#eyepos [2.0 * e1 +  2.0 * e2  + 12 * e3]
+
+#translate instantaniously (during 0.0 seconds) over the specified vector ...
+#eyetrl 0.0 [0.0 * e1 +  0.0 * e2  + 25 * e3]
+
+#translate for 10.0 seconds over the specified vector ...
+#eyetrl 10.0 [2.0 * e1 + 2.0 * e2  + 2 * e3]
+
+#set eye orientation to: (bivector * angle/2)
+#eyeori [1.65 * e1^e2]
+
+#rotate instantaniously (during 0.0 seconds) over the specified bivector ...
+#eyerot 0.0 [1.65 * e1^e2]
+
+#rotate (during 10.0 seconds) over the specified bivector ...
+#eyerot 10.0 [0.65 * e1^e2 + 0.5 * e2^e3]
+
+#c3ga "free vector" [2.00*e1^e2 + 3.00*e1^e3 + 1.00*e1^e0 + -6.00*e1^einf + 2.00*e2^einf + 3.00*e3^einf + 1.00*e0^einf]
+
+
+fgcolor r
+#c3ga "point pair" [3.00*e1^e0 + -1.00*e2^e0 + -3.00*e3^e0 + -9.50*e0^einf]
+fgcolor m
+c3ga "point pair 2" [10.00*e1^e2 + 3.00*e1^e3 + 9.00*e2^e3 + 4.00*e1^e0 + 2.00*e2^e0 + -3.00*e3^e0 + -24.50*e1^einf + -23.50*e2^einf + 15.00*e3^einf + -4.50*e0^einf]
+
+fgcolor y
+#c3ga "circle 1" [-27.00*e1^e2^e3 + -36.00*e1^e2^e0 + -27.00*e2^e3^e0 + -274.50*e1^e2^einf + -148.50*e1^e3^einf + -310.50*e2^e3^einf + -198.00*e1^e0^einf + -139.50*e2^e0^einf + 148.50*e3^e0^einf]
+fgcolor m
+#c3ga "dual circle 1" [-148.50*e1^e2 + -139.50*e1^e3 + 198.00*e2^e3 + -27.00*e1^e0 + -36.00*e3^e0 + 310.50*e1^einf + -148.50*e2^einf + 274.50*e3^einf + -27.00*e0^einf]
+
+#c3ga "simple circle radius 1.0" [2.00*e1^e2^e0 + -1.00*e1^e2^einf]
+
+fgcolor 0.5 0.5 1.0
+#c3ga "ln1" [1.00*e1^e3 + 1.00*e2^e3 + 1.00*e3^einf]
+fgcolor 1.0 0.5 1.0
+#c3ga "fp" [1.00*e1^einf + 1.00*e0^einf]
+fgcolor 0.5 1.0 1.0
+#c3ga "cr1" [2.00*e3^e0 + 1.00*e3^einf]
+fgcolor 1.0 0.5 0.5
+#c3ga "circle at e3" [2.00*e1^e2^e3 + 2.00*e1^e2^e0 + -2.00*e1^e2^einf]
+
+fgcolor 0.0 1.0 0.2
+#c3ga "flat point 1" [1.00*e1^einf + 1.00*e3^einf + 1.00*e0^einf]
+#c3ga "flat point 2" [-10.00*e1^einf + -10.00*e3^einf + -10.00*e0^einf]
+
+fgcolor 0.0 1.0 0.8
+#c3ga "line 1" [1.00*e1^e2^einf + 1.00*e1^e3^einf + -1.00*e2^e3^einf + 1.00*e1^e0^einf + -1.00*e2^e0^einf]
+#c3ga "line 2" [-10.00*e1^e2^einf + -10.00*e1^e3^einf + 10.00*e2^e3^einf + -10.00*e1^e0^einf + 10.00*e2^e0^einf]
+
+fgcolor 0.2 1.0 0.2
+#c3ga "free vector" [-2.00*e1^einf]
+fgcolor 0.4 1.0 0.2
+#c3ga "free vector" [-10.00*e2^einf]
+fgcolor 0.6 1.0 0.2
+#c3ga "free bivector" [2.00*e1^e2^einf]
+fgcolor 0.8 1.0 0.2
+#c3ga "free trivector" [-1.00*e1^e2^e3^einf]
+fgcolor 1.0 1.0 0.2
+#c3ga "free bivector 2" [-3.00*e1^e2^einf] orientation wireframe
+#sleep 0.5
+#show "free bivector 2" 
+
+#wait
+fgcolor r
+bgcolor g
+olcolor b
+#c3ga "free bivector 3" [-3.00*e2^e3^einf + 1.00*e1^e2^einf]
+
+#c3ga "rotor" [0.88 + 0.48*e1^e2]
+#c3ga "rotor translator" [0.88 + 0.48*e1^e2 + 0.44*e1^einf + -0.24*e2^einf]
+
+#c3ga "rotor translator reflector" [-0.48*e1 + 0.88*e2 + 1.52*einf + 0.52*e1^e2^einf]
+#c3ga "reflector" [1.00*e2 + 2.00*einf] versor
+#c3ga "rotor translator reflector" [-0.52*e3^einf + 1.52*e1^e2^e3^einf + 0.88*e1^e3^e0^einf + 0.48*e2^e3^e0^einf]
+#c3ga "transversion?" [1.00 + 1.00*e1^e0 + 0.50*e0^einf]
+#c3ga "wtf: " [-1.00*e1^e0 + -1.00*e2^e0 + -4.00*e1^einf + -4.00*e2^einf + 1.00*e0^einf]
+
+
+e3ga "e3ga pt 1" [0] blade hide
+e3ga "e3ga pt 2" [1.0*e1] hide
+e3ga "e3ga pt 3" [1.0*e1 + 1.0*e2] hide
+e3ga "e3ga pt 4" [1.0*e2] hide
+
+fgcolor w
+
+polygon  4 "e3ga pt 1" "e3ga pt 2" "e3ga pt 3" "e3ga pt 4" dynamic outline
+#"my first polygon"
+
+fgcolor black
+c3ga "point 1" [5.000000e+000*e1 + 1.000000e+000*e3 + 1.000000e+000*e0 + -1.300000e+001*einf]
+c3ga "point 2" [4.000000e+000*e1 + 1.000000e+000*e3 + 1.000000e+000*e0 + -8.500000e+000*einf]
+c3ga "point 3" [4.500000e+000*e1 + 5.000000e-001*e2 + 1.000000e+000*e3 + 1.000000e+000*e0 + -1.075000e+001*einf]
+c3ga "point 4" [4.500000e+000*e1 + 1.500000e+000*e3 + 1.000000e+000*e0 + -1.125000e+001*einf]
+fgcolor m
+c3ga "text sphere" [2.500000e-001*e1^e2^e3^e0 + 2.625000e+000*e1^e2^e3^einf + 2.500000e-001*e1^e2^e0^einf + 1.125000e+000*e2^e3^e0^einf]

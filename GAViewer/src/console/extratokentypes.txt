@@ -1,0 +1,9 @@
+// $written by hand$
+Extra    // output token vocab name
+IDENTIFIER("an identifier")=4
+FUNCNAME("a function")=5
+TK_e3ga("e3ga typename")=6
+TK_p3ga("p3ga typename")=7
+TK_c3ga("c3ga typename")=8
+TK_i2ga("i2ga typename")=9
+TK_c5ga("c5ga typename")=10

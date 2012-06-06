@@ -1,0 +1,53 @@
+Version 0.86:
+Fixed a crash caused by the fl_console::cprintf() function on Linux.
+The reason was that I misunderstood the behavior of vsnprintf (it
+eats the varargs list, and I tried to re-use it).
+
+Version 0.85:
+Fixed unnecessary update of dynamic due to console controls in combination
+with callbacks.
+
+Version 0.84:
+added function to enable / disable mouse interaction
+
+Version 0.83:
+added callback to controls
+
+Version 0.82:
+added c5ga algebra
+fixed bug in -net option at commandline
+added -net port option at commandline
+
+Version 0.81:
+?
+Compiled for OSX
+
+Version 0.80:
+Generalized asinh() to work for bivectors too.
+
+
+Version 0.79:
+Added asinh() and acosh()
+
+Version 0.78:
+Fixed time(), rand(), and randGaussStd() functions.
+They used to return i2ga variables, but now they return e3ga variables.
+
+
+Version 0.77: 
+-mute_warnings() is on by default; 
+-added diary command
+
+Version 0.76: 
+-removed swastikas as drawing option (not used in practice, so why keep them?)
+
+Version 0.75: 
+-changed pseudoscalar for conformal model
+	/*
+	The dual test is adding this code:
+		// flip sign of dual (TEST)
+		for (int i = 0; i < id; i++) {
+			cd[i] = -cd[i];
+		}
+	to the fastDual() function of c3ga.cpp
+	*/

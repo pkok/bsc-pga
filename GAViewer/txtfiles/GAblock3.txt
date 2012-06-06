@@ -1,0 +1,66 @@
+clear
+
+status "GABlock3: Interpolation of orientations (refer to the tutorial before continuing...)"
+
+bgcolor black
+olcolor black
+fontsize 20
+
+wait
+
+fgcolor b
+factor e3ga 1 [1.000000e+000*e1 + 1.000000e+000*e2 + 9.999995e-001*e3]
+factor e3ga 2 [1.000000e+000*e1 + -1.000000e+000*e2 + 4.753288e-007*e3]
+e3ga "initial orientation" [1.000000e+000*e2^e3 + 9.999990e-001*e3^e1 + -2.000000e+000*e1^e2] dm2
+
+status "Initial orientation"
+wait
+
+fgcolor g
+factor e3ga 1 [-9.999995e-001*e1 + 1.000000e+000*e2 + -1.000000e+000*e3]
+factor e3ga 2 [1.000000e+000*e1 + -9.999995e-001*e3]
+e3ga "final orientation " [-9.999995e-001*e2^e3 + -2.000000e+000*e3^e1 + -1.000000e+000*e1^e2] dm2
+
+status "Final orientation"
+wait
+
+#this file is not 100% finished yet!
+#why dont the bivectors all share one vector?
+#The rotation is weird!
+
+factor e3ga 1 [e1 + e2 + e3] 
+factor e3ga 2 [e1 - e2 - e3] 
+
+fgcolor y
+
+factor e3ga 1 [9.545677e-001*e1 + 1.276143e+000*e2 + 6.784249e-001*e3]
+factor e3ga 2 [1.138071e+000*e1 + -8.392127e-001*e2 + -2.271564e-002*e3]
+e3ga "interpolation step 1"  [5.403544e-001*e2^e3 + 7.937794e-001*e3^e1 + -2.253427e+000*e1^e2] dm2
+sleep 0.5
+factor e3ga 1 [8.213672e-001*e1 + 1.488034e+000*e2 + 3.333328e-001*e3]
+factor e3ga 2 [1.244017e+000*e1 + -6.666667e-001*e2 + -8.931590e-002*e3]
+e3ga "interpolation step 2"  [8.931681e-002*e2^e3 + 4.880329e-001*e3^e1 + -2.398718e+000*e1^e2] dm2
+sleep 0.5
+factor e3ga 1 [6.094757e-001*e1 + 1.621234e+000*e2 + -1.175918e-002*e3]
+factor e3ga 2 [1.310617e+000*e1 + -4.941207e-001*e2 + -1.952616e-001*e3]
+e3ga "interpolation step 3"  [-3.223753e-001*e2^e3 + 1.035954e-001*e3^e1 + -2.425972e+000*e1^e2] dm2
+sleep 0.5
+factor e3ga 1 [3.333334e-001*e1 + 1.666667e+000*e2 + -3.333338e-001*e3]
+factor e3ga 2 [1.333333e+000*e1 + -3.333334e-001*e2 + -3.333328e-001*e3]
+e3ga "interpolation step 4"  [-6.666659e-001*e2^e3 + -3.333341e-001*e3^e1 + -2.333333e+000*e1^e2] dm2
+sleep 0.5
+factor e3ga 1 [1.175894e-002*e1 + 1.621234e+000*e2 + -6.094761e-001*e3]
+factor e3ga 2 [1.310617e+000*e1 + -1.952623e-001*e2 + -4.941201e-001*e3]
+e3ga "interpolation step 5"  [-9.200921e-001*e2^e3 + -7.929797e-001*e3^e1 + -2.127114e+000*e1^e2] dm2
+sleep 0.5
+factor e3ga 1 [-3.333330e-001*e1 + 1.488034e+000*e2 + -8.213676e-001*e3]
+factor e3ga 2 [1.244017e+000*e1 + -8.931650e-002*e2 + -6.666661e-001*e3]
+e3ga "interpolation step 6"  [-1.065383e+000*e2^e3 + -1.244017e+000*e3^e1 + -1.821367e+000*e1^e2] dm2
+sleep 0.5
+factor e3ga 1 [-6.784250e-001*e1 + 1.276142e+000*e2 + -9.545682e-001*e3]
+factor e3ga 2 [1.138072e+000*e1 + -2.271618e-002*e2 + -8.392122e-001*e3]
+e3ga "interpolation step 7"  [-1.092638e+000*e2^e3 + -1.655709e+000*e3^e1 + -1.436930e+000*e1^e2] dm2
+sleep 0.5
+
+status "End of GABlock3"
+

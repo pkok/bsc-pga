@@ -1,0 +1,96 @@
+#profile for 5 dimensional geometric algebra 'c3ga'
+dimension 5
+name "c3ga"
+dirname "c3ga_gaviewer"
+floattype double
+customfloatheader 
+customfloatclass 
+memman tight
+memfactor 1.500000
+function 66055167
+license 0
+licensefile "custom_license.txt"
+generateoption 131
+signature 0: 1
+basisvectorname 0: e1
+signature 1: 1
+basisvectorname 1: e2
+signature 2: 1
+basisvectorname 2: e3
+signature 3: 0
+basisvectorname 3: no
+signature 4: 0
+basisvectorname 4: ni
+sign 0: 1
+sign 1: 1
+sign 2: 1
+sign 3: 1
+sign 4: 1
+sign 5: 1
+sign 6: 1
+sign 7: 1
+sign 8: 1
+sign 9: 1
+sign 10: 1
+sign 11: 1
+sign 12: 1
+sign 13: 1
+sign 14: 1
+sign 15: 1
+sign 16: 1
+sign 17: 1
+sign 18: 1
+sign 19: 1
+sign 20: 1
+sign 21: 1
+sign 22: 1
+sign 23: 1
+sign 24: 1
+sign 25: 1
+sign 26: 1
+sign 27: 1
+sign 28: 1
+sign 29: 1
+sign 30: 1
+sign 31: 1
+order 0: 0
+order 1: 1
+order 2: 2
+order 3: 4
+order 4: 8
+order 5: 16
+order 6: 3
+order 7: 5
+order 8: 6
+order 9: 9
+order 10: 10
+order 11: 12
+order 12: 17
+order 13: 18
+order 14: 20
+order 15: 24
+order 16: 7
+order 17: 11
+order 18: 13
+order 19: 14
+order 20: 19
+order 21: 21
+order 22: 22
+order 23: 25
+order 24: 26
+order 25: 28
+order 26: 15
+order 27: 23
+order 28: 27
+order 29: 29
+order 30: 30
+order 31: 31
+product gp
+product scp
+product op
+product lcont
+product rcont
+product hip
+product mhip
+reciprocal 3 4 signature: -1
+dispatch ifelse

@@ -1,0 +1,52 @@
+Peter van Emde Boas short GA demo
+
+******************************** 3D GA ********************************
+--> vector, bivector, outer product, inner product
+a = e1
+b = green(e2)
+dynamic{c = a ^ b,}
+dynamic{d = yellow(inverse(a) . c),}
+
+
+--> trivector
+
+clf(); cld();
+a = e1, b = e2, c = e3,
+dynamic{d = a ^ b ^ c,}
+
+
+--> rotor
+
+clf(); cld();
+a = e1, b = e2,
+dynamic{R = (a + b sqrt(norm_2(a)) / sqrt(norm_2(b))) a,}
+dynamic{c = green(R a / R),}
+d = e2 ^ e3
+dynamic{e = R d / R,}
+
+
+******************************** 'homogeneous GA' ********************************
+
+--> points
+clf(); cld();
+a = b = c = d = e = e0,
+dynamic{line = a ^ b,}
+
+dynamic{plane = line ^ c,}
+
+dynamic{line2 = d ^ e,}
+
+dynamic{i = yellow(normalize(dual(line2) . plane)),}
+
+
+// translate object X over vector T
+dynamic{tX = X + t ^ (e0 . X),}
+
+
+R = e1 (e1 + e2),
+rl = R l / R,
+rp = R p / R,
+
+
+******************************** 'conformal GA' ********************************
+Zie Leo

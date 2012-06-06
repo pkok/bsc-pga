@@ -1,0 +1,9 @@
+LD = /usr/local/gcc3.2/bin/g++
+> LDFLAGS = -O3 -nostdlib
+> LDPATH =
+> LDLIBS = /usr/lib/crt1.o /usr/lib/crti.o 
+> /usr/local/gcc3.2/lib/gcc-lib/i686-pc-linux-gnu/3.2/crtbegin.o 
+> -L/usr/local/gcc3.2/lib/gcc-lib/i686-pc-linux-gnu/3.2 
+> -L/usr/local/gcc3.2/lib/gcc-lib/i686-pc-linux-gnu/3.2/../../.. 
+> -Wl,-Bstatic -lstdc++ -Wl,-Bdynamic -lm -lgcc_s -lgcc -lc -lgcc_s -lgcc 
+> /usr/local/gcc3.2/lib/gcc-lib/i686-pc-linux-gnu/3.2/crtend.o /usr/lib/crtn.o

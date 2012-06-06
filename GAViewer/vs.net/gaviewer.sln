@@ -1,0 +1,27 @@
+Microsoft Visual Studio Solution File, Format Version 8.00
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "gaviewer", "gaviewer.vcproj", "{957E2623-68AE-44C9-9496-CE8744340BD3}"
+	ProjectSection(ProjectDependencies) = postProject
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfiguration) = preSolution
+		Debug = Debug
+		Release = Release
+		Release No Console = Release No Console
+	EndGlobalSection
+	GlobalSection(ProjectConfiguration) = postSolution
+		{957E2623-68AE-44C9-9496-CE8744340BD3}.Debug.ActiveCfg = Debug|Win32
+		{957E2623-68AE-44C9-9496-CE8744340BD3}.Debug.Build.0 = Debug|Win32
+		{957E2623-68AE-44C9-9496-CE8744340BD3}.Release.ActiveCfg = Release|Win32
+		{957E2623-68AE-44C9-9496-CE8744340BD3}.Release.Build.0 = Release|Win32
+		{957E2623-68AE-44C9-9496-CE8744340BD3}.Release No Console.ActiveCfg = Release No Console|Win32
+		{957E2623-68AE-44C9-9496-CE8744340BD3}.Release No Console.Build.0 = Release No Console|Win32
+		{C33D8400-278E-4826-9DC3-1D62FDF37E17}.Debug.ActiveCfg = Debug|Win32
+		{C33D8400-278E-4826-9DC3-1D62FDF37E17}.Release.ActiveCfg = Release|Win32
+		{C33D8400-278E-4826-9DC3-1D62FDF37E17}.Release No Console.ActiveCfg = Release No Console|Win32
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+	EndGlobalSection
+	GlobalSection(ExtensibilityAddIns) = postSolution
+	EndGlobalSection
+EndGlobal

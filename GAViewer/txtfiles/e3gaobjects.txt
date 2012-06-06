@@ -1,0 +1,33 @@
+bgcolor 0.7 0.7 0.7 1.0 # background color (grey)
+olcolor 0.0 0.0 0.0 1.0 # outline color (black)
+fontsize 20 # font size (height of font in pixels)
+
+#e3ga objects
+
+fgcolor r 
+e3ga "vector" [16.00*e1 + 16.00*e2 + 16.00*e3]
+
+fgcolor g 
+e3ga "bivector" [1.0*e1^e3]
+
+fgcolor w # foreground color (white)
+e3ga "trivector" [-2.0*e1^e2^e3]
+
+status "Try the draw methods for the bivector and the trivector."
+sleep 0.5
+status ""
+sleep 0.5
+status "Try the draw methods for the bivector and the trivector."
+sleep 0.5
+status ""
+sleep 0.5
+status "Try the draw methods for the bivector and the trivector."
+sleep 0.5
+status ""
+sleep 0.5
+status "Try the draw methods for the bivector and the trivector."
+sleep 0.5
+status ""
+sleep 0.5
+status "Try the draw methods for the bivector and the trivector."
+sleep 0.5

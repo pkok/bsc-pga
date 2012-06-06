@@ -1,0 +1,14 @@
+done -up version number 0.4
+done -network server class
+done	-create
+done	-poll
+done	-create client port
+done -add port
+done -network status overview (command)
+
+done -send all variables on initial connect
+done register variables that changed since last poll
+
+-create sample prog
+
+-add c2ga

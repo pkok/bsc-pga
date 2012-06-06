@@ -1,0 +1,8 @@
+Basically, search for
+MVI_C3GA, and add stuff
+OT_C3GA, and add stuff
+add token to ConsoleLexer.g and extratokentypes.txt, run java antlr.Tool ConsoleLexer.g, java antlr.Tool ConsoleParser.g
+Add casts
+Edit the code in src/console/codegen/main.cpp
+add consoleVariable constructors and set() function
+update the int dmatrix[][] in consolescope.cpp

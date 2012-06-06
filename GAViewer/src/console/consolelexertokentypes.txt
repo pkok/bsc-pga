@@ -1,0 +1,44 @@
+// $ANTLR 2.7.7 (20060906): ConsoleLexer.g -> ConsoleLexerTokenTypes.txt$
+ConsoleLexer    // output token vocab name
+IDENTIFIER("an identifier")=4
+FUNCNAME("a function")=5
+TK_e3ga("e3ga typename")=6
+TK_p3ga("p3ga typename")=7
+TK_c3ga("c3ga typename")=8
+TK_i2ga("i2ga typename")=9
+TK_c5ga("c5ga typename")=10
+TK_return="return"=11
+TK_switch="switch"=12
+TK_default="default"=13
+TK_case="case"=14
+TK_break="break"=15
+TK_continue="continue"=16
+TK_suspend="suspend"=17
+TK_if="if"=18
+TK_else="else"=19
+TK_while="while"=20
+TK_for="for"=21
+TK_function="function"=22
+TK_batch="batch"=23
+TK_dynamic="dynamic"=24
+TK_inner_product="inner_product"=25
+TK_default_model="default_model"=26
+TK_variable="variable"=27
+WS_=28
+OPERATOR("operator")=29
+ML_COMMENT=30
+SL_COMMENT=31
+COLON(":")=32
+SEMICOLON(";")=33
+COMMA(",")=34
+PAROPEN("(")=35
+PARCLOSE(")")=36
+SQUAREOPEN("[")=37
+SQUARECLOSE("]")=38
+CURLYOPEN("{")=39
+CURLYCLOSE("}")=40
+GLOBAL("global")=41
+QUOTED_STR_ESC=42
+ID("an identifier")=43
+INT=44
+CONSTANT("a constant scalar")=45

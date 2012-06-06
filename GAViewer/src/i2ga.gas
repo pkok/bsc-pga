@@ -1,0 +1,163 @@
+#profile for 6 dimensional geometric algebra 'i2ga'
+dimension 6
+name "i2ga"
+dirname "i2ga_gaviewer"
+floattype double
+customfloatheader 
+customfloatclass 
+memman max
+memfactor 1.500000
+function 66055167
+license 0
+licensefile "custom_license.txt"
+generateoption 161
+signature 0: 1
+basisvectorname 0: e1
+signature 1: 1
+basisvectorname 1: e2
+signature 2: 0
+basisvectorname 2: no
+signature 3: 0
+basisvectorname 3: ni
+signature 4: 0
+basisvectorname 4: go
+signature 5: 0
+basisvectorname 5: gi
+sign 0: 1
+sign 1: 1
+sign 2: 1
+sign 3: 1
+sign 4: 1
+sign 5: 1
+sign 6: 1
+sign 7: 1
+sign 8: 1
+sign 9: 1
+sign 10: 1
+sign 11: 1
+sign 12: 1
+sign 13: 1
+sign 14: 1
+sign 15: 1
+sign 16: 1
+sign 17: 1
+sign 18: 1
+sign 19: 1
+sign 20: 1
+sign 21: 1
+sign 22: 1
+sign 23: 1
+sign 24: 1
+sign 25: 1
+sign 26: 1
+sign 27: 1
+sign 28: 1
+sign 29: 1
+sign 30: 1
+sign 31: 1
+sign 32: 1
+sign 33: 1
+sign 34: 1
+sign 35: 1
+sign 36: 1
+sign 37: 1
+sign 38: 1
+sign 39: 1
+sign 40: 1
+sign 41: 1
+sign 42: 1
+sign 43: 1
+sign 44: 1
+sign 45: 1
+sign 46: 1
+sign 47: 1
+sign 48: 1
+sign 49: 1
+sign 50: 1
+sign 51: 1
+sign 52: 1
+sign 53: 1
+sign 54: 1
+sign 55: 1
+sign 56: 1
+sign 57: 1
+sign 58: 1
+sign 59: 1
+sign 60: 1
+sign 61: 1
+sign 62: 1
+sign 63: 1
+order 0: 0
+order 1: 1
+order 2: 2
+order 3: 4
+order 4: 8
+order 5: 16
+order 6: 32
+order 7: 3
+order 8: 5
+order 9: 6
+order 10: 9
+order 11: 10
+order 12: 12
+order 13: 17
+order 14: 18
+order 15: 20
+order 16: 24
+order 17: 33
+order 18: 34
+order 19: 36
+order 20: 40
+order 21: 48
+order 22: 7
+order 23: 11
+order 24: 13
+order 25: 14
+order 26: 19
+order 27: 21
+order 28: 22
+order 29: 25
+order 30: 26
+order 31: 28
+order 32: 35
+order 33: 37
+order 34: 38
+order 35: 41
+order 36: 42
+order 37: 44
+order 38: 49
+order 39: 50
+order 40: 52
+order 41: 56
+order 42: 15
+order 43: 23
+order 44: 27
+order 45: 29
+order 46: 30
+order 47: 39
+order 48: 43
+order 49: 45
+order 50: 46
+order 51: 51
+order 52: 53
+order 53: 54
+order 54: 57
+order 55: 58
+order 56: 60
+order 57: 31
+order 58: 47
+order 59: 55
+order 60: 59
+order 61: 61
+order 62: 62
+order 63: 63
+product gp
+product hip
+product mhip
+product lcont
+product rcont
+product op
+product scp
+reciprocal 2 3 signature: -1
+reciprocal 4 5 signature: -1
+dispatch LUT

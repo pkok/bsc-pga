@@ -1,0 +1,61 @@
+1 + 1
+a + b
+e1 ^ ni ^ einf
+c = a b + dual(e1 ^ e2)
+
+Put layer between yylex and parser. 
+This layer removes geometric product operators
+selectively? Only 
+
+terminal symbols:
+NUMBER
+VAR (look up name in lexer <- all the trash goes here... NO TRASH? Only LHS can introduce new names???)
+FUNC (look up name in lexer)
+
+PAR_OPEN   : (
+PAR_CLOSE  : )
+OPERATOR_OP : ^
+OPERATOR_GP : space?
+OPERATOR_PLUS
+OPERATOR_PLUS
+OPERATOR_PLUS
+OPERATOR_PLUS
+*+-+-+-
+
+
+grammar:
+exprlist: exprlist expr ;
+	|		exprlist expr 
+	| expr ;
+	| expr ,
+
+
+expr: 
+	VAR = expr
+	| VAR operatorlist expr
+	| VAR expr
+	FUNC (arglist)
+
+operatorlist:
+	  operatorlist OP
+	| OP
+	
+
+lexer:
+terminal symbols:
+NUMBER 
+VAR (look up name in lexer <- all the trash goes here...)
+FUNC (look up name in lexer)
+
+auto casting to highest grade?
+(casting)functions:
+c3ga(e3ga)
+c3ga(p3ga)
+e3ga(etc etc)
+p3ga(etc etc)
+c3ga_point(scalar, scalar, scalar) -> C func1
+c3ga_point(e3ga vector) -> C func2
+dual(e3ga) -> e3ga_dual
+
+
+
