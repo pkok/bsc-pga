@@ -64,12 +64,6 @@ int c3gaRve3(c3ga &R, const c3ga &v) {
 	return 0;
 }
 
-int pl3gaRve3(pl3ga &R, const pl3ga &v) {
-	R = 1.0 + v.normal() * pl3ga::e3;
-	if (sqrt(R.norm_a()) < 1e-8) R = pl3ga::e3 ^ pl3ga::e1; // any 180 degree rot in a plane containing e3?
-	return 0;
-}
-
 
 
 

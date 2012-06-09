@@ -32,8 +32,7 @@ consoleVariable::consoleVariable(const std::string &pname, const consoleVariable
 	else if (cv->model() == MVI_P3GA) set((pname.length() > 0) ? pname : cv->name(), &cv->p());
 	else if (cv->model() == MVI_C3GA) set((pname.length() > 0) ? pname : cv->name(), &cv->c());
 	else if (cv->model() == MVI_C5GA) set((pname.length() > 0) ? pname : cv->name(), &cv->c5());
-	else if (cv->model() == MVI_I2GA) set((pname.length() > 0) ? pname : cv->name(), &cv->i2());
-	else if (cv->model() == MVI_PL3GA) set((pname.length() > 0) ? pname : cv->name(), &cv->pl());
+	else if (cv->model() == MVI_L3GA) set((pname.length() > 0) ? pname : cv->name(), &cv->l3());
 
 	// copy other properties
 	m_op = cv->op();
@@ -68,12 +67,7 @@ consoleVariable::consoleVariable(const std::string &name, const c5ga *mv) {
 	set(name, mv);
 }
 
-consoleVariable::consoleVariable(const std::string &name, const i2ga *mv) {
-	initToNothing();
-	set(name, mv);
-}
-
-consoleVariable::consoleVariable(const std::string &name, const pl3ga *mv) {
+consoleVariable::consoleVariable(const std::string &name, const l3ga *mv) {
 	initToNothing();
 	set(name, mv);
 }
@@ -98,12 +92,7 @@ consoleVariable::consoleVariable(const std::string &name, const c5ga &mv) {
 	set(name, &mv);
 }
 
-consoleVariable::consoleVariable(const std::string &name, const i2ga &mv) {
-	initToNothing();
-	set(name, &mv);
-}
-
-consoleVariable::consoleVariable(const std::string &name, const pl3ga &mv) {
+consoleVariable::consoleVariable(const std::string &name, const l3ga &mv) {
 	initToNothing();
 	set(name, &mv);
 }
@@ -148,10 +137,8 @@ void consoleVariable::deleteMV() {
 		case MVI_C5GA:
 			delete (c5ga*)m_mv;
 			break;
-		case MVI_I2GA:
-			delete (i2ga*)m_mv;
-		case MVI_PL3GA:
-			delete (pl3ga*)m_mv;
+		case MVI_L3GA:
+			delete (l3ga*)m_mv;
 			break;
 		}
 	}
@@ -184,10 +171,8 @@ void consoleVariable::set(const consoleVariable &cv) {
 	case MVI_C5GA:
 		m_mv = new c5ga(*(c5ga*)cv.m_mv);
 		break;
-	case MVI_I2GA:
-		m_mv = new i2ga(*(i2ga*)cv.m_mv);
-  case MVI_PL3GA:
-    m_mv = new pl3ga(*(pl3ga*)cv.m_mv);
+	case MVI_L3GA:
+		m_mv = new l3ga(*(l3ga*)cv.m_mv);
 		break;
 	}
 
@@ -260,7 +245,7 @@ int consoleVariable::set(const std::string &pname, const c5ga *mv) {
 	return (m_mv == NULL) ? -1 : 0;
 }
 
-int consoleVariable::set(const std::string &pname, const i2ga *mv) {
+int consoleVariable::set(const std::string &pname, const l3ga *mv) {
 	int err;
 	if (err = name(pname)) return err;
 
@@ -268,24 +253,9 @@ int consoleVariable::set(const std::string &pname, const i2ga *mv) {
 	m_drawMode = OD_MAGNITUDE; // | OD_ORI;
 	for (i = 0; i < 4; i++) m_color[i] = g_state->m_fgColor[i];
 
-	m_mv = (void*)(new i2ga(*mv));
+	m_mv = (void*)(new l3ga(*mv));
 
-	m_model = MVI_I2GA;
-
-	return (m_mv == NULL) ? -1 : 0;
-}
-
-int consoleVariable::set(const std::string &pname, const pl3ga *mv) {
-	int err;
-	if (err = name(pname)) return err;
-
-	int i;
-	m_drawMode = OD_MAGNITUDE; // | OD_ORI;
-	for (i = 0; i < 4; i++) m_color[i] = g_state->m_fgColor[i];
-
-	m_mv = (void*)(new pl3ga(*mv));
-
-	m_model = MVI_PL3GA;
+	m_model = MVI_L3GA;
 
 	return (m_mv == NULL) ? -1 : 0;
 }
@@ -312,14 +282,9 @@ c5ga &consoleVariable::c5() const {
 	return (model() == MVI_C5GA) ? *(c5ga*)m_mv : null;
 }
 
-i2ga &consoleVariable::i2() const {
-	static i2ga null;
-	return (model() == MVI_I2GA) ? *(i2ga*)m_mv : null;
-}
-
-pl3ga &consoleVariable::pl() const {
-  static pl3ga null;
-  return (model() == MVI_PL3GA) ? *(pl3ga*)m_mv : null;
+l3ga &consoleVariable::l3() const {
+	static l3ga null;
+	return (model() == MVI_L3GA) ? *(l3ga*)m_mv : null;
 }
 
 int consoleVariable::model() const {
@@ -341,12 +306,9 @@ mvInt *consoleVariable::interpretation() const {
 	case MVI_C5GA:
 		mvi = new mvInt(c5());
 		break;
-	case MVI_I2GA:
-		mvi = new mvInt(i2());
+	case MVI_L3GA:
+		mvi = new mvInt(l3());
 		break;
-  case MVI_PL3GA:
-    mvi = new mvInt(pl());
-    break;
 	}
 	return mvi;
 }
@@ -366,11 +328,8 @@ int consoleVariable::grade() const {
 	case MVI_C5GA:
 		type = c5().mvType(&grade); 
 		break;
-	case MVI_I2GA:
-		type = i2().mvType(&grade); 
-		break;
-	case MVI_PL3GA:
-		type = pl().mvType(&grade); 
+	case MVI_L3GA:
+		type = l3().mvType(&grade); 
 		break;
 	}
 
@@ -396,11 +355,8 @@ int consoleVariable::print(const char *str) const {
 	case MVI_C5GA:
 		c5().print(str, "%f");
 		break;
-	case MVI_I2GA:
-		i2().print(str, "%f");
-		break;
-	case MVI_PL3GA:
-		pl().print(str, "%f");
+	case MVI_L3GA:
+		l3().print(str, "%f");
 		break;
 	default:
 		printf("%s: unknown model\n", str);
@@ -423,11 +379,8 @@ const char *consoleVariable::string() const {
 	case MVI_C5GA:
 		return c5().string("%e");
 		
-	case MVI_I2GA:
-		return i2().string("%e");
-		
-	case MVI_PL3GA:
-		return pl().string("%e");
+	case MVI_L3GA:
+		return l3().string("%e");
 		
 	default:
 		return "unknown model";
@@ -451,11 +404,8 @@ int consoleVariable::isTrue() const {
 	case MVI_C5GA:
 		return (c5().norm_a() != 0.0);
 		break;
-	case MVI_I2GA:
-		return (i2().norm_a() != 0.0);
-		break;
-	case MVI_PL3GA:
-		return (pl().norm_a() != 0.0);
+	case MVI_L3GA:
+		return (l3().norm_a() != 0.0);
 		break;
 	}
 	return 0;
@@ -475,8 +425,8 @@ GAIM_FLOAT consoleVariable::scalar() const {
 	case MVI_C5GA:
 		return c5().scalar();
 		break;
-	case MVI_PL3GA:
-		return pl().scalar();
+	case MVI_L3GA:
+		return l3().scalar();
 		break;
 	}
 	return 0;
@@ -1065,261 +1015,221 @@ consoleVariable *consoleVariable::castC3gaToC5ga() const {
 }
 
 
-consoleVariable *consoleVariable::castE3gaToI2ga() const {
-	i2ga vi2;
+consoleVariable *consoleVariable::castE3gaToL3ga() const {
+	l3ga vl3;
 	const e3ga &ve = e();
 
 	// only e1, e2 are preserved
-	vi2 = 
+	vl3 = 
 		// grade 0
 		ve.scalar() + 
 		// grade 1
-		ve[GRADE1][E3GA_E1] * i2ga::e1 + 
-		ve[GRADE1][E3GA_E2] * i2ga::e2 + 
+		ve[GRADE1][E3GA_E1] * l3ga::e1 + 
+		ve[GRADE1][E3GA_E2] * l3ga::e2 + 
 		// grade 2
-		ve[GRADE2][E3GA_E1_E2] * (i2ga::e1 ^ i2ga::e2);
+		ve[GRADE2][E3GA_E1_E2] * (l3ga::e1 ^ l3ga::e2);
 
-	vi2.compress();
-	return new consoleVariable("", vi2);
+	vl3.compress();
+	return new consoleVariable("", vl3);
 }
 
-
-consoleVariable *consoleVariable::castP3gaToI2ga() const {
-	i2ga vi2;
+consoleVariable *consoleVariable::castP3gaToL3ga() const {
+	l3ga vl3;
 	const p3ga &vp = p();
 
 	// e1, e2, e0 (-> no) are preserved
-	vi2 = 
+	vl3 = 
 		// grade 0
 		vp.scalar() + 
 		// grade 1
-		vp[GRADE1][P3GA_E1] * i2ga::e1 + 
-		vp[GRADE1][P3GA_E2] * i2ga::e2 + 
-		vp[GRADE1][P3GA_E0] * i2ga::no + 
+		vp[GRADE1][P3GA_E1] * l3ga::e1 + 
+		vp[GRADE1][P3GA_E2] * l3ga::e2 + 
+		vp[GRADE1][P3GA_E0] * l3ga::no + 
 		// grade 2
-		vp[GRADE2][P3GA_E1_E2] * (i2ga::e1 ^ i2ga::e2) +
-		vp[GRADE2][P3GA_E1_E0] * (i2ga::e1 ^ i2ga::no) +
-		vp[GRADE2][P3GA_E2_E0] * (i2ga::e2 ^ i2ga::no) +
+		vp[GRADE2][P3GA_E1_E2] * (l3ga::e1 ^ l3ga::e2) +
+		vp[GRADE2][P3GA_E1_E0] * (l3ga::e1 ^ l3ga::no) +
+		vp[GRADE2][P3GA_E2_E0] * (l3ga::e2 ^ l3ga::no) +
 		// grade 3
-		vp[GRADE2][P3GA_E1_E2_E0] * (i2ga::e1 ^ i2ga::e2 ^ i2ga::no);
+		vp[GRADE2][P3GA_E1_E2_E0] * (l3ga::e1 ^ l3ga::e2 ^ l3ga::no);
 
-	vi2.compress();
-	return new consoleVariable("", vi2);
+	vl3.compress();
+	return new consoleVariable("", vl3);
 }
 
 
-consoleVariable *consoleVariable::castC3gaToI2ga() const {
-	i2ga vi2;
+consoleVariable *consoleVariable::castC3gaToL3ga() const {
+	l3ga vl3;
 	const c3ga &vc = c();
 
 	// e1, e2, ni, no are preserved
-	vi2 = 
+	vl3 = 
 		// grade 0
 		vc.scalar() + 
 		// grade 1
-		vc[GRADE1][C3GA_E1] * i2ga::e1 + 
-		vc[GRADE1][C3GA_E2] * i2ga::e2 + 
-		vc[GRADE1][C3GA_NO] * i2ga::no + 
-		vc[GRADE1][C3GA_NI] * i2ga::ni + 
+		vc[GRADE1][C3GA_E1] * l3ga::e1 + 
+		vc[GRADE1][C3GA_E2] * l3ga::e2 + 
+		vc[GRADE1][C3GA_NO] * l3ga::no + 
+		vc[GRADE1][C3GA_NI] * l3ga::ni + 
 		// grade 2
-		vc[GRADE2][C3GA_E1_E2] * (i2ga::e1 ^ i2ga::e2) +
-		vc[GRADE2][C3GA_E1_NO] * (i2ga::e1 ^ i2ga::no) +
-		vc[GRADE2][C3GA_E2_NO] * (i2ga::e2 ^ i2ga::no) +
-		vc[GRADE2][C3GA_E1_NI] * (i2ga::e1 ^ i2ga::ni) +
-		vc[GRADE2][C3GA_E2_NI] * (i2ga::e2 ^ i2ga::ni) +
-		vc[GRADE2][C3GA_NO_NI] * (i2ga::no ^ i2ga::ni) +
+		vc[GRADE2][C3GA_E1_E2] * (l3ga::e1 ^ l3ga::e2) +
+		vc[GRADE2][C3GA_E1_NO] * (l3ga::e1 ^ l3ga::no) +
+		vc[GRADE2][C3GA_E2_NO] * (l3ga::e2 ^ l3ga::no) +
+		vc[GRADE2][C3GA_E1_NI] * (l3ga::e1 ^ l3ga::ni) +
+		vc[GRADE2][C3GA_E2_NI] * (l3ga::e2 ^ l3ga::ni) +
+		vc[GRADE2][C3GA_NO_NI] * (l3ga::no ^ l3ga::ni) +
 		// grade 3
-		vc[GRADE2][C3GA_E1_E2_NO] * (i2ga::e1 ^ i2ga::e2 ^ i2ga::no) + 
-		vc[GRADE2][C3GA_E1_E2_NI] * (i2ga::e1 ^ i2ga::e2 ^ i2ga::ni) + 
-		vc[GRADE2][C3GA_E1_NO_NI] * (i2ga::e1 ^ i2ga::no ^ i2ga::ni) + 
-		vc[GRADE2][C3GA_E2_NO_NI] * (i2ga::e2 ^ i2ga::no ^ i2ga::ni) + 
+		vc[GRADE2][C3GA_E1_E2_NO] * (l3ga::e1 ^ l3ga::e2 ^ l3ga::no) + 
+		vc[GRADE2][C3GA_E1_E2_NI] * (l3ga::e1 ^ l3ga::e2 ^ l3ga::ni) + 
+		vc[GRADE2][C3GA_E1_NO_NI] * (l3ga::e1 ^ l3ga::no ^ l3ga::ni) + 
+		vc[GRADE2][C3GA_E2_NO_NI] * (l3ga::e2 ^ l3ga::no ^ l3ga::ni) + 
 		// grade 4
-		vc[GRADE2][C3GA_E1_E2_NO_NI] * (i2ga::e1 ^ i2ga::e2 ^ i2ga::no ^ i2ga::ni);
+		vc[GRADE2][C3GA_E1_E2_NO_NI] * (l3ga::e1 ^ l3ga::e2 ^ l3ga::no ^ l3ga::ni);
 
-	vi2.compress();
-	return new consoleVariable("", vi2);
+	vl3.compress();
+	return new consoleVariable("", vl3);
 
 }
 
-consoleVariable *consoleVariable::castC5gaToI2ga() const {
-	i2ga vi2;
+consoleVariable *consoleVariable::castC5gaToL3ga() const {
+	l3ga vl3;
 	const c5ga &vc = c5();
 
 	// e1, e2, ni, no are preserved
-	vi2 = 
+	vl3 = 
 		// grade 0
 		vc.scalar() + 
 		// grade 1
-		vc[GRADE1][C5GA_E1] * i2ga::e1 + 
-		vc[GRADE1][C5GA_E2] * i2ga::e2 + 
-		vc[GRADE1][C5GA_NO] * i2ga::no + 
-		vc[GRADE1][C5GA_NI] * i2ga::ni + 
+		vc[GRADE1][C5GA_E1] * l3ga::e1 + 
+		vc[GRADE1][C5GA_E2] * l3ga::e2 + 
+		vc[GRADE1][C5GA_NO] * l3ga::no + 
+		vc[GRADE1][C5GA_NI] * l3ga::ni + 
 		// grade 2
-		vc[GRADE2][C5GA_E1_E2] * (i2ga::e1 ^ i2ga::e2) +
-		vc[GRADE2][C5GA_E1_NO] * (i2ga::e1 ^ i2ga::no) +
-		vc[GRADE2][C5GA_E2_NO] * (i2ga::e2 ^ i2ga::no) +
-		vc[GRADE2][C5GA_E1_NI] * (i2ga::e1 ^ i2ga::ni) +
-		vc[GRADE2][C5GA_E2_NI] * (i2ga::e2 ^ i2ga::ni) +
-		vc[GRADE2][C5GA_NO_NI] * (i2ga::no ^ i2ga::ni) +
+		vc[GRADE2][C5GA_E1_E2] * (l3ga::e1 ^ l3ga::e2) +
+		vc[GRADE2][C5GA_E1_NO] * (l3ga::e1 ^ l3ga::no) +
+		vc[GRADE2][C5GA_E2_NO] * (l3ga::e2 ^ l3ga::no) +
+		vc[GRADE2][C5GA_E1_NI] * (l3ga::e1 ^ l3ga::ni) +
+		vc[GRADE2][C5GA_E2_NI] * (l3ga::e2 ^ l3ga::ni) +
+		vc[GRADE2][C5GA_NO_NI] * (l3ga::no ^ l3ga::ni) +
 		// grade 3
-		vc[GRADE2][C5GA_E1_E2_NO] * (i2ga::e1 ^ i2ga::e2 ^ i2ga::no) + 
-		vc[GRADE2][C5GA_E1_E2_NI] * (i2ga::e1 ^ i2ga::e2 ^ i2ga::ni) + 
-		vc[GRADE2][C5GA_E1_NO_NI] * (i2ga::e1 ^ i2ga::no ^ i2ga::ni) + 
-		vc[GRADE2][C5GA_E2_NO_NI] * (i2ga::e2 ^ i2ga::no ^ i2ga::ni) + 
+		vc[GRADE2][C5GA_E1_E2_NO] * (l3ga::e1 ^ l3ga::e2 ^ l3ga::no) + 
+		vc[GRADE2][C5GA_E1_E2_NI] * (l3ga::e1 ^ l3ga::e2 ^ l3ga::ni) + 
+		vc[GRADE2][C5GA_E1_NO_NI] * (l3ga::e1 ^ l3ga::no ^ l3ga::ni) + 
+		vc[GRADE2][C5GA_E2_NO_NI] * (l3ga::e2 ^ l3ga::no ^ l3ga::ni) + 
 		// grade 4
-		vc[GRADE2][C5GA_E1_E2_NO_NI] * (i2ga::e1 ^ i2ga::e2 ^ i2ga::no ^ i2ga::ni);
+		vc[GRADE2][C5GA_E1_E2_NO_NI] * (l3ga::e1 ^ l3ga::e2 ^ l3ga::no ^ l3ga::ni);
 
-	vi2.compress();
-	return new consoleVariable("", vi2);
+	vl3.compress();
+	return new consoleVariable("", vl3);
 
 }
 
-consoleVariable *consoleVariable::castI2gaToE3ga() const {
+consoleVariable *consoleVariable::castL3gaToE3ga() const {
 	e3ga ve;
-	const i2ga &vi2 = i2();
+	const l3ga &vl3 = l3();
 
 	// only e1, e2 are preserved
 	ve = 
 		// grade 0
-		vi2.scalar() + 
+		vl3.scalar() + 
 		// grade 1
-		vi2[GRADE1][I2GA_E1] * e3ga::e1 + 
-		vi2[GRADE1][I2GA_E2] * e3ga::e2 + 
+		vl3[GRADE1][L3GA_E1] * e3ga::e1 + 
+		vl3[GRADE1][L3GA_E2] * e3ga::e2 + 
 		// grade 2
-		vi2[GRADE2][I2GA_E1_E2] * (e3ga::e1 ^ e3ga::e2);
+		vl3[GRADE2][L3GA_E1_E2] * (e3ga::e1 ^ e3ga::e2);
 
 	ve.compress();
 	return new consoleVariable("", ve);
 }
 
-consoleVariable *consoleVariable::castI2gaToP3ga() const {
+consoleVariable *consoleVariable::castL3gaToP3ga() const {
 	p3ga vp;
-	const i2ga &vi2 = i2();
+	const l3ga &vl3 = l3();
 
 	// e1, e2, e0 (-> no) are preserved
 	vp = 
 		// grade 0
-		vi2.scalar() + 
+		vl3.scalar() + 
 		// grade 1
-		vi2[GRADE1][I2GA_E1] * p3ga::e1 + 
-		vi2[GRADE1][I2GA_E2] * p3ga::e2 + 
-		vi2[GRADE1][I2GA_NO] * p3ga::e0 + 
+		vl3[GRADE1][L3GA_E1] * p3ga::e1 + 
+		vl3[GRADE1][L3GA_E2] * p3ga::e2 + 
+		vl3[GRADE1][L3GA_NO] * p3ga::e0 + 
 		// grade 2
-		vi2[GRADE2][I2GA_E1_E2] * (p3ga::e1 ^ p3ga::e2) +
-		vi2[GRADE2][I2GA_E1_NO] * (p3ga::e1 ^ p3ga::e0) +
-		vi2[GRADE2][I2GA_E2_NO] * (p3ga::e2 ^ p3ga::e0) +
+		vl3[GRADE2][L3GA_E1_E2] * (p3ga::e1 ^ p3ga::e2) +
+		vl3[GRADE2][L3GA_E1_NO] * (p3ga::e1 ^ p3ga::e0) +
+		vl3[GRADE2][L3GA_E2_NO] * (p3ga::e2 ^ p3ga::e0) +
 		// grade 3
-		vi2[GRADE2][I2GA_E1_E2_NO] * (p3ga::e1 ^ p3ga::e2 ^ p3ga::e0);
+		vl3[GRADE2][L3GA_E1_E2_NO] * (p3ga::e1 ^ p3ga::e2 ^ p3ga::e0);
 
 	vp.compress();
 	return new consoleVariable("", vp);
 }
 
-consoleVariable *consoleVariable::castI2gaToC3ga() const {
+consoleVariable *consoleVariable::castL3gaToC3ga() const {
 	c3ga vc;
-	const i2ga &vi2 = i2();
+	const l3ga &vl3 = l3();
 
 	// e1, e2, ni, no are preserved
 	vc = 
 		// grade 0
-		vi2.scalar() + 
+		vl3.scalar() + 
 		// grade 1
-		vi2[GRADE1][I2GA_E1] * c3ga::e1 + 
-		vi2[GRADE1][I2GA_E2] * c3ga::e2 + 
-		vi2[GRADE1][I2GA_NO] * c3ga::no + 
-		vi2[GRADE1][I2GA_NI] * c3ga::ni + 
+		vl3[GRADE1][L3GA_E1] * c3ga::e1 + 
+		vl3[GRADE1][L3GA_E2] * c3ga::e2 + 
+		vl3[GRADE1][L3GA_NO] * c3ga::no + 
+		vl3[GRADE1][L3GA_NI] * c3ga::ni + 
 		// grade 2
-		vi2[GRADE2][I2GA_E1_E2] * (c3ga::e1 ^ c3ga::e2) +
-		vi2[GRADE2][I2GA_E1_NO] * (c3ga::e1 ^ c3ga::no) +
-		vi2[GRADE2][I2GA_E2_NO] * (c3ga::e2 ^ c3ga::no) +
-		vi2[GRADE2][I2GA_E1_NI] * (c3ga::e1 ^ c3ga::ni) +
-		vi2[GRADE2][I2GA_E2_NI] * (c3ga::e2 ^ c3ga::ni) +
-		vi2[GRADE2][I2GA_NO_NI] * (c3ga::no ^ c3ga::ni) +
+		vl3[GRADE2][L3GA_E1_E2] * (c3ga::e1 ^ c3ga::e2) +
+		vl3[GRADE2][L3GA_E1_NO] * (c3ga::e1 ^ c3ga::no) +
+		vl3[GRADE2][L3GA_E2_NO] * (c3ga::e2 ^ c3ga::no) +
+		vl3[GRADE2][L3GA_E1_NI] * (c3ga::e1 ^ c3ga::ni) +
+		vl3[GRADE2][L3GA_E2_NI] * (c3ga::e2 ^ c3ga::ni) +
+		vl3[GRADE2][L3GA_NO_NI] * (c3ga::no ^ c3ga::ni) +
 		// grade 3
-		vi2[GRADE2][I2GA_E1_E2_NO] * (c3ga::e1 ^ c3ga::e2 ^ c3ga::no) + 
-		vi2[GRADE2][I2GA_E1_E2_NI] * (c3ga::e1 ^ c3ga::e2 ^ c3ga::ni) + 
-		vi2[GRADE2][I2GA_E1_NO_NI] * (c3ga::e1 ^ c3ga::no ^ c3ga::ni) + 
-		vi2[GRADE2][I2GA_E2_NO_NI] * (c3ga::e2 ^ c3ga::no ^ c3ga::ni) + 
+		vl3[GRADE2][L3GA_E1_E2_NO] * (c3ga::e1 ^ c3ga::e2 ^ c3ga::no) + 
+		vl3[GRADE2][L3GA_E1_E2_NI] * (c3ga::e1 ^ c3ga::e2 ^ c3ga::ni) + 
+		vl3[GRADE2][L3GA_E1_NO_NI] * (c3ga::e1 ^ c3ga::no ^ c3ga::ni) + 
+		vl3[GRADE2][L3GA_E2_NO_NI] * (c3ga::e2 ^ c3ga::no ^ c3ga::ni) + 
 		// grade 4
-		vi2[GRADE2][I2GA_E1_E2_NO_NI] * (c3ga::e1 ^ c3ga::e2 ^ c3ga::no ^ c3ga::ni);
+		vl3[GRADE2][L3GA_E1_E2_NO_NI] * (c3ga::e1 ^ c3ga::e2 ^ c3ga::no ^ c3ga::ni);
 
 	vc.compress();
 	return new consoleVariable("", vc);
 
 }
 
-consoleVariable *consoleVariable::castI2gaToC5ga() const {
+consoleVariable *consoleVariable::castL3gaToC5ga() const {
 	c5ga vc;
-	const i2ga &vi2 = i2();
+	const l3ga &vl3 = l3();
 
 	// e1, e2, ni, no are preserved
 	vc = 
 		// grade 0
-		vi2.scalar() + 
+		vl3.scalar() + 
 		// grade 1
-		vi2[GRADE1][I2GA_E1] * c5ga::e1 + 
-		vi2[GRADE1][I2GA_E2] * c5ga::e2 + 
-		vi2[GRADE1][I2GA_NO] * c5ga::no + 
-		vi2[GRADE1][I2GA_NI] * c5ga::ni + 
+		vl3[GRADE1][L3GA_E1] * c5ga::e1 + 
+		vl3[GRADE1][L3GA_E2] * c5ga::e2 + 
+		vl3[GRADE1][L3GA_NO] * c5ga::no + 
+		vl3[GRADE1][L3GA_NI] * c5ga::ni + 
 		// grade 2
-		vi2[GRADE2][I2GA_E1_E2] * (c5ga::e1 ^ c5ga::e2) +
-		vi2[GRADE2][I2GA_E1_NO] * (c5ga::e1 ^ c5ga::no) +
-		vi2[GRADE2][I2GA_E2_NO] * (c5ga::e2 ^ c5ga::no) +
-		vi2[GRADE2][I2GA_E1_NI] * (c5ga::e1 ^ c5ga::ni) +
-		vi2[GRADE2][I2GA_E2_NI] * (c5ga::e2 ^ c5ga::ni) +
-		vi2[GRADE2][I2GA_NO_NI] * (c5ga::no ^ c5ga::ni) +
+		vl3[GRADE2][L3GA_E1_E2] * (c5ga::e1 ^ c5ga::e2) +
+		vl3[GRADE2][L3GA_E1_NO] * (c5ga::e1 ^ c5ga::no) +
+		vl3[GRADE2][L3GA_E2_NO] * (c5ga::e2 ^ c5ga::no) +
+		vl3[GRADE2][L3GA_E1_NI] * (c5ga::e1 ^ c5ga::ni) +
+		vl3[GRADE2][L3GA_E2_NI] * (c5ga::e2 ^ c5ga::ni) +
+		vl3[GRADE2][L3GA_NO_NI] * (c5ga::no ^ c5ga::ni) +
 		// grade 3
-		vi2[GRADE2][I2GA_E1_E2_NO] * (c5ga::e1 ^ c5ga::e2 ^ c5ga::no) + 
-		vi2[GRADE2][I2GA_E1_E2_NI] * (c5ga::e1 ^ c5ga::e2 ^ c5ga::ni) + 
-		vi2[GRADE2][I2GA_E1_NO_NI] * (c5ga::e1 ^ c5ga::no ^ c5ga::ni) + 
-		vi2[GRADE2][I2GA_E2_NO_NI] * (c5ga::e2 ^ c5ga::no ^ c5ga::ni) + 
+		vl3[GRADE2][L3GA_E1_E2_NO] * (c5ga::e1 ^ c5ga::e2 ^ c5ga::no) + 
+		vl3[GRADE2][L3GA_E1_E2_NI] * (c5ga::e1 ^ c5ga::e2 ^ c5ga::ni) + 
+		vl3[GRADE2][L3GA_E1_NO_NI] * (c5ga::e1 ^ c5ga::no ^ c5ga::ni) + 
+		vl3[GRADE2][L3GA_E2_NO_NI] * (c5ga::e2 ^ c5ga::no ^ c5ga::ni) + 
 		// grade 4
-		vi2[GRADE2][I2GA_E1_E2_NO_NI] * (c5ga::e1 ^ c5ga::e2 ^ c5ga::no ^ c5ga::ni);
+		vl3[GRADE2][L3GA_E1_E2_NO_NI] * (c5ga::e1 ^ c5ga::e2 ^ c5ga::no ^ c5ga::ni);
 
 	vc.compress();
 	return new consoleVariable("", vc);
 
 }
 
-consoleVariable *consoleVariable::castPL3gaToE3ga() const {
-  return new consoleVariable("", e());
-}
-
-consoleVariable *consoleVariable::castPL3gaToP3ga() const {
-  return new consoleVariable("", p());
-}
-
-consoleVariable *consoleVariable::castPL3gaToC3ga() const {
-  return new consoleVariable("", c());
-}
-
-consoleVariable *consoleVariable::castPL3gaToC5ga() const {
-  return new consoleVariable("", c5());
-}
-
-consoleVariable *consoleVariable::castPL3gaToI2ga() const {
-  return new consoleVariable("", i2());
-}
-
-consoleVariable *consoleVariable::castE3gaToPL3ga() const {
-  return new consoleVariable("", pl());
-}
-
-consoleVariable *consoleVariable::castP3gaToPL3ga() const {
-  return new consoleVariable("", pl());
-}
-
-consoleVariable *consoleVariable::castC3gaToPL3ga() const {
-  return new consoleVariable("", pl());
-}
-
-consoleVariable *consoleVariable::castC5gaToPL3ga() const {
-  return new consoleVariable("", pl());
-}
-
-consoleVariable *consoleVariable::castI2gaToPL3ga() const {
-  return new consoleVariable("", pl());
-}
 
 consoleVariable *consoleVariable::castToE3ga() const {
 	switch (model()) {
@@ -1335,11 +1245,8 @@ consoleVariable *consoleVariable::castToE3ga() const {
 	case MVI_C5GA:
 		return castC5gaToE3ga();
 		break;
-	case MVI_I2GA:
-		return castI2gaToE3ga();
-		break;
-	case MVI_PL3GA:
-		return castPL3gaToE3ga();
+	case MVI_L3GA:
+		return castL3gaToE3ga();
 		break;
 	}
 	return NULL;
@@ -1359,11 +1266,8 @@ consoleVariable *consoleVariable::castToP3ga() const {
 	case MVI_C5GA:
 		return castC5gaToP3ga();
 		break;
-	case MVI_I2GA:
-		return castI2gaToP3ga();
-		break;
-	case MVI_PL3GA:
-		return castPL3gaToP3ga();
+	case MVI_L3GA:
+		return castL3gaToP3ga();
 		break;
 	}
 	return NULL;
@@ -1383,11 +1287,8 @@ consoleVariable *consoleVariable::castToC3ga() const {
 	case MVI_C5GA:
 		return castC5gaToC3ga();
 		break;
-	case MVI_I2GA:
-		return castI2gaToC3ga();
-		break;
-	case MVI_PL3GA:
-		return castPL3gaToC3ga();
+	case MVI_L3GA:
+		return castL3gaToC3ga();
 		break;
 	}
 	return NULL;
@@ -1407,59 +1308,29 @@ consoleVariable *consoleVariable::castToC5ga() const {
 	case MVI_C5GA:
 		return new consoleVariable("", c5());
 		break;
-	case MVI_I2GA:
-		return castI2gaToC5ga();
-		break;
-	case MVI_PL3GA:
-		return castPL3gaToC5ga();
+	case MVI_L3GA:
+		return castL3gaToC5ga();
 		break;
 	}
 	return NULL;
 }
 
-consoleVariable *consoleVariable::castToI2ga() const {
+consoleVariable *consoleVariable::castToL3ga() const {
 	switch (model()) {
 	case MVI_E3GA:
-		return castE3gaToI2ga();
+		return castE3gaToL3ga();
 		break;
 	case MVI_P3GA:
-		return castP3gaToI2ga();
+		return castP3gaToL3ga();
 		break;
 	case MVI_C3GA:
-		return castC3gaToI2ga();
+		return castC3gaToL3ga();
 		break;
 	case MVI_C5GA:
-		return castC5gaToI2ga();
+		return castC5gaToL3ga();
 		break;
-	case MVI_I2GA:
-		return new consoleVariable("", i2());
-		break;
-	case MVI_PL3GA:
-		return castPL3gaToI2ga();
-		break;
-	}
-	return NULL;
-}
-
-consoleVariable *consoleVariable::castToPL3ga() const {
-	switch (model()) {
-	case MVI_E3GA:
-		return castE3gaToPL3ga();
-		break;
-	case MVI_P3GA:
-		return castP3gaToPL3ga();
-		break;
-	case MVI_C3GA:
-		return castC3gaToPL3ga();
-		break;
-	case MVI_C5GA:
-		return castC5gaToPL3ga();
-		break;
-	case MVI_I2GA:
-		return castI2gaToPL3ga();
-		break;
-	case MVI_PL3GA:
-		return new consoleVariable("", pl());
+	case MVI_L3GA:
+		return new consoleVariable("", l3());
 		break;
 	}
 	return NULL;

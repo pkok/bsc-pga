@@ -41,14 +41,12 @@ public:
 	consoleVariable(const std::string &name, const p3ga &mv);
 	consoleVariable(const std::string &name, const c3ga &mv);
 	consoleVariable(const std::string &name, const c5ga &mv);
-	consoleVariable(const std::string &name, const i2ga &mv);
-	consoleVariable(const std::string &name, const pl3ga &mv);
+	consoleVariable(const std::string &name, const l3ga &mv);
 	consoleVariable(const std::string &name, const e3ga *mv);
 	consoleVariable(const std::string &name, const p3ga *mv);
 	consoleVariable(const std::string &name, const c3ga *mv);
 	consoleVariable(const std::string &name, const c5ga *mv);
-	consoleVariable(const std::string &name, const i2ga *mv);
-	consoleVariable(const std::string &name, const pl3ga *mv);
+	consoleVariable(const std::string &name, const l3ga *mv);
 	consoleVariable(const consoleVariable &cv);
 	~consoleVariable();
 
@@ -60,8 +58,7 @@ public:
 	int set(const std::string &name, const p3ga *mv);
 	int set(const std::string &name, const c3ga *mv);
 	int set(const std::string &name, const c5ga *mv);
-	int set(const std::string &name, const i2ga *mv);
-	int set(const std::string &name, const pl3ga *mv);
+	int set(const std::string &name, const l3ga *mv);
 	void set(const consoleVariable &cv);
 
 	/*int constant(int c); // set constant to true or false
@@ -88,15 +85,13 @@ public:
 	consoleVariable *castToP3ga() const;
 	consoleVariable *castToC3ga() const;
 	consoleVariable *castToC5ga() const;
-	consoleVariable *castToI2ga() const;
-	consoleVariable *castToPL3ga() const;
+	consoleVariable *castToL3ga() const;
 
 	e3ga &e() const;
 	p3ga &p() const;
 	c3ga &c() const;
 	c5ga &c5() const;
-	i2ga &i2() const;
-  pl3ga &pl() const;
+	l3ga &l3() const;
 
 	//mvInt *I() const;
 	int model() const;
@@ -160,38 +155,27 @@ protected:
 	consoleVariable *castE3gaToP3ga() const;
 	consoleVariable *castE3gaToC3ga() const;
 	consoleVariable *castE3gaToC5ga() const;
-	consoleVariable *castE3gaToI2ga() const;
-	consoleVariable *castE3gaToPL3ga() const;
+	consoleVariable *castE3gaToL3ga() const;
 
 	consoleVariable *castP3gaToE3ga() const;
 	consoleVariable *castP3gaToC3ga() const;
 	consoleVariable *castP3gaToC5ga() const;
-	consoleVariable *castP3gaToI2ga() const;
-	consoleVariable *castP3gaToPL3ga() const;
+	consoleVariable *castP3gaToL3ga() const;
 
 	consoleVariable *castC3gaToE3ga() const;
 	consoleVariable *castC3gaToP3ga() const;
 	consoleVariable *castC3gaToC5ga() const;
-	consoleVariable *castC3gaToI2ga() const;
-	consoleVariable *castC3gaToPL3ga() const;
+	consoleVariable *castC3gaToL3ga() const;
 
-	consoleVariable *castI2gaToE3ga() const;
-	consoleVariable *castI2gaToP3ga() const;
-	consoleVariable *castI2gaToC3ga() const;
-	consoleVariable *castI2gaToC5ga() const;
-	consoleVariable *castI2gaToPL3ga() const;
+	consoleVariable *castL3gaToE3ga() const;
+	consoleVariable *castL3gaToP3ga() const;
+	consoleVariable *castL3gaToC3ga() const;
+	consoleVariable *castL3gaToC5ga() const;
 
 	consoleVariable *castC5gaToE3ga() const;
 	consoleVariable *castC5gaToP3ga() const;
 	consoleVariable *castC5gaToC3ga() const;
-	consoleVariable *castC5gaToI2ga() const;
-	consoleVariable *castC5gaToPL3ga() const;
-
-	consoleVariable *castPL3gaToE3ga() const;
-	consoleVariable *castPL3gaToP3ga() const;
-	consoleVariable *castPL3gaToC3ga() const;
-	consoleVariable *castPL3gaToI2ga() const;
-	consoleVariable *castPL3gaToC5ga() const;
+	consoleVariable *castC5gaToL3ga() const;
 
 	void deleteMV();
 

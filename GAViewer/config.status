@@ -405,7 +405,7 @@ on `(hostname || uname -n) 2>/dev/null | sed 1q`
 "
 
 # Files that config.status was made for.
-config_files=" Makefile src/console/Makefile src/console/codegen/Makefile src/typeset/Makefile src/c3ga/Makefile src/c5ga/Makefile src/p3ga/Makefile src/e3ga/Makefile src/i2ga/Makefile src/pl3ga/Makefile src/Makefile vs.net/Makefile vs.2005/Makefile vs2008/Makefile txtfiles/Makefile"
+config_files=" Makefile src/console/Makefile src/console/codegen/Makefile src/typeset/Makefile src/c3ga/Makefile src/c5ga/Makefile src/p3ga/Makefile src/e3ga/Makefile src/l3ga/Makefile src/Makefile vs.net/Makefile vs.2005/Makefile vs2008/Makefile txtfiles/Makefile"
 config_commands=" depfiles"
 
 ac_cs_usage="\
@@ -550,8 +550,7 @@ do
     "src/c5ga/Makefile") CONFIG_FILES="$CONFIG_FILES src/c5ga/Makefile" ;;
     "src/p3ga/Makefile") CONFIG_FILES="$CONFIG_FILES src/p3ga/Makefile" ;;
     "src/e3ga/Makefile") CONFIG_FILES="$CONFIG_FILES src/e3ga/Makefile" ;;
-    "src/i2ga/Makefile") CONFIG_FILES="$CONFIG_FILES src/i2ga/Makefile" ;;
-    "src/pl3ga/Makefile") CONFIG_FILES="$CONFIG_FILES src/pl3ga/Makefile" ;;
+    "src/l3ga/Makefile") CONFIG_FILES="$CONFIG_FILES src/l3ga/Makefile" ;;
     "src/Makefile") CONFIG_FILES="$CONFIG_FILES src/Makefile" ;;
     "vs.net/Makefile") CONFIG_FILES="$CONFIG_FILES vs.net/Makefile" ;;
     "vs.2005/Makefile") CONFIG_FILES="$CONFIG_FILES vs.2005/Makefile" ;;
@@ -670,7 +669,7 @@ S["AUTOHEADER"]="${SHELL} /home/pkok/scriptie/GAViewer/missing --run autoheader"
 S["AUTOMAKE"]="${SHELL} /home/pkok/scriptie/GAViewer/missing --run automake-1.11"
 S["AUTOCONF"]="${SHELL} /home/pkok/scriptie/GAViewer/missing --run autoconf"
 S["ACLOCAL"]="${SHELL} /home/pkok/scriptie/GAViewer/missing --run aclocal-1.11"
-S["VERSION"]="0.87"
+S["VERSION"]="0.86"
 S["PACKAGE"]="GAViewer"
 S["CYGPATH_W"]="echo"
 S["am__isrc"]=""
@@ -685,7 +684,7 @@ S["ECHO_T"]=""
 S["ECHO_N"]="-n"
 S["ECHO_C"]=""
 S["DEFS"]="-DPACKAGE_NAME=\\\"\\\" -DPACKAGE_TARNAME=\\\"\\\" -DPACKAGE_VERSION=\\\"\\\" -DPACKAGE_STRING=\\\"\\\" -DPACKAGE_BUGREPORT=\\\"\\\" -DPACKAGE_URL=\\\"\\\" -DPACKAGE=\\\"GAVi"\
-"ewer\\\" -DVERSION=\\\"0.87\\\" -DHAVE_LIBGLU=1"
+"ewer\\\" -DVERSION=\\\"0.86\\\" -DHAVE_LIBGLU=1"
 S["mandir"]="${datarootdir}/man"
 S["localedir"]="${datarootdir}/locale"
 S["libdir"]="${exec_prefix}/lib"
@@ -1036,7 +1035,7 @@ $as_echo X"$mf" |
     am__include=`sed -n 's/^am__include = //p' < "$mf"`
     test -z "am__include" && continue
     am__quote=`sed -n 's/^am__quote = //p' < "$mf"`
-    # When using ansi2knr, U may be empty or an underscore; expand it
+    # When using ansl3knr, U may be empty or an underscore; expand it
     U=`sed -n 's/^U = //p' < "$mf"`
     # Find all dependency output files, they are included files with
     # $(DEPDIR) in their names.  We invoke sed twice because it is the

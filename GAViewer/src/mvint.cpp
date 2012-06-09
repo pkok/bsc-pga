@@ -26,7 +26,7 @@ Multivector interpretation code is spread over multiple files.
 e3ga: mvinte3ga.cpp
 p3ga: mvintp3ga.cpp
 c3ga: mvintc3ga.cpp
-i2ga: mvinti2ga.cpp
+l3ga: mvintl3ga.cpp
 */
 
 mvInt::mvInt() {
@@ -58,12 +58,7 @@ mvInt::mvInt(const c5ga &mv, int creationFlags /*= 0 */) {
 	interpret(mv, creationFlags);
 }
 
-mvInt::mvInt(const i2ga &mv, int creationFlags /*= 0 */) {
-	initToNothing();
-	interpret(mv, creationFlags);
-}
-
-mvInt::mvInt(const pl3ga &mv, int creationFlags /*= 0 */) {
+mvInt::mvInt(const l3ga &mv, int creationFlags /*= 0 */) {
 	initToNothing();
 	interpret(mv, creationFlags);
 }

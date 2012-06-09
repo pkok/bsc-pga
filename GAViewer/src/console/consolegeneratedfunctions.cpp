@@ -1929,259 +1929,259 @@ consoleVariable *cf_c5ga_not(consoleScope *s, consoleVariable *arg[]) {
 }
 
 
-// ********************************* i2ga SCALAR *********************************
-consoleVariable *cf_i2ga_scalar(consoleScope *s, consoleVariable *arg[]) {
-	return new consoleVariable("", i2ga(arg[0]->i2().scalar()));
+// ********************************* l3ga SCALAR *********************************
+consoleVariable *cf_l3ga_scalar(consoleScope *s, consoleVariable *arg[]) {
+	return new consoleVariable("", l3ga(arg[0]->l3().scalar()));
 }
 
-// ********************************* i2ga DUAL *********************************
-consoleVariable *cf_i2ga_dual(consoleScope *s, consoleVariable *arg[]) {
-	return new consoleVariable("", arg[0]->i2().dual());
+// ********************************* l3ga DUAL *********************************
+consoleVariable *cf_l3ga_dual(consoleScope *s, consoleVariable *arg[]) {
+	return new consoleVariable("", arg[0]->l3().dual());
 }
 
-// ********************************* i2ga DUAL2 *********************************
-consoleVariable *cf_i2ga_dual2(consoleScope *s, consoleVariable *arg[]) {
-	return new consoleVariable("", arg[0]->i2() << arg[1]->i2().inverse());
+// ********************************* l3ga DUAL2 *********************************
+consoleVariable *cf_l3ga_dual2(consoleScope *s, consoleVariable *arg[]) {
+	return new consoleVariable("", arg[0]->l3() << arg[1]->l3().inverse());
 }
 
-// ********************************* i2ga REVERSE *********************************
-consoleVariable *cf_i2ga_reverse(consoleScope *s, consoleVariable *arg[]) {
-	return new consoleVariable("", arg[0]->i2().reverse());
+// ********************************* l3ga REVERSE *********************************
+consoleVariable *cf_l3ga_reverse(consoleScope *s, consoleVariable *arg[]) {
+	return new consoleVariable("", arg[0]->l3().reverse());
 }
 
-// ********************************* i2ga CLIFFORD_CONJUGATE *********************************
-consoleVariable *cf_i2ga_clifford_conjugate(consoleScope *s, consoleVariable *arg[]) {
-	return new consoleVariable("", arg[0]->i2().cliffordConjugate());
+// ********************************* l3ga CLIFFORD_CONJUGATE *********************************
+consoleVariable *cf_l3ga_clifford_conjugate(consoleScope *s, consoleVariable *arg[]) {
+	return new consoleVariable("", arg[0]->l3().cliffordConjugate());
 }
 
-// ********************************* i2ga GRADE INVOLUTION *********************************
-consoleVariable *cf_i2ga_grade_involution(consoleScope *s, consoleVariable *arg[]) {
-	return new consoleVariable("", arg[0]->i2().gradeInvolution());
+// ********************************* l3ga GRADE INVOLUTION *********************************
+consoleVariable *cf_l3ga_grade_involution(consoleScope *s, consoleVariable *arg[]) {
+	return new consoleVariable("", arg[0]->l3().gradeInvolution());
 }
 
-// ********************************* i2ga INVERSE *********************************
-consoleVariable *cf_i2ga_inverse(consoleScope *s, consoleVariable *arg[]) {
-	return new consoleVariable("", arg[0]->i2().inverse());
+// ********************************* l3ga INVERSE *********************************
+consoleVariable *cf_l3ga_inverse(consoleScope *s, consoleVariable *arg[]) {
+	return new consoleVariable("", arg[0]->l3().inverse());
 }
 
-// ********************************* i2ga GENERAL INVERSE *********************************
-consoleVariable *cf_i2ga_general_inverse(consoleScope *s, consoleVariable *arg[]) {
-	return new consoleVariable("", arg[0]->i2().generalInverse());
+// ********************************* l3ga GENERAL INVERSE *********************************
+consoleVariable *cf_l3ga_general_inverse(consoleScope *s, consoleVariable *arg[]) {
+	return new consoleVariable("", arg[0]->l3().generalInverse());
 }
 
-// ********************************* i2ga NEGATE *********************************
-consoleVariable *cf_i2ga_negate(consoleScope *s, consoleVariable *arg[]) {
-	return new consoleVariable("", arg[0]->i2().negate());
+// ********************************* l3ga NEGATE *********************************
+consoleVariable *cf_l3ga_negate(consoleScope *s, consoleVariable *arg[]) {
+	return new consoleVariable("", arg[0]->l3().negate());
 }
 
-// ********************************* i2ga GP *********************************
-consoleVariable *cf_i2ga_gp(consoleScope *s, consoleVariable *arg[]) {
-	return new consoleVariable("", gp(arg[0]->i2(), arg[1]->i2()));
+// ********************************* l3ga GP *********************************
+consoleVariable *cf_l3ga_gp(consoleScope *s, consoleVariable *arg[]) {
+	return new consoleVariable("", gp(arg[0]->l3(), arg[1]->l3()));
 }
 
-// ********************************* i2ga IGP *********************************
-consoleVariable *cf_i2ga_igp(consoleScope *s, consoleVariable *arg[]) {
-	return new consoleVariable("", igp(arg[0]->i2(), arg[1]->i2()));
+// ********************************* l3ga IGP *********************************
+consoleVariable *cf_l3ga_igp(consoleScope *s, consoleVariable *arg[]) {
+	return new consoleVariable("", igp(arg[0]->l3(), arg[1]->l3()));
 }
 
-// ********************************* i2ga OP *********************************
-consoleVariable *cf_i2ga_op(consoleScope *s, consoleVariable *arg[]) {
-	return new consoleVariable("", op(arg[0]->i2(), arg[1]->i2()));
+// ********************************* l3ga OP *********************************
+consoleVariable *cf_l3ga_op(consoleScope *s, consoleVariable *arg[]) {
+	return new consoleVariable("", op(arg[0]->l3(), arg[1]->l3()));
 }
 
-// ********************************* i2ga HIP *********************************
-consoleVariable *cf_i2ga_hip(consoleScope *s, consoleVariable *arg[]) {
-	return new consoleVariable("", hip(arg[0]->i2(), arg[1]->i2()));
+// ********************************* l3ga HIP *********************************
+consoleVariable *cf_l3ga_hip(consoleScope *s, consoleVariable *arg[]) {
+	return new consoleVariable("", hip(arg[0]->l3(), arg[1]->l3()));
 }
 
-// ********************************* i2ga MHIP *********************************
-consoleVariable *cf_i2ga_mhip(consoleScope *s, consoleVariable *arg[]) {
-	return new consoleVariable("", mhip(arg[0]->i2(), arg[1]->i2()));
+// ********************************* l3ga MHIP *********************************
+consoleVariable *cf_l3ga_mhip(consoleScope *s, consoleVariable *arg[]) {
+	return new consoleVariable("", mhip(arg[0]->l3(), arg[1]->l3()));
 }
 
-// ********************************* i2ga LCONT *********************************
-consoleVariable *cf_i2ga_lcont(consoleScope *s, consoleVariable *arg[]) {
-	return new consoleVariable("", lcont(arg[0]->i2(), arg[1]->i2()));
+// ********************************* l3ga LCONT *********************************
+consoleVariable *cf_l3ga_lcont(consoleScope *s, consoleVariable *arg[]) {
+	return new consoleVariable("", lcont(arg[0]->l3(), arg[1]->l3()));
 }
 
-// ********************************* i2ga GPEM *********************************
-consoleVariable *cf_i2ga_gpem(consoleScope *s, consoleVariable *arg[]) {
-	return new consoleVariable("", gpem(arg[0]->i2(), arg[1]->i2()));
+// ********************************* l3ga GPEM *********************************
+consoleVariable *cf_l3ga_gpem(consoleScope *s, consoleVariable *arg[]) {
+	return new consoleVariable("", gpem(arg[0]->l3(), arg[1]->l3()));
 }
 
-// ********************************* i2ga LCEM *********************************
-consoleVariable *cf_i2ga_lcem(consoleScope *s, consoleVariable *arg[]) {
-	return new consoleVariable("", lcem(arg[0]->i2(), arg[1]->i2()));
+// ********************************* l3ga LCEM *********************************
+consoleVariable *cf_l3ga_lcem(consoleScope *s, consoleVariable *arg[]) {
+	return new consoleVariable("", lcem(arg[0]->l3(), arg[1]->l3()));
 }
 
-// ********************************* i2ga RCONT *********************************
-consoleVariable *cf_i2ga_rcont(consoleScope *s, consoleVariable *arg[]) {
-	return new consoleVariable("", rcont(arg[0]->i2(), arg[1]->i2()));
+// ********************************* l3ga RCONT *********************************
+consoleVariable *cf_l3ga_rcont(consoleScope *s, consoleVariable *arg[]) {
+	return new consoleVariable("", rcont(arg[0]->l3(), arg[1]->l3()));
 }
 
-// ********************************* i2ga SCP *********************************
-consoleVariable *cf_i2ga_scp(consoleScope *s, consoleVariable *arg[]) {
-	return new consoleVariable("", scp(arg[0]->i2(), arg[1]->i2()));
+// ********************************* l3ga SCP *********************************
+consoleVariable *cf_l3ga_scp(consoleScope *s, consoleVariable *arg[]) {
+	return new consoleVariable("", scp(arg[0]->l3(), arg[1]->l3()));
 }
 
-// ********************************* i2ga ADD *********************************
-consoleVariable *cf_i2ga_add(consoleScope *s, consoleVariable *arg[]) {
-	return new consoleVariable("", add(arg[0]->i2(), arg[1]->i2()));
+// ********************************* l3ga ADD *********************************
+consoleVariable *cf_l3ga_add(consoleScope *s, consoleVariable *arg[]) {
+	return new consoleVariable("", add(arg[0]->l3(), arg[1]->l3()));
 }
 
-// ********************************* i2ga SUB *********************************
-consoleVariable *cf_i2ga_sub(consoleScope *s, consoleVariable *arg[]) {
-	return new consoleVariable("", sub(arg[0]->i2(), arg[1]->i2()));
+// ********************************* l3ga SUB *********************************
+consoleVariable *cf_l3ga_sub(consoleScope *s, consoleVariable *arg[]) {
+	return new consoleVariable("", sub(arg[0]->l3(), arg[1]->l3()));
 }
 
-// ********************************* i2ga MEET *********************************
-consoleVariable *cf_i2ga_meet(consoleScope *s, consoleVariable *arg[]) {
-	return new consoleVariable("", meet(arg[0]->i2(), arg[1]->i2()));
+// ********************************* l3ga MEET *********************************
+consoleVariable *cf_l3ga_meet(consoleScope *s, consoleVariable *arg[]) {
+	return new consoleVariable("", meet(arg[0]->l3(), arg[1]->l3()));
 }
 
-// ********************************* i2ga JOIN *********************************
-consoleVariable *cf_i2ga_join(consoleScope *s, consoleVariable *arg[]) {
-	return new consoleVariable("", join(arg[0]->i2(), arg[1]->i2()));
+// ********************************* l3ga JOIN *********************************
+consoleVariable *cf_l3ga_join(consoleScope *s, consoleVariable *arg[]) {
+	return new consoleVariable("", join(arg[0]->l3(), arg[1]->l3()));
 }
 
-// ********************************* i2ga CP *********************************
-consoleVariable *cf_i2ga_cp(consoleScope *s, consoleVariable *arg[]) {
+// ********************************* l3ga CP *********************************
+consoleVariable *cf_l3ga_cp(consoleScope *s, consoleVariable *arg[]) {
 	return new consoleVariable("", 
-	op(0.5, sub(gp(arg[0]->i2(), arg[1]->i2()),
-	gp(arg[1]->i2(), arg[0]->i2()))));
+	op(0.5, sub(gp(arg[0]->l3(), arg[1]->l3()),
+	gp(arg[1]->l3(), arg[0]->l3()))));
 }
 
-// ********************************* i2ga PRINT *********************************
-consoleVariable *cf_i2ga_print(consoleScope *s, consoleVariable *arg[]) {
+// ********************************* l3ga PRINT *********************************
+consoleVariable *cf_l3ga_print(consoleScope *s, consoleVariable *arg[]) {
 /*	cprintf("%s = %s\n", 
 		(arg[0]->name().find(std::string(sc_tempVarPrefix)) == 0) ? "ans" : arg[0]->name().c_str(), 
-		arg[0]->i2().string());
+		arg[0]->l3().string());
 		
 	return arg[0];*/
 	std::string name = (arg[0]->name().find(std::string(sc_tempVarPrefix)) == 0) ? std::string("ans") : arg[0]->name();
-	std::string val = arg[0]->i2().string();
+	std::string val = arg[0]->l3().string();
 	char buf[2048];
 	sprintf(buf, "%s = %s\n", name.c_str(), val.c_str());
 	cprintf(buf);
 	return arg[0];
 }
 
-consoleVariable *cf_i2ga_print_prec(consoleScope *s, consoleVariable *arg[]) {
+consoleVariable *cf_l3ga_print_prec(consoleScope *s, consoleVariable *arg[]) {
 	const char *name = arg[0]->name().c_str();
 	char precstr[256];
 	sprintf(precstr, "%c%s", '%', arg[1]->name().c_str());
 	/*
 	cprintf("%s = %s\n", 
 		(strstr(name, sc_tempVarPrefix) == name) ? "ans" : name, 
-		arg[0]->i2().string(precstr));*/
+		arg[0]->l3().string(precstr));*/
 	char buf[2048];
 	sprintf(buf, "%s = %s\n", (strstr(name, sc_tempVarPrefix) == name) ? "ans" : name, 
-		arg[0]->i2().string(precstr));
+		arg[0]->l3().string(precstr));
 	cprintf(buf);
 
 	return arg[0];
 }
 
-// ********************************* i2ga ASSIGN *********************************
-consoleVariable *cf_i2ga_assign(consoleScope *s, consoleVariable *arg[]) {
+// ********************************* l3ga ASSIGN *********************************
+consoleVariable *cf_l3ga_assign(consoleScope *s, consoleVariable *arg[]) {
 	consoleVariable *cv = s->assignVariable(arg[0], arg[1]);
 	cv->name(arg[0]->name());
 	return cv;
 }
 
-// ********************************* i2ga GRADE *********************************
-consoleVariable *cf_i2ga_grade(consoleScope *s, consoleVariable *arg[]) {
-	return new consoleVariable("", arg[0]->i2()(1 << ((int)arg[1]->i2().scalar())));
+// ********************************* l3ga GRADE *********************************
+consoleVariable *cf_l3ga_grade(consoleScope *s, consoleVariable *arg[]) {
+	return new consoleVariable("", arg[0]->l3()(1 << ((int)arg[1]->l3().scalar())));
 }
 
-// ********************************* i2ga GRADE *********************************
-consoleVariable *cf_i2ga_grade_nb(consoleScope *s, consoleVariable *arg[]) {
-	int grade, type = arg[0]->i2().mvType(&grade); // epsilon?
+// ********************************* l3ga GRADE *********************************
+consoleVariable *cf_l3ga_grade_nb(consoleScope *s, consoleVariable *arg[]) {
+	int grade, type = arg[0]->l3().mvType(&grade); // epsilon?
 	if (type == GA_BLADE)
 		grade = (int)(log((double)grade) / log((double)2) + 0.45);
 	else grade = -1;
 
-	return new consoleVariable("",  i2ga((GAIM_FLOAT)grade));
+	return new consoleVariable("",  l3ga((GAIM_FLOAT)grade));
 }
 
-// ********************************* i2ga VERSOR PARITY *********************************
-consoleVariable *cf_i2ga_versor_parity(consoleScope *s, consoleVariable *arg[]) {
-	int grade, type = arg[0]->i2().mvType(&grade); // epsilon?
+// ********************************* l3ga VERSOR PARITY *********************************
+consoleVariable *cf_l3ga_versor_parity(consoleScope *s, consoleVariable *arg[]) {
+	int grade, type = arg[0]->l3().mvType(&grade); // epsilon?
 	if ((type == GA_BLADE) || (type == GA_VERSOR))
-		grade = arg[0]->i2().largestGrade() & 1;
+		grade = arg[0]->l3().largestGrade() & 1;
 	else grade = -1;
 
-	return new consoleVariable("",  i2ga((GAIM_FLOAT)grade));
+	return new consoleVariable("",  l3ga((GAIM_FLOAT)grade));
 }
 
-// ********************************* i2ga NORM *********************************
-consoleVariable *cf_i2ga_norm(consoleScope *s, consoleVariable *arg[]) {
-	GAIM_FLOAT n = arg[0]->i2().norm_b();
+// ********************************* l3ga NORM *********************************
+consoleVariable *cf_l3ga_norm(consoleScope *s, consoleVariable *arg[]) {
+	GAIM_FLOAT n = arg[0]->l3().norm_b();
 	n = sqrt(fabs(n)) * ((n < 0) ? -1.0 : 1.0);
-	return new consoleVariable("", i2ga(n));
+	return new consoleVariable("", l3ga(n));
 }
 
-// ********************************* i2ga NORM_A *********************************
-consoleVariable *cf_i2ga_norm_2(consoleScope *s, consoleVariable *arg[]) {
-	return new consoleVariable("", i2ga(arg[0]->i2().norm_a()));
+// ********************************* l3ga NORM_A *********************************
+consoleVariable *cf_l3ga_norm_2(consoleScope *s, consoleVariable *arg[]) {
+	return new consoleVariable("", l3ga(arg[0]->l3().norm_a()));
 }
-// ********************************* i2ga NORM_B *********************************
-consoleVariable *cf_i2ga_norm_r(consoleScope *s, consoleVariable *arg[]) {
-	return new consoleVariable("", i2ga(arg[0]->i2().norm_b()));
-}
-
-// ********************************* i2ga NORMALIZE *********************************
-consoleVariable *cf_i2ga_normalize(consoleScope *s, consoleVariable *arg[]) {
-	GAIM_FLOAT n = sqrt(fabs(arg[0]->i2().norm_b()));
-	return new consoleVariable("", i2ga(arg[0]->i2() * ((n == 0.0) ? 0.0 : (1.0 / n))));
+// ********************************* l3ga NORM_B *********************************
+consoleVariable *cf_l3ga_norm_r(consoleScope *s, consoleVariable *arg[]) {
+	return new consoleVariable("", l3ga(arg[0]->l3().norm_b()));
 }
 
-// ********************************* i2ga SQRT *********************************
-consoleVariable *cf_i2ga_sqrt(consoleScope *s, consoleVariable *arg[]) {
-	return new consoleVariable("", i2ga(sqrt(arg[0]->i2().scalar())));
+// ********************************* l3ga NORMALIZE *********************************
+consoleVariable *cf_l3ga_normalize(consoleScope *s, consoleVariable *arg[]) {
+	GAIM_FLOAT n = sqrt(fabs(arg[0]->l3().norm_b()));
+	return new consoleVariable("", l3ga(arg[0]->l3() * ((n == 0.0) ? 0.0 : (1.0 / n))));
 }
 
-// ********************************* i2ga ABS *********************************
-consoleVariable *cf_i2ga_abs(consoleScope *s, consoleVariable *arg[]) {
-	return new consoleVariable("", i2ga(fabs(arg[0]->i2().scalar())));
+// ********************************* l3ga SQRT *********************************
+consoleVariable *cf_l3ga_sqrt(consoleScope *s, consoleVariable *arg[]) {
+	return new consoleVariable("", l3ga(sqrt(arg[0]->l3().scalar())));
 }
 
-// ********************************* i2ga TAN *********************************
-consoleVariable *cf_i2ga_tan(consoleScope *s, consoleVariable *arg[]) {
-	return new consoleVariable("", i2ga(tan(arg[0]->i2().scalar())));
+// ********************************* l3ga ABS *********************************
+consoleVariable *cf_l3ga_abs(consoleScope *s, consoleVariable *arg[]) {
+	return new consoleVariable("", l3ga(fabs(arg[0]->l3().scalar())));
 }
 
-// ********************************* i2ga COS *********************************
-consoleVariable *cf_i2ga_cos(consoleScope *s, consoleVariable *arg[]) {
-	return new consoleVariable("", i2ga(cos(arg[0]->i2().scalar())));
+// ********************************* l3ga TAN *********************************
+consoleVariable *cf_l3ga_tan(consoleScope *s, consoleVariable *arg[]) {
+	return new consoleVariable("", l3ga(tan(arg[0]->l3().scalar())));
 }
 
-// ********************************* i2ga SIN *********************************
-consoleVariable *cf_i2ga_sin(consoleScope *s, consoleVariable *arg[]) {
-	return new consoleVariable("", i2ga(sin(arg[0]->i2().scalar())));
+// ********************************* l3ga COS *********************************
+consoleVariable *cf_l3ga_cos(consoleScope *s, consoleVariable *arg[]) {
+	return new consoleVariable("", l3ga(cos(arg[0]->l3().scalar())));
 }
 
-// ********************************* i2ga COSH *********************************
-consoleVariable *cf_i2ga_cosh(consoleScope *s, consoleVariable *arg[]) {
-	return new consoleVariable("", i2ga(cosh(arg[0]->i2().scalar())));
+// ********************************* l3ga SIN *********************************
+consoleVariable *cf_l3ga_sin(consoleScope *s, consoleVariable *arg[]) {
+	return new consoleVariable("", l3ga(sin(arg[0]->l3().scalar())));
 }
 
-// ********************************* i2ga SINH *********************************
-consoleVariable *cf_i2ga_sinh(consoleScope *s, consoleVariable *arg[]) {
-	return new consoleVariable("", i2ga(sinh(arg[0]->i2().scalar())));
+// ********************************* l3ga COSH *********************************
+consoleVariable *cf_l3ga_cosh(consoleScope *s, consoleVariable *arg[]) {
+	return new consoleVariable("", l3ga(cosh(arg[0]->l3().scalar())));
 }
 
-// ********************************* i2ga ACOSH *********************************
-consoleVariable *cf_i2ga_acosh(consoleScope *s, consoleVariable *arg[]) {
-	double x = arg[0]->i2().scalar();
+// ********************************* l3ga SINH *********************************
+consoleVariable *cf_l3ga_sinh(consoleScope *s, consoleVariable *arg[]) {
+	return new consoleVariable("", l3ga(sinh(arg[0]->l3().scalar())));
+}
+
+// ********************************* l3ga ACOSH *********************************
+consoleVariable *cf_l3ga_acosh(consoleScope *s, consoleVariable *arg[]) {
+	double x = arg[0]->l3().scalar();
 	double value = (x >= 1) ? log(x + sqrt(x*x-1)) : 0.0;
-	return new consoleVariable("", i2ga(value));
+	return new consoleVariable("", l3ga(value));
 }
 
 
-// ********************************* i2ga ASINH *********************************
-consoleVariable *cf_i2ga_asinh(consoleScope *s, consoleVariable *arg[]) {
-	i2ga B = arg[0]->i2().grade(GRADE2);
+// ********************************* l3ga ASINH *********************************
+consoleVariable *cf_l3ga_asinh(consoleScope *s, consoleVariable *arg[]) {
+	l3ga B = arg[0]->l3().grade(GRADE2);
 	if (B.norm_a() != 0.0) {
 		double B2 = gp(B, B).scalar();
 		if (B2 < 0.0) {
@@ -2197,204 +2197,204 @@ consoleVariable *cf_i2ga_asinh(consoleScope *s, consoleVariable *arg[]) {
 		}
 	}
 	else {
-		double x = arg[0]->i2().scalar();
+		double x = arg[0]->l3().scalar();
 		double value = asinhScalar(x);
-		return new consoleVariable("", i2ga(value));
+		return new consoleVariable("", l3ga(value));
 	}
 	
 }
 
-// ********************************* i2ga ATAN *********************************
-consoleVariable *cf_i2ga_atan(consoleScope *s, consoleVariable *arg[]) {
-	return new consoleVariable("", i2ga(atan(arg[0]->i2().scalar())));
+// ********************************* l3ga ATAN *********************************
+consoleVariable *cf_l3ga_atan(consoleScope *s, consoleVariable *arg[]) {
+	return new consoleVariable("", l3ga(atan(arg[0]->l3().scalar())));
 }
 
-// ********************************* i2ga ATAN2 *********************************
-consoleVariable *cf_i2ga_atan2(consoleScope *s, consoleVariable *arg[]) {
-	return new consoleVariable("", i2ga(atan2(arg[0]->i2().scalar(), arg[1]->i2().scalar())));
+// ********************************* l3ga ATAN2 *********************************
+consoleVariable *cf_l3ga_atan2(consoleScope *s, consoleVariable *arg[]) {
+	return new consoleVariable("", l3ga(atan2(arg[0]->l3().scalar(), arg[1]->l3().scalar())));
 }
 
-// ********************************* i2ga MAX *********************************
-consoleVariable *cf_i2ga_max(consoleScope *s, consoleVariable *arg[]) {
+// ********************************* l3ga MAX *********************************
+consoleVariable *cf_l3ga_max(consoleScope *s, consoleVariable *arg[]) {
 	GAIM_FLOAT val = (arg[0]->scalar() > arg[1]->scalar()) 
 		? arg[0]->scalar() : arg[1]->scalar();
-	return new consoleVariable("", i2ga(val));
+	return new consoleVariable("", l3ga(val));
 }
 
-// ********************************* i2ga MIN *********************************
-consoleVariable *cf_i2ga_min(consoleScope *s, consoleVariable *arg[]) {
+// ********************************* l3ga MIN *********************************
+consoleVariable *cf_l3ga_min(consoleScope *s, consoleVariable *arg[]) {
 	GAIM_FLOAT val = (arg[0]->scalar() < arg[1]->scalar()) 
 		? arg[0]->scalar() : arg[1]->scalar();
-	return new consoleVariable("", i2ga(val));
+	return new consoleVariable("", l3ga(val));
 }
 
-// ********************************* i2ga ACOS *********************************
-consoleVariable *cf_i2ga_acos(consoleScope *s, consoleVariable *arg[]) {
-	return new consoleVariable("", i2ga(acos(arg[0]->i2().scalar())));
+// ********************************* l3ga ACOS *********************************
+consoleVariable *cf_l3ga_acos(consoleScope *s, consoleVariable *arg[]) {
+	return new consoleVariable("", l3ga(acos(arg[0]->l3().scalar())));
 }
 
-// ********************************* i2ga ASIN *********************************
-consoleVariable *cf_i2ga_asin(consoleScope *s, consoleVariable *arg[]) {
-	return new consoleVariable("", i2ga(asin(arg[0]->i2().scalar())));
+// ********************************* l3ga ASIN *********************************
+consoleVariable *cf_l3ga_asin(consoleScope *s, consoleVariable *arg[]) {
+	return new consoleVariable("", l3ga(asin(arg[0]->l3().scalar())));
 }
 
-// ********************************* i2ga SINC *********************************
-consoleVariable *cf_i2ga_sinc(consoleScope *s, consoleVariable *arg[]) {
-	double x = arg[0]->i2().scalar();
-	if (x == 0.0) return new consoleVariable("", i2ga(1.0));
-	else return new consoleVariable("", i2ga(sin(x)/x));
+// ********************************* l3ga SINC *********************************
+consoleVariable *cf_l3ga_sinc(consoleScope *s, consoleVariable *arg[]) {
+	double x = arg[0]->l3().scalar();
+	if (x == 0.0) return new consoleVariable("", l3ga(1.0));
+	else return new consoleVariable("", l3ga(sin(x)/x));
 }
 
-// ********************************* i2ga EXP *********************************
-consoleVariable *cf_i2ga_exp(consoleScope *s, consoleVariable *arg[]) {
-	return new consoleVariable("", i2ga(arg[0]->i2().exp(12)));
+// ********************************* l3ga EXP *********************************
+consoleVariable *cf_l3ga_exp(consoleScope *s, consoleVariable *arg[]) {
+	return new consoleVariable("", l3ga(arg[0]->l3().exp(12)));
 }
 
-// ********************************* i2ga LOG *********************************
-consoleVariable *cf_i2ga_log(consoleScope *s, consoleVariable *arg[]) {
-	double x = arg[0]->i2().scalar();
-	if (x == 0.0)	return new consoleVariable("", i2ga(0));
-	else if (x > 0.0) return new consoleVariable("", i2ga(log(x)));
-	else return new consoleVariable("", i2ga(M_PI * (i2ga::e1 ^ i2ga::e2) + log(-x)));
+// ********************************* l3ga LOG *********************************
+consoleVariable *cf_l3ga_log(consoleScope *s, consoleVariable *arg[]) {
+	double x = arg[0]->l3().scalar();
+	if (x == 0.0)	return new consoleVariable("", l3ga(0));
+	else if (x > 0.0) return new consoleVariable("", l3ga(log(x)));
+	else return new consoleVariable("", l3ga(M_PI * (l3ga::e1 ^ l3ga::e2) + log(-x)));
 }
 
-// ********************************* i2ga SCALAR_POW *********************************
-consoleVariable *cf_i2ga_scalar_pow(consoleScope *s, consoleVariable *arg[]) {
-	return new consoleVariable("", i2ga(pow(arg[0]->i2().scalar(), arg[1]->i2().scalar())));
+// ********************************* l3ga SCALAR_POW *********************************
+consoleVariable *cf_l3ga_scalar_pow(consoleScope *s, consoleVariable *arg[]) {
+	return new consoleVariable("", l3ga(pow(arg[0]->l3().scalar(), arg[1]->l3().scalar())));
 }
 
-// ********************************* i2ga RANDOM SEED *********************************
-consoleVariable *cf_i2ga_randSeed(consoleScope *s, consoleVariable *arg[]) {
-	double _seed = arg[0]->i2().scalar();
+// ********************************* l3ga RANDOM SEED *********************************
+consoleVariable *cf_l3ga_randSeed(consoleScope *s, consoleVariable *arg[]) {
+	double _seed = arg[0]->l3().scalar();
 	unsigned long seed = (unsigned long )(_seed * 32768.0);
 	sgenrand(seed);
 		
-	return new consoleVariable("", i2ga(0.0));
+	return new consoleVariable("", l3ga(0.0));
 }
 
 
-// ********************************* i2ga RANDOM GAUSS NUMBER *********************************
-consoleVariable *cf_i2ga_randGauss(consoleScope *s, consoleVariable *arg[]) {
-	double mean = arg[0]->i2().scalar();
-	double variance = arg[1]->i2().scalar();
-	return new consoleVariable("", i2ga(gaussNoise(mean, variance)));
+// ********************************* l3ga RANDOM GAUSS NUMBER *********************************
+consoleVariable *cf_l3ga_randGauss(consoleScope *s, consoleVariable *arg[]) {
+	double mean = arg[0]->l3().scalar();
+	double variance = arg[1]->l3().scalar();
+	return new consoleVariable("", l3ga(gaussNoise(mean, variance)));
 }
 
-// ********************************* i2ga POW *********************************
-consoleVariable *cf_i2ga_pow(consoleScope *s, consoleVariable *arg[]) {
-	int n = (int)(arg[1]->i2().scalar() + 0.5), i;
-	i2ga r(1.0);
+// ********************************* l3ga POW *********************************
+consoleVariable *cf_l3ga_pow(consoleScope *s, consoleVariable *arg[]) {
+	int n = (int)(arg[1]->l3().scalar() + 0.5), i;
+	l3ga r(1.0);
 	for (i = 0; i < n; i++)
-		r = r * arg[0]->i2();
+		r = r * arg[0]->l3();
 
 	return new consoleVariable("", r);
 }
 
-// ********************************* i2ga VERSOR PRODUCT *********************************
-consoleVariable *cf_i2ga_versorProduct(consoleScope *s, consoleVariable *arg[]) {
-	return new consoleVariable("", i2ga(arg[0]->i2() * arg[1]->i2() * arg[0]->i2().inverse()));
+// ********************************* l3ga VERSOR PRODUCT *********************************
+consoleVariable *cf_l3ga_versorProduct(consoleScope *s, consoleVariable *arg[]) {
+	return new consoleVariable("", l3ga(arg[0]->l3() * arg[1]->l3() * arg[0]->l3().inverse()));
 }
 
-// ********************************* i2ga INVERSE VERSOR PRODUCT *********************************
-consoleVariable *cf_i2ga_inverseVersorProduct(consoleScope *s, consoleVariable *arg[]) {
-	return new consoleVariable("", i2ga(arg[0]->i2().inverse() * arg[1]->i2() * arg[0]->i2()));
+// ********************************* l3ga INVERSE VERSOR PRODUCT *********************************
+consoleVariable *cf_l3ga_inverseVersorProduct(consoleScope *s, consoleVariable *arg[]) {
+	return new consoleVariable("", l3ga(arg[0]->l3().inverse() * arg[1]->l3() * arg[0]->l3()));
 }
 
-// ********************************* i2ga mierenneuk VERSOR PRODUCT *********************************
-consoleVariable *cf_i2ga_MNversorProduct(consoleScope *s, consoleVariable *arg[]) {
-	i2ga v = arg[0]->i2();
-	i2ga o = arg[1]->i2();
+// ********************************* l3ga mierenneuk VERSOR PRODUCT *********************************
+consoleVariable *cf_l3ga_MNversorProduct(consoleScope *s, consoleVariable *arg[]) {
+	l3ga v = arg[0]->l3();
+	l3ga o = arg[1]->l3();
 	
 	int vgrade = v.largestGrade() & 1;
 
-	if (vgrade)	 return new consoleVariable("", i2ga(v * o.gradeInvolution() * v.inverse()));
-	else return new consoleVariable("", i2ga(v * o * v.inverse()));
+	if (vgrade)	 return new consoleVariable("", l3ga(v * o.gradeInvolution() * v.inverse()));
+	else return new consoleVariable("", l3ga(v * o * v.inverse()));
 }
 
-// ********************************* i2ga mierenneuk INVERSE VERSOR PRODUCT *********************************
-consoleVariable *cf_i2ga_MNinverseVersorProduct(consoleScope *s, consoleVariable *arg[]) {
-	i2ga v = arg[0]->i2();
-	i2ga o = arg[1]->i2();
+// ********************************* l3ga mierenneuk INVERSE VERSOR PRODUCT *********************************
+consoleVariable *cf_l3ga_MNinverseVersorProduct(consoleScope *s, consoleVariable *arg[]) {
+	l3ga v = arg[0]->l3();
+	l3ga o = arg[1]->l3();
 	
 	int vgrade = v.largestGrade() & 1;
 
-	if (vgrade)	 return new consoleVariable("", i2ga(v.inverse() * o.gradeInvolution() * v));
-	else return new consoleVariable("", i2ga(v.inverse() * o * v));
+	if (vgrade)	 return new consoleVariable("", l3ga(v.inverse() * o.gradeInvolution() * v));
+	else return new consoleVariable("", l3ga(v.inverse() * o * v));
 }
 
 
-// ********************************* i2ga PROJECT *********************************
-consoleVariable *cf_i2ga_project(consoleScope *s, consoleVariable *arg[]) {
-	i2ga tmp;
-	tmp.project(arg[1]->i2(), arg[0]->i2());
+// ********************************* l3ga PROJECT *********************************
+consoleVariable *cf_l3ga_project(consoleScope *s, consoleVariable *arg[]) {
+	l3ga tmp;
+	tmp.project(arg[1]->l3(), arg[0]->l3());
 	return new consoleVariable("", tmp);
 }
 
-// ********************************* i2ga reject *********************************
-consoleVariable *cf_i2ga_reject(consoleScope *s, consoleVariable *arg[]) {
-	i2ga tmp;
-	tmp.reject(arg[1]->i2(), arg[0]->i2());
+// ********************************* l3ga reject *********************************
+consoleVariable *cf_l3ga_reject(consoleScope *s, consoleVariable *arg[]) {
+	l3ga tmp;
+	tmp.reject(arg[1]->l3(), arg[0]->l3());
 	return new consoleVariable("", tmp);
 }
 
-// ********************************* i2ga factor *********************************
-consoleVariable *cf_i2ga_factor(consoleScope *s, consoleVariable *arg[]) {
-	i2ga tmp[5];
-	arg[0]->i2().factor(tmp);
+// ********************************* l3ga factor *********************************
+consoleVariable *cf_l3ga_factor(consoleScope *s, consoleVariable *arg[]) {
+	l3ga tmp[5];
+	arg[0]->l3().factor(tmp);
 
-	int f = (int)(arg[1]->i2().scalar()) - 1;
+	int f = (int)(arg[1]->l3().scalar()) - 1;
 	if (f > 4) f = 4;
 	else if (f < 0) f = 0;
 
 	return new consoleVariable("", tmp[f]);
 }
 
-// ********************************* i2ga set_factor *********************************
-consoleVariable *cf_i2ga_set_factor(consoleScope *s, consoleVariable *arg[]) {
+// ********************************* l3ga set_factor *********************************
+consoleVariable *cf_l3ga_set_factor(consoleScope *s, consoleVariable *arg[]) {
 	int idx = (int)arg[0]->scalar();
-	g_state->setI2gaFactor(arg[1]->i2(), idx);
+	g_state->setL3gaFactor(arg[1]->l3(), idx);
 	return arg[1];
 }
 
-// ********************************* i2ga equal *********************************
-consoleVariable *cf_i2ga_equal(consoleScope *s, consoleVariable *arg[]) {
-	return new consoleVariable("", i2ga((arg[0]->i2() - arg[1]->i2()).norm_a() == 0.0));
+// ********************************* l3ga equal *********************************
+consoleVariable *cf_l3ga_equal(consoleScope *s, consoleVariable *arg[]) {
+	return new consoleVariable("", l3ga((arg[0]->l3() - arg[1]->l3()).norm_a() == 0.0));
 }
 
-// ********************************* i2ga ne *********************************
-consoleVariable *cf_i2ga_ne(consoleScope *s, consoleVariable *arg[]) {
-	return new consoleVariable("", i2ga((arg[0]->i2() - arg[1]->i2()).norm_a() != 0.0));
+// ********************************* l3ga ne *********************************
+consoleVariable *cf_l3ga_ne(consoleScope *s, consoleVariable *arg[]) {
+	return new consoleVariable("", l3ga((arg[0]->l3() - arg[1]->l3()).norm_a() != 0.0));
 }
 
-// ********************************* i2ga less *********************************
-consoleVariable *cf_i2ga_less(consoleScope *s, consoleVariable *arg[]) {
-	return new consoleVariable("", i2ga(arg[0]->i2().scalar() < arg[1]->i2().scalar()));
+// ********************************* l3ga less *********************************
+consoleVariable *cf_l3ga_less(consoleScope *s, consoleVariable *arg[]) {
+	return new consoleVariable("", l3ga(arg[0]->l3().scalar() < arg[1]->l3().scalar()));
 }
-// ********************************* i2ga greater *********************************
-consoleVariable *cf_i2ga_greater(consoleScope *s, consoleVariable *arg[]) {
-	return new consoleVariable("", i2ga(arg[0]->i2().scalar() > arg[1]->i2().scalar()));
+// ********************************* l3ga greater *********************************
+consoleVariable *cf_l3ga_greater(consoleScope *s, consoleVariable *arg[]) {
+	return new consoleVariable("", l3ga(arg[0]->l3().scalar() > arg[1]->l3().scalar()));
 }
-// ********************************* i2ga le *********************************
-consoleVariable *cf_i2ga_le(consoleScope *s, consoleVariable *arg[]) {
-	return new consoleVariable("", i2ga(arg[0]->i2().scalar() <= arg[1]->i2().scalar()));
+// ********************************* l3ga le *********************************
+consoleVariable *cf_l3ga_le(consoleScope *s, consoleVariable *arg[]) {
+	return new consoleVariable("", l3ga(arg[0]->l3().scalar() <= arg[1]->l3().scalar()));
 }
-// ********************************* i2ga ge *********************************
-consoleVariable *cf_i2ga_ge(consoleScope *s, consoleVariable *arg[]) {
-	return new consoleVariable("", i2ga(arg[0]->i2().scalar() >= arg[1]->i2().scalar()));
-}
-
-// ********************************* i2ga and *********************************
-consoleVariable *cf_i2ga_and(consoleScope *s, consoleVariable *arg[]) {
-	return new consoleVariable("", i2ga(((arg[0]->i2().norm_a() != 0.0) && (arg[1]->i2().norm_a() != 0.0))));
-}
-// ********************************* i2ga or *********************************
-consoleVariable *cf_i2ga_or(consoleScope *s, consoleVariable *arg[]) {
-	return new consoleVariable("", i2ga(((arg[0]->i2().norm_a() != 0.0) || (arg[1]->i2().norm_a() != 0.0))));
+// ********************************* l3ga ge *********************************
+consoleVariable *cf_l3ga_ge(consoleScope *s, consoleVariable *arg[]) {
+	return new consoleVariable("", l3ga(arg[0]->l3().scalar() >= arg[1]->l3().scalar()));
 }
 
-// ********************************* i2ga not *********************************
-consoleVariable *cf_i2ga_not(consoleScope *s, consoleVariable *arg[]) {
-	return new consoleVariable("", i2ga(arg[0]->i2().norm_a() == 0.0));
+// ********************************* l3ga and *********************************
+consoleVariable *cf_l3ga_and(consoleScope *s, consoleVariable *arg[]) {
+	return new consoleVariable("", l3ga(((arg[0]->l3().norm_a() != 0.0) && (arg[1]->l3().norm_a() != 0.0))));
+}
+// ********************************* l3ga or *********************************
+consoleVariable *cf_l3ga_or(consoleScope *s, consoleVariable *arg[]) {
+	return new consoleVariable("", l3ga(((arg[0]->l3().norm_a() != 0.0) || (arg[1]->l3().norm_a() != 0.0))));
+}
+
+// ********************************* l3ga not *********************************
+consoleVariable *cf_l3ga_not(consoleScope *s, consoleVariable *arg[]) {
+	return new consoleVariable("", l3ga(arg[0]->l3().norm_a() == 0.0));
 }
 
 
@@ -2419,8 +2419,8 @@ consoleVariable *cf_e3ga_to_c5ga(consoleScope *s, consoleVariable *arg[]) {
 }
 
 // ********************************* e3ga CAST *********************************
-consoleVariable *cf_e3ga_to_i2ga(consoleScope *s, consoleVariable *arg[]) {
-	return arg[0]->castToI2ga();
+consoleVariable *cf_e3ga_to_l3ga(consoleScope *s, consoleVariable *arg[]) {
+	return arg[0]->castToL3ga();
 }
 
 // ********************************* p3ga CAST *********************************
@@ -2444,8 +2444,8 @@ consoleVariable *cf_p3ga_to_c5ga(consoleScope *s, consoleVariable *arg[]) {
 }
 
 // ********************************* p3ga CAST *********************************
-consoleVariable *cf_p3ga_to_i2ga(consoleScope *s, consoleVariable *arg[]) {
-	return arg[0]->castToI2ga();
+consoleVariable *cf_p3ga_to_l3ga(consoleScope *s, consoleVariable *arg[]) {
+	return arg[0]->castToL3ga();
 }
 
 // ********************************* c3ga CAST *********************************
@@ -2469,8 +2469,8 @@ consoleVariable *cf_c3ga_to_c5ga(consoleScope *s, consoleVariable *arg[]) {
 }
 
 // ********************************* c3ga CAST *********************************
-consoleVariable *cf_c3ga_to_i2ga(consoleScope *s, consoleVariable *arg[]) {
-	return arg[0]->castToI2ga();
+consoleVariable *cf_c3ga_to_l3ga(consoleScope *s, consoleVariable *arg[]) {
+	return arg[0]->castToL3ga();
 }
 
 // ********************************* c5ga CAST *********************************
@@ -2494,33 +2494,33 @@ consoleVariable *cf_c5ga_to_c5ga(consoleScope *s, consoleVariable *arg[]) {
 }
 
 // ********************************* c5ga CAST *********************************
-consoleVariable *cf_c5ga_to_i2ga(consoleScope *s, consoleVariable *arg[]) {
-	return arg[0]->castToI2ga();
+consoleVariable *cf_c5ga_to_l3ga(consoleScope *s, consoleVariable *arg[]) {
+	return arg[0]->castToL3ga();
 }
 
-// ********************************* i2ga CAST *********************************
-consoleVariable *cf_i2ga_to_e3ga(consoleScope *s, consoleVariable *arg[]) {
+// ********************************* l3ga CAST *********************************
+consoleVariable *cf_l3ga_to_e3ga(consoleScope *s, consoleVariable *arg[]) {
 	return arg[0]->castToE3ga();
 }
 
-// ********************************* i2ga CAST *********************************
-consoleVariable *cf_i2ga_to_p3ga(consoleScope *s, consoleVariable *arg[]) {
+// ********************************* l3ga CAST *********************************
+consoleVariable *cf_l3ga_to_p3ga(consoleScope *s, consoleVariable *arg[]) {
 	return arg[0]->castToP3ga();
 }
 
-// ********************************* i2ga CAST *********************************
-consoleVariable *cf_i2ga_to_c3ga(consoleScope *s, consoleVariable *arg[]) {
+// ********************************* l3ga CAST *********************************
+consoleVariable *cf_l3ga_to_c3ga(consoleScope *s, consoleVariable *arg[]) {
 	return arg[0]->castToC3ga();
 }
 
-// ********************************* i2ga CAST *********************************
-consoleVariable *cf_i2ga_to_c5ga(consoleScope *s, consoleVariable *arg[]) {
+// ********************************* l3ga CAST *********************************
+consoleVariable *cf_l3ga_to_c5ga(consoleScope *s, consoleVariable *arg[]) {
 	return arg[0]->castToC5ga();
 }
 
-// ********************************* i2ga CAST *********************************
-consoleVariable *cf_i2ga_to_i2ga(consoleScope *s, consoleVariable *arg[]) {
-	return arg[0]->castToI2ga();
+// ********************************* l3ga CAST *********************************
+consoleVariable *cf_l3ga_to_l3ga(consoleScope *s, consoleVariable *arg[]) {
+	return arg[0]->castToL3ga();
 }
 
 consoleVariable *cf_p3ga_point3(consoleScope *s, consoleVariable *arg[]) {
@@ -2904,9 +2904,9 @@ consoleVariable *cf_bit_and(consoleScope *s, consoleVariable *arg[]) {
 	unsigned int i1 = (unsigned int)(s1 + ((s1 >= 0.0) ? 0.5 : -0.5));
 
 	GAIM_FLOAT s2 = arg[1]->scalar();
-	unsigned int i2 = (unsigned int)(s2 + ((s2 >= 0.0) ? 0.5 : -0.5));
+	unsigned int l3 = (unsigned int)(s2 + ((s2 >= 0.0) ? 0.5 : -0.5));
 
-	return new consoleVariable("", e3ga((GAIM_FLOAT)(i1 & i2)));
+	return new consoleVariable("", e3ga((GAIM_FLOAT)(i1 & l3)));
 }
 
 consoleVariable *cf_bit_or(consoleScope *s, consoleVariable *arg[]) {
@@ -2914,9 +2914,9 @@ consoleVariable *cf_bit_or(consoleScope *s, consoleVariable *arg[]) {
 	unsigned int i1 = (unsigned int)(s1 + ((s1 >= 0.0) ? 0.5 : -0.5));
 
 	GAIM_FLOAT s2 = arg[1]->scalar();
-	unsigned int i2 = (unsigned int)(s2 + ((s2 >= 0.0) ? 0.5 : -0.5));
+	unsigned int l3 = (unsigned int)(s2 + ((s2 >= 0.0) ? 0.5 : -0.5));
 
-	return new consoleVariable("", e3ga((GAIM_FLOAT)(i1 | i2)));
+	return new consoleVariable("", e3ga((GAIM_FLOAT)(i1 | l3)));
 }
 
 consoleVariable *cf_bit_xor(consoleScope *s, consoleVariable *arg[]) {
@@ -2924,9 +2924,9 @@ consoleVariable *cf_bit_xor(consoleScope *s, consoleVariable *arg[]) {
 	unsigned int i1 = (unsigned int)(s1 + ((s1 >= 0.0) ? 0.5 : -0.5));
 
 	GAIM_FLOAT s2 = arg[1]->scalar();
-	unsigned int i2 = (unsigned int)(s2 + ((s2 >= 0.0) ? 0.5 : -0.5));
+	unsigned int l3 = (unsigned int)(s2 + ((s2 >= 0.0) ? 0.5 : -0.5));
 
-	return new consoleVariable("", e3ga((GAIM_FLOAT)(i1 ^ i2)));
+	return new consoleVariable("", e3ga((GAIM_FLOAT)(i1 ^ l3)));
 }
 
 consoleVariable *cf_bit_shift(consoleScope *s, consoleVariable *arg[]) {
@@ -2934,10 +2934,10 @@ consoleVariable *cf_bit_shift(consoleScope *s, consoleVariable *arg[]) {
 	unsigned int i1 = (unsigned int)(s1 + ((s1 >= 0.0) ? 0.5 : -0.5));
 
 	GAIM_FLOAT s2 = arg[1]->scalar();
-	int i2 = (int)(s2 + ((s2 >= 0.0) ? 0.5 : -0.5));
+	int l3 = (int)(s2 + ((s2 >= 0.0) ? 0.5 : -0.5));
 
-	if (i2 < 0) return new consoleVariable("", e3ga((GAIM_FLOAT)(i1 >> (-i2))));
-	else return new consoleVariable("", e3ga((GAIM_FLOAT)(i1 << (i2))));
+	if (l3 < 0) return new consoleVariable("", e3ga((GAIM_FLOAT)(i1 >> (-l3))));
+	else return new consoleVariable("", e3ga((GAIM_FLOAT)(i1 << (l3))));
 }
 
 
@@ -3169,13 +3169,13 @@ consoleVariable *cf_cmd(consoleScope *s, consoleVariable *arg[]) {
 // ********************************* RANDOM NUMBER *********************************
 consoleVariable *cf_rand(consoleScope *s, consoleVariable *arg[]) {
 	return new consoleVariable("", e3ga(genrand()));
-//	return new consoleVariable("", i2ga(genrand()));
+//	return new consoleVariable("", l3ga(genrand()));
 }
 
 // *********************************  TIME *********************************
 consoleVariable *cf_time(consoleScope *s, consoleVariable *arg[]) {
 	return new consoleVariable("", e3ga(u_timeGet()));
-//	return new consoleVariable("", i2ga(u_timeGet()));
+//	return new consoleVariable("", l3ga(u_timeGet()));
 }
 
 // ********************************* RANDOM GAUSS NUMBER *********************************
@@ -3183,7 +3183,7 @@ consoleVariable *cf_randGaussStd(consoleScope *s, consoleVariable *arg[]) {
 	double mean = 0.0;
 	double variance = 1.0;
 	return new consoleVariable("", e3ga(gaussNoise(mean, variance)));
-	//return new consoleVariable("", i2ga(gaussNoise(mean, variance)));
+	//return new consoleVariable("", l3ga(gaussNoise(mean, variance)));
 }
 
 
@@ -3638,7 +3638,7 @@ consoleVariable *cf_help(consoleScope *s, consoleVariable *arg[]) {
 		"add_const(arg1): adds a constant. E.g.: add_const(I3 = e1 ^ e2 ^ e3);\n"
 		"remove_const(arg1): removes a constant. E.g.: remove_const(I3);\n"
 		"rename_builtin_const(arg1, arg2): renames builtin constant 'arg1' to 'arg2'.\n"
-		"default_model([e3ga|p3ga|c3ga|c5ga|i2ga]): sets default model of scalars, e1, e2, e3 to the argument\n"
+		"default_model([e3ga|p3ga|c3ga|c5ga|l3ga]): sets default model of scalars, e1, e2, e3 to the argument\n"
 		"default_model(): sets model to the default\n"
 		"inner_product(functionName): sets the function used to evaluate the inner product to 'functionName' (hip, mhip, lcont and rcont and the recommended functions)\n"
 		"get_interpretation(arg1): returns an integer that gives information about how 'arg1' is interpreted (useful to make your own autocolor)\n"
@@ -3841,7 +3841,7 @@ consoleVariable *cf_help(consoleScope *s, consoleVariable *arg[]) {
 		"(p3ga)arg1: casts arg1 to projective model\n"	
 		"(c3ga)arg1: casts arg1 to conformal model of 3-D Euclidean space\n"	
 		"(c5ga)arg1: casts arg1 to conformal model of 5-D Euclidean space\n"	
-		"(i2ga)arg1: casts arg1 to image algebra \n"	
+		"(l3ga)arg1: casts arg1 to image algebra \n"	
 /*		"\nFunction-like casting:\n"
 		"cast_e3ga(arg1): casts arg1 to euclidean model\n"	
 		"cast_p3ga(arg1): casts arg1 to projective model\n"	
@@ -4500,96 +4500,96 @@ Or after multiple algebra use????
 
 
 
-	{"print", NULL, cf_i2ga_print, 1, {CVF_RHS | MVI_I2GA}},
-	{"print", NULL, cf_i2ga_print_prec, 2, {CVF_RHS | MVI_I2GA, CVF_RHS | CVF_ANY_MODEL}},
-	{"scalar", NULL, cf_i2ga_scalar, 1, {CVF_RHS | MVI_I2GA}},
-	{"dual", NULL, cf_i2ga_dual, 1, {CVF_RHS | MVI_I2GA}},
-	{"dual", NULL, cf_i2ga_dual2, 2, {CVF_RHS | MVI_I2GA, CVF_RHS | MVI_I2GA}},
-	{"reverse", NULL, cf_i2ga_reverse, 1, {CVF_RHS | MVI_I2GA}},
-	{"clifford_conjugate", NULL, cf_i2ga_clifford_conjugate, 1, {CVF_RHS | MVI_I2GA}},
-	{"grade_involution", NULL, cf_i2ga_grade_involution, 1, {CVF_RHS | MVI_I2GA}},
-	{"inverse", NULL, cf_i2ga_inverse, 1, {CVF_RHS | MVI_I2GA}},
-	{"general_inverse", NULL, cf_i2ga_general_inverse, 1, {CVF_RHS | MVI_I2GA}},
-	{"negate", NULL, cf_i2ga_negate, 1, {CVF_RHS | MVI_I2GA}},
-	{"assign", NULL, cf_i2ga_assign, 2, {CVF_LHS | CVF_ANY_MODEL, CVF_RHS | MVI_I2GA}},
-	{"gp", NULL, cf_i2ga_gp, 2, {CVF_RHS | MVI_I2GA, CVF_RHS | MVI_I2GA}},
-	{"igp", NULL, cf_i2ga_igp, 2, {CVF_RHS | MVI_I2GA, CVF_RHS | MVI_I2GA}},
-	{"op", NULL, cf_i2ga_op, 2, {CVF_RHS | MVI_I2GA, CVF_RHS | MVI_I2GA}},
-	{"hip", NULL, cf_i2ga_hip, 2, {CVF_RHS | MVI_I2GA, CVF_RHS | MVI_I2GA}},
-	{"mhip", NULL, cf_i2ga_mhip, 2, {CVF_RHS | MVI_I2GA, CVF_RHS | MVI_I2GA}},
-	{"lcont", NULL, cf_i2ga_lcont, 2, {CVF_RHS | MVI_I2GA, CVF_RHS | MVI_I2GA}},
-	{"rcont", NULL, cf_i2ga_rcont, 2, {CVF_RHS | MVI_I2GA, CVF_RHS | MVI_I2GA}},
-	{"scp", NULL, cf_i2ga_scp, 2, {CVF_RHS | MVI_I2GA, CVF_RHS | MVI_I2GA}},
-	{"gpem", NULL, cf_i2ga_gpem, 2, {CVF_RHS | MVI_I2GA, CVF_RHS | MVI_I2GA}},
-	{"lcem", NULL, cf_i2ga_lcem, 2, {CVF_RHS | MVI_I2GA, CVF_RHS | MVI_I2GA}},
-	{"meet", NULL, cf_i2ga_meet, 2, {CVF_RHS | MVI_I2GA, CVF_RHS | MVI_I2GA}},
-	{"cp", NULL, cf_i2ga_cp, 2, {CVF_RHS | MVI_I2GA, CVF_RHS | MVI_I2GA}},
-	{"join", NULL, cf_i2ga_join, 2, {CVF_RHS | MVI_I2GA, CVF_RHS | MVI_I2GA}},
-	{"add", NULL, cf_i2ga_add, 2, {CVF_RHS | MVI_I2GA, CVF_RHS | MVI_I2GA}},
-	{"sub", NULL, cf_i2ga_sub, 2, {CVF_RHS | MVI_I2GA, CVF_RHS | MVI_I2GA}},
+	{"print", NULL, cf_l3ga_print, 1, {CVF_RHS | MVI_L3GA}},
+	{"print", NULL, cf_l3ga_print_prec, 2, {CVF_RHS | MVI_L3GA, CVF_RHS | CVF_ANY_MODEL}},
+	{"scalar", NULL, cf_l3ga_scalar, 1, {CVF_RHS | MVI_L3GA}},
+	{"dual", NULL, cf_l3ga_dual, 1, {CVF_RHS | MVI_L3GA}},
+	{"dual", NULL, cf_l3ga_dual2, 2, {CVF_RHS | MVI_L3GA, CVF_RHS | MVI_L3GA}},
+	{"reverse", NULL, cf_l3ga_reverse, 1, {CVF_RHS | MVI_L3GA}},
+	{"clifford_conjugate", NULL, cf_l3ga_clifford_conjugate, 1, {CVF_RHS | MVI_L3GA}},
+	{"grade_involution", NULL, cf_l3ga_grade_involution, 1, {CVF_RHS | MVI_L3GA}},
+	{"inverse", NULL, cf_l3ga_inverse, 1, {CVF_RHS | MVI_L3GA}},
+	{"general_inverse", NULL, cf_l3ga_general_inverse, 1, {CVF_RHS | MVI_L3GA}},
+	{"negate", NULL, cf_l3ga_negate, 1, {CVF_RHS | MVI_L3GA}},
+	{"assign", NULL, cf_l3ga_assign, 2, {CVF_LHS | CVF_ANY_MODEL, CVF_RHS | MVI_L3GA}},
+	{"gp", NULL, cf_l3ga_gp, 2, {CVF_RHS | MVI_L3GA, CVF_RHS | MVI_L3GA}},
+	{"igp", NULL, cf_l3ga_igp, 2, {CVF_RHS | MVI_L3GA, CVF_RHS | MVI_L3GA}},
+	{"op", NULL, cf_l3ga_op, 2, {CVF_RHS | MVI_L3GA, CVF_RHS | MVI_L3GA}},
+	{"hip", NULL, cf_l3ga_hip, 2, {CVF_RHS | MVI_L3GA, CVF_RHS | MVI_L3GA}},
+	{"mhip", NULL, cf_l3ga_mhip, 2, {CVF_RHS | MVI_L3GA, CVF_RHS | MVI_L3GA}},
+	{"lcont", NULL, cf_l3ga_lcont, 2, {CVF_RHS | MVI_L3GA, CVF_RHS | MVI_L3GA}},
+	{"rcont", NULL, cf_l3ga_rcont, 2, {CVF_RHS | MVI_L3GA, CVF_RHS | MVI_L3GA}},
+	{"scp", NULL, cf_l3ga_scp, 2, {CVF_RHS | MVI_L3GA, CVF_RHS | MVI_L3GA}},
+	{"gpem", NULL, cf_l3ga_gpem, 2, {CVF_RHS | MVI_L3GA, CVF_RHS | MVI_L3GA}},
+	{"lcem", NULL, cf_l3ga_lcem, 2, {CVF_RHS | MVI_L3GA, CVF_RHS | MVI_L3GA}},
+	{"meet", NULL, cf_l3ga_meet, 2, {CVF_RHS | MVI_L3GA, CVF_RHS | MVI_L3GA}},
+	{"cp", NULL, cf_l3ga_cp, 2, {CVF_RHS | MVI_L3GA, CVF_RHS | MVI_L3GA}},
+	{"join", NULL, cf_l3ga_join, 2, {CVF_RHS | MVI_L3GA, CVF_RHS | MVI_L3GA}},
+	{"add", NULL, cf_l3ga_add, 2, {CVF_RHS | MVI_L3GA, CVF_RHS | MVI_L3GA}},
+	{"sub", NULL, cf_l3ga_sub, 2, {CVF_RHS | MVI_L3GA, CVF_RHS | MVI_L3GA}},
 
-	{"grade", NULL, cf_i2ga_grade_nb, 1, {CVF_RHS | MVI_I2GA}},
-	{"grade", NULL, cf_i2ga_grade, 2, {CVF_RHS | MVI_I2GA, CVF_RHS | MVI_I2GA}},
-	{"versor_parity", NULL, cf_i2ga_versor_parity, 1, {CVF_RHS | MVI_I2GA}},
+	{"grade", NULL, cf_l3ga_grade_nb, 1, {CVF_RHS | MVI_L3GA}},
+	{"grade", NULL, cf_l3ga_grade, 2, {CVF_RHS | MVI_L3GA, CVF_RHS | MVI_L3GA}},
+	{"versor_parity", NULL, cf_l3ga_versor_parity, 1, {CVF_RHS | MVI_L3GA}},
 
-	{"norm", NULL, cf_i2ga_norm, 1, {CVF_RHS | MVI_I2GA}},
-	{"norm_2", NULL, cf_i2ga_norm_2, 1, {CVF_RHS | MVI_I2GA}},
-	{"norm_r", NULL, cf_i2ga_norm_r, 1, {CVF_RHS | MVI_I2GA}},
+	{"norm", NULL, cf_l3ga_norm, 1, {CVF_RHS | MVI_L3GA}},
+	{"norm_2", NULL, cf_l3ga_norm_2, 1, {CVF_RHS | MVI_L3GA}},
+	{"norm_r", NULL, cf_l3ga_norm_r, 1, {CVF_RHS | MVI_L3GA}},
 
-	{"normalize", NULL, cf_i2ga_normalize, 1, {CVF_RHS | MVI_I2GA}},
+	{"normalize", NULL, cf_l3ga_normalize, 1, {CVF_RHS | MVI_L3GA}},
 
 
-	{"abs", NULL, cf_i2ga_abs, 1, {CVF_RHS | MVI_I2GA}},
+	{"abs", NULL, cf_l3ga_abs, 1, {CVF_RHS | MVI_L3GA}},
 
-	{"sqrt", NULL, cf_i2ga_sqrt, 1, {CVF_RHS | MVI_I2GA}},
-	{"tan", NULL, cf_i2ga_tan, 1, {CVF_RHS | MVI_I2GA}},
-	{"sin", NULL, cf_i2ga_sin, 1, {CVF_RHS | MVI_I2GA}},
-	{"cos", NULL, cf_i2ga_cos, 1, {CVF_RHS | MVI_I2GA}},
-	{"atan", NULL, cf_i2ga_atan, 1, {CVF_RHS | MVI_I2GA}},
-	{"asin", NULL, cf_i2ga_asin, 1, {CVF_RHS | MVI_I2GA}},
-	{"acos", NULL, cf_i2ga_acos, 1, {CVF_RHS | MVI_I2GA}},
-	{"atan2", NULL, cf_i2ga_atan2, 2, {CVF_RHS | MVI_I2GA, CVF_RHS | MVI_I2GA}},
-	{"cosh", NULL, cf_i2ga_cosh, 1, {CVF_RHS | MVI_I2GA}},
-	{"sinh", NULL, cf_i2ga_sinh, 1, {CVF_RHS | MVI_I2GA}},
-	{"acosh", NULL, cf_i2ga_acosh, 1, {CVF_RHS | MVI_I2GA}},
-	{"asinh", NULL, cf_i2ga_asinh, 1, {CVF_RHS | MVI_I2GA}},
-	{"sinc", NULL, cf_i2ga_sinc, 1, {CVF_RHS | MVI_I2GA}},
-	{"log", NULL, cf_i2ga_log, 1, {CVF_RHS | MVI_I2GA}},
-	{"exp", NULL, cf_i2ga_exp, 1, {CVF_RHS | MVI_I2GA}},
-	{"pow", NULL, cf_i2ga_pow, 2, {CVF_RHS | MVI_I2GA, CVF_RHS | MVI_I2GA}},
-	{"scalar_pow", NULL, cf_i2ga_scalar_pow, 2, {CVF_RHS | MVI_I2GA, CVF_RHS | MVI_I2GA}},
-	{"max", NULL, cf_i2ga_max, 2, {CVF_RHS | MVI_I2GA, CVF_RHS | MVI_I2GA}},
-	{"min", NULL, cf_i2ga_min, 2, {CVF_RHS | MVI_I2GA, CVF_RHS | MVI_I2GA}},
+	{"sqrt", NULL, cf_l3ga_sqrt, 1, {CVF_RHS | MVI_L3GA}},
+	{"tan", NULL, cf_l3ga_tan, 1, {CVF_RHS | MVI_L3GA}},
+	{"sin", NULL, cf_l3ga_sin, 1, {CVF_RHS | MVI_L3GA}},
+	{"cos", NULL, cf_l3ga_cos, 1, {CVF_RHS | MVI_L3GA}},
+	{"atan", NULL, cf_l3ga_atan, 1, {CVF_RHS | MVI_L3GA}},
+	{"asin", NULL, cf_l3ga_asin, 1, {CVF_RHS | MVI_L3GA}},
+	{"acos", NULL, cf_l3ga_acos, 1, {CVF_RHS | MVI_L3GA}},
+	{"atan2", NULL, cf_l3ga_atan2, 2, {CVF_RHS | MVI_L3GA, CVF_RHS | MVI_L3GA}},
+	{"cosh", NULL, cf_l3ga_cosh, 1, {CVF_RHS | MVI_L3GA}},
+	{"sinh", NULL, cf_l3ga_sinh, 1, {CVF_RHS | MVI_L3GA}},
+	{"acosh", NULL, cf_l3ga_acosh, 1, {CVF_RHS | MVI_L3GA}},
+	{"asinh", NULL, cf_l3ga_asinh, 1, {CVF_RHS | MVI_L3GA}},
+	{"sinc", NULL, cf_l3ga_sinc, 1, {CVF_RHS | MVI_L3GA}},
+	{"log", NULL, cf_l3ga_log, 1, {CVF_RHS | MVI_L3GA}},
+	{"exp", NULL, cf_l3ga_exp, 1, {CVF_RHS | MVI_L3GA}},
+	{"pow", NULL, cf_l3ga_pow, 2, {CVF_RHS | MVI_L3GA, CVF_RHS | MVI_L3GA}},
+	{"scalar_pow", NULL, cf_l3ga_scalar_pow, 2, {CVF_RHS | MVI_L3GA, CVF_RHS | MVI_L3GA}},
+	{"max", NULL, cf_l3ga_max, 2, {CVF_RHS | MVI_L3GA, CVF_RHS | MVI_L3GA}},
+	{"min", NULL, cf_l3ga_min, 2, {CVF_RHS | MVI_L3GA, CVF_RHS | MVI_L3GA}},
 	
-//	{"time", NULL, cf_i2ga_time, 0, {}},
-	{"randSeed", NULL, cf_i2ga_randSeed, 1, {CVF_RHS | MVI_I2GA}},
-	{"randGauss", NULL, cf_i2ga_randGauss, 2, {CVF_RHS | MVI_I2GA, CVF_RHS | MVI_I2GA}},
+//	{"time", NULL, cf_l3ga_time, 0, {}},
+	{"randSeed", NULL, cf_l3ga_randSeed, 1, {CVF_RHS | MVI_L3GA}},
+	{"randGauss", NULL, cf_l3ga_randGauss, 2, {CVF_RHS | MVI_L3GA, CVF_RHS | MVI_L3GA}},
 	
-	{"versor_product", NULL, cf_i2ga_versorProduct, 2, {CVF_RHS | MVI_I2GA, CVF_RHS | MVI_I2GA}},
-	{"inverse_versor_product", NULL, cf_i2ga_inverseVersorProduct, 2, {CVF_RHS | MVI_I2GA, CVF_RHS | MVI_I2GA}},
-	{"vp", NULL, cf_i2ga_versorProduct, 2, {CVF_RHS | MVI_I2GA, CVF_RHS | MVI_I2GA}},
-	{"ivp", NULL, cf_i2ga_inverseVersorProduct, 2, {CVF_RHS | MVI_I2GA, CVF_RHS | MVI_I2GA}},
+	{"versor_product", NULL, cf_l3ga_versorProduct, 2, {CVF_RHS | MVI_L3GA, CVF_RHS | MVI_L3GA}},
+	{"inverse_versor_product", NULL, cf_l3ga_inverseVersorProduct, 2, {CVF_RHS | MVI_L3GA, CVF_RHS | MVI_L3GA}},
+	{"vp", NULL, cf_l3ga_versorProduct, 2, {CVF_RHS | MVI_L3GA, CVF_RHS | MVI_L3GA}},
+	{"ivp", NULL, cf_l3ga_inverseVersorProduct, 2, {CVF_RHS | MVI_L3GA, CVF_RHS | MVI_L3GA}},
 
 	// temp mierenneuk version of versor product
-	{"mnvp", NULL, cf_i2ga_MNversorProduct, 2, {CVF_RHS | MVI_I2GA, CVF_RHS | MVI_I2GA}},
-	{"mnivp", NULL, cf_i2ga_MNinverseVersorProduct, 2, {CVF_RHS | MVI_I2GA, CVF_RHS | MVI_I2GA}},
+	{"mnvp", NULL, cf_l3ga_MNversorProduct, 2, {CVF_RHS | MVI_L3GA, CVF_RHS | MVI_L3GA}},
+	{"mnivp", NULL, cf_l3ga_MNinverseVersorProduct, 2, {CVF_RHS | MVI_L3GA, CVF_RHS | MVI_L3GA}},
 	
-	{"project", NULL, cf_i2ga_project, 2, {CVF_RHS | MVI_I2GA, CVF_RHS | MVI_I2GA}},
-	{"reject", NULL, cf_i2ga_reject, 2, {CVF_RHS | MVI_I2GA, CVF_RHS | MVI_I2GA}},
+	{"project", NULL, cf_l3ga_project, 2, {CVF_RHS | MVI_L3GA, CVF_RHS | MVI_L3GA}},
+	{"reject", NULL, cf_l3ga_reject, 2, {CVF_RHS | MVI_L3GA, CVF_RHS | MVI_L3GA}},
 
-	{"factor", NULL, cf_i2ga_factor, 2, {CVF_RHS | MVI_I2GA, CVF_RHS | MVI_I2GA}},
+	{"factor", NULL, cf_l3ga_factor, 2, {CVF_RHS | MVI_L3GA, CVF_RHS | MVI_L3GA}},
 
-	{"set_factor", NULL, cf_i2ga_set_factor, 2, {CVF_RHS | CVF_ANY_MODEL, CVF_RHS | MVI_I2GA}},
+	{"set_factor", NULL, cf_l3ga_set_factor, 2, {CVF_RHS | CVF_ANY_MODEL, CVF_RHS | MVI_L3GA}},
 
-	{"equal", NULL, cf_i2ga_equal, 2, {CVF_RHS | MVI_I2GA, CVF_RHS | MVI_I2GA}},
-	{"ne", NULL, cf_i2ga_ne, 2, {CVF_RHS | MVI_I2GA, CVF_RHS | MVI_I2GA}},
-	{"less", NULL, cf_i2ga_less, 2, {CVF_RHS | MVI_I2GA, CVF_RHS | MVI_I2GA}},
-	{"greater", NULL, cf_i2ga_greater, 2, {CVF_RHS | MVI_I2GA, CVF_RHS | MVI_I2GA}},
-	{"le", NULL, cf_i2ga_le, 2, {CVF_RHS | MVI_I2GA, CVF_RHS | MVI_I2GA}},
-	{"ge", NULL, cf_i2ga_ge, 2, {CVF_RHS | MVI_I2GA, CVF_RHS | MVI_I2GA}},
-	{"and", NULL, cf_i2ga_and, 2, {CVF_RHS | MVI_I2GA, CVF_RHS | MVI_I2GA}},
-	{"or", NULL, cf_i2ga_or, 2, {CVF_RHS | MVI_I2GA, CVF_RHS | MVI_I2GA}},
-	{"not", NULL, cf_i2ga_not, 1, {CVF_RHS | MVI_I2GA}},
+	{"equal", NULL, cf_l3ga_equal, 2, {CVF_RHS | MVI_L3GA, CVF_RHS | MVI_L3GA}},
+	{"ne", NULL, cf_l3ga_ne, 2, {CVF_RHS | MVI_L3GA, CVF_RHS | MVI_L3GA}},
+	{"less", NULL, cf_l3ga_less, 2, {CVF_RHS | MVI_L3GA, CVF_RHS | MVI_L3GA}},
+	{"greater", NULL, cf_l3ga_greater, 2, {CVF_RHS | MVI_L3GA, CVF_RHS | MVI_L3GA}},
+	{"le", NULL, cf_l3ga_le, 2, {CVF_RHS | MVI_L3GA, CVF_RHS | MVI_L3GA}},
+	{"ge", NULL, cf_l3ga_ge, 2, {CVF_RHS | MVI_L3GA, CVF_RHS | MVI_L3GA}},
+	{"and", NULL, cf_l3ga_and, 2, {CVF_RHS | MVI_L3GA, CVF_RHS | MVI_L3GA}},
+	{"or", NULL, cf_l3ga_or, 2, {CVF_RHS | MVI_L3GA, CVF_RHS | MVI_L3GA}},
+	{"not", NULL, cf_l3ga_not, 1, {CVF_RHS | MVI_L3GA}},
 
 /*
 To add: 
@@ -4608,7 +4608,7 @@ Or after multiple algebra use????
 
 	{"cast_c5ga", NULL, cf_e3ga_to_c5ga, 1, {CVF_RHS | MVI_E3GA}},
 
-	{"cast_i2ga", NULL, cf_e3ga_to_i2ga, 1, {CVF_RHS | MVI_E3GA}},
+	{"cast_l3ga", NULL, cf_e3ga_to_l3ga, 1, {CVF_RHS | MVI_E3GA}},
 
 	{"cast_e3ga", NULL, cf_p3ga_to_e3ga, 1, {CVF_RHS | MVI_P3GA}},
 
@@ -4618,7 +4618,7 @@ Or after multiple algebra use????
 
 	{"cast_c5ga", NULL, cf_p3ga_to_c5ga, 1, {CVF_RHS | MVI_P3GA}},
 
-	{"cast_i2ga", NULL, cf_p3ga_to_i2ga, 1, {CVF_RHS | MVI_P3GA}},
+	{"cast_l3ga", NULL, cf_p3ga_to_l3ga, 1, {CVF_RHS | MVI_P3GA}},
 
 	{"cast_e3ga", NULL, cf_c3ga_to_e3ga, 1, {CVF_RHS | MVI_C3GA}},
 
@@ -4628,7 +4628,7 @@ Or after multiple algebra use????
 
 	{"cast_c5ga", NULL, cf_c3ga_to_c5ga, 1, {CVF_RHS | MVI_C3GA}},
 
-	{"cast_i2ga", NULL, cf_c3ga_to_i2ga, 1, {CVF_RHS | MVI_C3GA}},
+	{"cast_l3ga", NULL, cf_c3ga_to_l3ga, 1, {CVF_RHS | MVI_C3GA}},
 
 	{"cast_e3ga", NULL, cf_c5ga_to_e3ga, 1, {CVF_RHS | MVI_C5GA}},
 
@@ -4638,17 +4638,17 @@ Or after multiple algebra use????
 
 	{"cast_c5ga", NULL, cf_c5ga_to_c5ga, 1, {CVF_RHS | MVI_C5GA}},
 
-	{"cast_i2ga", NULL, cf_c5ga_to_i2ga, 1, {CVF_RHS | MVI_C5GA}},
+	{"cast_l3ga", NULL, cf_c5ga_to_l3ga, 1, {CVF_RHS | MVI_C5GA}},
 
-	{"cast_e3ga", NULL, cf_i2ga_to_e3ga, 1, {CVF_RHS | MVI_I2GA}},
+	{"cast_e3ga", NULL, cf_l3ga_to_e3ga, 1, {CVF_RHS | MVI_L3GA}},
 
-	{"cast_p3ga", NULL, cf_i2ga_to_p3ga, 1, {CVF_RHS | MVI_I2GA}},
+	{"cast_p3ga", NULL, cf_l3ga_to_p3ga, 1, {CVF_RHS | MVI_L3GA}},
 
-	{"cast_c3ga", NULL, cf_i2ga_to_c3ga, 1, {CVF_RHS | MVI_I2GA}},
+	{"cast_c3ga", NULL, cf_l3ga_to_c3ga, 1, {CVF_RHS | MVI_L3GA}},
 
-	{"cast_c5ga", NULL, cf_i2ga_to_c5ga, 1, {CVF_RHS | MVI_I2GA}},
+	{"cast_c5ga", NULL, cf_l3ga_to_c5ga, 1, {CVF_RHS | MVI_L3GA}},
 
-	{"cast_i2ga", NULL, cf_i2ga_to_i2ga, 1, {CVF_RHS | MVI_I2GA}},
+	{"cast_l3ga", NULL, cf_l3ga_to_l3ga, 1, {CVF_RHS | MVI_L3GA}},
 
 	{NULL, NULL, NULL, 0, NULL}
 };

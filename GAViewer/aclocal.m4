@@ -382,7 +382,7 @@ AC_DEFUN([_AM_OUTPUT_DEPENDENCY_COMMANDS],
     am__include=`sed -n 's/^am__include = //p' < "$mf"`
     test -z "am__include" && continue
     am__quote=`sed -n 's/^am__quote = //p' < "$mf"`
-    # When using ansi2knr, U may be empty or an underscore; expand it
+    # When using ansl3knr, U may be empty or an underscore; expand it
     U=`sed -n 's/^U = //p' < "$mf"`
     # Find all dependency output files, they are included files with
     # $(DEPDIR) in their names.  We invoke sed twice because it is the

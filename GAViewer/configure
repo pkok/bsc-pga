@@ -2319,7 +2319,7 @@ fi
 
 # Define the identity of the package.
  PACKAGE=GAViewer
- VERSION=0.87
+ VERSION=0.86
 
 
 cat >>confdefs.h <<_ACEOF
@@ -3961,7 +3961,7 @@ fi
 
 
 
-ac_config_files="$ac_config_files Makefile src/console/Makefile src/console/codegen/Makefile src/typeset/Makefile src/c3ga/Makefile src/c5ga/Makefile src/p3ga/Makefile src/e3ga/Makefile src/i2ga/Makefile src/pl3ga/Makefile src/Makefile vs.net/Makefile vs.2005/Makefile vs2008/Makefile txtfiles/Makefile"
+ac_config_files="$ac_config_files Makefile src/console/Makefile src/console/codegen/Makefile src/typeset/Makefile src/c3ga/Makefile src/c5ga/Makefile src/p3ga/Makefile src/e3ga/Makefile src/l3ga/Makefile src/Makefile vs.net/Makefile vs.2005/Makefile vs2008/Makefile txtfiles/Makefile"
 
 cat >confcache <<\_ACEOF
 # This file is a shell script that caches the results of configure
@@ -4721,8 +4721,7 @@ do
     "src/c5ga/Makefile") CONFIG_FILES="$CONFIG_FILES src/c5ga/Makefile" ;;
     "src/p3ga/Makefile") CONFIG_FILES="$CONFIG_FILES src/p3ga/Makefile" ;;
     "src/e3ga/Makefile") CONFIG_FILES="$CONFIG_FILES src/e3ga/Makefile" ;;
-    "src/i2ga/Makefile") CONFIG_FILES="$CONFIG_FILES src/i2ga/Makefile" ;;
-    "src/pl3ga/Makefile") CONFIG_FILES="$CONFIG_FILES src/pl3ga/Makefile" ;;
+    "src/l3ga/Makefile") CONFIG_FILES="$CONFIG_FILES src/l3ga/Makefile" ;;
     "src/Makefile") CONFIG_FILES="$CONFIG_FILES src/Makefile" ;;
     "vs.net/Makefile") CONFIG_FILES="$CONFIG_FILES vs.net/Makefile" ;;
     "vs.2005/Makefile") CONFIG_FILES="$CONFIG_FILES vs.2005/Makefile" ;;
@@ -5211,7 +5210,7 @@ $as_echo X"$mf" |
     am__include=`sed -n 's/^am__include = //p' < "$mf"`
     test -z "am__include" && continue
     am__quote=`sed -n 's/^am__quote = //p' < "$mf"`
-    # When using ansi2knr, U may be empty or an underscore; expand it
+    # When using ansl3knr, U may be empty or an underscore; expand it
     U=`sed -n 's/^U = //p' < "$mf"`
     # Find all dependency output files, they are included files with
     # $(DEPDIR) in their names.  We invoke sed twice because it is the

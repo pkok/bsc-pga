@@ -237,19 +237,10 @@ int c5gaObject::writeToGeoFile(FILE *F) {
 	return 0;
 }
 
-int i2gaObject::writeToGeoFile(FILE *F) {
+int l3gaObject::writeToGeoFile(FILE *F) {
 	object::writeToGeoFile(F);
 
-	fprintf(F, "i2ga \"%s\" [%s] ", m_name.c_str(), m_mv.string("%2.20e"));
-	writeToGeoFileProperties(F);
-	fprintf(F, "\n");
-	return 0;
-}
-
-int pl3gaObject::writeToGeoFile(FILE *F) {
-	object::writeToGeoFile(F);
-
-	fprintf(F, "pl3ga \"%s\" [%s] ", m_name.c_str(), m_mv.string("%2.20e"));
+	fprintf(F, "l3ga \"%s\" [%s] ", m_name.c_str(), m_mv.string("%2.20e"));
 	writeToGeoFileProperties(F);
 	fprintf(F, "\n");
 	return 0;

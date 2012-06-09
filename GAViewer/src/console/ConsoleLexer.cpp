@@ -890,7 +890,7 @@ void ConsoleLexer::mID(bool _createToken) {
 		else if (s == "p3ga") _ttype = TK_p3ga;
 		else if (s == "c3ga") _ttype = TK_c3ga;
 		else if (s == "c5ga") _ttype = TK_c5ga;
-		else if (s == "i2ga") _ttype = TK_i2ga;
+		else if (s == "l3ga") _ttype = TK_l3ga;
 		else {/* determine if this is an identifier or function */
 			if ((!inQuotes) && g_currentParsingScope->isFunction(text.substr(_begin,text.length()-_begin))) _ttype = FUNCNAME; 
 			else _ttype = IDENTIFIER;

@@ -52,21 +52,20 @@ am_gaviewer_OBJECTS = main.$(OBJEXT) draw.$(OBJEXT) gafile.$(OBJEXT) \
 	mvintc3ga.$(OBJEXT) mvintc5ga.$(OBJEXT) netserver.$(OBJEXT) \
 	polygonobject.$(OBJEXT) softpic.$(OBJEXT) \
 	dynamicstatementwindow.$(OBJEXT) mvinte3ga.$(OBJEXT) \
-	ui.$(OBJEXT) mvinti2ga.$(OBJEXT) object.$(OBJEXT) \
-	screenshot.$(OBJEXT) state.$(OBJEXT) i2gaobject.$(OBJEXT) \
+	ui.$(OBJEXT) mvintl3ga.$(OBJEXT) object.$(OBJEXT) \
+	screenshot.$(OBJEXT) state.$(OBJEXT) l3gaobject.$(OBJEXT) \
 	meshobject.$(OBJEXT) mvintp3ga.$(OBJEXT) p3gaobject.$(OBJEXT) \
 	screenshotdialog.$(OBJEXT) util.$(OBJEXT) c3gaobject.$(OBJEXT) \
 	c5gaobject.$(OBJEXT) geosphere.$(OBJEXT) textobject.$(OBJEXT) \
 	conformalobject.$(OBJEXT) e3gaobject.$(OBJEXT) mvint.$(OBJEXT) \
 	netclient.$(OBJEXT) pngwrapper.$(OBJEXT) \
 	selectwindow.$(OBJEXT) tubedraw.$(OBJEXT) writestate.$(OBJEXT) \
-	mt19937-2.$(OBJEXT) mvintpl3ga.$(OBJEXT) pl3gaobject.$(OBJEXT)
+	mt19937-2.$(OBJEXT)
 gaviewer_OBJECTS = $(am_gaviewer_OBJECTS)
 am__DEPENDENCIES_1 =
 gaviewer_DEPENDENCIES = console/libconsole.a typeset/libtypeset.a \
-	c5ga/libc5ga.a c3ga/libc3ga.a i2ga/libi2ga.a p3ga/libp3ga.a \
-	e3ga/libe3ga.a pl3ga/libpl3ga.a $(am__DEPENDENCIES_1) \
-	$(am__DEPENDENCIES_1)
+	c5ga/libc5ga.a c3ga/libc3ga.a l3ga/libl3ga.a p3ga/libp3ga.a \
+	e3ga/libe3ga.a $(am__DEPENDENCIES_1) $(am__DEPENDENCIES_1)
 DEFAULT_INCLUDES = -I.
 depcomp = $(SHELL) $(top_srcdir)/depcomp
 am__depfiles_maybe = depfiles
@@ -139,7 +138,7 @@ CXX = g++
 CXXDEPMODE = depmode=gcc3
 CXXFLAGS = -g -O2
 CYGPATH_W = echo
-DEFS = -DPACKAGE_NAME=\"\" -DPACKAGE_TARNAME=\"\" -DPACKAGE_VERSION=\"\" -DPACKAGE_STRING=\"\" -DPACKAGE_BUGREPORT=\"\" -DPACKAGE_URL=\"\" -DPACKAGE=\"GAViewer\" -DVERSION=\"0.87\" -DHAVE_LIBGLU=1
+DEFS = -DPACKAGE_NAME=\"\" -DPACKAGE_TARNAME=\"\" -DPACKAGE_VERSION=\"\" -DPACKAGE_STRING=\"\" -DPACKAGE_BUGREPORT=\"\" -DPACKAGE_URL=\"\" -DPACKAGE=\"GAViewer\" -DVERSION=\"0.86\" -DHAVE_LIBGLU=1
 DEPDIR = .deps
 ECHO_C = 
 ECHO_N = -n
@@ -169,7 +168,7 @@ RANLIB = ranlib
 SET_MAKE = 
 SHELL = /bin/bash
 STRIP = 
-VERSION = 0.87
+VERSION = 0.86
 abs_builddir = /home/pkok/scriptie/GAViewer/src
 abs_srcdir = /home/pkok/scriptie/GAViewer/src
 abs_top_builddir = /home/pkok/scriptie/GAViewer
@@ -213,11 +212,11 @@ target_alias =
 top_build_prefix = ../
 top_builddir = ..
 top_srcdir = ..
-SUBDIRS = console typeset c3ga p3ga e3ga i2ga c5ga pl3ga
+SUBDIRS = console typeset c3ga p3ga e3ga l3ga c5ga
 AM_CPPFLAGS = $(GL_CFLAGS) $(AQSIS_FLTK_GL_CFLAGS) -I/opt/local/include 
 gaviewer_LDADD = \
         console/libconsole.a typeset/libtypeset.a \
-        c5ga/libc5ga.a c3ga/libc3ga.a i2ga/libi2ga.a p3ga/libp3ga.a e3ga/libe3ga.a pl3ga/libpl3ga.a \
+        c5ga/libc5ga.a c3ga/libc3ga.a l3ga/libl3ga.a p3ga/libp3ga.a e3ga/libe3ga.a \
         $(AQSIS_FLTK_GL_LIBS) \
 	     $(ANTLR_LIBS) -lpng -lz
 
@@ -225,13 +224,13 @@ gaviewer_SOURCES = \
 	main.cpp draw.cpp gafile.cpp glwindow.cpp osdep.cpp \
         mainwindow.cpp mvintc3ga.cpp mvintc5ga.cpp netserver.cpp polygonobject.cpp \
         softpic.cpp dynamicstatementwindow.cpp mvinte3ga.cpp ui.cpp \
-        mvinti2ga.cpp object.cpp screenshot.cpp state.cpp \
-        i2gaobject.cpp meshobject.cpp mvintp3ga.cpp \
+        mvintl3ga.cpp object.cpp screenshot.cpp state.cpp \
+        l3gaobject.cpp meshobject.cpp mvintp3ga.cpp \
         p3gaobject.cpp screenshotdialog.cpp util.cpp c3gaobject.cpp c5gaobject.cpp \
         geosphere.cpp textobject.cpp conformalobject.cpp \
         e3gaobject.cpp mvint.cpp netclient.cpp \
         pngwrapper.cpp selectwindow.cpp tubedraw.cpp writestate.cpp \
-        mt19937-2.cpp mvintpl3ga.cpp pl3gaobject.cpp
+        mt19937-2.cpp
 
 noinst_HEADERS = \
 	draw.h mvint.h netclient.h pngwrapper.h selectwindow.h  tubedraw.h \
@@ -240,7 +239,7 @@ noinst_HEADERS = \
         state.h models.h mypng.h screenshotdialog.h util.h geosphere.h \
         openglfont.h gl_includes.h mt19937-2.h c3gadraw.h
 
-EXTRA_DIST = c5ga.gas c3ga.gas e3ga.gas p3ga.gas i2ga.gas pl3ga.gas gaviewer.rc gaviewer.xbm icon1.ico
+EXTRA_DIST = c5ga.gas c3ga.gas e3ga.gas p3ga.gas l3ga.gas gaviewer.rc gaviewer.xbm icon1.ico
 all: all-recursive
 
 .SUFFIXES:
@@ -331,7 +330,7 @@ include ./$(DEPDIR)/e3gaobject.Po
 include ./$(DEPDIR)/gafile.Po
 include ./$(DEPDIR)/geosphere.Po
 include ./$(DEPDIR)/glwindow.Po
-include ./$(DEPDIR)/i2gaobject.Po
+include ./$(DEPDIR)/l3gaobject.Po
 include ./$(DEPDIR)/main.Po
 include ./$(DEPDIR)/mainwindow.Po
 include ./$(DEPDIR)/meshobject.Po
@@ -340,15 +339,13 @@ include ./$(DEPDIR)/mvint.Po
 include ./$(DEPDIR)/mvintc3ga.Po
 include ./$(DEPDIR)/mvintc5ga.Po
 include ./$(DEPDIR)/mvinte3ga.Po
-include ./$(DEPDIR)/mvinti2ga.Po
+include ./$(DEPDIR)/mvintl3ga.Po
 include ./$(DEPDIR)/mvintp3ga.Po
-include ./$(DEPDIR)/mvintpl3ga.Po
 include ./$(DEPDIR)/netclient.Po
 include ./$(DEPDIR)/netserver.Po
 include ./$(DEPDIR)/object.Po
 include ./$(DEPDIR)/osdep.Po
 include ./$(DEPDIR)/p3gaobject.Po
-include ./$(DEPDIR)/pl3gaobject.Po
 include ./$(DEPDIR)/pngwrapper.Po
 include ./$(DEPDIR)/polygonobject.Po
 include ./$(DEPDIR)/screenshot.Po

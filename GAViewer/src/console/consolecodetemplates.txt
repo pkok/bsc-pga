@@ -1570,9 +1570,9 @@ consoleVariable *cf_bit_and(consoleScope *s, consoleVariable *arg[]) {
 	unsigned int i1 = (unsigned int)(s1 + ((s1 >= 0.0) ? 0.5 : -0.5));
 
 	GAIM_FLOAT s2 = arg[1]->scalar();
-	unsigned int i2 = (unsigned int)(s2 + ((s2 >= 0.0) ? 0.5 : -0.5));
+	unsigned int l3 = (unsigned int)(s2 + ((s2 >= 0.0) ? 0.5 : -0.5));
 
-	return new consoleVariable("", e3ga((GAIM_FLOAT)(i1 & i2)));
+	return new consoleVariable("", e3ga((GAIM_FLOAT)(i1 & l3)));
 }
 
 consoleVariable *cf_bit_or(consoleScope *s, consoleVariable *arg[]) {
@@ -1580,9 +1580,9 @@ consoleVariable *cf_bit_or(consoleScope *s, consoleVariable *arg[]) {
 	unsigned int i1 = (unsigned int)(s1 + ((s1 >= 0.0) ? 0.5 : -0.5));
 
 	GAIM_FLOAT s2 = arg[1]->scalar();
-	unsigned int i2 = (unsigned int)(s2 + ((s2 >= 0.0) ? 0.5 : -0.5));
+	unsigned int l3 = (unsigned int)(s2 + ((s2 >= 0.0) ? 0.5 : -0.5));
 
-	return new consoleVariable("", e3ga((GAIM_FLOAT)(i1 | i2)));
+	return new consoleVariable("", e3ga((GAIM_FLOAT)(i1 | l3)));
 }
 
 consoleVariable *cf_bit_xor(consoleScope *s, consoleVariable *arg[]) {
@@ -1590,9 +1590,9 @@ consoleVariable *cf_bit_xor(consoleScope *s, consoleVariable *arg[]) {
 	unsigned int i1 = (unsigned int)(s1 + ((s1 >= 0.0) ? 0.5 : -0.5));
 
 	GAIM_FLOAT s2 = arg[1]->scalar();
-	unsigned int i2 = (unsigned int)(s2 + ((s2 >= 0.0) ? 0.5 : -0.5));
+	unsigned int l3 = (unsigned int)(s2 + ((s2 >= 0.0) ? 0.5 : -0.5));
 
-	return new consoleVariable("", e3ga((GAIM_FLOAT)(i1 ^ i2)));
+	return new consoleVariable("", e3ga((GAIM_FLOAT)(i1 ^ l3)));
 }
 
 consoleVariable *cf_bit_shift(consoleScope *s, consoleVariable *arg[]) {
@@ -1600,10 +1600,10 @@ consoleVariable *cf_bit_shift(consoleScope *s, consoleVariable *arg[]) {
 	unsigned int i1 = (unsigned int)(s1 + ((s1 >= 0.0) ? 0.5 : -0.5));
 
 	GAIM_FLOAT s2 = arg[1]->scalar();
-	int i2 = (int)(s2 + ((s2 >= 0.0) ? 0.5 : -0.5));
+	int l3 = (int)(s2 + ((s2 >= 0.0) ? 0.5 : -0.5));
 
-	if (i2 < 0) return new consoleVariable("", e3ga((GAIM_FLOAT)(i1 >> (-i2))));
-	else return new consoleVariable("", e3ga((GAIM_FLOAT)(i1 << (i2))));
+	if (l3 < 0) return new consoleVariable("", e3ga((GAIM_FLOAT)(i1 >> (-l3))));
+	else return new consoleVariable("", e3ga((GAIM_FLOAT)(i1 << (l3))));
 }
 ${ENDCODEBLOCK}
 
@@ -1659,7 +1659,7 @@ consoleVariable *cf_help(consoleScope *s, consoleVariable *arg[]) {
 		"add_const(arg1): adds a constant. E.g.: add_const(I3 = e1 ^ e2 ^ e3);\n"
 		"remove_const(arg1): removes a constant. E.g.: remove_const(I3);\n"
 		"rename_builtin_const(arg1, arg2): renames builtin constant 'arg1' to 'arg2'.\n"
-		"default_model([e3ga|p3ga|c3ga|c5ga|i2ga]): sets default model of scalars, e1, e2, e3 to the argument\n"
+		"default_model([e3ga|p3ga|c3ga|c5ga|l3ga]): sets default model of scalars, e1, e2, e3 to the argument\n"
 		"default_model(): sets model to the default\n"
 		"inner_product(functionName): sets the function used to evaluate the inner product to 'functionName' (hip, mhip, lcont and rcont and the recommended functions)\n"
 		"get_interpretation(arg1): returns an integer that gives information about how 'arg1' is interpreted (useful to make your own autocolor)\n"
@@ -1862,7 +1862,7 @@ consoleVariable *cf_help(consoleScope *s, consoleVariable *arg[]) {
 		"(p3ga)arg1: casts arg1 to projective model\n"	
 		"(c3ga)arg1: casts arg1 to conformal model of 3-D Euclidean space\n"	
 		"(c5ga)arg1: casts arg1 to conformal model of 5-D Euclidean space\n"	
-		"(i2ga)arg1: casts arg1 to image algebra \n"	
+		"(l3ga)arg1: casts arg1 to image algebra \n"	
 /*		"\nFunction-like casting:\n"
 		"cast_e3ga(arg1): casts arg1 to euclidean model\n"	
 		"cast_p3ga(arg1): casts arg1 to projective model\n"	

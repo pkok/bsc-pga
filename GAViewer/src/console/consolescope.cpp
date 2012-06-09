@@ -36,7 +36,7 @@ int consoleScope::m_idCount = 0;
 // important: adjust when new models are introduced...
 // todo: merge with the same function in 'consolefunctions.cpp
 static inline int model(int v) {
-	return v & (MVI_E3GA | MVI_P3GA | MVI_C3GA | MVI_I2GA | MVI_PL3GA | CVF_ANY_MODEL);
+	return v & (MVI_E3GA | MVI_P3GA | MVI_C3GA | MVI_L3GA | CVF_ANY_MODEL);
 }
 
 static inline int compareModel(int m1, int m2) {
@@ -339,14 +339,13 @@ static int distance(int nbArg, const int *formalArg, const int *actualArg) {
 	int i, d = 0, mf, ma;
 
 	// update when new models are introduced
-	int dmatrix[6][6] = {
-		//{MVI_E3GA, MVI_P3GA, MVI_C3GA, MVI_I2GA, MVI_C5GA, PL3GA}
-		{     0,        1,        2,        5,      3,  1000+1}, // from E3GA to ...
-		{ 100+1,        0,        1,        6,      2,  1000+1}, // from P3GA to ...
-		{ 100+2,    100+1,        0,        5,      1,  1000+1}, // from C3GA to ...
-		{ 100+2,    100+3,    100+1,        0,  100+1,  1000+1}, // from I2GA to ...
-		{ 100+3,    100+2,    100+1,        5,      0,  1000+1}, // from C5GA to ...
-    {1000+5,   1000+1,   1000+2,   1000+4, 1000+2,       0}, // from PL3GA to ...
+	int dmatrix[5][5] = {
+		//{MVI_E3GA, MVI_P3GA, MVI_C3GA, MVI_L3GA, MVI_C5GA}
+		{       0,        1,        2,     5,   3}, // from E3GA to ...
+		{100+1,        0,        1,     6,   2}, // from P3GA to ...
+		{100+2, 100+1,        0,     5,  1}, // from C3GA to ...
+		{100+2, 100+3, 100+1,     0, 100+1}, // from L3GA to ...
+		{100+3, 100+2,        100+1,     5,  0}, // from C5GA to ...
 
 	};
 
@@ -363,7 +362,7 @@ static int distance(int nbArg, const int *formalArg, const int *actualArg) {
 		d += dmatrix[ma][mf];
 
 #ifdef RIEN
-// old code (assumes mf, ma one of MVI_E3GA, MVI_P3GA, MVI_C3GA, MVI_I2GA
+// old code (assumes mf, ma one of MVI_E3GA, MVI_P3GA, MVI_C3GA, MVI_L3GA
 
 		if ((ma == MVI_E3GA) && (mf == MVI_P3GA)) { // e->p: one up
 			d += 1;
@@ -525,7 +524,7 @@ static struct {
 		p3ga *p;
 		c3ga *c;
 		c5ga *c5;
-		i2ga *i2;
+		l3ga *l3;
 		bool nameAlloced;
 	} s_constant[] = {
 		{(char*)"e1", (e3ga*)&(e3ga::e1), NULL, NULL, NULL, NULL, false},
@@ -536,8 +535,8 @@ static struct {
 		{(char*)"e0", NULL, (p3ga*)&(p3ga::e0), NULL, NULL, NULL, false},
 		{(char*)"no", NULL, NULL, (c3ga*)&(c3ga::no), NULL, NULL, false},
 		{(char*)"ni", NULL, NULL, (c3ga*)&(c3ga::ni), NULL, NULL, false},
-		{(char*)"go", NULL, NULL, NULL, NULL, (i2ga*)&(i2ga::go), false},
-		{(char*)"gi", NULL, NULL, NULL, NULL, (i2ga*)&(i2ga::gi), false},
+		{(char*)"go", NULL, NULL, NULL, NULL, (l3ga*)&(l3ga::go), false},
+		{(char*)"gi", NULL, NULL, NULL, NULL, (l3ga*)&(l3ga::gi), false},
 		{(char*)"einf", NULL, NULL, (c3ga*)&(c3ga::ni), NULL, NULL, false},
 		{(char*)"pi", &s_pi, NULL, NULL, NULL, NULL, false},
 		{(char*)"e_", &s_e, NULL, NULL, NULL, NULL, false},
@@ -555,7 +554,7 @@ int consoleScope::lookupConstant(int sid, const std::string &name, int global, c
 			else if (s_constant[i].p) *variable = new consoleVariable(s_constant[i].name, s_constant[i].p);
 			else if (s_constant[i].c) *variable = new consoleVariable(s_constant[i].name, s_constant[i].c);
 			else if (s_constant[i].c5) *variable = new consoleVariable(s_constant[i].name, s_constant[i].c5);
-			else if (s_constant[i].i2) *variable = new consoleVariable(s_constant[i].name, s_constant[i].i2);
+			else if (s_constant[i].l3) *variable = new consoleVariable(s_constant[i].name, s_constant[i].l3);
 
 			return processConstant(variable);
 	  }
@@ -603,7 +602,7 @@ void consoleGlobalScope::renameBuiltinConstant(const std::string &oldName,
 			if (s_constant[i].e) e3ga::renameBasisVector(oldName.c_str(), newName.c_str());
 			else if (s_constant[i].p) p3ga::renameBasisVector(oldName.c_str(), newName.c_str());
 			else if (s_constant[i].c) c3ga::renameBasisVector(oldName.c_str(), newName.c_str());
-			else if (s_constant[i].i2) i2ga::renameBasisVector(oldName.c_str(), newName.c_str());
+			else if (s_constant[i].l3) l3ga::renameBasisVector(oldName.c_str(), newName.c_str());
 
             if (s_constant[i].nameAlloced)
                 free(s_constant[i].name);
@@ -662,11 +661,8 @@ int consoleScope::processConstant(consoleVariable **variable) {
 		else if (m_defaultModel == MVI_C5GA) {
 			*variable = consoleExecFunc(this, "cast_c5ga", *variable);	
 		}
-		else if (m_defaultModel == MVI_I2GA) {
-			*variable = consoleExecFunc(this, "cast_i2ga", *variable);	
-		}
-		else if (m_defaultModel == MVI_PL3GA) {
-			*variable = consoleExecFunc(this, "cast_pl3ga", *variable);	
+		else if (m_defaultModel == MVI_L3GA) {
+			*variable = consoleExecFunc(this, "cast_l3ga", *variable);	
 		}
 	}
 	(*variable)->rhs(1);
@@ -931,9 +927,8 @@ consoleVariable *consoleGlobalScope::assignVariable(consoleVariable *target, con
 		g_state->addC3gaObject(value->c(), target->name(), drawMode, value->creationFlags(), value->forceFlags());
 	else if (value->model() == MVI_C5GA)
 		g_state->addC5gaObject(value->c5(), target->name(), drawMode, value->creationFlags(), value->forceFlags());
-	else if (value->model() == MVI_I2GA)
-		g_state->addI2gaObject(value->i2(), target->name(), drawMode, value->creationFlags(), value->forceFlags());
-		g_state->addPL3gaObject(value->pl(), target->name(), drawMode, value->creationFlags(), value->forceFlags());
+	else if (value->model() == MVI_L3GA)
+		g_state->addL3gaObject(value->l3(), target->name(), drawMode, value->creationFlags(), value->forceFlags());
 
 	// restore color state
 	g_state->setColor("fgcolor", tempC);
@@ -1003,11 +998,8 @@ int consoleGlobalScope::lookupVariable(int sid, const std::string &name, int glo
 	case OT_C5GA:
 		*variable = new consoleVariable(name, &((c5gaObject*)objectPtr)->m_mv);
 		break;
-	case OT_I2GA:
-		*variable = new consoleVariable(name, &((i2gaObject*)objectPtr)->m_mv);
-		break;
-	case OT_PL3GA:
-		*variable = new consoleVariable(name, &((pl3gaObject*)objectPtr)->m_mv);
+	case OT_L3GA:
+		*variable = new consoleVariable(name, &((l3gaObject*)objectPtr)->m_mv);
 		break;
 	default: 
 		return -1; // object is not of GA type 

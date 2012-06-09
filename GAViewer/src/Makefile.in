@@ -52,21 +52,20 @@ am_gaviewer_OBJECTS = main.$(OBJEXT) draw.$(OBJEXT) gafile.$(OBJEXT) \
 	mvintc3ga.$(OBJEXT) mvintc5ga.$(OBJEXT) netserver.$(OBJEXT) \
 	polygonobject.$(OBJEXT) softpic.$(OBJEXT) \
 	dynamicstatementwindow.$(OBJEXT) mvinte3ga.$(OBJEXT) \
-	ui.$(OBJEXT) mvinti2ga.$(OBJEXT) object.$(OBJEXT) \
-	screenshot.$(OBJEXT) state.$(OBJEXT) i2gaobject.$(OBJEXT) \
+	ui.$(OBJEXT) mvintl3ga.$(OBJEXT) object.$(OBJEXT) \
+	screenshot.$(OBJEXT) state.$(OBJEXT) l3gaobject.$(OBJEXT) \
 	meshobject.$(OBJEXT) mvintp3ga.$(OBJEXT) p3gaobject.$(OBJEXT) \
 	screenshotdialog.$(OBJEXT) util.$(OBJEXT) c3gaobject.$(OBJEXT) \
 	c5gaobject.$(OBJEXT) geosphere.$(OBJEXT) textobject.$(OBJEXT) \
 	conformalobject.$(OBJEXT) e3gaobject.$(OBJEXT) mvint.$(OBJEXT) \
 	netclient.$(OBJEXT) pngwrapper.$(OBJEXT) \
 	selectwindow.$(OBJEXT) tubedraw.$(OBJEXT) writestate.$(OBJEXT) \
-	mt19937-2.$(OBJEXT) mvintpl3ga.$(OBJEXT) pl3gaobject.$(OBJEXT)
+	mt19937-2.$(OBJEXT)
 gaviewer_OBJECTS = $(am_gaviewer_OBJECTS)
 am__DEPENDENCIES_1 =
 gaviewer_DEPENDENCIES = console/libconsole.a typeset/libtypeset.a \
-	c5ga/libc5ga.a c3ga/libc3ga.a i2ga/libi2ga.a p3ga/libp3ga.a \
-	e3ga/libe3ga.a pl3ga/libpl3ga.a $(am__DEPENDENCIES_1) \
-	$(am__DEPENDENCIES_1)
+	c5ga/libc5ga.a c3ga/libc3ga.a l3ga/libl3ga.a p3ga/libp3ga.a \
+	e3ga/libe3ga.a $(am__DEPENDENCIES_1) $(am__DEPENDENCIES_1)
 DEFAULT_INCLUDES = -I.@am__isrc@
 depcomp = $(SHELL) $(top_srcdir)/depcomp
 am__depfiles_maybe = depfiles
@@ -213,11 +212,11 @@ target_alias = @target_alias@
 top_build_prefix = @top_build_prefix@
 top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
-SUBDIRS = console typeset c3ga p3ga e3ga i2ga c5ga pl3ga
+SUBDIRS = console typeset c3ga p3ga e3ga l3ga c5ga
 AM_CPPFLAGS = $(GL_CFLAGS) $(AQSIS_FLTK_GL_CFLAGS) -I/opt/local/include 
 gaviewer_LDADD = \
         console/libconsole.a typeset/libtypeset.a \
-        c5ga/libc5ga.a c3ga/libc3ga.a i2ga/libi2ga.a p3ga/libp3ga.a e3ga/libe3ga.a pl3ga/libpl3ga.a \
+        c5ga/libc5ga.a c3ga/libc3ga.a l3ga/libl3ga.a p3ga/libp3ga.a e3ga/libe3ga.a \
         $(AQSIS_FLTK_GL_LIBS) \
 	     $(ANTLR_LIBS) -lpng -lz
 
@@ -225,13 +224,13 @@ gaviewer_SOURCES = \
 	main.cpp draw.cpp gafile.cpp glwindow.cpp osdep.cpp \
         mainwindow.cpp mvintc3ga.cpp mvintc5ga.cpp netserver.cpp polygonobject.cpp \
         softpic.cpp dynamicstatementwindow.cpp mvinte3ga.cpp ui.cpp \
-        mvinti2ga.cpp object.cpp screenshot.cpp state.cpp \
-        i2gaobject.cpp meshobject.cpp mvintp3ga.cpp \
+        mvintl3ga.cpp object.cpp screenshot.cpp state.cpp \
+        l3gaobject.cpp meshobject.cpp mvintp3ga.cpp \
         p3gaobject.cpp screenshotdialog.cpp util.cpp c3gaobject.cpp c5gaobject.cpp \
         geosphere.cpp textobject.cpp conformalobject.cpp \
         e3gaobject.cpp mvint.cpp netclient.cpp \
         pngwrapper.cpp selectwindow.cpp tubedraw.cpp writestate.cpp \
-        mt19937-2.cpp mvintpl3ga.cpp pl3gaobject.cpp
+        mt19937-2.cpp
 
 noinst_HEADERS = \
 	draw.h mvint.h netclient.h pngwrapper.h selectwindow.h  tubedraw.h \
@@ -240,7 +239,7 @@ noinst_HEADERS = \
         state.h models.h mypng.h screenshotdialog.h util.h geosphere.h \
         openglfont.h gl_includes.h mt19937-2.h c3gadraw.h
 
-EXTRA_DIST = c5ga.gas c3ga.gas e3ga.gas p3ga.gas i2ga.gas pl3ga.gas gaviewer.rc gaviewer.xbm icon1.ico
+EXTRA_DIST = c5ga.gas c3ga.gas e3ga.gas p3ga.gas l3ga.gas gaviewer.rc gaviewer.xbm icon1.ico
 all: all-recursive
 
 .SUFFIXES:
@@ -331,7 +330,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/gafile.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/geosphere.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/glwindow.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/i2gaobject.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/l3gaobject.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/main.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/mainwindow.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/meshobject.Po@am__quote@
@@ -340,15 +339,13 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/mvintc3ga.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/mvintc5ga.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/mvinte3ga.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/mvinti2ga.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/mvintl3ga.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/mvintp3ga.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/mvintpl3ga.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/netclient.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/netserver.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/object.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/osdep.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/p3gaobject.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/pl3gaobject.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/pngwrapper.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/polygonobject.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/screenshot.Po@am__quote@

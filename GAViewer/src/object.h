@@ -35,9 +35,8 @@
 #define OT_C3GA 4
 #define OT_POLYGON 5
 #define OT_MESH 6
-#define OT_I2GA 7
+#define OT_L3GA 7
 #define OT_C5GA 8
-#define OT_PL3GA 9
 // more to come
 
 #include "gaincludes.h"
@@ -350,10 +349,10 @@ public:
 	c5ga m_mv;
 };
 
-class i2gaObject : public object {
+class l3gaObject : public object {
 public:
-	i2gaObject(const i2ga &mv, const std::string &name = std::string(""), int drawMode = 0, int creationFlags = 0, int forceFlags = 0);
-	virtual ~i2gaObject();
+	l3gaObject(const l3ga &mv, const std::string &name = std::string(""), int drawMode = 0, int creationFlags = 0, int forceFlags = 0);
+	virtual ~l3gaObject();
 	void initToNothing();
 
 	virtual int pick(glwindow *window);
@@ -365,27 +364,8 @@ public:
 	virtual int translate(glwindow *window, double depth, double motionX, double motionY);
 	virtual std::string toString(const char *floatPrec = "%e");
 
-	i2ga m_mv;
+	l3ga m_mv;
 	mvInt m_int;
-};
-
-class pl3gaObject : public object {
-public:
-    pl3gaObject(const pl3ga &mv, const std::string &name = std::string(""), int drawMode = 0, int creationFlags = 0, int forceFlags = 0);
-    virtual ~pl3gaObject();
-    void initToNothing();
-
-    virtual int pick(glwindow *window);
-    virtual int draw(glwindow *window);
-    virtual float drawSortValue();
-    virtual int description(char *buf, int bufLen, int sl = 0); // if sl is true, return Single Line description
-    virtual int copy(const object *o, int &propertiesChanged, int forceFlags = -1);
-    virtual int writeToGeoFile(FILE *F);
-    virtual int translate(glwindow *window, double depth, double motionX, double motionY);
-    virtual std::string toString(const char *floatPrec = "%e");
-
-    pl3ga m_mv;
-    mvInt m_int;
 };
 
 class textObject : public object {

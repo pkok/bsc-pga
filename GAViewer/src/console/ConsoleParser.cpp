@@ -348,10 +348,10 @@ int  ConsoleParser::model() {
 			return MVI_C5GA;
 			break;
 		}
-		case TK_i2ga:
+		case TK_l3ga:
 		{
-			match(TK_i2ga);
-			return MVI_I2GA;
+			match(TK_l3ga);
+			return MVI_L3GA;
 			break;
 		}
 		default:
@@ -813,7 +813,7 @@ consoleStatement * ConsoleParser::expr() {
 				e=expr();
 				
 						if (e) cs = new consoleFuncCallStmt(t10->getLine(), t10->getColumn(), 
-						(m == MVI_E3GA) ? "cast_e3ga" : ((m == MVI_P3GA) ? "cast_p3ga" : ((m == MVI_C3GA) ? "cast_c3ga" : ((m == MVI_C5GA) ? "cast_c5ga" : "cast_i2ga"))),
+						(m == MVI_E3GA) ? "cast_e3ga" : ((m == MVI_P3GA) ? "cast_p3ga" : ((m == MVI_C3GA) ? "cast_c3ga" : ((m == MVI_C5GA) ? "cast_c5ga" : "cast_l3ga"))),
 						new consoleFuncArgListStmt(new consoleExprListStmt(e)), 1); 
 					
 			}
@@ -975,12 +975,12 @@ consoleFuncArgSpecStmt * ConsoleParser::argspec() {
 			fas = new consoleFuncArgSpecStmt(t6->getLine(), t8->getColumn(), name.c_str(), MVI_C5GA);
 			break;
 		}
-		case TK_i2ga:
+		case TK_l3ga:
 		{
 			t10 = LT(1);
-			match(TK_i2ga);
+			match(TK_l3ga);
 			name=funcDefName();
-			fas = new consoleFuncArgSpecStmt(t10->getLine(), t10->getColumn(), name.c_str(), MVI_I2GA);
+			fas = new consoleFuncArgSpecStmt(t10->getLine(), t10->getColumn(), name.c_str(), MVI_L3GA);
 			break;
 		}
 		default:
@@ -1009,7 +1009,7 @@ const char* ConsoleParser::tokenNames[] = {
 	"e3ga typename",
 	"p3ga typename",
 	"c3ga typename",
-	"i2ga typename",
+	"l3ga typename",
 	"c5ga typename",
 	"\"return\"",
 	"\"switch\"",
@@ -1067,7 +1067,7 @@ const unsigned long ConsoleParser::_tokenSet_3_data_[] = { 804755504UL, 9102UL, 
 // CONSTANT 
 const ANTLR_USE_NAMESPACE(antlr)BitSet ConsoleParser::_tokenSet_3(_tokenSet_3_data_,4);
 const unsigned long ConsoleParser::_tokenSet_4_data_[] = { 805306354UL, 9150UL, 0UL, 0UL };
-// EOF IDENTIFIER FUNCNAME TK_e3ga TK_p3ga TK_c3ga TK_i2ga TK_c5ga "return" 
+// EOF IDENTIFIER FUNCNAME TK_e3ga TK_p3ga TK_c3ga TK_l3ga TK_c5ga "return" 
 // "switch" "default" "case" "break" "continue" "suspend" "if" "else" "while" 
 // "for" "function" "batch" "dynamic" "inner_product" "default_model" "variable" 
 // OPERATOR SEMICOLON COMMA PAROPEN PARCLOSE SQUAREOPEN CURLYOPEN CURLYCLOSE 
@@ -1077,7 +1077,7 @@ const unsigned long ConsoleParser::_tokenSet_5_data_[] = { 536870960UL, 8718UL, 
 // IDENTIFIER FUNCNAME OPERATOR SEMICOLON COMMA PAROPEN GLOBAL CONSTANT 
 const ANTLR_USE_NAMESPACE(antlr)BitSet ConsoleParser::_tokenSet_5(_tokenSet_5_data_,4);
 const unsigned long ConsoleParser::_tokenSet_6_data_[] = { 805306354UL, 9215UL, 0UL, 0UL };
-// EOF IDENTIFIER FUNCNAME TK_e3ga TK_p3ga TK_c3ga TK_i2ga TK_c5ga "return" 
+// EOF IDENTIFIER FUNCNAME TK_e3ga TK_p3ga TK_c3ga TK_l3ga TK_c5ga "return" 
 // "switch" "default" "case" "break" "continue" "suspend" "if" "else" "while" 
 // "for" "function" "batch" "dynamic" "inner_product" "default_model" "variable" 
 // OPERATOR COLON SEMICOLON COMMA PAROPEN PARCLOSE SQUAREOPEN SQUARECLOSE 
@@ -1090,7 +1090,7 @@ const unsigned long ConsoleParser::_tokenSet_7_data_[] = { 805304370UL, 9102UL, 
 // CURLYCLOSE GLOBAL CONSTANT 
 const ANTLR_USE_NAMESPACE(antlr)BitSet ConsoleParser::_tokenSet_7(_tokenSet_7_data_,4);
 const unsigned long ConsoleParser::_tokenSet_8_data_[] = { 805306354UL, 9151UL, 0UL, 0UL };
-// EOF IDENTIFIER FUNCNAME TK_e3ga TK_p3ga TK_c3ga TK_i2ga TK_c5ga "return" 
+// EOF IDENTIFIER FUNCNAME TK_e3ga TK_p3ga TK_c3ga TK_l3ga TK_c5ga "return" 
 // "switch" "default" "case" "break" "continue" "suspend" "if" "else" "while" 
 // "for" "function" "batch" "dynamic" "inner_product" "default_model" "variable" 
 // OPERATOR COLON SEMICOLON COMMA PAROPEN PARCLOSE SQUAREOPEN CURLYOPEN 
@@ -1115,14 +1115,14 @@ const unsigned long ConsoleParser::_tokenSet_14_data_[] = { 536870960UL, 8713UL,
 // IDENTIFIER FUNCNAME OPERATOR COLON PAROPEN GLOBAL CONSTANT 
 const ANTLR_USE_NAMESPACE(antlr)BitSet ConsoleParser::_tokenSet_14(_tokenSet_14_data_,4);
 const unsigned long ConsoleParser::_tokenSet_15_data_[] = { 804782064UL, 9151UL, 0UL, 0UL };
-// IDENTIFIER FUNCNAME TK_e3ga TK_p3ga TK_c3ga TK_i2ga TK_c5ga "return" 
+// IDENTIFIER FUNCNAME TK_e3ga TK_p3ga TK_c3ga TK_l3ga TK_c5ga "return" 
 // "switch" "default" "case" "break" "continue" "suspend" "if" "while" 
 // "for" "function" "batch" "dynamic" "inner_product" "default_model" "variable" 
 // OPERATOR COLON SEMICOLON COMMA PAROPEN PARCLOSE SQUAREOPEN CURLYOPEN 
 // CURLYCLOSE GLOBAL CONSTANT 
 const ANTLR_USE_NAMESPACE(antlr)BitSet ConsoleParser::_tokenSet_15(_tokenSet_15_data_,4);
 const unsigned long ConsoleParser::_tokenSet_16_data_[] = { 536897520UL, 9017UL, 0UL, 0UL };
-// IDENTIFIER FUNCNAME TK_e3ga TK_p3ga TK_c3ga TK_i2ga TK_c5ga "default" 
+// IDENTIFIER FUNCNAME TK_e3ga TK_p3ga TK_c3ga TK_l3ga TK_c5ga "default" 
 // "case" OPERATOR COLON PAROPEN PARCLOSE SQUAREOPEN CURLYCLOSE GLOBAL 
 // CONSTANT 
 const ANTLR_USE_NAMESPACE(antlr)BitSet ConsoleParser::_tokenSet_16(_tokenSet_16_data_,4);
@@ -1147,7 +1147,7 @@ const unsigned long ConsoleParser::_tokenSet_21_data_[] = { 536870960UL, 8732UL,
 // IDENTIFIER FUNCNAME OPERATOR COMMA PAROPEN PARCLOSE GLOBAL CONSTANT 
 const ANTLR_USE_NAMESPACE(antlr)BitSet ConsoleParser::_tokenSet_21(_tokenSet_21_data_,4);
 const unsigned long ConsoleParser::_tokenSet_22_data_[] = { 536872944UL, 8831UL, 0UL, 0UL };
-// IDENTIFIER FUNCNAME TK_e3ga TK_p3ga TK_c3ga TK_i2ga TK_c5ga OPERATOR 
+// IDENTIFIER FUNCNAME TK_e3ga TK_p3ga TK_c3ga TK_l3ga TK_c5ga OPERATOR 
 // COLON SEMICOLON COMMA PAROPEN PARCLOSE SQUAREOPEN SQUARECLOSE GLOBAL 
 // CONSTANT 
 const ANTLR_USE_NAMESPACE(antlr)BitSet ConsoleParser::_tokenSet_22(_tokenSet_22_data_,4);

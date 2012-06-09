@@ -167,7 +167,7 @@ expr returns [consoleStatement *cs]
 	{fal = NULL;} t8:GLOBAL fn2:FUNCNAME PAROPEN ({LA(1) != PARCLOSE}? fal=funcarglist PARCLOSE | PARCLOSE) {cs = new consoleFuncCallStmt(t8->getLine(), t8->getColumn(), fn2->getText().c_str(), fal, 1); } |
 	{e = NULL; } t10:PAROPEN m = model PARCLOSE e = expr {
 		if (e) cs = new consoleFuncCallStmt(t10->getLine(), t10->getColumn(), 
-		(m == MVI_E3GA) ? "cast_e3ga" : ((m == MVI_P3GA) ? "cast_p3ga" : ((m == MVI_C3GA) ? "cast_c3ga" : ((m == MVI_C5GA) ? "cast_c5ga" : "cast_i2ga"))),
+		(m == MVI_E3GA) ? "cast_e3ga" : ((m == MVI_P3GA) ? "cast_p3ga" : ((m == MVI_C3GA) ? "cast_c3ga" : ((m == MVI_C5GA) ? "cast_c5ga" : "cast_l3ga"))),
 		new consoleFuncArgListStmt(new consoleExprListStmt(e)), 1); 
 	}
 	;
@@ -237,7 +237,7 @@ argspec returns [consoleFuncArgSpecStmt *fas]
 	t4:TK_p3ga name=funcDefName {fas = new consoleFuncArgSpecStmt(t4->getLine(), t4->getColumn(), name.c_str(), MVI_P3GA);} |
 	t6:TK_c3ga name=funcDefName {fas = new consoleFuncArgSpecStmt(t6->getLine(), t6->getColumn(), name.c_str(), MVI_C3GA);} |
 	t8:TK_c5ga name=funcDefName {fas = new consoleFuncArgSpecStmt(t6->getLine(), t8->getColumn(), name.c_str(), MVI_C5GA);} |
-	t10:TK_i2ga name=funcDefName {fas = new consoleFuncArgSpecStmt(t10->getLine(), t10->getColumn(), name.c_str(), MVI_I2GA);}
+	t10:TK_l3ga name=funcDefName {fas = new consoleFuncArgSpecStmt(t10->getLine(), t10->getColumn(), name.c_str(), MVI_L3GA);}
 	;
 
 
@@ -248,7 +248,7 @@ model returns [int m]
 	TK_p3ga {return MVI_P3GA;} |
 	TK_c3ga {return MVI_C3GA;} |
 	TK_c5ga {return MVI_C5GA;} |
-	TK_i2ga {return MVI_I2GA;}
+	TK_l3ga {return MVI_L3GA;}
 ;
 
 

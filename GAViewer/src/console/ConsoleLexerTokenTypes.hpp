@@ -17,7 +17,7 @@ struct CUSTOM_API ConsoleLexerTokenTypes {
 		TK_e3ga = 6,
 		TK_p3ga = 7,
 		TK_c3ga = 8,
-		TK_i2ga = 9,
+		TK_l3ga = 9,
 		TK_c5ga = 10,
 		TK_return = 11,
 		TK_switch = 12,
