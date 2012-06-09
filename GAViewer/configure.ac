@@ -1,6 +1,6 @@
 dnl Process this file with autoconf to produce a configure script.
 AC_INIT()
-AM_INIT_AUTOMAKE(GAViewer, 0.86)
+AM_INIT_AUTOMAKE(GAViewer, 0.87)
 AC_PROG_CC
 AC_PROG_CXX
 AC_PROG_RANLIB

@@ -1,3 +1,9 @@
+Version 0.87:
+Swapped i2ga (as it is not in use anymore) for l3ga, the GA of R^{3,3} for
+doing projective geometry with lines.  The base is 
+		{e01, e02, e03, e12, e23, e31}
+- Patrick 
+
 Version 0.86:
 Fixed a crash caused by the fl_console::cprintf() function on Linux.
 The reason was that I misunderstood the behavior of vsnprintf (it

@@ -2319,7 +2319,7 @@ fi
 
 # Define the identity of the package.
  PACKAGE=GAViewer
- VERSION=0.86
+ VERSION=0.87
 
 
 cat >>confdefs.h <<_ACEOF

@@ -122,8 +122,8 @@ am__relativize = \
 ACLOCAL = ${SHELL} /home/pkok/scriptie/GAViewer/missing --run aclocal-1.11
 AMTAR = $${TAR-tar}
 ANTLR_LIBS = /usr/lib/libantlr.a
-AQSIS_FLTK_CFLAGS =  -fstack-protector --param=ssp-buffer-size=4 -Wformat -Wformat-security   -D_THREAD_SAFE -D_REENTRANT
-AQSIS_FLTK_GL_CFLAGS =  -fstack-protector --param=ssp-buffer-size=4 -Wformat -Wformat-security   -D_THREAD_SAFE -D_REENTRANT
+AQSIS_FLTK_CFLAGS =  -fstack-protector --param=ssp-buffer-size=4 -Wformat -Wformat-security -Werror=format-security   -D_THREAD_SAFE -D_REENTRANT
+AQSIS_FLTK_GL_CFLAGS =  -fstack-protector --param=ssp-buffer-size=4 -Wformat -Wformat-security -Werror=format-security   -D_THREAD_SAFE -D_REENTRANT
 AQSIS_FLTK_GL_LIBS = -L/usr/lib/x86_64-linux-gnu -Wl,-Bsymbolic-functions -Wl,-z,relro -lfltk_gl -lfltk
 AQSIS_FLTK_LIBS = -L/usr/lib/x86_64-linux-gnu -Wl,-Bsymbolic-functions -Wl,-z,relro -lfltk
 AUTOCONF = ${SHELL} /home/pkok/scriptie/GAViewer/missing --run autoconf
@@ -138,7 +138,7 @@ CXX = g++
 CXXDEPMODE = depmode=gcc3
 CXXFLAGS = -g -O2
 CYGPATH_W = echo
-DEFS = -DPACKAGE_NAME=\"\" -DPACKAGE_TARNAME=\"\" -DPACKAGE_VERSION=\"\" -DPACKAGE_STRING=\"\" -DPACKAGE_BUGREPORT=\"\" -DPACKAGE_URL=\"\" -DPACKAGE=\"GAViewer\" -DVERSION=\"0.86\" -DHAVE_LIBGLU=1
+DEFS = -DPACKAGE_NAME=\"\" -DPACKAGE_TARNAME=\"\" -DPACKAGE_VERSION=\"\" -DPACKAGE_STRING=\"\" -DPACKAGE_BUGREPORT=\"\" -DPACKAGE_URL=\"\" -DPACKAGE=\"GAViewer\" -DVERSION=\"0.87\" -DHAVE_LIBGLU=1
 DEPDIR = .deps
 ECHO_C = 
 ECHO_N = -n
@@ -168,7 +168,7 @@ RANLIB = ranlib
 SET_MAKE = 
 SHELL = /bin/bash
 STRIP = 
-VERSION = 0.86
+VERSION = 0.87
 abs_builddir = /home/pkok/scriptie/GAViewer/src
 abs_srcdir = /home/pkok/scriptie/GAViewer/src
 abs_top_builddir = /home/pkok/scriptie/GAViewer
