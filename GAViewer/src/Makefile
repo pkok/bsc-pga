@@ -122,8 +122,8 @@ am__relativize = \
 ACLOCAL = ${SHELL} /home/pkok/scriptie/GAViewer/missing --run aclocal-1.11
 AMTAR = $${TAR-tar}
 ANTLR_LIBS = /usr/lib/libantlr.a
-AQSIS_FLTK_CFLAGS =  -fstack-protector --param=ssp-buffer-size=4 -Wformat -Wformat-security   -D_THREAD_SAFE -D_REENTRANT
-AQSIS_FLTK_GL_CFLAGS =  -fstack-protector --param=ssp-buffer-size=4 -Wformat -Wformat-security   -D_THREAD_SAFE -D_REENTRANT
+AQSIS_FLTK_CFLAGS =  -fstack-protector --param=ssp-buffer-size=4 -Wformat -Wformat-security -Werror=format-security   -D_THREAD_SAFE -D_REENTRANT
+AQSIS_FLTK_GL_CFLAGS =  -fstack-protector --param=ssp-buffer-size=4 -Wformat -Wformat-security -Werror=format-security   -D_THREAD_SAFE -D_REENTRANT
 AQSIS_FLTK_GL_LIBS = -L/usr/lib/x86_64-linux-gnu -Wl,-Bsymbolic-functions -Wl,-z,relro -lfltk_gl -lfltk
 AQSIS_FLTK_LIBS = -L/usr/lib/x86_64-linux-gnu -Wl,-Bsymbolic-functions -Wl,-z,relro -lfltk
 AUTOCONF = ${SHELL} /home/pkok/scriptie/GAViewer/missing --run autoconf
@@ -360,18 +360,18 @@ include ./$(DEPDIR)/util.Po
 include ./$(DEPDIR)/writestate.Po
 
 .cpp.o:
-	$(CXXCOMPILE) -MT $@ -MD -MP -MF $(DEPDIR)/$*.Tpo -c -o $@ $<
-	$(am__mv) $(DEPDIR)/$*.Tpo $(DEPDIR)/$*.Po
-#	source='$<' object='$@' libtool=no \
-#	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) \
-#	$(CXXCOMPILE) -c -o $@ $<
+#	$(CXXCOMPILE) -MT $@ -MD -MP -MF $(DEPDIR)/$*.Tpo -c -o $@ $<
+#	$(am__mv) $(DEPDIR)/$*.Tpo $(DEPDIR)/$*.Po
+	source='$<' object='$@' libtool=no \
+	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) \
+	$(CXXCOMPILE) -c -o $@ $<
 
 .cpp.obj:
-	$(CXXCOMPILE) -MT $@ -MD -MP -MF $(DEPDIR)/$*.Tpo -c -o $@ `$(CYGPATH_W) '$<'`
-	$(am__mv) $(DEPDIR)/$*.Tpo $(DEPDIR)/$*.Po
-#	source='$<' object='$@' libtool=no \
-#	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) \
-#	$(CXXCOMPILE) -c -o $@ `$(CYGPATH_W) '$<'`
+#	$(CXXCOMPILE) -MT $@ -MD -MP -MF $(DEPDIR)/$*.Tpo -c -o $@ `$(CYGPATH_W) '$<'`
+#	$(am__mv) $(DEPDIR)/$*.Tpo $(DEPDIR)/$*.Po
+	source='$<' object='$@' libtool=no \
+	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) \
+	$(CXXCOMPILE) -c -o $@ `$(CYGPATH_W) '$<'`
 
 # This directory's subdirectories are mostly independent; you can cd
 # into them and run `make' without going through this Makefile.

@@ -298,7 +298,7 @@ m4trace:configure.ac:4: -1- AC_SUBST_TRACE([CCDEPMODE])
 m4trace:configure.ac:4: -1- m4_pattern_allow([^CCDEPMODE$])
 m4trace:configure.ac:4: -1- AM_CONDITIONAL([am__fastdepCC], [
   test "x$enable_dependency_tracking" != xno \
-  && test "$am_cv_CC_dependencies_compiler_type" = gcc3])
+  && test "$am_cv_CC_dependencies_compiler_type" = winegcc3])
 m4trace:configure.ac:4: -1- AC_SUBST([am__fastdepCC_TRUE])
 m4trace:configure.ac:4: -1- AC_SUBST_TRACE([am__fastdepCC_TRUE])
 m4trace:configure.ac:4: -1- m4_pattern_allow([^am__fastdepCC_TRUE$])
@@ -333,7 +333,7 @@ m4trace:configure.ac:5: -1- AC_SUBST_TRACE([CXXDEPMODE])
 m4trace:configure.ac:5: -1- m4_pattern_allow([^CXXDEPMODE$])
 m4trace:configure.ac:5: -1- AM_CONDITIONAL([am__fastdepCXX], [
   test "x$enable_dependency_tracking" != xno \
-  && test "$am_cv_CXX_dependencies_compiler_type" = gcc3])
+  && test "$am_cv_CXX_dependencies_compiler_type" = winegcc3])
 m4trace:configure.ac:5: -1- AC_SUBST([am__fastdepCXX_TRUE])
 m4trace:configure.ac:5: -1- AC_SUBST_TRACE([am__fastdepCXX_TRUE])
 m4trace:configure.ac:5: -1- m4_pattern_allow([^am__fastdepCXX_TRUE$])

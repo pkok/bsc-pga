@@ -3222,7 +3222,7 @@ else
   if test -z "$AMDEP_TRUE" && test -f "$am_depcomp"; then
   # We make a subdir and do the tests there.  Otherwise we can end up
   # making bogus files that we don't know about and never remove.  For
-  # instance it was reported that on HP-UX the gcc test will end up
+  # instance it was reported that on HP-UX the winegcc test will end up
   # making a dummy file named `D' -- because `-MD' means `put the output
   # in D'.
   rm -rf conftest.dir
@@ -3272,7 +3272,7 @@ else
     am__obj=sub/conftest.${OBJEXT-o}
     am__minus_obj="-o $am__obj"
     case $depmode in
-    gcc)
+    winegcc)
       # This depmode causes a compiler race in universal mode.
       test "$am__universal" = false || continue
       ;;
@@ -3331,7 +3331,7 @@ CCDEPMODE=depmode=$am_cv_CC_dependencies_compiler_type
 
  if 
   test "x$enable_dependency_tracking" != xno \
-  && test "$am_cv_CC_dependencies_compiler_type" = gcc3; then
+  && test "$am_cv_CC_dependencies_compiler_type" = winegcc3; then
   am__fastdepCC_TRUE=
   am__fastdepCC_FALSE='#'
 else
@@ -3607,7 +3607,7 @@ else
   if test -z "$AMDEP_TRUE" && test -f "$am_depcomp"; then
   # We make a subdir and do the tests there.  Otherwise we can end up
   # making bogus files that we don't know about and never remove.  For
-  # instance it was reported that on HP-UX the gcc test will end up
+  # instance it was reported that on HP-UX the winegcc test will end up
   # making a dummy file named `D' -- because `-MD' means `put the output
   # in D'.
   rm -rf conftest.dir
@@ -3657,7 +3657,7 @@ else
     am__obj=sub/conftest.${OBJEXT-o}
     am__minus_obj="-o $am__obj"
     case $depmode in
-    gcc)
+    winegcc)
       # This depmode causes a compiler race in universal mode.
       test "$am__universal" = false || continue
       ;;
@@ -3716,7 +3716,7 @@ CXXDEPMODE=depmode=$am_cv_CXX_dependencies_compiler_type
 
  if 
   test "x$enable_dependency_tracking" != xno \
-  && test "$am_cv_CXX_dependencies_compiler_type" = gcc3; then
+  && test "$am_cv_CXX_dependencies_compiler_type" = winegcc3; then
   am__fastdepCXX_TRUE=
   am__fastdepCXX_FALSE='#'
 else

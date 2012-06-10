@@ -184,9 +184,9 @@ AC_REQUIRE([AM_DEP_TRACK])dnl
 
 ifelse([$1], CC,   [depcc="$CC"   am_compiler_list=],
        [$1], CXX,  [depcc="$CXX"  am_compiler_list=],
-       [$1], OBJC, [depcc="$OBJC" am_compiler_list='gcc3 gcc'],
+       [$1], OBJC, [depcc="$OBJC" am_compiler_list='winegcc3 gcc'],
        [$1], UPC,  [depcc="$UPC"  am_compiler_list=],
-       [$1], GCJ,  [depcc="$GCJ"  am_compiler_list='gcc3 gcc'],
+       [$1], GCJ,  [depcc="$GCJ"  am_compiler_list='winegcc3 gcc'],
                    [depcc="$$1"   am_compiler_list=])
 
 AC_CACHE_CHECK([dependency style of $depcc],
@@ -194,7 +194,7 @@ AC_CACHE_CHECK([dependency style of $depcc],
 [if test -z "$AMDEP_TRUE" && test -f "$am_depcomp"; then
   # We make a subdir and do the tests there.  Otherwise we can end up
   # making bogus files that we don't know about and never remove.  For
-  # instance it was reported that on HP-UX the gcc test will end up
+  # instance it was reported that on HP-UX the winegcc test will end up
   # making a dummy file named `D' -- because `-MD' means `put the output
   # in D'.
   rm -rf conftest.dir
@@ -249,7 +249,7 @@ AC_CACHE_CHECK([dependency style of $depcc],
     am__obj=sub/conftest.${OBJEXT-o}
     am__minus_obj="-o $am__obj"
     case $depmode in
-    gcc)
+    winegcc)
       # This depmode causes a compiler race in universal mode.
       test "$am__universal" = false || continue
       ;;
@@ -304,7 +304,7 @@ fi
 AC_SUBST([$1DEPMODE], [depmode=$am_cv_$1_dependencies_compiler_type])
 AM_CONDITIONAL([am__fastdep$1], [
   test "x$enable_dependency_tracking" != xno \
-  && test "$am_cv_$1_dependencies_compiler_type" = gcc3])
+  && test "$am_cv_$1_dependencies_compiler_type" = winegcc3])
 ])
 
 
