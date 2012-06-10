@@ -156,7 +156,6 @@ int l3gaObject::draw(glwindow *window) {
         // Currently drawing a sphere at the origin with radius = scalar
         glPolygonMode(GL_FRONT_AND_BACK, (m_drawMode & OD_WIREFRAME) ? GL_LINE : GL_FILL);
         drawVector(NULL, dir, (m_drawMode & OD_MAGNITUDE) ? m_int.m_scalar[0] : 1.0);
-        printf("Indeed, a scalar!\n");
         break;
       case MVI_LINE:
         glDisable(GL_LIGHTING);
@@ -278,8 +277,6 @@ int l3gaObject::description(char *buf, int bufLen, int sl /* = 0 */) {
 		else sprintf(buf, "1Unknown l3ga object.\nCoordinates: %s", m_mv.string());
 	}
   else if (m_int.blade()) {
-    printf("it is a blade of type %d\n", m_int.type());
-    printf("MVI_LINE has #%d\n", MVI_LINE);
     switch (m_int.type()) {
     case MVI_SCALAR: // scalar 0: magnitude
         if (sl) sprintf(buf, "%s: l3ga scalar%s, magnitude: %f", m_name.c_str(), (m_int.dual()) ? " dual" : "", m_int.m_scalar[0]);
