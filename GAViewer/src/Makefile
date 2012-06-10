@@ -122,8 +122,8 @@ am__relativize = \
 ACLOCAL = ${SHELL} /home/pkok/scriptie/GAViewer/missing --run aclocal-1.11
 AMTAR = $${TAR-tar}
 ANTLR_LIBS = /usr/lib/libantlr.a
-AQSIS_FLTK_CFLAGS =  -fstack-protector --param=ssp-buffer-size=4 -Wformat -Wformat-security -Werror=format-security   -D_THREAD_SAFE -D_REENTRANT
-AQSIS_FLTK_GL_CFLAGS =  -fstack-protector --param=ssp-buffer-size=4 -Wformat -Wformat-security -Werror=format-security   -D_THREAD_SAFE -D_REENTRANT
+AQSIS_FLTK_CFLAGS =  -fstack-protector --param=ssp-buffer-size=4 -Wformat -Wformat-security   -D_THREAD_SAFE -D_REENTRANT
+AQSIS_FLTK_GL_CFLAGS =  -fstack-protector --param=ssp-buffer-size=4 -Wformat -Wformat-security   -D_THREAD_SAFE -D_REENTRANT
 AQSIS_FLTK_GL_LIBS = -L/usr/lib/x86_64-linux-gnu -Wl,-Bsymbolic-functions -Wl,-z,relro -lfltk_gl -lfltk
 AQSIS_FLTK_LIBS = -L/usr/lib/x86_64-linux-gnu -Wl,-Bsymbolic-functions -Wl,-z,relro -lfltk
 AUTOCONF = ${SHELL} /home/pkok/scriptie/GAViewer/missing --run autoconf
