@@ -23,13 +23,104 @@
 #include "state.h"
 
 int mvInt::interpret(const l3ga &X, int creationFlags /* = 0*/) {
-	m_type = MVI_L3GA;
-	// no interpretation yet
-	if (1) { // if (type == GA_MULTIVECTOR) {
-		m_type |= MVI_UNKNOWN;
-		m_valid = 1;
-		return 0;
-	}
-	return 0;
-}
+  /*
+  l3ga I3real(l3ga::e01 ^ l3ga::e02 ^ l3ga::e03);
+  l3ga I3ideal(l3ga::e23 ^ l3ga::e31 ^ l3ga::e12);
+  l3ga e01(l3ga::e01);
+  l3ga e02(l3ga::e02);
+  l3ga e03(l3ga::e03);
+  l3ga e23(l3ga::e23);
+  l3ga e31(l3ga::e31);
+  l3ga e12(l3ga::e12);
+  */
+  l3ga e01(l3ga::e1);
+  l3ga e02(l3ga::e2);
+  l3ga e03(l3ga::no);
+  l3ga e23(l3ga::ni);
+  l3ga e31(l3ga::go);
+  l3ga e12(l3ga::gi);
 
+  const GAIM_FLOAT epsilon = 1e-6; // rather arbitrary limit on fp-noise
+  l3ga tmp;
+
+  m_type = 0;
+  m_type = MVI_L3GA;
+
+  //TODO: dualize? (copied from mvint[cp]3ga.cpp; why?) 
+  
+
+  // check for zero euclidean norm multivectors
+  if (X.norm_a() < epsilon) { // *********** zero blade
+    m_type |= MVI_ZERO;
+    m_valid = 1;
+    return 0;
+  }
+
+  // determine the type of the multivectors
+  int grade, type = X.mvType(&grade, epsilon); // temp todo test epsilon
+
+  grade = (int)(log((double)grade) / log((double)2) + 0.45);
+  if (creationFlags & OC_BLADE) type = GA_BLADE; // force blade interpretation
+  else if (creationFlags & OC_VERSOR) type = GA_VERSOR; // force versor interpretation
+  // maybe allow force null, dual, and other properties?
+
+  if (type == GA_MULTIVECTOR) {
+    m_type |= MVI_UNKNOWN;
+    m_valid = 0;
+
+    return 0;
+  }
+
+  if (type == GA_BLADE) { // ************************ all blades *********************
+    GAIM_FLOAT X2 = (X * X).scalar(), weight2;
+    switch (grade) {
+      case 0: // ******************** scalar
+        m_type |= MVI_SCALAR;
+        m_scalar[0] = X.scalar();
+        break;
+      case 1: // ******************** line, screw, kine
+        //if (-epsilon < X2 < epsilon) {
+          m_type |= MVI_LINE;
+          /*
+          scalar 0: weight
+          point 0: point closest to origin
+          vector 0: direction of line
+          */
+          // 6D-vector = [d, m];
+          // direction = d
+          // moment = m
+          // distance = crossprod(m, d)
+          // weight = sqrt(distance^2)
+          m_vector[0][0] = X[GRADE1][L3GA_E01];
+          m_vector[0][1] = X[GRADE1][L3GA_E02];
+          m_vector[0][2] = X[GRADE1][L3GA_E03];
+
+          m_point[0][0] = (X[GRADE1][L3GA_E31] * m_vector[0][2]) - (X[GRADE1][L3GA_E12] * m_vector[0][1]);
+          m_point[0][1] = (X[GRADE1][L3GA_E12] * m_vector[0][0]) - (X[GRADE1][L3GA_E23] * m_vector[0][2]);
+          m_point[0][2] = (X[GRADE1][L3GA_E23] * m_vector[0][1]) - (X[GRADE1][L3GA_E31] * m_vector[0][0]);
+
+          m_scalar[0] = sqrt(m_point[0][0] * m_point[0][0] + m_point[0][1] * m_point[0][1] + m_point[0][2] * m_point[0][2]);
+
+          m_valid = 1;
+        //}
+        // TODO: screw motion, kine
+
+      case 2: // ******************** line pencil, skew line pair, 'line tangent', 'dual regulus pencil'
+      case 3: // ******************** line bundle/point, fied of lines/plane, regulus, double wheel pencil, ...
+      case 4: // ******************** regulus pencil, dual line pair, parabolic linear congruence, "[hyperbolic linear congruence], bundle + field"
+      case 5: // ******************** regulus bundle, rotation invariants, translation invariants
+      case 6: // ******************** pseudoscalar
+      default:
+        m_type |= MVI_UNKNOWN;
+        m_valid = 0;
+        break;
+    }
+  }
+  // TODO: Versors and such
+  else {
+    m_type |= MVI_UNKNOWN;
+    m_valid = 0;
+  }
+
+  return 0;
+}

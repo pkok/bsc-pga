@@ -39,7 +39,7 @@ int main(int argc, char *argv[]) {
 		{"p3ga", "P3GA", "P3ga", "p"},
 		{"c3ga", "C3GA", "C3ga", "c"},
 		{"c5ga", "C5GA", "C5ga", "c5"},
-		{"i2ga", "I2GA", "I2ga", "i2"},
+		{"l3ga", "L3GA", "L3ga", "l3"},
 
 		{NULL, NULL, NULL}
 	};
