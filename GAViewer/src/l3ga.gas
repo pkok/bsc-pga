@@ -1,7 +1,7 @@
 #profile for 6 dimensional geometric algebra 'l3ga'
 dimension 6
-name "l3ga"
-dirname "l3ga"
+name "_l3ga"
+dirname "_l3ga"
 floattype double
 customfloatheader 
 customfloatclass 
@@ -12,13 +12,13 @@ generateoption 3
 signature 0: 0
 basisvectorname 0: e01
 signature 1: 0
-basisvectorname 1: e23
+basisvectorname 1: e02
 signature 2: 0
-basisvectorname 2: e02
+basisvectorname 2: e03
 signature 3: 0
-basisvectorname 3: e31
+basisvectorname 3: e23
 signature 4: 0
-basisvectorname 4: e03
+basisvectorname 4: e31
 signature 5: 0
 basisvectorname 5: e12
 sign 0: 1
@@ -156,9 +156,9 @@ product mhip
 product rcont
 product op
 product scp
-reciprocal 0 1 signature: 1
-reciprocal 2 3 signature: 1
-reciprocal 4 5 signature: 1
+reciprocal 0 3 signature: 1
+reciprocal 1 4 signature: 1
+reciprocal 2 5 signature: 1
 dispatch LUT
 optimize gp (127, 127) -1.#IND00e+000
 optimize hip (127, 127) -1.#IND00e+000
