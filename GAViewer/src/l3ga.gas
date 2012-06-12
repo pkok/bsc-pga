@@ -5,10 +5,10 @@ dirname "l3ga"
 floattype double
 customfloatheader 
 customfloatclass 
-memman max
+memman tight
 memfactor 1.500000
-function 3107839
-generateoption 3
+function 66059263
+generateoption 131
 signature 0: 0
 basisvectorname 0: e01
 signature 1: 0
@@ -159,11 +159,4 @@ product scp
 reciprocal 0 1 signature: 1
 reciprocal 2 3 signature: 1
 reciprocal 4 5 signature: 1
-dispatch LUT
-optimize gp (127, 127) -1.#IND00e+000
-optimize hip (127, 127) -1.#IND00e+000
-optimize mhip (127, 127) -1.#IND00e+000
-optimize lcont (127, 127) -1.#IND00e+000
-optimize rcont (127, 127) -1.#IND00e+000
-optimize op (127, 127) -1.#IND00e+000
-optimize scp (127, 127) -1.#IND00e+000
+dispatch ifelse
