@@ -49,7 +49,7 @@ AR = ar
 ARFLAGS = cru
 libl3ga_a_AR = $(AR) $(ARFLAGS)
 libl3ga_a_LIBADD =
-am_libl3ga_a_OBJECTS = l3ga.$(OBJEXT) l3ga_optc.$(OBJEXT)
+am_libl3ga_a_OBJECTS = l3ga.$(OBJEXT) l3ga_optc2.$(OBJEXT)
 libl3ga_a_OBJECTS = $(am_libl3ga_a_OBJECTS)
 DEFAULT_INCLUDES = -I.
 depcomp = $(SHELL) $(top_srcdir)/depcomp
@@ -164,7 +164,7 @@ EXTRA_DIST = \
         l3ga.opt
 
 libl3ga_a_SOURCES = \
-	l3ga.cpp l3ga_optc.cpp
+	l3ga.cpp l3ga_optc2.cpp
 
 noinst_HEADERS = l3ga.h
 all: all-am
@@ -216,21 +216,21 @@ distclean-compile:
 	-rm -f *.tab.c
 
 include ./$(DEPDIR)/l3ga.Po
-include ./$(DEPDIR)/l3ga_optc.Po
+include ./$(DEPDIR)/l3ga_optc2.Po
 
 .cpp.o:
-	$(CXXCOMPILE) -MT $@ -MD -MP -MF $(DEPDIR)/$*.Tpo -c -o $@ $<
-	$(am__mv) $(DEPDIR)/$*.Tpo $(DEPDIR)/$*.Po
-#	source='$<' object='$@' libtool=no \
-#	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) \
-#	$(CXXCOMPILE) -c -o $@ $<
+#	$(CXXCOMPILE) -MT $@ -MD -MP -MF $(DEPDIR)/$*.Tpo -c -o $@ $<
+#	$(am__mv) $(DEPDIR)/$*.Tpo $(DEPDIR)/$*.Po
+	source='$<' object='$@' libtool=no \
+	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) \
+	$(CXXCOMPILE) -c -o $@ $<
 
 .cpp.obj:
-	$(CXXCOMPILE) -MT $@ -MD -MP -MF $(DEPDIR)/$*.Tpo -c -o $@ `$(CYGPATH_W) '$<'`
-	$(am__mv) $(DEPDIR)/$*.Tpo $(DEPDIR)/$*.Po
-#	source='$<' object='$@' libtool=no \
-#	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) \
-#	$(CXXCOMPILE) -c -o $@ `$(CYGPATH_W) '$<'`
+#	$(CXXCOMPILE) -MT $@ -MD -MP -MF $(DEPDIR)/$*.Tpo -c -o $@ `$(CYGPATH_W) '$<'`
+#	$(am__mv) $(DEPDIR)/$*.Tpo $(DEPDIR)/$*.Po
+	source='$<' object='$@' libtool=no \
+	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) \
+	$(CXXCOMPILE) -c -o $@ `$(CYGPATH_W) '$<'`
 
 ID: $(HEADERS) $(SOURCES) $(LISP) $(TAGS_FILES)
 	list='$(SOURCES) $(HEADERS) $(LISP) $(TAGS_FILES)'; \
