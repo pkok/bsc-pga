@@ -1,4 +1,4 @@
-// Generated on Sun Jun 10 23:57:32 2012
+// Generated on Tue Jun 12 21:35:35 2012
 
 
 /*
@@ -2255,7 +2255,7 @@ consoleVariable *cf_l3ga_log(consoleScope *s, consoleVariable *arg[]) {
 	double x = arg[0]->l3().scalar();
 	if (x == 0.0)	return new consoleVariable("", l3ga(0));
 	else if (x > 0.0) return new consoleVariable("", l3ga(log(x)));
-	else return new consoleVariable("", l3ga(M_PI * (l3ga::e1 ^ l3ga::e2) + log(-x)));
+	else return new consoleVariable("", l3ga(M_PI * (l3ga::e01 ^ l3ga::e02) + log(-x))); // TODO Check bij Leo; juiste vertaling?
 }
 
 // ********************************* l3ga SCALAR_POW *********************************

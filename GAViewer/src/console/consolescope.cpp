@@ -535,8 +535,14 @@ static struct {
 		{(char*)"e0", NULL, (p3ga*)&(p3ga::e0), NULL, NULL, NULL, false},
 		{(char*)"no", NULL, NULL, (c3ga*)&(c3ga::no), NULL, NULL, false},
 		{(char*)"ni", NULL, NULL, (c3ga*)&(c3ga::ni), NULL, NULL, false},
-		{(char*)"go", NULL, NULL, NULL, NULL, (l3ga*)&(l3ga::go), false},
-		{(char*)"gi", NULL, NULL, NULL, NULL, (l3ga*)&(l3ga::gi), false},
+		//{(char*)"go", NULL, NULL, NULL, NULL, (l3ga*)&(l3ga::go), false},
+		//{(char*)"gi", NULL, NULL, NULL, NULL, (l3ga*)&(l3ga::gi), false},
+    {(char*)"e01", NULL, NULL, NULL, NULL, (l3ga*)&(l3ga::e01), false},
+    {(char*)"e23", NULL, NULL, NULL, NULL, (l3ga*)&(l3ga::e23), false},
+    {(char*)"e02", NULL, NULL, NULL, NULL, (l3ga*)&(l3ga::e02), false},
+    {(char*)"e31", NULL, NULL, NULL, NULL, (l3ga*)&(l3ga::e31), false},
+    {(char*)"e03", NULL, NULL, NULL, NULL, (l3ga*)&(l3ga::e03), false},
+    {(char*)"e12", NULL, NULL, NULL, NULL, (l3ga*)&(l3ga::e12), false},
 		{(char*)"einf", NULL, NULL, (c3ga*)&(c3ga::ni), NULL, NULL, false},
 		{(char*)"pi", &s_pi, NULL, NULL, NULL, NULL, false},
 		{(char*)"e_", &s_e, NULL, NULL, NULL, NULL, false},
@@ -602,7 +608,7 @@ void consoleGlobalScope::renameBuiltinConstant(const std::string &oldName,
 			if (s_constant[i].e) e3ga::renameBasisVector(oldName.c_str(), newName.c_str());
 			else if (s_constant[i].p) p3ga::renameBasisVector(oldName.c_str(), newName.c_str());
 			else if (s_constant[i].c) c3ga::renameBasisVector(oldName.c_str(), newName.c_str());
-			else if (s_constant[i].l3) l3ga::renameBasisVector(oldName.c_str(), newName.c_str());
+			//else if (s_constant[i].l3) l3ga::renameBasisVector(oldName.c_str(), newName.c_str());
 
             if (s_constant[i].nameAlloced)
                 free(s_constant[i].name);

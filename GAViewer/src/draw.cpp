@@ -29,6 +29,7 @@
 #include "draw.h"
 #include "geosphere.h"
 #include "uistate.h"
+#include "state.h"
 
 int drawVector(const GAIM_FLOAT tail[3], const GAIM_FLOAT dir[3], GAIM_FLOAT scale) {
 	TubeDraw &T = gui_state->m_tubeDraw;
@@ -437,4 +438,110 @@ int drawTriVector(const GAIM_FLOAT base[3], GAIM_FLOAT scale, GAIM_FLOAT vector[
 	glPopMatrix();
 
 	return 0;
+}
+
+
+#include "c3gadraw.h"
+int drawLine(const GAIM_FLOAT point[3], GAIM_FLOAT magnitude, const GAIM_FLOAT vector[3], int method /*= DRAW_LINE_HOOKS */, int flags /*= 0*/, object *o /*= NULL*/) {
+	TubeDraw &T = gui_state->m_tubeDraw;
+  GAIM_FLOAT z, c, stepSize = 0.1, scaleConst = g_state->m_clipDistance * sqrt(2.0);
+  e3ga e3gaR;
+  float rotM[16];
+
+
+	glMatrixMode(GL_MODELVIEW);
+  glDisable(GL_LIGHTING);
+  glPushMatrix();
+  glTranslated(point[0], point[1], point[2]);
+
+  // rotate e3 to line direction
+  e3gaRve3(e3gaR, e3ga(GRADE1, vector));
+  e3gaRotorToOpenGLMatrix(e3gaR, rotM);
+  glMultMatrixf(rotM);
+
+  // draw line
+  T.begin(GL_LINE_STRIP);
+  for (z = -scaleConst; z <= scaleConst; z += stepSize * scaleConst)
+    T.vertex3d(0.0, 0.0, z);
+  T.end();
+  /*glBegin(GL_LINE_STRIP);
+    for (z = -scaleConst; z <= scaleConst; z += stepSize * scaleConst)
+    glVertex3d(0.0, 0.0, z);
+    glEnd();*/
+
+  // draw 'orientation'
+  if (o != NULL & o->m_drawMode & OD_ORI) { 
+    // todo: flip orientation of this stuff
+    switch (method) {
+      case DRAW_LINE_CURVE:
+        // option 1: some kind of curve along the line
+        if (o != NULL & o->m_drawMode & OD_MAGNITUDE)
+          glScaled(0.5 * fabs(magnitude), 0.5 * fabs(magnitude), 0.5 * fabs(magnitude));
+        else glScaled(0.5, 0.5, 0.5);
+
+        T.begin(GL_LINE_STRIP);
+        for (z = -scaleConst; z < scaleConst; z += 1.0 / 32)
+          T.vertex3d(sin(z) * sin(z * M_PI * 2), sin(z) * cos(z * M_PI * 2), z);
+        T.end();
+        /*glBegin(GL_LINE_STRIP);
+          for (z = -scaleConst; z < scaleConst; z += 1.0 / 32)
+          glVertex3d(sin(z) * sin(z * M_PI * 2), sin(z) * cos(z * M_PI * 2), z);
+          glEnd();*/
+        break;
+      case DRAW_LINE_CURLYTAIL:
+        // option 2: curly tails
+        glTranslated(0.0, 0.0, -scaleConst);
+        for (c = 0.0; c <= 1.0; c += stepSize) {
+          glPushMatrix();
+          // if weight: scale
+          if (o != NULL & o->m_drawMode & OD_MAGNITUDE)
+            glScaled(0.5 * fabs(magnitude), 0.5 * fabs(magnitude), 0.5 * fabs(magnitude));
+          else glScaled(0.5, 0.5, 0.5);
+
+          T.begin(GL_LINE_STRIP);
+          for (z = 0.0; z < 1.0; z += 1.0 / 64)
+            T.vertex3d(sqrt(z) * sin(z * M_PI * 2), sqrt(z) * cos(z * M_PI * 2), -2.0 * (-0.5 + z) * stepSize * scaleConst);
+          T.end();
+          /*glBegin(GL_LINE_STRIP);
+            for (z = 0.0; z < 1.0; z += 1.0 / 64)
+            glVertex3d(sqrt(z) * sin(z * M_PI * 2), sqrt(z) * cos(z * M_PI * 2), -2.0 * (-0.5 + z) * stepSize * scaleConst);
+            glEnd();*/
+
+          glPopMatrix();
+          glTranslated(0.0, 0.0, 2.0 * stepSize * scaleConst);
+        }
+        break;
+      case DRAW_LINE_HOOKS:
+      case DRAW_LINE_HOOKCROSSES:
+        // option 3: little hooks 
+        glTranslated(0.0, 0.0, -scaleConst);
+        for (c = 0.0; c < 1.0; c += stepSize) {
+          glPushMatrix();
+          // if weight: scale
+          if (o != NULL & o->m_drawMode & OD_MAGNITUDE)
+            glScaled(0.5 * fabs(magnitude), 0.5 * fabs(magnitude), 0.5 * fabs(magnitude));
+          else glScaled(0.5, 0.5, 0.5);
+
+          T.begin(GL_LINE_STRIP);
+          T.vertex3d(-0.25, 0.0, -1.0);
+          T.vertex3d(0.0, 0.0, 0.0);
+          T.vertex3d(0.25, 0.0, -1.0);
+          T.end();
+          /*glBegin(GL_LINE_STRIP);
+            glVertex3d(-0.25, 0.0, -1.0);
+            glVertex3d(0.0, 0.0, 0.0);
+            glVertex3d(0.25, 0.0, -1.0);
+            glEnd();*/
+
+          glPopMatrix();
+          glRotated(90, 0.0, 0.0, 1.0);
+          glTranslated(0.0, 0.0, 2.0 * stepSize * scaleConst);
+        }
+        break;
+    }
+  }
+
+  glPopMatrix();
+
+  return 0;
 }

@@ -90,4 +90,27 @@ Currently:
 //int drawTriVector(const GAIM_FLOAT base[3], GAIM_FLOAT scale, int method = DRAW_TV_SPHERE, int flags = 0, object *o = NULL);
 int drawTriVector(const GAIM_FLOAT base[3], GAIM_FLOAT scale, GAIM_FLOAT vector[][3], int method = DRAW_TV_SPHERE, int flags = 0, object *o = NULL);
 
+
+#define DRAW_LINE_CURVE 0
+#define DRAW_LINE_CURLYTAIL 1
+#define DRAW_LINE_HOOKS 2
+#define DRAW_LINE_HOOKCROSSES 3
+
+#define DRAW_PP_CONNECTED_ON_ORI 0
+#define DRAW_PP_CONNECTED 1
+#define DRAW_PP_LOOSE 2
+#define DRAW_PP_LINE_SEGMENT 3
+/*
+Draws a line trough 'point' with direction 'vector', and weight 'magnitude'.
+
+Several drawing methods can be selected using the 'method' argument, which can have any 'DRAW_LINE_XXX' value.
+
+If you specify an object 'o' this can be used to set 
+the approriate colors (i.e. foreground, outline)
+
+'flags' can be used to specify some extra options.
+Currently:
+0x01: draw something related to the orientation (if possible)
+ */
+int drawLine(const GAIM_FLOAT point[3], GAIM_FLOAT magnitude, const GAIM_FLOAT vector[3], int method = DRAW_LINE_HOOKS, int flags = 0, object *o = NULL);
 #endif /* _DRAW_FUNCTIONS_H_ */
