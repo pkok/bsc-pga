@@ -35,6 +35,13 @@
 #define DRAW_LINE_HOOKS 2
 #define DRAW_LINE_HOOKCROSSES 3
 
+Fl_Menu_Item gui_l3gaLineDrawMethods[] = {
+	{"Curve", 0, NULL, (void*)DRAW_LINE_CURVE, 0},
+	{"Curly tail", 0, NULL, (void*)DRAW_LINE_CURLYTAIL, 0},
+	{"Hooks", 0, NULL, (void*)DRAW_LINE_HOOKS, 0},
+	{"Hooks", 0, NULL, (void*)DRAW_LINE_HOOKCROSSES, 0},
+	{0}
+};
 
 
 l3gaObject::l3gaObject(const l3ga &mv, const std::string &name /*= std::string("")*/, int drawMode /*= 0*/, int creationFlags /*= 0*/, int forceFlags /*= 0*/) 
@@ -56,18 +63,19 @@ l3gaObject::l3gaObject(const l3ga &mv, const std::string &name /*= std::string("
 
 		// set draw method + menu
 		if (m_int.blade()) {
-			// some examples:
-/*			if (m_int.type() == MVI_LINE) {
+			if (m_int.type() == MVI_LINE) {
 				m_properties |= OP_DRAWMETHOD;
 				m_dmMenu = gui_l3gaLineDrawMethods;
 				m_dmMenuIdx = DRAW_LINE_HOOKS;
 			}
+      /*
 			else if ((m_int.type() == MVI_FREE_BIVECTOR) || (m_int.type() == MVI_BOUND_TANGENT_BIVECTOR)) {
 			}
 			else if ((m_int.type() == MVI_FREE_TRIVECTOR) || (m_int.type() == MVI_BOUND_TANGENT_TRIVECTOR)) {
 			}
 			else if (m_int.type() == MVI_POINT_PAIR) {
-			}*/
+			}
+      */
 		}
 	}
 
@@ -153,12 +161,12 @@ int l3gaObject::draw(glwindow *window) {
   if (m_int.blade()) {
     switch (m_int.type()) {
       case MVI_SCALAR:
-        // Currently drawing a sphere at the origin with radius = scalar
+        // Currently drawing a vector at the origin with length = scalar
         glPolygonMode(GL_FRONT_AND_BACK, (m_drawMode & OD_WIREFRAME) ? GL_LINE : GL_FILL);
         drawVector(NULL, dir, (m_drawMode & OD_MAGNITUDE) ? m_int.m_scalar[0] : 1.0);
         break;
       case MVI_LINE:
-        drawLine(m_int.m_point[0], m_int.m_scalar[0], m_int.m_vector[0], DRAW_LINE_HOOKS, (m_drawMode & OD_ORI) ? 0x01 : 0, this);
+        drawLine(m_int.m_point[0], m_int.m_scalar[0], m_int.m_vector[0], m_dmMenuIdx, (m_drawMode & OD_ORI) ? 0x01 : 0, this);
         break;
     }
   }
@@ -188,10 +196,9 @@ int l3gaObject::description(char *buf, int bufLen, int sl /* = 0 */) {
     switch (m_int.type()) {
     case MVI_SCALAR: // scalar 0: magnitude
         if (sl) sprintf(buf, "%s: l3ga scalar%s, magnitude: %f", m_name.c_str(), (m_int.dual()) ? " dual" : "", m_int.m_scalar[0]);
-			else sprintf(buf, "l3ga scalar%s\nMagnitude: %f\nCoordinates: %s", 
+			else sprintf(buf, "l3ga scalar%s\nMagnitude: %f", 
 				(m_int.dual()) ? " dual" : "",
-				m_int.m_scalar[0], 
-				m_mv.string());
+				m_int.m_scalar[0]); 
 			break;
     case MVI_LINE: // scalar 0: magnitude; point 0: closest to origin; vector 0: direction of line
       if (sl) sprintf(buf, "%s: l3ga line%s", m_name.c_str(), (m_int.dual()) ? " dual" : "");

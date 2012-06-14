@@ -470,7 +470,7 @@ int drawLine(const GAIM_FLOAT point[3], GAIM_FLOAT magnitude, const GAIM_FLOAT v
     glEnd();*/
 
   // draw 'orientation'
-  if (o != NULL & o->m_drawMode & OD_ORI) { 
+  if (flags & 0x01) { 
     // todo: flip orientation of this stuff
     switch (method) {
       case DRAW_LINE_CURVE:

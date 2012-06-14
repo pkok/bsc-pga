@@ -2267,11 +2267,6 @@ GAIM_RETURN_TYPE CLASSNAME::versorInverse() const {
 }
 #endif
 #ifdef GAIM_FUNCTION_LOUNESTOINVERSE
-GAIM_RETURN_TYPE CLASSNAME::lounestoInverse() const {
-	GAIM_RETURN_VAR(result);
-	result.lounestoInverse(*this);
-	return result;
-}
 #endif
 #ifdef GAIM_FUNCTION_GENERALINVERSE
 GAIM_RETURN_TYPE CLASSNAME::generalInverse() const {

@@ -23,7 +23,6 @@
 #include "state.h"
 
 int mvInt::interpret(const l3ga &X, int creationFlags /* = 0*/) {
-  /*
   l3ga I3real(l3ga::e01 ^ l3ga::e02 ^ l3ga::e03);
   l3ga I3ideal(l3ga::e23 ^ l3ga::e31 ^ l3ga::e12);
   l3ga e01(l3ga::e01);
@@ -32,13 +31,6 @@ int mvInt::interpret(const l3ga &X, int creationFlags /* = 0*/) {
   l3ga e23(l3ga::e23);
   l3ga e31(l3ga::e31);
   l3ga e12(l3ga::e12);
-  */
-  l3ga e01(l3ga::e1);
-  l3ga e02(l3ga::e2);
-  l3ga e03(l3ga::no);
-  l3ga e23(l3ga::ni);
-  l3ga e31(l3ga::go);
-  l3ga e12(l3ga::gi);
 
   const GAIM_FLOAT epsilon = 1e-6; // rather arbitrary limit on fp-noise
   l3ga tmp;
@@ -79,30 +71,31 @@ int mvInt::interpret(const l3ga &X, int creationFlags /* = 0*/) {
         m_scalar[0] = X.scalar();
         break;
       case 1: // ******************** line, screw, kine
-        //if (-epsilon < X2 < epsilon) {
+        if (fabs(X2) < epsilon) {
           m_type |= MVI_LINE;
           /*
           scalar 0: weight
           point 0: point closest to origin
           vector 0: direction of line
           */
-          // 6D-vector = [d, m];
+          // 6D-vector = [d, m]
           // direction = d
           // moment = m
           // distance = crossprod(m, d)
           // weight = sqrt(distance^2)
-          m_vector[0][0] = X[GRADE1][L3GA_E01];
-          m_vector[0][1] = X[GRADE1][L3GA_E02];
-          m_vector[0][2] = X[GRADE1][L3GA_E03];
+          tmp.lcem(X,X);
+          m_scalar[0] = sqrt(tmp.scalar());
+
+          m_vector[0][0] = X[GRADE1][L3GA_E01] / m_scalar[0];
+          m_vector[0][1] = X[GRADE1][L3GA_E02] / m_scalar[0];
+          m_vector[0][2] = X[GRADE1][L3GA_E03] / m_scalar[0];
 
           m_point[0][0] = (X[GRADE1][L3GA_E31] * m_vector[0][2]) - (X[GRADE1][L3GA_E12] * m_vector[0][1]);
           m_point[0][1] = (X[GRADE1][L3GA_E12] * m_vector[0][0]) - (X[GRADE1][L3GA_E23] * m_vector[0][2]);
           m_point[0][2] = (X[GRADE1][L3GA_E23] * m_vector[0][1]) - (X[GRADE1][L3GA_E31] * m_vector[0][0]);
 
-          m_scalar[0] = sqrt(m_point[0][0] * m_point[0][0] + m_point[0][1] * m_point[0][1] + m_point[0][2] * m_point[0][2]);
-
           m_valid = 1;
-        //}
+        }
         // TODO: screw motion, kine
 
       case 2: // ******************** line pencil, skew line pair, 'line tangent', 'dual regulus pencil'
@@ -116,7 +109,7 @@ int mvInt::interpret(const l3ga &X, int creationFlags /* = 0*/) {
         break;
     }
   }
-  // TODO: Versors and such
+  // TODO: Add interpretation for versors
   else {
     m_type |= MVI_UNKNOWN;
     m_valid = 0;

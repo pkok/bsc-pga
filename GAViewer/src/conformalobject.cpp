@@ -155,7 +155,7 @@ int conformalObject::draw(glwindow *window) {
 			glPopMatrix();
 			break;
 		case MVI_LINE: // todo: put this code in sep. func. (combined with p3ga line)
-      drawLine(m_int.m_point[0], m_int.m_scalar[0], m_int.m_vector[0], DRAW_LINE_HOOKS, (m_drawMode & OD_ORI) ? 0x01 : 0, this);
+      drawLine(m_int.m_point[0], m_int.m_scalar[0], m_int.m_vector[0], m_dmMenuIdx, (m_drawMode & OD_ORI) ? 0x01 : 0, this);
 			break;
 		case MVI_PLANE: // todo: put this code in sep. func. (combined with c3ga line)
 			for (s = 0; s < 2; s++) { // draw both front and back side individually

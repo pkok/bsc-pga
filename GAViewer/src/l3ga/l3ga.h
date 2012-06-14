@@ -765,8 +765,6 @@ public:
 	// inverse
 #ifdef GAIM_FUNCTION_VERSORINVERSE
 	inline void inverse(const CLASSNAME &a) {versorInverse(a);};
-#elif defined(GAIM_FUNCTION_LOUNESTOINVERSE)
-	inline void inverse(const CLASSNAME &a) {lounestoInverse(a);};
 #elif defined(GAIM_FUNCTION_GENERALINVERSE)
 	inline void inverse(const CLASSNAME &a) {generalInverse(a);};
 #endif
@@ -776,8 +774,6 @@ public:
 	GAIM_RETURN_TYPE versorInverse() const;
 #endif
 #ifdef GAIM_FUNCTION_LOUNESTOINVERSE
-	inline void lounestoInverse(const CLASSNAME &a) {GAIM_CLASSNAME::lounestoInverse(a);};
-	GAIM_RETURN_TYPE lounestoInverse() const;
 #endif
 #ifdef GAIM_FUNCTION_GENERALINVERSE
 	inline void generalInverse(const CLASSNAME &a) {GAIM_CLASSNAME::generalInverse(a);};

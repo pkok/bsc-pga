@@ -33,11 +33,6 @@
 #include "geosphere.h"
 #include "uistate.h"
 
-#define DRAW_LINE_CURVE 0
-#define DRAW_LINE_CURLYTAIL 1
-#define DRAW_LINE_HOOKS 2
-#define DRAW_LINE_HOOKCROSSES 3
-
 Fl_Menu_Item gui_p3gaLineDrawMethods[] = {
 	{"Curve", 0, NULL, (void*)DRAW_LINE_CURVE, 0},
 	{"Curly tail", 0, NULL, (void*)DRAW_LINE_CURLYTAIL, 0},
@@ -240,7 +235,7 @@ int p3gaObject::draw(glwindow *window) {
 			glPopMatrix();
 			break;
 		case MVI_LINE: // todo: put this code in sep. func. (combined with c3ga line)
-      drawLine(m_int.m_point[0], m_int.m_scalar[0], m_int.m_vector[0], DRAW_LINE_HOOKS, (m_drawMode & OD_ORI) ? 0x01 : 0, this);
+      drawLine(m_int.m_point[0], m_int.m_scalar[0], m_int.m_vector[0], m_dmMenuIdx, (m_drawMode & OD_ORI) ? 0x01 : 0, this);
 			break;
 		case MVI_PLANE: // todo: put this code in sep. func. (combined with c3ga plane)
 			for (s = 0; s < 2; s++) { // draw both front and back side individually
