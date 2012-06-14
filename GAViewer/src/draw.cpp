@@ -441,7 +441,6 @@ int drawTriVector(const GAIM_FLOAT base[3], GAIM_FLOAT scale, GAIM_FLOAT vector[
 }
 
 
-#include "c3gadraw.h"
 int drawLine(const GAIM_FLOAT point[3], GAIM_FLOAT magnitude, const GAIM_FLOAT vector[3], int method /*= DRAW_LINE_HOOKS */, int flags /*= 0*/, object *o /*= NULL*/) {
 	TubeDraw &T = gui_state->m_tubeDraw;
   GAIM_FLOAT z, c, stepSize = 0.1, scaleConst = g_state->m_clipDistance * sqrt(2.0);
