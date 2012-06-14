@@ -475,7 +475,7 @@ int drawLine(const GAIM_FLOAT point[3], GAIM_FLOAT magnitude, const GAIM_FLOAT v
     switch (method) {
       case DRAW_LINE_CURVE:
         // option 1: some kind of curve along the line
-        if (o != NULL & o->m_drawMode & OD_MAGNITUDE)
+        if (o != NULL && o->m_drawMode & OD_MAGNITUDE)
           glScaled(0.5 * fabs(magnitude), 0.5 * fabs(magnitude), 0.5 * fabs(magnitude));
         else glScaled(0.5, 0.5, 0.5);
 
@@ -494,7 +494,7 @@ int drawLine(const GAIM_FLOAT point[3], GAIM_FLOAT magnitude, const GAIM_FLOAT v
         for (c = 0.0; c <= 1.0; c += stepSize) {
           glPushMatrix();
           // if weight: scale
-          if (o != NULL & o->m_drawMode & OD_MAGNITUDE)
+          if (o != NULL && o->m_drawMode & OD_MAGNITUDE)
             glScaled(0.5 * fabs(magnitude), 0.5 * fabs(magnitude), 0.5 * fabs(magnitude));
           else glScaled(0.5, 0.5, 0.5);
 
@@ -518,7 +518,7 @@ int drawLine(const GAIM_FLOAT point[3], GAIM_FLOAT magnitude, const GAIM_FLOAT v
         for (c = 0.0; c < 1.0; c += stepSize) {
           glPushMatrix();
           // if weight: scale
-          if (o != NULL & o->m_drawMode & OD_MAGNITUDE)
+          if (o != NULL && o->m_drawMode & OD_MAGNITUDE)
             glScaled(0.5 * fabs(magnitude), 0.5 * fabs(magnitude), 0.5 * fabs(magnitude));
           else glScaled(0.5, 0.5, 0.5);
 
@@ -539,6 +539,67 @@ int drawLine(const GAIM_FLOAT point[3], GAIM_FLOAT magnitude, const GAIM_FLOAT v
         }
         break;
     }
+  }
+
+  glPopMatrix();
+
+  return 0;
+}
+
+
+
+int drawCircle(const GAIM_FLOAT point[3], GAIM_FLOAT radius, GAIM_FLOAT weight, const GAIM_FLOAT vector[3], int flags /*= 0*/, object *o /*= NULL*/) {
+	TubeDraw &T = gui_state->m_tubeDraw;
+  GAIM_FLOAT x;
+  e3ga e3gaR;
+  float rotM[16];
+
+  glDisable(GL_LIGHTING);
+  glPushMatrix();
+  // translate to center, scalar to radius 
+  glTranslated(point[0], point[1], point[2]);
+  double scale = radius;
+  //glScaled(m_int.m_scalar[0], m_int.m_scalar[0], m_int.m_scalar[0]);
+
+  // rotate e3 to plane normal
+  e3gaRve3(e3gaR, e3ga(GRADE1, vector[0], vector[1], vector[2]));
+  e3gaRotorToOpenGLMatrix(e3gaR, rotM);
+  glMultMatrixf(rotM);
+
+  // draw circle
+  {
+    T.begin(GL_LINE_LOOP);
+    for (x = 0; x < M_PI * 2; x += (M_PI * 2) / 64)
+      T.vertex2d(scale * sin(x), scale * cos(x));
+    T.end();
+  }
+
+  /*		glBegin(GL_LINE_LOOP);
+        for (x = 0; x < M_PI * 2; x += (M_PI * 2) / 64)
+        glVertex2d(sin(x), cos(x));
+        glEnd();
+
+*/
+
+  // draw 6 little 'hooks' along the edge of the circle
+  if (o != NULL && o->m_drawMode & OD_ORI) {
+    for (x = 0; x < 6; x++) {
+      T.begin(GL_LINES);
+      T.vertex2d(scale * 1.0, 0.0);
+      T.vertex2d(scale * 1.0, scale * -((o->m_drawMode & OD_MAGNITUDE) ? fabs(weight) : 1.0) * 0.3);
+      T.end();
+      /*glBegin(GL_LINES);
+        glVertex2d(1.0, 0.0);
+        glVertex2d(1.0, -((m_drawMode & OD_MAGNITUDE) ? fabs(weight) : 1.0) * 0.3);
+        glEnd();*/
+      glRotated(360 / 6, 0.0, 0.0, 1.0);
+    }
+
+    // draw a normal vector (removed)
+    /*	glBegin(GL_LINES);
+        glVertex3d(0.0, 0.0, 0.0);
+        glVertex3d(0.0, 0.0, (m_drawMode & OD_MAGNITUDE) ? fabs(weight) : 1.0);
+        glEnd();*/
   }
 
   glPopMatrix();

@@ -113,4 +113,7 @@ Currently:
 0x01: draw something related to the orientation (if possible)
  */
 int drawLine(const GAIM_FLOAT point[3], GAIM_FLOAT magnitude, const GAIM_FLOAT vector[3], int method = DRAW_LINE_HOOKS, int flags = 0, object *o = NULL);
+
+
+int drawCircle(const GAIM_FLOAT point[3], GAIM_FLOAT radius, GAIM_FLOAT weight, const GAIM_FLOAT vector[3], int flags = 0, object *o = NULL);
 #endif /* _DRAW_FUNCTIONS_H_ */
