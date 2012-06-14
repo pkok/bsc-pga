@@ -30,16 +30,20 @@
 #include "geosphere.h"
 #include "uistate.h"
 
-#define DRAW_LINE_CURVE 0
-#define DRAW_LINE_CURLYTAIL 1
-#define DRAW_LINE_HOOKS 2
-#define DRAW_LINE_HOOKCROSSES 3
-
 Fl_Menu_Item gui_l3gaLineDrawMethods[] = {
 	{"Curve", 0, NULL, (void*)DRAW_LINE_CURVE, 0},
 	{"Curly tail", 0, NULL, (void*)DRAW_LINE_CURLYTAIL, 0},
 	{"Hooks", 0, NULL, (void*)DRAW_LINE_HOOKS, 0},
 	{"Hooks", 0, NULL, (void*)DRAW_LINE_HOOKCROSSES, 0},
+	{0}
+};
+
+Fl_Menu_Item gui_l3gaIdealLineDrawMethods[] = {
+	{"Curve", 0, NULL, (void*)DRAW_LINE_CURVE, 0},
+	{"Curly tail", 0, NULL, (void*)DRAW_LINE_CURLYTAIL, 0},
+	{"Hooks", 0, NULL, (void*)DRAW_LINE_HOOKS, 0},
+	{"Hooks", 0, NULL, (void*)DRAW_LINE_HOOKCROSSES, 0},
+	{"Horizon", 0, NULL, (void*)DRAW_IDEAL_LINE, 0},
 	{0}
 };
 
@@ -63,10 +67,24 @@ l3gaObject::l3gaObject(const l3ga &mv, const std::string &name /*= std::string("
 
 		// set draw method + menu
 		if (m_int.blade()) {
-			if (m_int.type() == MVI_LINE) {
-				m_properties |= OP_DRAWMETHOD;
-				m_dmMenu = gui_l3gaLineDrawMethods;
-				m_dmMenuIdx = DRAW_LINE_HOOKS;
+      switch (m_int.type()) {
+        case MVI_ZERO:
+          // don't draw anything
+          break;
+        case MVI_SCALAR:
+          // don't draw anything
+          break;
+        case MVI_LINE:
+          m_properties |= OP_DRAWMETHOD;
+          m_dmMenu = gui_l3gaLineDrawMethods;
+          m_dmMenuIdx = DRAW_LINE_HOOKS;
+          break;
+        case MVI_IDEAL_LINE:
+          m_properties |= OP_DRAWMETHOD;
+          m_drawMode |= OD_STIPPLE;
+          m_dmMenu = gui_l3gaIdealLineDrawMethods;
+          m_dmMenuIdx = DRAW_IDEAL_LINE;
+          break;
 			}
       /*
 			else if ((m_int.type() == MVI_FREE_BIVECTOR) || (m_int.type() == MVI_BOUND_TANGENT_BIVECTOR)) {
@@ -171,7 +189,7 @@ int l3gaObject::draw(glwindow *window) {
         break;
       case MVI_IDEAL_LINE:
         //m_drawMode |= OD_STIPPLE;
-        drawCircle(new GAIM_FLOAT[3]{0,0,0}, 1, m_int.m_scalar[0], m_int.m_vector[0], m_drawMode, this);
+        drawIdealLine(new GAIM_FLOAT[3]{0,0,0}, m_int.m_scalar[0], m_int.m_vector[0], m_dmMenuIdx, m_drawMode, this);
         break;
     }
   }
@@ -213,6 +231,15 @@ int l3gaObject::description(char *buf, int bufLen, int sl /* = 0 */) {
           m_int.m_scalar[0], 
           m_int.m_vector[0][0], m_int.m_vector[0][1], m_int.m_vector[0][2], 
           m_int.m_point[0][0], m_int.m_point[0][1], m_int.m_point[0][2], 
+          m_mv.string());
+      break;
+    case MVI_IDEAL_LINE:
+      if (sl) sprintf(buf, "%s: l3ga line%s at infinity", m_name.c_str(), (m_int.dual()) ? " dual" : "");
+
+      else sprintf(buf, "l3ga line%s at infinity\nWeight: %f\nDirection: %2.2f %2.2f %2.2f\nCoordinates: %s", 
+          (m_int.dual()) ? " dual" : "",
+          m_int.m_scalar[0], 
+          m_int.m_vector[0][0], m_int.m_vector[0][1], m_int.m_vector[0][2], 
           m_mv.string());
       break;
     default:

@@ -285,7 +285,7 @@ int conformalObject::draw(glwindow *window) {
 			}
 			break;
 		case MVI_CIRCLE:
-      drawCircle(m_int.m_point[0], m_int.m_scalar[0], m_int.m_scalar[1], m_int.m_vector[0], m_drawMode, this);
+      drawCircle(m_int.m_point[0], m_int.m_scalar[0], m_int.m_scalar[1], m_int.m_vector[0], DRAW_CIRCLE_HOOKS, m_drawMode, this);
 			break;
 		case MVI_SPHERE:
 			glPolygonMode(GL_FRONT_AND_BACK, (m_drawMode & OD_WIREFRAME) ? GL_LINE : GL_FILL);

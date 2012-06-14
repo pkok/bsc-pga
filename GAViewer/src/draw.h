@@ -95,11 +95,6 @@ int drawTriVector(const GAIM_FLOAT base[3], GAIM_FLOAT scale, GAIM_FLOAT vector[
 #define DRAW_LINE_CURLYTAIL 1
 #define DRAW_LINE_HOOKS 2
 #define DRAW_LINE_HOOKCROSSES 3
-
-#define DRAW_PP_CONNECTED_ON_ORI 0
-#define DRAW_PP_CONNECTED 1
-#define DRAW_PP_LOOSE 2
-#define DRAW_PP_LINE_SEGMENT 3
 /*
 Draws a line trough 'point' with direction 'vector', and weight 'magnitude'.
 
@@ -115,5 +110,10 @@ Currently:
 int drawLine(const GAIM_FLOAT point[3], GAIM_FLOAT magnitude, const GAIM_FLOAT vector[3], int method = DRAW_LINE_HOOKS, int flags = 0, object *o = NULL);
 
 
-int drawCircle(const GAIM_FLOAT point[3], GAIM_FLOAT radius, GAIM_FLOAT weight, const GAIM_FLOAT vector[3], int flags = 0, object *o = NULL);
+#define DRAW_CIRCLE_HOOKS 0
+int drawCircle(const GAIM_FLOAT point[3], GAIM_FLOAT radius, GAIM_FLOAT weight, const GAIM_FLOAT vector[3], int method = DRAW_CIRCLE_HOOKS, int flags = 0, object *o = NULL);
+
+
+#define DRAW_IDEAL_LINE 4
+int drawIdealLine(const GAIM_FLOAT point[3], GAIM_FLOAT weight, const GAIM_FLOAT vector[3], int method = DRAW_IDEAL_LINE, int flags = 0, object *o = NULL);
 #endif /* _DRAW_FUNCTIONS_H_ */

@@ -547,8 +547,7 @@ int drawLine(const GAIM_FLOAT point[3], GAIM_FLOAT magnitude, const GAIM_FLOAT v
 }
 
 
-
-int drawCircle(const GAIM_FLOAT point[3], GAIM_FLOAT radius, GAIM_FLOAT weight, const GAIM_FLOAT vector[3], int flags /*= 0*/, object *o /*= NULL*/) {
+int drawCircle(const GAIM_FLOAT point[3], GAIM_FLOAT radius, GAIM_FLOAT weight, const GAIM_FLOAT vector[3], int method /*= DRAW_IDEAL_LINE*/, int flags /*= 0*/, object *o /*= NULL*/) {
 	TubeDraw &T = gui_state->m_tubeDraw;
   GAIM_FLOAT x;
   e3ga e3gaR;
@@ -605,4 +604,12 @@ int drawCircle(const GAIM_FLOAT point[3], GAIM_FLOAT radius, GAIM_FLOAT weight, 
   glPopMatrix();
 
   return 0;
+}
+
+
+int drawIdealLine(const GAIM_FLOAT point[3], GAIM_FLOAT weight, const GAIM_FLOAT vector[3], int method /*= DRAW_IDEAL_LINE*/, int flags /*= 0*/, object *o /*= NULL*/) {
+  if (method == DRAW_IDEAL_LINE) {
+    return drawCircle(point, 1, weight, vector, method, flags, o);
+  }
+  return drawLine(point, weight, vector, method, (flags | OD_ORI) ? 0x01 : 0, o);
 }
