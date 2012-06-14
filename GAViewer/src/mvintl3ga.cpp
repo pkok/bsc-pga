@@ -72,27 +72,44 @@ int mvInt::interpret(const l3ga &X, int creationFlags /* = 0*/) {
         break;
       case 1: // ******************** line, screw, kine
         if (fabs(X2) < epsilon) {
-          m_type |= MVI_LINE;
-          /*
-          scalar 0: weight
-          point 0: point closest to origin
-          vector 0: direction of line
-          */
-          // 6D-vector = [d, m]
-          // direction = d
-          // moment = m
-          // distance = crossprod(m, d)
-          // weight = sqrt(distance^2)
-          tmp.lcem(X,X);
-          m_scalar[0] = sqrt(tmp.scalar());
+          if (fabs(X[GRADE1][L3GA_E01]) < epsilon &&
+              fabs(X[GRADE1][L3GA_E02]) < epsilon &&
+              fabs(X[GRADE1][L3GA_E03]) < epsilon) {
+            /*
+            scalar 0: weight
+            vector 0: normal/reciprocal direction
+            */
+            tmp.lcem(X,X);
+            m_scalar[0] = sqrt(tmp.scalar());
 
-          m_vector[0][0] = X[GRADE1][L3GA_E01] / m_scalar[0];
-          m_vector[0][1] = X[GRADE1][L3GA_E02] / m_scalar[0];
-          m_vector[0][2] = X[GRADE1][L3GA_E03] / m_scalar[0];
+            m_vector[0][0] = X[GRADE1][L3GA_E23] / m_scalar[0];
+            m_vector[0][1] = X[GRADE1][L3GA_E31] / m_scalar[0];
+            m_vector[0][2] = X[GRADE1][L3GA_E12] / m_scalar[0];
+            m_type |= MVI_IDEAL_LINE;
+          }
+          else {
+            m_type |= MVI_LINE;
+            /*
+            scalar 0: weight
+            point 0: point closest to origin
+            vector 0: direction of line
+            */
+            // 6D-vector = [d, m]
+            // direction = d
+            // moment = m
+            // distance = crossprod(m, d)
+            // weight = sqrt(distance^2)
+            tmp.lcem(X,X);
+            m_scalar[0] = sqrt(tmp.scalar());
 
-          m_point[0][0] = (X[GRADE1][L3GA_E31] * m_vector[0][2]) - (X[GRADE1][L3GA_E12] * m_vector[0][1]);
-          m_point[0][1] = (X[GRADE1][L3GA_E12] * m_vector[0][0]) - (X[GRADE1][L3GA_E23] * m_vector[0][2]);
-          m_point[0][2] = (X[GRADE1][L3GA_E23] * m_vector[0][1]) - (X[GRADE1][L3GA_E31] * m_vector[0][0]);
+            m_vector[0][0] = X[GRADE1][L3GA_E01] / m_scalar[0];
+            m_vector[0][1] = X[GRADE1][L3GA_E02] / m_scalar[0];
+            m_vector[0][2] = X[GRADE1][L3GA_E03] / m_scalar[0];
+
+            m_point[0][0] = (X[GRADE1][L3GA_E31] * m_vector[0][2]) - (X[GRADE1][L3GA_E12] * m_vector[0][1]);
+            m_point[0][1] = (X[GRADE1][L3GA_E12] * m_vector[0][0]) - (X[GRADE1][L3GA_E23] * m_vector[0][2]);
+            m_point[0][2] = (X[GRADE1][L3GA_E23] * m_vector[0][1]) - (X[GRADE1][L3GA_E31] * m_vector[0][0]);
+          }
 
           m_valid = 1;
         }

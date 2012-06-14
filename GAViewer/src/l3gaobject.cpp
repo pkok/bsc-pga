@@ -160,13 +160,18 @@ int l3gaObject::draw(glwindow *window) {
 
   if (m_int.blade()) {
     switch (m_int.type()) {
+      case MVI_ZERO:
+        // don't draw anything
+        break;
       case MVI_SCALAR:
-        // Currently drawing a vector at the origin with length = scalar
-        glPolygonMode(GL_FRONT_AND_BACK, (m_drawMode & OD_WIREFRAME) ? GL_LINE : GL_FILL);
-        drawVector(NULL, dir, (m_drawMode & OD_MAGNITUDE) ? m_int.m_scalar[0] : 1.0);
+        // don't draw anything
         break;
       case MVI_LINE:
         drawLine(m_int.m_point[0], m_int.m_scalar[0], m_int.m_vector[0], m_dmMenuIdx, (m_drawMode & OD_ORI) ? 0x01 : 0, this);
+        break;
+      case MVI_IDEAL_LINE:
+        //m_drawMode |= OD_STIPPLE;
+        drawCircle(new GAIM_FLOAT[3]{0,0,0}, 1, m_int.m_scalar[0], m_int.m_vector[0], m_drawMode, this);
         break;
     }
   }
