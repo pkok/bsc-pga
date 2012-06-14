@@ -546,7 +546,7 @@ int drawLine(const GAIM_FLOAT point[3], GAIM_FLOAT magnitude, const GAIM_FLOAT v
 }
 
 
-int drawCircle(const GAIM_FLOAT point[3], GAIM_FLOAT radius, GAIM_FLOAT weight, const GAIM_FLOAT vector[3], int method /*= DRAW_IDEAL_LINE*/, int flags /*= 0*/, object *o /*= NULL*/) {
+int drawCircle(const GAIM_FLOAT point[3], GAIM_FLOAT radius, GAIM_FLOAT weight, const GAIM_FLOAT vector[3], int method /*= DRAW_CIRCLE_HOOKS*/, int flags /*= 0*/, object *o /*= NULL*/) {
 	TubeDraw &T = gui_state->m_tubeDraw;
   GAIM_FLOAT x;
   e3ga e3gaR;
@@ -606,9 +606,14 @@ int drawCircle(const GAIM_FLOAT point[3], GAIM_FLOAT radius, GAIM_FLOAT weight, 
 }
 
 
-int drawIdealLine(const GAIM_FLOAT point[3], GAIM_FLOAT weight, const GAIM_FLOAT vector[3], int method /*= DRAW_IDEAL_LINE*/, int flags /*= 0*/, object *o /*= NULL*/) {
-  if (method == DRAW_IDEAL_LINE) {
-    return drawCircle(point, 1, weight, vector, method, flags, o);
+int drawIdealLine(const GAIM_FLOAT point[3], GAIM_FLOAT weight, const GAIM_FLOAT vector[3], int method /*= DRAW_IDEAL_LINE_HOOKS*/, int flags /*= 0*/, object *o /*= NULL*/) {
+  switch (method) {
+    case DRAW_IDEAL_LINE_HOOKS:
+      return drawCircle(point, 1, weight, vector, method, flags, o);
+    case DRAW_IDEAL_LINE_RADIUS:
+      return drawCircle(point, weight, 1, vector, method, flags, o);
+    default:
+      return drawLine(point, weight, vector, method, (flags | OD_ORI) ? 0x01 : 0, o);
   }
   return drawLine(point, weight, vector, method, (flags | OD_ORI) ? 0x01 : 0, o);
 }

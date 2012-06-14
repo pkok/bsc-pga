@@ -43,7 +43,8 @@ Fl_Menu_Item gui_l3gaIdealLineDrawMethods[] = {
 	{"Curly tail", 0, NULL, (void*)DRAW_LINE_CURLYTAIL, 0},
 	{"Hooks", 0, NULL, (void*)DRAW_LINE_HOOKS, 0},
 	{"Hooks", 0, NULL, (void*)DRAW_LINE_HOOKCROSSES, 0},
-	{"Horizon", 0, NULL, (void*)DRAW_IDEAL_LINE, 0},
+	{"Horizon, radius", 0, NULL, (void*)DRAW_IDEAL_LINE_RADIUS, 0},
+	{"Horizon, hooks", 0, NULL, (void*)DRAW_IDEAL_LINE_HOOKS, 0},
 	{0}
 };
 
@@ -83,7 +84,7 @@ l3gaObject::l3gaObject(const l3ga &mv, const std::string &name /*= std::string("
           m_properties |= OP_DRAWMETHOD;
           m_drawMode |= OD_STIPPLE;
           m_dmMenu = gui_l3gaIdealLineDrawMethods;
-          m_dmMenuIdx = DRAW_IDEAL_LINE;
+          m_dmMenuIdx = DRAW_IDEAL_LINE_HOOKS;
           break;
 			}
       /*
@@ -204,6 +205,91 @@ int l3gaObject::draw(glwindow *window) {
 
 int l3gaObject::translate(glwindow *window, double depth, double motionX, double motionY) {
 	// can not translate yet
+	e3ga v;
+	window->vectorAtDepth(depth, motionX, -motionY, v);
+  l3ga t1(v[GRADE1][E3GA_E1] * l3ga::e31 ^ l3ga::e12), 
+       t2(v[GRADE1][E3GA_E2] * l3ga::e12 ^ l3ga::e23), 
+       t3(v[GRADE1][E3GA_E3] * l3ga::e23 ^ l3ga::e31), 
+       tv;
+//  t1.set(GRADE2,
+//      /* E01^E23 */ 0,
+//      /* E01^E02 */ 0,
+//      /* E23^E02 */ 0,
+//      /* E01^E31 */ 0,
+//      /* E23^E31 */ 0,
+//      /* E02^E31 */ 0,
+//      /* E01^E03 */ 0,
+//      /* E23^E03 */ 0,
+//      /* E02^E03 */ 0,
+//      /* E31^E03 */ 0,
+//      /* E01^E12 */ 0,
+//      /* E23^E12 */ 0,
+//      /* E02^E12 */ 0,
+//      /* E31^E12 */ v[GRADE1][E3GA_E1],
+//      /* E03^E12 */ 0);
+//  t2.set(GRADE2,
+//      /* E01^E23 */ 0,
+//      /* E01^E02 */ 0,
+//      /* E23^E02 */ 0,
+//      /* E01^E31 */ 0,
+//      /* E23^E31 */ 0,
+//      /* E02^E31 */ 0,
+//      /* E01^E03 */ 0,
+//      /* E23^E03 */ 0,
+//      /* E02^E03 */ 0,
+//      /* E31^E03 */ 0,
+//      /* E01^E12 */ 0,
+//      /* E23^E12 */ -v[GRADE1][E3GA_E2],
+//      /* E02^E12 */ 0,
+//      /* E31^E12 */ 0,
+//      /* E03^E12 */ 0);
+//  t3.set(GRADE2,
+//      /* E01^E23 */ 0,
+//      /* E01^E02 */ 0,
+//      /* E23^E02 */ 0,
+//      /* E01^E31 */ 0,
+//      /* E23^E31 */ v[GRADE1][E3GA_E3],
+//      /* E02^E31 */ 0,
+//      /* E01^E03 */ 0,
+//      /* E23^E03 */ 0,
+//      /* E02^E03 */ 0,
+//      /* E31^E03 */ 0,
+//      /* E01^E12 */ 0,
+//      /* E23^E12 */ 0,
+//      /* E02^E12 */ 0,
+//      /* E31^E12 */ 0,
+//      /* E03^E12 */ 0);
+  printf("v:  %s\n", v.string("%.20f"));
+  printf("t1: %s =? %e e31^e12\n", t1.string("%.20f"), v[GRADE1][E3GA_E1]);
+  printf("t2: %s =? %e e12^e23\n", t2.string("%.20f"), v[GRADE1][E3GA_E2]);
+  printf("t3: %s =? %e e23^e31\n", t3.string("%.20f"), v[GRADE1][E3GA_E3]);
+  t1 = t1.exp();
+  t2 = t2.exp();
+  t3 = t3.exp();
+  printf("t1.exp(): %s\n", t1.string("%.20f"));
+  printf("t2.exp(): %s\n", t2.string("%.20f"));
+  printf("t3.exp(): %s\n", t3.string("%.20f"));
+  tv = t3 * t2 * t1;
+  printf("tv: %s\n", m_mv.string("%.20f"));
+
+  int modified = 0;
+  if (m_int.blade()) {
+    switch (m_int.type()) {
+      case MVI_ZERO:
+      case MVI_SCALAR:
+      case MVI_LINE:
+      case MVI_IDEAL_LINE:
+        m_mv = tv.inverse() * m_mv * tv;
+        modified = 1;
+        break;
+    }
+  }
+
+  if (modified) {
+		m_int.interpret(m_mv); // reinterpret
+		g_state->modified(m_name);
+  }
+
 	return 0;
 }
 
@@ -217,13 +303,13 @@ int l3gaObject::description(char *buf, int bufLen, int sl /* = 0 */) {
 	}
   else if (m_int.blade()) {
     switch (m_int.type()) {
-    case MVI_SCALAR: // scalar 0: magnitude
-        if (sl) sprintf(buf, "%s: l3ga scalar%s, magnitude: %f", m_name.c_str(), (m_int.dual()) ? " dual" : "", m_int.m_scalar[0]);
-			else sprintf(buf, "l3ga scalar%s\nMagnitude: %f", 
+    case MVI_SCALAR: // scalar 0: weight
+        if (sl) sprintf(buf, "%s: l3ga scalar%s, weight: %f", m_name.c_str(), (m_int.dual()) ? " dual" : "", m_int.m_scalar[0]);
+			else sprintf(buf, "l3ga scalar%s\nWeight: %f", 
 				(m_int.dual()) ? " dual" : "",
 				m_int.m_scalar[0]); 
 			break;
-    case MVI_LINE: // scalar 0: magnitude; point 0: closest to origin; vector 0: direction of line
+    case MVI_LINE: // scalar 0: weight; point 0: closest to origin; vector 0: direction of line
       if (sl) sprintf(buf, "%s: l3ga line%s", m_name.c_str(), (m_int.dual()) ? " dual" : "");
 
       else sprintf(buf, "l3ga line%s\nWeight: %f\nDirection: %2.2f %2.2f %2.2f\nPoint closest to origin: %2.2f %2.2f %2.2f\nCoordinates: %s", 

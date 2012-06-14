@@ -114,6 +114,7 @@ int drawLine(const GAIM_FLOAT point[3], GAIM_FLOAT magnitude, const GAIM_FLOAT v
 int drawCircle(const GAIM_FLOAT point[3], GAIM_FLOAT radius, GAIM_FLOAT weight, const GAIM_FLOAT vector[3], int method = DRAW_CIRCLE_HOOKS, int flags = 0, object *o = NULL);
 
 
-#define DRAW_IDEAL_LINE 4
-int drawIdealLine(const GAIM_FLOAT point[3], GAIM_FLOAT weight, const GAIM_FLOAT vector[3], int method = DRAW_IDEAL_LINE, int flags = 0, object *o = NULL);
+#define DRAW_IDEAL_LINE_RADIUS 4
+#define DRAW_IDEAL_LINE_HOOKS 5
+int drawIdealLine(const GAIM_FLOAT point[3], GAIM_FLOAT weight, const GAIM_FLOAT vector[3], int method = DRAW_IDEAL_LINE_HOOKS, int flags = 0, object *o = NULL);
 #endif /* _DRAW_FUNCTIONS_H_ */
