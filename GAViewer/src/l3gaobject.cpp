@@ -205,81 +205,32 @@ int l3gaObject::draw(glwindow *window) {
 
 int l3gaObject::translate(glwindow *window, double depth, double motionX, double motionY) {
 	// can not translate yet
+  static l3ga t1(0.5 * l3ga::e31 ^ l3ga::e12), 
+              t2(0.5 * l3ga::e12 ^ l3ga::e23), 
+              t3(0.5 * l3ga::e23 ^ l3ga::e31), 
+              r1(0.5 * (l3ga::e02 ^ l3ga::e12 - l3ga::e03 ^ l3ga::e31)),
+              r2(0.5 * (l3ga::e03 ^ l3ga::e23 - l3ga::e01 ^ l3ga::e12)),
+              r3(0.5 * (l3ga::e01 ^ l3ga::e31 - l3ga::e02 ^ l3ga::e23));
 	e3ga v;
 	window->vectorAtDepth(depth, motionX, -motionY, v);
-  l3ga t1(v[GRADE1][E3GA_E1] * l3ga::e31 ^ l3ga::e12), 
-       t2(v[GRADE1][E3GA_E2] * l3ga::e12 ^ l3ga::e23), 
-       t3(v[GRADE1][E3GA_E3] * l3ga::e23 ^ l3ga::e31), 
-       tv;
-//  t1.set(GRADE2,
-//      /* E01^E23 */ 0,
-//      /* E01^E02 */ 0,
-//      /* E23^E02 */ 0,
-//      /* E01^E31 */ 0,
-//      /* E23^E31 */ 0,
-//      /* E02^E31 */ 0,
-//      /* E01^E03 */ 0,
-//      /* E23^E03 */ 0,
-//      /* E02^E03 */ 0,
-//      /* E31^E03 */ 0,
-//      /* E01^E12 */ 0,
-//      /* E23^E12 */ 0,
-//      /* E02^E12 */ 0,
-//      /* E31^E12 */ v[GRADE1][E3GA_E1],
-//      /* E03^E12 */ 0);
-//  t2.set(GRADE2,
-//      /* E01^E23 */ 0,
-//      /* E01^E02 */ 0,
-//      /* E23^E02 */ 0,
-//      /* E01^E31 */ 0,
-//      /* E23^E31 */ 0,
-//      /* E02^E31 */ 0,
-//      /* E01^E03 */ 0,
-//      /* E23^E03 */ 0,
-//      /* E02^E03 */ 0,
-//      /* E31^E03 */ 0,
-//      /* E01^E12 */ 0,
-//      /* E23^E12 */ -v[GRADE1][E3GA_E2],
-//      /* E02^E12 */ 0,
-//      /* E31^E12 */ 0,
-//      /* E03^E12 */ 0);
-//  t3.set(GRADE2,
-//      /* E01^E23 */ 0,
-//      /* E01^E02 */ 0,
-//      /* E23^E02 */ 0,
-//      /* E01^E31 */ 0,
-//      /* E23^E31 */ v[GRADE1][E3GA_E3],
-//      /* E02^E31 */ 0,
-//      /* E01^E03 */ 0,
-//      /* E23^E03 */ 0,
-//      /* E02^E03 */ 0,
-//      /* E31^E03 */ 0,
-//      /* E01^E12 */ 0,
-//      /* E23^E12 */ 0,
-//      /* E02^E12 */ 0,
-//      /* E31^E12 */ 0,
-//      /* E03^E12 */ 0);
-  printf("v:  %s\n", v.string("%.20f"));
-  printf("t1: %s =? %e e31^e12\n", t1.string("%.20f"), v[GRADE1][E3GA_E1]);
-  printf("t2: %s =? %e e12^e23\n", t2.string("%.20f"), v[GRADE1][E3GA_E2]);
-  printf("t3: %s =? %e e23^e31\n", t3.string("%.20f"), v[GRADE1][E3GA_E3]);
-  t1 = t1.exp();
-  t2 = t2.exp();
-  t3 = t3.exp();
-  printf("t1.exp(): %s\n", t1.string("%.20f"));
-  printf("t2.exp(): %s\n", t2.string("%.20f"));
-  printf("t3.exp(): %s\n", t3.string("%.20f"));
-  tv = t3 * t2 * t1;
-  printf("tv: %s\n", m_mv.string("%.20f"));
-
+  l3ga versor;
   int modified = 0;
+
   if (m_int.blade()) {
     switch (m_int.type()) {
       case MVI_ZERO:
       case MVI_SCALAR:
       case MVI_LINE:
+        // translate; default behavior when dragging objects.
+        versor = (v[GRADE1][E3GA_E3] * t3).exp() * (v[GRADE1][E3GA_E2] * t2).exp() * (v[GRADE1][E3GA_E1] * t1).exp();
+        m_mv = versor.inverse() * m_mv * versor;
+        modified = 1;
+        break;
       case MVI_IDEAL_LINE:
-        m_mv = tv.inverse() * m_mv * tv;
+        // rotate; these elements are translation invariant.
+        versor = (v[GRADE1][E3GA_E3] * r3).exp() * (v[GRADE1][E3GA_E2] * r2).exp() * (v[GRADE1][E3GA_E1] * r1).exp();
+        m_mv = versor.inverse() * m_mv * versor;
+        printf("rotating: %s\n", m_mv.string());
         modified = 1;
         break;
     }
@@ -299,7 +250,7 @@ int l3gaObject::description(char *buf, int bufLen, int sl /* = 0 */) {
 
 	if (m_int.type() == MVI_UNKNOWN) {
 		if (sl) sprintf(buf, "%s: unknown l3ga object", m_name.c_str());
-		else sprintf(buf, "1Unknown l3ga object.\nCoordinates: %s", m_mv.string());
+		else sprintf(buf, "Unknown l3ga object.\nCoordinates: %s", m_mv.string());
 	}
   else if (m_int.blade()) {
     switch (m_int.type()) {
@@ -340,7 +291,7 @@ int l3gaObject::description(char *buf, int bufLen, int sl /* = 0 */) {
   }
   else {
 		if (sl) sprintf(buf, "%s: unknown l3ga object", m_name.c_str());
-		else sprintf(buf, "2Unknown l3ga object.\nCoordinates: %s", m_mv.string());
+		else sprintf(buf, "Unknown l3ga object.\nCoordinates: %s", m_mv.string());
   }
     
 
