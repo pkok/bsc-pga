@@ -116,7 +116,7 @@ int mvInt::interpret(const l3ga &X, int creationFlags /* = 0*/) {
           m_valid = 1;
         }
         // TODO: screw motion, kine
-
+        break;
       case 2: // ******************** line pencil, skew line pair, 'line tangent', 'dual regulus pencil'
       case 3: // ******************** line bundle/point, fied of lines/plane, regulus, double wheel pencil, ...
       case 4: // ******************** regulus pencil, dual line pair, parabolic linear congruence, "[hyperbolic linear congruence], bundle + field"
