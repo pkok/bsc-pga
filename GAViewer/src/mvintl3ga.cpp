@@ -66,11 +66,11 @@ int mvInt::interpret(const l3ga &X, int creationFlags /* = 0*/) {
   if (type == GA_BLADE) { // ************************ all blades *********************
     GAIM_FLOAT X2 = (X * X).scalar(), weight2;
     switch (grade) {
-      case GRADE0: // ******************** scalar
+      case 0: // ******************** scalar
         m_type |= MVI_SCALAR;
         m_scalar[0] = X.scalar();
         break;
-      case GRADE1: // ******************** line, screw, kine
+      case 1: // ******************** line, screw, kine
         if (fabs(X2) < epsilon) {
           if (fabs(X[GRADE1][L3GA_E01]) < epsilon &&
               fabs(X[GRADE1][L3GA_E02]) < epsilon &&
@@ -117,11 +117,11 @@ int mvInt::interpret(const l3ga &X, int creationFlags /* = 0*/) {
         }
         // TODO: screw motion, kine
 
-      case GRADE2: // ******************** line pencil, skew line pair, 'line tangent', 'dual regulus pencil'
-      case GRADE3: // ******************** line bundle/point, fied of lines/plane, regulus, double wheel pencil, ...
-      case GRADE4: // ******************** regulus pencil, dual line pair, parabolic linear congruence, "[hyperbolic linear congruence], bundle + field"
-      case GRADE5: // ******************** regulus bundle, rotation invariants, translation invariants
-      case GRADE6: // ******************** pseudoscalar
+      case 2: // ******************** line pencil, skew line pair, 'line tangent', 'dual regulus pencil'
+      case 3: // ******************** line bundle/point, fied of lines/plane, regulus, double wheel pencil, ...
+      case 4: // ******************** regulus pencil, dual line pair, parabolic linear congruence, "[hyperbolic linear congruence], bundle + field"
+      case 5: // ******************** regulus bundle, rotation invariants, translation invariants
+      case 6: // ******************** pseudoscalar
       default:
         m_type |= MVI_UNKNOWN;
         m_valid = 0;
