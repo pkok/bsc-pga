@@ -208,9 +208,9 @@ int l3gaObject::translate(glwindow *window, double depth, double motionX, double
   static l3ga t1(0.5 * l3ga::e31 ^ l3ga::e12), 
               t2(0.5 * l3ga::e12 ^ l3ga::e23), 
               t3(0.5 * l3ga::e23 ^ l3ga::e31), 
-              r1(0.5 * (l3ga::e02 ^ l3ga::e12 - l3ga::e03 ^ l3ga::e31)),
-              r2(0.5 * (l3ga::e03 ^ l3ga::e23 - l3ga::e01 ^ l3ga::e12)),
-              r3(0.5 * (l3ga::e01 ^ l3ga::e31 - l3ga::e02 ^ l3ga::e23));
+              r1(0.5 * ((l3ga::e03 ^ l3ga::e23) - (l3ga::e01 ^ l3ga::e12))),
+              r2(0.5 * ((l3ga::e02 ^ l3ga::e12) - (l3ga::e03 ^ l3ga::e31))),
+              r3(0.5 * ((l3ga::e01 ^ l3ga::e31) - (l3ga::e02 ^ l3ga::e23)));
 	e3ga v;
 	window->vectorAtDepth(depth, motionX, -motionY, v);
   l3ga versor;
@@ -230,7 +230,6 @@ int l3gaObject::translate(glwindow *window, double depth, double motionX, double
         // rotate; these elements are translation invariant.
         versor = (v[GRADE1][E3GA_E3] * r3).exp() * (v[GRADE1][E3GA_E2] * r2).exp() * (v[GRADE1][E3GA_E1] * r1).exp();
         m_mv = versor.inverse() * m_mv * versor;
-        printf("rotating: %s\n", m_mv.string());
         modified = 1;
         break;
     }
