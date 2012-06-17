@@ -1122,7 +1122,7 @@ consoleVariable *consoleVariable::castL3gaToP3ga() const {
 
 	vp = 
 		// grade 0
-		vl3.scalar(); 
+		vl3.scalar() + 
     // grade 1 / 2
     vl3[GRADE1][L3GA_E01] * (p3ga::e0 ^ p3ga::e1) +
     vl3[GRADE1][L3GA_E02] * (p3ga::e0 ^ p3ga::e2) +
@@ -1143,7 +1143,7 @@ consoleVariable *consoleVariable::castL3gaToC3ga() const {
 
 	vc = 
 		// grade 0
-		vl3.scalar(); 
+		vl3.scalar() + 
     // grade 1 / 2
     vl3[GRADE1][L3GA_E01] * (c3ga::no ^ c3ga::e1) +
     vl3[GRADE1][L3GA_E02] * (c3ga::no ^ c3ga::e2) +
@@ -1165,7 +1165,7 @@ consoleVariable *consoleVariable::castL3gaToC5ga() const {
 
 	vc = 
 		// grade 0
-		vl3.scalar(); 
+		vl3.scalar() + 
     // grade 1 / 2
     vl3[GRADE1][L3GA_E01] * (c5ga::no ^ c5ga::e1) +
     vl3[GRADE1][L3GA_E02] * (c5ga::no ^ c5ga::e2) +
