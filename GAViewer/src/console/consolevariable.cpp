@@ -1019,16 +1019,13 @@ consoleVariable *consoleVariable::castE3gaToL3ga() const {
 	l3ga vl3;
 	const e3ga &ve = e();
 
-	// only scalars are preserved
-	vl3 = 
-		// grade 0
-		ve.scalar(); /* + 
-		// grade 1
-		ve[GRADE1][E3GA_E1] * l3ga::e1 + 
-		ve[GRADE1][E3GA_E2] * l3ga::e2 + 
-		// grade 2
-		ve[GRADE2][E3GA_E1_E2] * (l3ga::e1 ^ l3ga::e2);
-    */
+  vl3 = 
+    // grade 0
+    ve.scalar() +
+    // grade 2 / 1
+    ve[GRADE2][E3GA_E1_E2] * l3ga::e12 +
+    ve[GRADE2][E3GA_E2_E3] * l3ga::e23 +
+    ve[GRADE2][E3GA_E3_E1] * l3ga::e31;
 
 	vl3.compress();
 	return new consoleVariable("", vl3);
@@ -1040,19 +1037,18 @@ consoleVariable *consoleVariable::castP3gaToL3ga() const {
 
 	// only scalars are preserved
 	vl3 = 
-		// grade 0
-		vp.scalar(); /* + 
-		// grade 1
-		vp[GRADE1][P3GA_E1] * l3ga::e1 + 
-		vp[GRADE1][P3GA_E2] * l3ga::e2 + 
-		vp[GRADE1][P3GA_E0] * l3ga::no + 
-		// grade 2
-		vp[GRADE2][P3GA_E1_E2] * (l3ga::e1 ^ l3ga::e2) +
-		vp[GRADE2][P3GA_E1_E0] * (l3ga::e1 ^ l3ga::no) +
-		vp[GRADE2][P3GA_E2_E0] * (l3ga::e2 ^ l3ga::no) +
-		// grade 3
-		vp[GRADE2][P3GA_E1_E2_E0] * (l3ga::e1 ^ l3ga::e2 ^ l3ga::no);
-    */
+    // grade 0
+    vp.scalar() +
+    // grade 2 / 1
+    -vp[GRADE2][P3GA_E1_E0] * l3ga::e01 +
+    -vp[GRADE2][P3GA_E2_E0] * l3ga::e02 +
+    -vp[GRADE3][P3GA_E3_E0] * l3ga::e03 +
+    vp[GRADE2][P3GA_E1_E2] * l3ga::e12 +
+    vp[GRADE2][P3GA_E2_E3] * l3ga::e23 +
+    vp[GRADE2][P3GA_E3_E1] * l3ga::e31 +
+    // grade 4 / 2
+    // Quite random decision. TODO: discuss with Leo what to cast to.
+    -vp[GRADE4][P3GA_I] * (l3ga::e01 ^ l3ga::e23);
 
 	vl3.compress();
 	return new consoleVariable("", vl3);
@@ -1063,30 +1059,19 @@ consoleVariable *consoleVariable::castC3gaToL3ga() const {
 	l3ga vl3;
 	const c3ga &vc = c();
 
-	// only scalars are preserved
 	vl3 = 
-		// grade 0
-		vc.scalar(); /* + 
-		// grade 1
-		vc[GRADE1][C3GA_E1] * l3ga::e1 + 
-		vc[GRADE1][C3GA_E2] * l3ga::e2 + 
-		vc[GRADE1][C3GA_NO] * l3ga::no + 
-		vc[GRADE1][C3GA_NI] * l3ga::ni + 
-		// grade 2
-		vc[GRADE2][C3GA_E1_E2] * (l3ga::e1 ^ l3ga::e2) +
-		vc[GRADE2][C3GA_E1_NO] * (l3ga::e1 ^ l3ga::no) +
-		vc[GRADE2][C3GA_E2_NO] * (l3ga::e2 ^ l3ga::no) +
-		vc[GRADE2][C3GA_E1_NI] * (l3ga::e1 ^ l3ga::ni) +
-		vc[GRADE2][C3GA_E2_NI] * (l3ga::e2 ^ l3ga::ni) +
-		vc[GRADE2][C3GA_NO_NI] * (l3ga::no ^ l3ga::ni) +
-		// grade 3
-		vc[GRADE2][C3GA_E1_E2_NO] * (l3ga::e1 ^ l3ga::e2 ^ l3ga::no) + 
-		vc[GRADE2][C3GA_E1_E2_NI] * (l3ga::e1 ^ l3ga::e2 ^ l3ga::ni) + 
-		vc[GRADE2][C3GA_E1_NO_NI] * (l3ga::e1 ^ l3ga::no ^ l3ga::ni) + 
-		vc[GRADE2][C3GA_E2_NO_NI] * (l3ga::e2 ^ l3ga::no ^ l3ga::ni) + 
-		// grade 4
-		vc[GRADE2][C3GA_E1_E2_NO_NI] * (l3ga::e1 ^ l3ga::e2 ^ l3ga::no ^ l3ga::ni);
-    */
+    // grade 0
+    vc.scalar() +
+    // grade 2 / 1
+    -vc[GRADE2][C3GA_E1_NO] * l3ga::e01 +
+    -vc[GRADE2][C3GA_E2_NO] * l3ga::e02 +
+    -vc[GRADE3][C3GA_E3_NO] * l3ga::e03 +
+    vc[GRADE2][C3GA_E1_E2] * l3ga::e12 +
+    vc[GRADE2][C3GA_E2_E3] * l3ga::e23 +
+    -vc[GRADE2][C3GA_E1_E3] * l3ga::e31 +
+    // grade 4 / 2
+    // Quite random decision. TODO: discuss with Leo what to cast to.
+    -vc[GRADE4][C3GA_E1_E2_E3_NO] * (l3ga::e01 ^ l3ga::e23);
 
 	vl3.compress();
 	return new consoleVariable("", vl3);
@@ -1097,30 +1082,19 @@ consoleVariable *consoleVariable::castC5gaToL3ga() const {
 	l3ga vl3;
 	const c5ga &vc = c5();
 
-	// only scalars are preserved
 	vl3 = 
-		// grade 0
-		vc.scalar(); /* + 
-		// grade 1
-		vc[GRADE1][C5GA_E1] * l3ga::e1 + 
-		vc[GRADE1][C5GA_E2] * l3ga::e2 + 
-		vc[GRADE1][C5GA_NO] * l3ga::no + 
-		vc[GRADE1][C5GA_NI] * l3ga::ni + 
-		// grade 2
-		vc[GRADE2][C5GA_E1_E2] * (l3ga::e1 ^ l3ga::e2) +
-		vc[GRADE2][C5GA_E1_NO] * (l3ga::e1 ^ l3ga::no) +
-		vc[GRADE2][C5GA_E2_NO] * (l3ga::e2 ^ l3ga::no) +
-		vc[GRADE2][C5GA_E1_NI] * (l3ga::e1 ^ l3ga::ni) +
-		vc[GRADE2][C5GA_E2_NI] * (l3ga::e2 ^ l3ga::ni) +
-		vc[GRADE2][C5GA_NO_NI] * (l3ga::no ^ l3ga::ni) +
-		// grade 3
-		vc[GRADE2][C5GA_E1_E2_NO] * (l3ga::e1 ^ l3ga::e2 ^ l3ga::no) + 
-		vc[GRADE2][C5GA_E1_E2_NI] * (l3ga::e1 ^ l3ga::e2 ^ l3ga::ni) + 
-		vc[GRADE2][C5GA_E1_NO_NI] * (l3ga::e1 ^ l3ga::no ^ l3ga::ni) + 
-		vc[GRADE2][C5GA_E2_NO_NI] * (l3ga::e2 ^ l3ga::no ^ l3ga::ni) + 
-		// grade 4
-		vc[GRADE2][C5GA_E1_E2_NO_NI] * (l3ga::e1 ^ l3ga::e2 ^ l3ga::no ^ l3ga::ni);
-    */
+    // grade 0
+    vc.scalar() +
+    // grade 2 / 1
+    -vc[GRADE2][C5GA_E1_NO] * l3ga::e01 +
+    -vc[GRADE2][C5GA_E2_NO] * l3ga::e02 +
+    -vc[GRADE3][C5GA_E3_NO] * l3ga::e03 +
+    vc[GRADE2][C5GA_E1_E2] * l3ga::e12 +
+    vc[GRADE2][C5GA_E2_E3] * l3ga::e23 +
+    -vc[GRADE2][C5GA_E1_E3] * l3ga::e31 +
+    // grade 4 / 2
+    // Quite random decision. TODO: discuss with Leo what to cast to.
+    -vc[GRADE4][C5GA_E1_E2_E3_NO] * (l3ga::e01 ^ l3ga::e23);
 
 	vl3.compress();
 	return new consoleVariable("", vl3);
@@ -1131,17 +1105,13 @@ consoleVariable *consoleVariable::castL3gaToE3ga() const {
 	e3ga ve;
 	const l3ga &vl3 = l3();
 
-	// only scalars are preserved
 	ve = 
 		// grade 0
-		vl3.scalar(); /* + 
-		// grade 1
-		vl3[GRADE1][L3GA_E1] * e3ga::e1 + 
-		vl3[GRADE1][L3GA_E2] * e3ga::e2 + 
-		// grade 2
-		vl3[GRADE2][L3GA_E1_E2] * (e3ga::e1 ^ e3ga::e2);
-    */
-
+    vl3.scalar() + 
+		// grade 1 / 2
+    vl3[GRADE1][L3GA_E12] * (e3ga::e1 ^ e3ga::e2) +
+    vl3[GRADE1][L3GA_E23] * (e3ga::e2 ^ e3ga::e3) +
+    vl3[GRADE1][L3GA_E31] * (e3ga::e3 ^ e3ga::e1);
 	ve.compress();
 	return new consoleVariable("", ve);
 }
@@ -1150,21 +1120,18 @@ consoleVariable *consoleVariable::castL3gaToP3ga() const {
 	p3ga vp;
 	const l3ga &vl3 = l3();
 
-	// only scalars are preserved
 	vp = 
 		// grade 0
-		vl3.scalar(); /* + 
-		// grade 1
-		vl3[GRADE1][L3GA_E1] * p3ga::e1 + 
-		vl3[GRADE1][L3GA_E2] * p3ga::e2 + 
-		vl3[GRADE1][L3GA_NO] * p3ga::e0 + 
-		// grade 2
-		vl3[GRADE2][L3GA_E1_E2] * (p3ga::e1 ^ p3ga::e2) +
-		vl3[GRADE2][L3GA_E1_NO] * (p3ga::e1 ^ p3ga::e0) +
-		vl3[GRADE2][L3GA_E2_NO] * (p3ga::e2 ^ p3ga::e0) +
-		// grade 3
-		vl3[GRADE2][L3GA_E1_E2_NO] * (p3ga::e1 ^ p3ga::e2 ^ p3ga::e0);
-    */
+		vl3.scalar(); 
+    // grade 1 / 2
+    vl3[GRADE1][L3GA_E01] * (p3ga::e0 ^ p3ga::e1) +
+    vl3[GRADE1][L3GA_E02] * (p3ga::e0 ^ p3ga::e2) +
+    vl3[GRADE1][L3GA_E03] * (p3ga::e0 ^ p3ga::e3) +
+    vl3[GRADE1][L3GA_E12] * (p3ga::e1 ^ p3ga::e2) +
+    vl3[GRADE1][L3GA_E23] * (p3ga::e2 ^ p3ga::e3) +
+    vl3[GRADE1][L3GA_E31] * (p3ga::e3 ^ p3ga::e1) +
+    // grade 2 / 4
+    -(vl3[GRADE2][L3GA_E01_E23] + vl3[GRADE2][L3GA_E02_E31] + vl3[GRADE2][L3GA_E03_E12]) * p3ga::I;
 
 	vp.compress();
 	return new consoleVariable("", vp);
@@ -1174,30 +1141,18 @@ consoleVariable *consoleVariable::castL3gaToC3ga() const {
 	c3ga vc;
 	const l3ga &vl3 = l3();
 
-	// only scalars are preserved
 	vc = 
 		// grade 0
-		vl3.scalar(); /* + 
-		// grade 1
-		vl3[GRADE1][L3GA_E1] * c3ga::e1 + 
-		vl3[GRADE1][L3GA_E2] * c3ga::e2 + 
-		vl3[GRADE1][L3GA_NO] * c3ga::no + 
-		vl3[GRADE1][L3GA_NI] * c3ga::ni + 
-		// grade 2
-		vl3[GRADE2][L3GA_E1_E2] * (c3ga::e1 ^ c3ga::e2) +
-		vl3[GRADE2][L3GA_E1_NO] * (c3ga::e1 ^ c3ga::no) +
-		vl3[GRADE2][L3GA_E2_NO] * (c3ga::e2 ^ c3ga::no) +
-		vl3[GRADE2][L3GA_E1_NI] * (c3ga::e1 ^ c3ga::ni) +
-		vl3[GRADE2][L3GA_E2_NI] * (c3ga::e2 ^ c3ga::ni) +
-		vl3[GRADE2][L3GA_NO_NI] * (c3ga::no ^ c3ga::ni) +
-		// grade 3
-		vl3[GRADE2][L3GA_E1_E2_NO] * (c3ga::e1 ^ c3ga::e2 ^ c3ga::no) + 
-		vl3[GRADE2][L3GA_E1_E2_NI] * (c3ga::e1 ^ c3ga::e2 ^ c3ga::ni) + 
-		vl3[GRADE2][L3GA_E1_NO_NI] * (c3ga::e1 ^ c3ga::no ^ c3ga::ni) + 
-		vl3[GRADE2][L3GA_E2_NO_NI] * (c3ga::e2 ^ c3ga::no ^ c3ga::ni) + 
-		// grade 4
-		vl3[GRADE2][L3GA_E1_E2_NO_NI] * (c3ga::e1 ^ c3ga::e2 ^ c3ga::no ^ c3ga::ni);
-    */
+		vl3.scalar(); 
+    // grade 1 / 2
+    vl3[GRADE1][L3GA_E01] * (c3ga::no ^ c3ga::e1) +
+    vl3[GRADE1][L3GA_E02] * (c3ga::no ^ c3ga::e2) +
+    vl3[GRADE1][L3GA_E03] * (c3ga::no ^ c3ga::e3) +
+    vl3[GRADE1][L3GA_E12] * (c3ga::e1 ^ c3ga::e2) +
+    vl3[GRADE1][L3GA_E23] * (c3ga::e2 ^ c3ga::e3) +
+    vl3[GRADE1][L3GA_E31] * (c3ga::e3 ^ c3ga::e1) +
+    // grade 2 / 4
+    (vl3[GRADE2][L3GA_E01_E31] + vl3[GRADE2][L3GA_E02_E31] + vl3[GRADE2][L3GA_E03_E12]) * (c3ga::no ^ c3ga::e1 ^ c3ga::e2 ^ c3ga::e3);
 
 	vc.compress();
 	return new consoleVariable("", vc);
@@ -1208,30 +1163,18 @@ consoleVariable *consoleVariable::castL3gaToC5ga() const {
 	c5ga vc;
 	const l3ga &vl3 = l3();
 
-	// only scalars are preserved
-	vc =
+	vc = 
 		// grade 0
-		vl3.scalar(); /* + 
-		// grade 1
-		vl3[GRADE1][L3GA_E1] * c5ga::e1 + 
-		vl3[GRADE1][L3GA_E2] * c5ga::e2 + 
-		vl3[GRADE1][L3GA_NO] * c5ga::no + 
-		vl3[GRADE1][L3GA_NI] * c5ga::ni + 
-		// grade 2
-		vl3[GRADE2][L3GA_E1_E2] * (c5ga::e1 ^ c5ga::e2) +
-		vl3[GRADE2][L3GA_E1_NO] * (c5ga::e1 ^ c5ga::no) +
-		vl3[GRADE2][L3GA_E2_NO] * (c5ga::e2 ^ c5ga::no) +
-		vl3[GRADE2][L3GA_E1_NI] * (c5ga::e1 ^ c5ga::ni) +
-		vl3[GRADE2][L3GA_E2_NI] * (c5ga::e2 ^ c5ga::ni) +
-		vl3[GRADE2][L3GA_NO_NI] * (c5ga::no ^ c5ga::ni) +
-		// grade 3
-		vl3[GRADE2][L3GA_E1_E2_NO] * (c5ga::e1 ^ c5ga::e2 ^ c5ga::no) + 
-		vl3[GRADE2][L3GA_E1_E2_NI] * (c5ga::e1 ^ c5ga::e2 ^ c5ga::ni) + 
-		vl3[GRADE2][L3GA_E1_NO_NI] * (c5ga::e1 ^ c5ga::no ^ c5ga::ni) + 
-		vl3[GRADE2][L3GA_E2_NO_NI] * (c5ga::e2 ^ c5ga::no ^ c5ga::ni) + 
-		// grade 4
-		vl3[GRADE2][L3GA_E1_E2_NO_NI] * (c5ga::e1 ^ c5ga::e2 ^ c5ga::no ^ c5ga::ni);
-    */
+		vl3.scalar(); 
+    // grade 1 / 2
+    vl3[GRADE1][L3GA_E01] * (c5ga::no ^ c5ga::e1) +
+    vl3[GRADE1][L3GA_E02] * (c5ga::no ^ c5ga::e2) +
+    vl3[GRADE1][L3GA_E03] * (c5ga::no ^ c5ga::e3) +
+    vl3[GRADE1][L3GA_E12] * (c5ga::e1 ^ c5ga::e2) +
+    vl3[GRADE1][L3GA_E23] * (c5ga::e2 ^ c5ga::e3) +
+    vl3[GRADE1][L3GA_E31] * (c5ga::e3 ^ c5ga::e1) +
+    // grade 2 / 4
+    (vl3[GRADE2][L3GA_E01_E31] + vl3[GRADE2][L3GA_E02_E31] + vl3[GRADE2][L3GA_E03_E12]) * (c5ga::no ^ c5ga::e1 ^ c5ga::e2 ^ c5ga::e3);
 
 	vc.compress();
 	return new consoleVariable("", vc);
