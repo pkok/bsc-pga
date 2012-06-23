@@ -126,11 +126,11 @@ AUTOMAKE = ${SHELL} /home/pkok/scriptie/GAViewer/missing --run automake-1.11
 AWK = mawk
 CC = gcc
 CCDEPMODE = depmode=gcc3
-CFLAGS = -g -O2
+CFLAGS = -O0 -ggdb
 CPPFLAGS = 
 CXX = g++
 CXXDEPMODE = depmode=gcc3
-CXXFLAGS = -g -O2
+CXXFLAGS = -O0 -ggdb
 CYGPATH_W = echo
 DEFS = -DPACKAGE_NAME=\"\" -DPACKAGE_TARNAME=\"\" -DPACKAGE_VERSION=\"\" -DPACKAGE_STRING=\"\" -DPACKAGE_BUGREPORT=\"\" -DPACKAGE_URL=\"\" -DPACKAGE=\"GAViewer\" -DVERSION=\"0.87\" -DHAVE_LIBGLU=1
 DEPDIR = .deps
@@ -292,18 +292,18 @@ include ./$(DEPDIR)/consolewindow.Po
 include ./$(DEPDIR)/fl_console.Po
 
 .cpp.o:
-#	$(CXXCOMPILE) -MT $@ -MD -MP -MF $(DEPDIR)/$*.Tpo -c -o $@ $<
-#	$(am__mv) $(DEPDIR)/$*.Tpo $(DEPDIR)/$*.Po
-	source='$<' object='$@' libtool=no \
-	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) \
-	$(CXXCOMPILE) -c -o $@ $<
+	$(CXXCOMPILE) -MT $@ -MD -MP -MF $(DEPDIR)/$*.Tpo -c -o $@ $<
+	$(am__mv) $(DEPDIR)/$*.Tpo $(DEPDIR)/$*.Po
+#	source='$<' object='$@' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) \
+#	$(CXXCOMPILE) -c -o $@ $<
 
 .cpp.obj:
-#	$(CXXCOMPILE) -MT $@ -MD -MP -MF $(DEPDIR)/$*.Tpo -c -o $@ `$(CYGPATH_W) '$<'`
-#	$(am__mv) $(DEPDIR)/$*.Tpo $(DEPDIR)/$*.Po
-	source='$<' object='$@' libtool=no \
-	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) \
-	$(CXXCOMPILE) -c -o $@ `$(CYGPATH_W) '$<'`
+	$(CXXCOMPILE) -MT $@ -MD -MP -MF $(DEPDIR)/$*.Tpo -c -o $@ `$(CYGPATH_W) '$<'`
+	$(am__mv) $(DEPDIR)/$*.Tpo $(DEPDIR)/$*.Po
+#	source='$<' object='$@' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) \
+#	$(CXXCOMPILE) -c -o $@ `$(CYGPATH_W) '$<'`
 
 # This directory's subdirectories are mostly independent; you can cd
 # into them and run `make' without going through this Makefile.

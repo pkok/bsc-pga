@@ -1,7 +1,13 @@
 dnl Process this file with autoconf to produce a configure script.
 AC_INIT()
 AM_INIT_AUTOMAKE(GAViewer, 0.87)
+if test -z $CFLAGS; then
+  CFLAGS='-ggdb -O0'
+fi
 AC_PROG_CC
+if test -z $CXXFLAGS; then
+  CXXFLAGS='-ggdb -O0'
+fi
 AC_PROG_CXX
 AC_PROG_RANLIB
 AQSIS_CHECK_FLTK
