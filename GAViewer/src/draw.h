@@ -117,4 +117,8 @@ int drawCircle(const GAIM_FLOAT point[3], GAIM_FLOAT radius, GAIM_FLOAT weight, 
 #define DRAW_IDEAL_LINE_RADIUS 4
 #define DRAW_IDEAL_LINE_HOOKS 5
 int drawIdealLine(const GAIM_FLOAT point[3], GAIM_FLOAT weight, const GAIM_FLOAT vector[3], int method = DRAW_IDEAL_LINE_HOOKS, int flags = 0, object *o = NULL);
+
+
+#define DRAW_PENCIL 0
+int drawPencil(const GAIM_FLOAT center[3], GAIM_FLOAT weight, const GAIM_FLOAT normal[3], int method = DRAW_PENCIL, int flags = 0, object *o = NULL);
 #endif /* _DRAW_FUNCTIONS_H_ */

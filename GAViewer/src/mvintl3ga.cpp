@@ -36,7 +36,8 @@ int mvInt::interpret(const l3ga &X, int creationFlags /* = 0*/) {
 
   const GAIM_FLOAT epsilon = 1e-6; // rather arbitrary limit on fp-noise
   l3ga tmp, factors[7];
-  double s;
+  int i;
+  double s, z;
   int null_vectors = 0;
   int ideal_lines = 0;
 
@@ -129,8 +130,8 @@ int mvInt::interpret(const l3ga &X, int creationFlags /* = 0*/) {
         break;
       case 2: // ******************** line pencil, skew line pair, 'line tangent', 'dual regulus pencil'
         s = factorize_blade(X, grade, factors);
-        for (int i = 0; i < grade && factors[i].grade(); ++i) {
-          if (fabs((factors[i] << factors[i]).scalar()) > epsilon) {
+        for (i = 0; i < grade && factors[i].grade(); ++i) {
+          if (fabs((factors[i] << factors[i]).scalar()) < epsilon) {
             ++null_vectors;
           }
           if (fabs(factors[i][GRADE1][L3GA_E01]) < epsilon &&
@@ -161,6 +162,28 @@ int mvInt::interpret(const l3ga &X, int creationFlags /* = 0*/) {
               vector 2: orthogonal to vector 0 and 1
               */
               m_scalar[0] = s;
+
+              // point of intersection is:
+              //   cross(factor1_m, factor2_m) / dot(factor1_d, factor2_m)
+              z = (factors[0][GRADE1][L3GA_E01] * factors[1][GRADE1][L3GA_E23]) + (factors[0][GRADE1][L3GA_E02] * factors[1][GRADE1][L3GA_E31]) + (factors[0][GRADE1][L3GA_E03] * factors[1][GRADE1][L3GA_E12]);
+
+              m_point[0][0] = ((factors[0][GRADE1][L3GA_E31] * factors[1][GRADE1][L3GA_E12]) - (factors[0][GRADE1][L3GA_E12] * factors[1][GRADE1][L3GA_E31])) / z;
+              m_point[0][1] = ((factors[0][GRADE1][L3GA_E12] * factors[1][GRADE1][L3GA_E23]) - (factors[0][GRADE1][L3GA_E23] * factors[1][GRADE1][L3GA_E12])) / z;
+              m_point[0][2] = ((factors[0][GRADE1][L3GA_E23] * factors[1][GRADE1][L3GA_E31]) - (factors[0][GRADE1][L3GA_E31] * factors[1][GRADE1][L3GA_E23])) / z;
+
+              // normal to direction is:
+              //    cross(factor1_d, factor2_d)
+              m_vector[0][0] = (factors[0][GRADE1][L3GA_E31] * factors[1][GRADE1][L3GA_E12]) - (factors[0][GRADE1][L3GA_E12] * factors[1][GRADE1][L3GA_E31]);
+              m_vector[0][1] = (factors[0][GRADE1][L3GA_E12] * factors[1][GRADE1][L3GA_E23]) - (factors[0][GRADE1][L3GA_E23] * factors[1][GRADE1][L3GA_E12]);
+              m_vector[0][2] = (factors[0][GRADE1][L3GA_E23] * factors[1][GRADE1][L3GA_E31]) - (factors[0][GRADE1][L3GA_E31] * factors[1][GRADE1][L3GA_E23]);
+
+              m_vector[1][0] = factors[0][GRADE1][L3GA_E23];
+              m_vector[1][1] = factors[0][GRADE1][L3GA_E31];
+              m_vector[1][2] = factors[0][GRADE1][L3GA_E12];
+
+              m_vector[2][0] = factors[1][GRADE1][L3GA_E23];
+              m_vector[2][1] = factors[1][GRADE1][L3GA_E31];
+              m_vector[2][2] = factors[1][GRADE1][L3GA_E12];
             }
           }
           //else {
@@ -252,7 +275,7 @@ double factorize_blade(const l3ga &B, int grade, l3ga (&factors)[7]) {
       }
     }
     coordinates[max_i] = B[K][max_i];
-    E.set(k, coordinates);
+    E.set(K, coordinates);
 
     // Determine the k basis vectors e[i] that span E.
     for (i = 0; (i < 6) && (j < k); ++i) {
