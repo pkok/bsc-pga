@@ -81,7 +81,14 @@ as operators like translation, rotation and inversion.
 #define MVI_CIRCLE (MVI_ROUND + 3)
 #define MVI_SPHERE (MVI_ROUND + 4)
 // l3ga objects
-#define MVI_IDEAL_LINE (MVI_LINE + 6)
+//#define MVI_LINE (MVI_BOUND_FLAT + 3)
+#define MVI_LINE_PENCIL (MVI_LINE + 7)
+#define MVI_LINE_PAIR (MVI_LINE + 8)
+
+#define MVI_IDEAL (1 << 13)
+#define MVI_IDEAL_LINE (MVI_LINE | MVI_IDEAL)
+#define MVI_IDEAL_LINE_PENCIL (MVI_LINE_PENCIL | MVI_IDEAL)
+#define MVI_IDEAL_LINE_PAIR (MVI_LINE_PAIR | MVI_IDEAL)
 
 #define MVI_BLADE_TYPE_MASK (MVI_EUCLIDEAN + MVI_FREE_FLAT + MVI_BOUND_FLAT + MVI_BOUND_TANGENT + MVI_ROUND)
 

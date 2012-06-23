@@ -48,6 +48,10 @@ Fl_Menu_Item gui_l3gaIdealLineDrawMethods[] = {
 	{0}
 };
 
+Fl_Menu_Item gui_l3gaPencilDrawMethods[] = {
+  {0}
+};
+
 
 l3gaObject::l3gaObject(const l3ga &mv, const std::string &name /*= std::string("")*/, int drawMode /*= 0*/, int creationFlags /*= 0*/, int forceFlags /*= 0*/) 
 	: object(OT_L3GA, name, drawMode, creationFlags) {
@@ -85,6 +89,13 @@ l3gaObject::l3gaObject(const l3ga &mv, const std::string &name /*= std::string("
           m_drawMode |= OD_STIPPLE;
           m_dmMenu = gui_l3gaIdealLineDrawMethods;
           m_dmMenuIdx = DRAW_IDEAL_LINE_HOOKS;
+          break;
+        case MVI_LINE_PENCIL:
+          /*
+          m_properties |= OP_DRAWMETHOD;
+          m_dmMenu = gui_l3gaPencilDrawMethods;
+          m_dmMenuIdx = DRAW_PENCIL;
+          */
           break;
 			}
       /*
@@ -192,6 +203,9 @@ int l3gaObject::draw(glwindow *window) {
         //m_drawMode |= OD_STIPPLE;
         drawIdealLine(new GAIM_FLOAT[3]{0,0,0}, m_int.m_scalar[0], m_int.m_vector[0], m_dmMenuIdx, m_drawMode, this);
         break;
+      case MVI_LINE_PENCIL:
+      default:
+        break;
     }
   }
   else {
@@ -221,6 +235,8 @@ int l3gaObject::translate(glwindow *window, double depth, double motionX, double
       case MVI_ZERO:
       case MVI_SCALAR:
       case MVI_LINE:
+      case MVI_LINE_PENCIL:
+      default:
         // translate; default behavior when dragging objects.
         versor = (v[GRADE1][E3GA_E3] * t3).exp() * (v[GRADE1][E3GA_E2] * t2).exp() * (v[GRADE1][E3GA_E1] * t1).exp();
         m_mv = versor.inverse() * m_mv * versor;
@@ -276,6 +292,16 @@ int l3gaObject::description(char *buf, int bufLen, int sl /* = 0 */) {
           (m_int.dual()) ? " dual" : "",
           m_int.m_scalar[0], 
           m_int.m_vector[0][0], m_int.m_vector[0][1], m_int.m_vector[0][2], 
+          m_mv.string());
+      break;
+    case MVI_LINE_PENCIL:
+      if (sl) sprintf(buf, "%s: l3ga %sline pencil", m_name.c_str(), (m_int.dual()) ? " dual" : "");
+
+      else sprintf(buf, "l3ga %sline pencil \nWeight: %f\nNormal: %2.2f %2.2f %2.2f\nCenter:%2.2f %2.2f %2.2f\nCoordinates: %s", 
+          (m_int.dual()) ? " dual" : "",
+          m_int.m_scalar[0], 
+          m_int.m_vector[0][0], m_int.m_vector[0][1], m_int.m_vector[0][2], 
+          m_int.m_point[0][0], m_int.m_point[0][1], m_int.m_point[0][2],
           m_mv.string());
       break;
     default:
