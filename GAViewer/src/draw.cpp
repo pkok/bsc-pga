@@ -451,7 +451,7 @@ int drawLine(const GAIM_FLOAT point[3], GAIM_FLOAT magnitude, const GAIM_FLOAT v
 	glMatrixMode(GL_MODELVIEW);
   glDisable(GL_LIGHTING);
   glPushMatrix();
-  glTranslated(point[0], point[1], point[2]);
+  if (point) glTranslated(point[0], point[1], point[2]);
 
   // rotate e3 to line direction
   e3gaRve3(e3gaR, e3ga(GRADE1, vector));
@@ -555,7 +555,7 @@ int drawCircle(const GAIM_FLOAT point[3], GAIM_FLOAT radius, GAIM_FLOAT weight, 
   glDisable(GL_LIGHTING);
   glPushMatrix();
   // translate to center, scalar to radius 
-  glTranslated(point[0], point[1], point[2]);
+  if (point) glTranslated(point[0], point[1], point[2]);
   double scale = radius;
   //glScaled(m_int.m_scalar[0], m_int.m_scalar[0], m_int.m_scalar[0]);
 

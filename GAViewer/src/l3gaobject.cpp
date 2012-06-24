@@ -80,16 +80,16 @@ l3gaObject::l3gaObject(const l3ga &mv, const std::string &name /*= std::string("
         case MVI_SCALAR:
           // don't draw anything
           break;
-        case MVI_LINE:
-          m_properties |= OP_DRAWMETHOD;
-          m_dmMenu = gui_l3gaLineDrawMethods;
-          m_dmMenuIdx = DRAW_LINE_HOOKS;
-          break;
         case MVI_IDEAL_LINE:
           m_properties |= OP_DRAWMETHOD;
           m_drawMode |= OD_STIPPLE;
           m_dmMenu = gui_l3gaIdealLineDrawMethods;
           m_dmMenuIdx = DRAW_IDEAL_LINE_HOOKS;
+          break;
+        case MVI_LINE:
+          m_properties |= OP_DRAWMETHOD;
+          m_dmMenu = gui_l3gaLineDrawMethods;
+          m_dmMenuIdx = DRAW_LINE_HOOKS;
           break;
         case MVI_LINE_PENCIL:
           m_properties |= OP_DRAWMETHOD;
@@ -199,7 +199,7 @@ int l3gaObject::draw(glwindow *window) {
         drawLine(m_int.m_point[0], m_int.m_scalar[0], m_int.m_vector[0], m_dmMenuIdx, (m_drawMode & OD_ORI) ? 0x01 : 0, this);
         break;
       case MVI_IDEAL_LINE:
-        drawIdealLine(new GAIM_FLOAT[3]{0,0,0}, m_int.m_scalar[0], m_int.m_vector[0], m_dmMenuIdx, m_drawMode, this);
+        drawIdealLine(NULL, m_int.m_scalar[0], m_int.m_vector[0], m_dmMenuIdx, m_drawMode, this);
         break;
       case MVI_LINE_PENCIL:
         /*
@@ -209,7 +209,10 @@ int l3gaObject::draw(glwindow *window) {
         vector 1: orthogonal to vector 0 and 2
         vector 2: orthogonal to vector 0 and 1
         */
-        drawPencil(m_int.m_point[0], m_int.m_scalar[0], m_int.m_vector[0], m_int.m_vector[1], m_int.m_vector[2], m_dmMenuIdx, m_drawMode, this);
+        scale = (m_drawMode & OD_MAGNITUDE)
+          ? sqrt(fabs(m_int.m_scalar[0]) / M_PI) 
+          : 1.0;
+        drawPencil(m_int.m_point[0], scale, m_int.m_vector[0], m_int.m_vector[1], m_int.m_vector[2], m_dmMenuIdx, m_drawMode, this);
       default:
         break;
     }

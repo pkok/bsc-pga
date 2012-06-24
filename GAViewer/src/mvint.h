@@ -85,7 +85,7 @@ as operators like translation, rotation and inversion.
 #define MVI_LINE_PENCIL (MVI_LINE + 7)
 #define MVI_LINE_PAIR (MVI_LINE + 8)
 
-#define MVI_IDEAL (1 << 13)
+#define MVI_IDEAL (1 << 7)
 #define MVI_IDEAL_LINE (MVI_LINE | MVI_IDEAL)
 #define MVI_IDEAL_LINE_PENCIL (MVI_LINE_PENCIL | MVI_IDEAL)
 #define MVI_IDEAL_LINE_PAIR (MVI_LINE_PAIR | MVI_IDEAL)
