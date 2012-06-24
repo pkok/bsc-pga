@@ -120,5 +120,5 @@ int drawIdealLine(const GAIM_FLOAT point[3], GAIM_FLOAT weight, const GAIM_FLOAT
 
 
 #define DRAW_PENCIL 0
-int drawPencil(const GAIM_FLOAT center[3], GAIM_FLOAT weight, const GAIM_FLOAT normal[3], int method = DRAW_PENCIL, int flags = 0, object *o = NULL);
+int drawPencil(const GAIM_FLOAT center[3], GAIM_FLOAT weight, const GAIM_FLOAT normal[3], const GAIM_FLOAT ortho1[3], const GAIM_FLOAT ortho2[3], int method = DRAW_PENCIL, int flags = 0, object *o = NULL);
 #endif /* _DRAW_FUNCTIONS_H_ */

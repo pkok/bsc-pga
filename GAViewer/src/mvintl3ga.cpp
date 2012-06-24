@@ -172,18 +172,31 @@ int mvInt::interpret(const l3ga &X, int creationFlags /* = 0*/) {
               m_point[0][2] = ((factors[0][GRADE1][L3GA_E23] * factors[1][GRADE1][L3GA_E31]) - (factors[0][GRADE1][L3GA_E31] * factors[1][GRADE1][L3GA_E23])) / z;
 
               // normal to direction is:
-              //    cross(factor1_d, factor2_d)
-              m_vector[0][0] = (factors[0][GRADE1][L3GA_E31] * factors[1][GRADE1][L3GA_E12]) - (factors[0][GRADE1][L3GA_E12] * factors[1][GRADE1][L3GA_E31]);
-              m_vector[0][1] = (factors[0][GRADE1][L3GA_E12] * factors[1][GRADE1][L3GA_E23]) - (factors[0][GRADE1][L3GA_E23] * factors[1][GRADE1][L3GA_E12]);
-              m_vector[0][2] = (factors[0][GRADE1][L3GA_E23] * factors[1][GRADE1][L3GA_E31]) - (factors[0][GRADE1][L3GA_E31] * factors[1][GRADE1][L3GA_E23]);
+              //    cross(factor1_d, factor2_d) / dot(factor1_m, factor2_d)
+              z = (factors[0][GRADE1][L3GA_E23] * factors[1][GRADE1][L3GA_E01]) + (factors[0][GRADE1][L3GA_E31] * factors[1][GRADE1][L3GA_E02]) + (factors[0][GRADE1][L3GA_E12] * factors[1][GRADE1][L3GA_E03]);
+              m_vector[0][0] = ((factors[0][GRADE1][L3GA_E31] * factors[1][GRADE1][L3GA_E12]) - (factors[0][GRADE1][L3GA_E12] * factors[1][GRADE1][L3GA_E31])) / z;
+              m_vector[0][1] = ((factors[0][GRADE1][L3GA_E12] * factors[1][GRADE1][L3GA_E23]) - (factors[0][GRADE1][L3GA_E23] * factors[1][GRADE1][L3GA_E12])) / z;
+              m_vector[0][2] = ((factors[0][GRADE1][L3GA_E23] * factors[1][GRADE1][L3GA_E31]) - (factors[0][GRADE1][L3GA_E31] * factors[1][GRADE1][L3GA_E23])) / z;
 
-              m_vector[1][0] = factors[0][GRADE1][L3GA_E23];
-              m_vector[1][1] = factors[0][GRADE1][L3GA_E31];
-              m_vector[1][2] = factors[0][GRADE1][L3GA_E12];
+              /*
+              m_vector[0][0] = factors[1][GRADE1][L3GA_E23];
+              m_vector[0][1] = factors[1][GRADE1][L3GA_E31];
+              m_vector[0][2] = factors[1][GRADE1][L3GA_E12];
+              */
 
-              m_vector[2][0] = factors[1][GRADE1][L3GA_E23];
-              m_vector[2][1] = factors[1][GRADE1][L3GA_E31];
-              m_vector[2][2] = factors[1][GRADE1][L3GA_E12];
+              z = sqrt((m_vector[0][0] * m_vector[0][0]) + (m_vector[0][1] * m_vector[0][1]) + (m_vector[0][2] * m_vector[0][2]));
+              m_vector[0][0] /= z;
+              m_vector[0][1] /= z;
+              m_vector[0][2] /= z;
+
+              z = sqrt((factors[0][GRADE1][L3GA_E23] * factors[0][GRADE1][L3GA_E23]) + (factors[0][GRADE1][L3GA_E31] * factors[0][GRADE1][L3GA_E31]) + (factors[0][GRADE1][L3GA_E12] * factors[0][GRADE1][L3GA_E12]));
+              m_vector[1][0] = factors[0][GRADE1][L3GA_E23] / z;
+              m_vector[1][1] = factors[0][GRADE1][L3GA_E31] / z;
+              m_vector[1][2] = factors[0][GRADE1][L3GA_E12] / z;
+
+              m_vector[2][0] = (m_vector[0][1] * m_vector[1][2]) - (m_vector[0][2] * m_vector[1][1]);
+              m_vector[2][1] = (m_vector[0][2] * m_vector[1][0]) - (m_vector[0][0] * m_vector[1][2]);
+              m_vector[2][2] = (m_vector[0][0] * m_vector[1][1]) - (m_vector[0][1] * m_vector[1][0]);
             }
           }
           //else {

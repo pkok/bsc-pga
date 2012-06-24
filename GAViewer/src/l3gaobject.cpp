@@ -209,7 +209,7 @@ int l3gaObject::draw(glwindow *window) {
         vector 1: orthogonal to vector 0 and 2
         vector 2: orthogonal to vector 0 and 1
         */
-        drawPencil(m_int.m_point[0], m_int.m_scalar[0], m_int.m_vector[0], m_dmMenuIdx, m_drawMode, this);
+        drawPencil(m_int.m_point[0], m_int.m_scalar[0], m_int.m_vector[0], m_int.m_vector[1], m_int.m_vector[2], m_dmMenuIdx, m_drawMode, this);
       default:
         break;
     }

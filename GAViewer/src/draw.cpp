@@ -619,9 +619,7 @@ int drawIdealLine(const GAIM_FLOAT point[3], GAIM_FLOAT weight, const GAIM_FLOAT
 }
 
 
-int drawPencil(const GAIM_FLOAT center[3], GAIM_FLOAT weight, const GAIM_FLOAT normal[3], int method /*= DRAW_LINE_PENCIL*/, int flags /*= 0*/, object *o /*= NULL*/) {
-  printf("drawing a pencil from draw.cpp\n");
-  printf("center: {%2.2f %2.2f %2.2f}; normal: {%2.2f, %2.2f, %2.2f}\n", center[0], center[1], center[2], normal[0], normal[1], normal[2]);
+int drawPencil(const GAIM_FLOAT center[3], GAIM_FLOAT weight, const GAIM_FLOAT normal[3], const GAIM_FLOAT ortho1[3], const GAIM_FLOAT ortho2[3], int method /*= DRAW_LINE_PENCIL*/, int flags /*= 0*/, object *o /*= NULL*/) {
 	TubeDraw &T = gui_state->m_tubeDraw;
   const GAIM_FLOAT rotStep = 2 * M_PI / 64;
   GAIM_FLOAT x, scaleConst = g_state->m_clipDistance * sqrt(2.0);
@@ -633,7 +631,13 @@ int drawPencil(const GAIM_FLOAT center[3], GAIM_FLOAT weight, const GAIM_FLOAT n
   glDisable(GL_LIGHTING);
   glTranslated(center[0], center[1], center[2]);
 
-  glScaled(scaleConst, scaleConst, scaleConst);
+  if (o != NULL && o->m_drawMode & OD_MAGNITUDE) {
+    weight = sqrt(fabs(weight)) / M_PI;
+    glScaled(weight, weight, weight);
+  }
+  else {
+    //glScaled(scaleConst, scaleConst, scaleConst);
+  }
 
   // rotate e3 to pencil normal
   e3gaRve3(rt, e3ga(GRADE1, normal));
@@ -641,25 +645,12 @@ int drawPencil(const GAIM_FLOAT center[3], GAIM_FLOAT weight, const GAIM_FLOAT n
   glMultMatrixf(rotM);
 
   if (o->fgColor(3) > 0.0) {
-    /*
-    glNormal3d(0.0, 0.0, 1.0);
-    glBegin(GL_TRIANGLE_FAN);
-    glVertex3d(0.0, 0.0, 0.0);
-    for (x = 0; x < M_PI * 2.0 + 0.001; x += rotStep) {
-      glVertex2d(cos(x), sin(x));
-    }
-    glEnd();
-    */
-
-    //glNormal3d(0.0, 0.0, -1.0);
-    //glPolygonMode(GL_FRONT,  GL_LINE);
     T.begin(GL_LINE_STRIP);
     for (x = 0; x < M_PI * 2.0 + 0.001; x += rotStep) {
-      T.vertex2d(-cos(x), sin(x));
+      T.vertex3d(-cos(x), sin(x), 0);
       T.vertex3d(0.0, 0.0, 0.0);
     }
     T.end();
-    //glPolygonMode(GL_FRONT,  GL_FILL);
   }
 
   glPopMatrix();
