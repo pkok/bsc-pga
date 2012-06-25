@@ -228,9 +228,9 @@ int l3gaObject::draw(glwindow *window) {
 
 int l3gaObject::translate(glwindow *window, double depth, double motionX, double motionY) {
 	// can not translate yet
-  static l3ga t1(0.5 * l3ga::e31 ^ l3ga::e12), 
-              t2(0.5 * l3ga::e12 ^ l3ga::e23), 
-              t3(0.5 * l3ga::e23 ^ l3ga::e31), 
+  static l3ga t1(0.5 * l3ga::e12 ^ l3ga::e31), 
+              t2(0.5 * l3ga::e23 ^ l3ga::e12), 
+              t3(0.5 * l3ga::e31 ^ l3ga::e23), 
               r1(0.5 * ((l3ga::e03 ^ l3ga::e23) - (l3ga::e01 ^ l3ga::e12))),
               r2(0.5 * ((l3ga::e02 ^ l3ga::e12) - (l3ga::e03 ^ l3ga::e31))),
               r3(0.5 * ((l3ga::e01 ^ l3ga::e31) - (l3ga::e02 ^ l3ga::e23)));
