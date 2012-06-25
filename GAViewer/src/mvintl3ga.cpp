@@ -111,9 +111,9 @@ int mvInt::interpret(const l3ga &X, int creationFlags /* = 0*/) {
             //m_scalar[0] = sqrt(tmp.scalar());
             m_scalar[0] = sqrt(X[GRADE1][L3GA_E01] * X[GRADE1][L3GA_E01] + X[GRADE1][L3GA_E02] * X[GRADE1][L3GA_E02] + X[GRADE1][L3GA_E03] * X[GRADE1][L3GA_E03]);
 
-            m_vector[0][0] = X[GRADE1][L3GA_E01] / m_scalar[0];
-            m_vector[0][1] = X[GRADE1][L3GA_E02] / m_scalar[0];
-            m_vector[0][2] = X[GRADE1][L3GA_E03] / m_scalar[0];
+            m_vector[0][0] = -X[GRADE1][L3GA_E01] / m_scalar[0];
+            m_vector[0][1] = -X[GRADE1][L3GA_E02] / m_scalar[0];
+            m_vector[0][2] = -X[GRADE1][L3GA_E03] / m_scalar[0];
 
             m_point[0][0] = ((X[GRADE1][L3GA_E31] * m_vector[0][2]) - (X[GRADE1][L3GA_E12] * m_vector[0][1])) / m_scalar[0];
             m_point[0][1] = ((X[GRADE1][L3GA_E12] * m_vector[0][0]) - (X[GRADE1][L3GA_E23] * m_vector[0][2])) / m_scalar[0];
