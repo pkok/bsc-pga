@@ -48,6 +48,17 @@ Fl_Menu_Item gui_l3gaIdealLineDrawMethods[] = {
 	{0}
 };
 
+Fl_Menu_Item gui_l3gaIdealPencilDrawMethods[] = {
+  {"Horizon, radius", 0, NULL, (void*)DRAW_IDEAL_LINE_RADIUS, 0},
+  {"Horizon, hooks", 0, NULL, (void*)DRAW_IDEAL_LINE_HOOKS, 0},
+  {0}
+};
+
+Fl_Menu_Item gui_l3gaRuledSurfaceMethods[] = {
+  {"Lines", 0, NULL, (void*)DRAW_RULED_SURFACE, 0},
+  {0}
+};
+
 Fl_Menu_Item gui_l3gaPencilDrawMethods[] = {
   {"Lines", 0, NULL, (void*)DRAW_PENCIL, 0},
   {0}
@@ -90,6 +101,16 @@ l3gaObject::l3gaObject(const l3ga &mv, const std::string &name /*= std::string("
           m_properties |= OP_DRAWMETHOD;
           m_dmMenu = gui_l3gaLineDrawMethods;
           m_dmMenuIdx = DRAW_LINE_HOOKS;
+          break;
+        case MVI_IDEAL_LINE_PENCIL:
+          m_properties |= OP_DRAWMETHOD;
+          m_dmMenu = gui_l3gaIdealPencilDrawMethods;
+          m_dmMenuIdx = DRAW_IDEAL_LINE_RADIUS;
+          break;
+        case MVI_RULED_SURFACE:
+          m_properties |= OP_DRAWMETHOD;
+          m_dmMenu = gui_l3gaRuledSurfaceMethods;
+          m_dmMenuIdx = DRAW_RULED_SURFACE;
           break;
         case MVI_LINE_PENCIL:
           m_properties |= OP_DRAWMETHOD;
@@ -196,10 +217,20 @@ int l3gaObject::draw(glwindow *window) {
         // don't draw anything
         break;
       case MVI_LINE:
-        drawLine(m_int.m_point[0], m_int.m_scalar[0], m_int.m_vector[0], m_dmMenuIdx, (m_drawMode & OD_ORI) ? 0x01 : 0, this);
+        drawLine(m_int.m_point[0], m_int.m_vector[0], m_int.m_scalar[0], m_dmMenuIdx, (m_drawMode & OD_ORI) ? 0x01 : 0, this);
         break;
       case MVI_IDEAL_LINE:
-        drawIdealLine(NULL, m_int.m_scalar[0], m_int.m_vector[0], m_dmMenuIdx, m_drawMode, this);
+        drawIdealLine(NULL, m_int.m_vector[0], m_int.m_scalar[0], m_dmMenuIdx, m_drawMode, this);
+        break;
+      case MVI_IDEAL_LINE_PENCIL:
+        drawCirclePencil(NULL, m_int.m_vector[0], m_int.m_vector[1], m_int.m_vector[2], m_int.m_scalar[0], m_dmMenuIdx, m_drawMode, this);
+        break;
+      case MVI_RULED_SURFACE:
+        drawVector(NULL, m_int.m_point[0], 1.0);
+        drawVector(m_int.m_point[0], m_int.m_vector[0], 1.0);
+        drawVector(m_int.m_point[0], m_int.m_vector[1], 2.0);
+        drawVector(m_int.m_point[0], m_int.m_vector[2], 3.0);
+        drawPlane(m_int.m_point[0], m_int.m_vector[0], m_int.m_vector[1], m_int.m_vector[2], m_int.m_scalar[0], DRAW_RULED_SURFACE, 0, this);
         break;
       case MVI_LINE_PENCIL:
         /*
@@ -212,7 +243,7 @@ int l3gaObject::draw(glwindow *window) {
         scale = (m_drawMode & OD_MAGNITUDE)
           ? sqrt(fabs(m_int.m_scalar[0]) / M_PI) 
           : 1.0;
-        drawPencil(m_int.m_point[0], scale, m_int.m_vector[0], m_int.m_vector[1], m_int.m_vector[2], m_dmMenuIdx, m_drawMode, this);
+        drawLinePencil(m_int.m_point[0], scale, m_int.m_vector[0], m_int.m_vector[1], m_int.m_vector[2], m_dmMenuIdx, m_drawMode, this);
       default:
         break;
     }
@@ -244,6 +275,7 @@ int l3gaObject::translate(glwindow *window, double depth, double motionX, double
       case MVI_ZERO:
       case MVI_SCALAR:
       case MVI_LINE:
+      case MVI_RULED_SURFACE:
       case MVI_LINE_PENCIL:
       default:
         // translate; default behavior when dragging objects.
@@ -252,6 +284,7 @@ int l3gaObject::translate(glwindow *window, double depth, double motionX, double
         modified = 1;
         break;
       case MVI_IDEAL_LINE:
+      case MVI_IDEAL_LINE_PENCIL:
         // rotate; these elements are translation invariant.
         versor = (v[GRADE1][E3GA_E3] * r3).exp() * (v[GRADE1][E3GA_E2] * r2).exp() * (v[GRADE1][E3GA_E1] * r1).exp();
         m_mv = versor.inverse() * m_mv * versor;
@@ -314,10 +347,20 @@ int l3gaObject::description(char *buf, int bufLen, int sl /* = 0 */) {
           m_int.m_vector[0][0], m_int.m_vector[0][1], m_int.m_vector[0][2], 
           m_mv.string());
       break;
+    case MVI_IDEAL_LINE_PENCIL:
+      if (sl) sprintf(buf, "%s: l3ga %sline pencil at infinity", m_name.c_str(), (m_int.dual()) ? " dual" : "");
+
+      else sprintf(buf, "l3ga %sline pencil at infinity\nWeight: %f\nNormal: %2.2f %2.2f %2.2f\nCoordinates: %s", 
+          (m_int.dual()) ? " dual" : "",
+          m_int.m_scalar[0], 
+          m_int.m_vector[0][0], m_int.m_vector[0][1], m_int.m_vector[0][2], 
+          m_mv.string());
+      break;
+    case MVI_RULED_SURFACE:
     case MVI_LINE_PENCIL:
       if (sl) sprintf(buf, "%s: l3ga %sline pencil", m_name.c_str(), (m_int.dual()) ? " dual" : "");
 
-      else sprintf(buf, "l3ga %sline pencil \nWeight: %f\nNormal: %2.2f %2.2f %2.2f\nCenter:%2.2f %2.2f %2.2f\nCoordinates: %s", 
+      else sprintf(buf, "l3ga %sline pencil\nWeight: %f\nNormal: %2.2f %2.2f %2.2f\nCenter:%2.2f %2.2f %2.2f\nCoordinates: %s", 
           (m_int.dual()) ? " dual" : "",
           m_int.m_scalar[0], 
           m_int.m_vector[0][0], m_int.m_vector[0][1], m_int.m_vector[0][2], 

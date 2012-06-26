@@ -83,7 +83,8 @@ as operators like translation, rotation and inversion.
 // l3ga objects
 //#define MVI_LINE (MVI_BOUND_FLAT + 3)
 #define MVI_LINE_PENCIL (MVI_LINE + 7)
-#define MVI_LINE_PAIR (MVI_LINE + 8)
+#define MVI_RULED_SURFACE (MVI_LINE + 8)
+#define MVI_LINE_PAIR (MVI_LINE + 9)
 
 #define MVI_IDEAL (1 << 7)
 #define MVI_IDEAL_LINE (MVI_LINE | MVI_IDEAL)
