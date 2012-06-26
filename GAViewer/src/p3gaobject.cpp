@@ -234,53 +234,11 @@ int p3gaObject::draw(glwindow *window) {
 			gsDraw(g_pointSphere, (m_drawMode & OD_ORI) ? 0.01 * m_int.m_scalar[0] : 0.0);
 			glPopMatrix();
 			break;
-		case MVI_LINE: // todo: put this code in sep. func. (combined with c3ga line)
-      drawLine(m_int.m_point[0], m_int.m_scalar[0], m_int.m_vector[0], m_dmMenuIdx, (m_drawMode & OD_ORI) ? 0x01 : 0, this);
+		case MVI_LINE:
+      drawLine(m_int.m_point[0], m_int.m_vector[0], m_int.m_scalar[0], m_dmMenuIdx, (m_drawMode & OD_ORI) ? 0x01 : 0, this);
 			break;
-		case MVI_PLANE: // todo: put this code in sep. func. (combined with c3ga plane)
-			for (s = 0; s < 2; s++) { // draw both front and back side individually
-				if (s == 0) { // front
-					glPolygonMode(GL_FRONT, (m_drawMode & OD_WIREFRAME) ? GL_LINE : GL_FILL);
-					glNormal3dv(m_int.m_vector[0]); 
-				}
-				else { // back
-					glPolygonMode(GL_FRONT, ((m_drawMode & OD_WIREFRAME) || (m_drawMode & OD_ORI)) ? GL_LINE : GL_FILL);
-					glNormal3d(-m_int.m_vector[0][0], -m_int.m_vector[0][1], -m_int.m_vector[0][2]); 
-				}
-				for (y = -scaleConst; y < scaleConst - stepSize * scaleConst; y += stepSize * scaleConst) {
-					glBegin(GL_QUAD_STRIP);
-					for (x = -scaleConst; x < scaleConst; x += stepSize * scaleConst) {
-						glVertex3d(
-							m_int.m_point[0][0] + x * m_int.m_vector[1][0] + ((s == 0) ? (y + stepSize * scaleConst) : y) * m_int.m_vector[2][0],
-							m_int.m_point[0][1] + x * m_int.m_vector[1][1] + ((s == 0) ? (y + stepSize * scaleConst) : y) * m_int.m_vector[2][1],
-							m_int.m_point[0][2] + x * m_int.m_vector[1][2] + ((s == 0) ? (y + stepSize * scaleConst) : y) * m_int.m_vector[2][2]);
-						glVertex3d(
-							m_int.m_point[0][0] + x * m_int.m_vector[1][0] + ((s == 1) ? (y + stepSize * scaleConst) : y) * m_int.m_vector[2][0],
-							m_int.m_point[0][1] + x * m_int.m_vector[1][1] + ((s == 1) ? (y + stepSize * scaleConst) : y) * m_int.m_vector[2][1],
-							m_int.m_point[0][2] + x * m_int.m_vector[1][2] + ((s == 1) ? (y + stepSize * scaleConst) : y) * m_int.m_vector[2][2]);
-					}
-					glEnd();
-				}
-			}
-
-			if (m_drawMode & OD_ORI) { // draw normals
-				if (m_drawMode & OD_MAGNITUDE) scaleMag *= m_int.m_scalar[0];
-				glDisable(GL_LIGHTING);
-				T.begin(GL_LINES);
-				for (y = -scaleConst; y <= scaleConst; y += stepSize * scaleConst) {
-					for (x = -scaleConst; x <= scaleConst; x += stepSize * scaleConst) {
-						T.vertex3d(
-							m_int.m_point[0][0] + x * m_int.m_vector[1][0] + y * m_int.m_vector[2][0],
-							m_int.m_point[0][1] + x * m_int.m_vector[1][1] + y * m_int.m_vector[2][1],
-							m_int.m_point[0][2] + x * m_int.m_vector[1][2] + y * m_int.m_vector[2][2]);
-						T.vertex3d(
-							m_int.m_point[0][0] + x * m_int.m_vector[1][0] + y * m_int.m_vector[2][0] + scaleMag *  m_int.m_vector[0][0],
-							m_int.m_point[0][1] + x * m_int.m_vector[1][1] + y * m_int.m_vector[2][1] + scaleMag *  m_int.m_vector[0][1],
-							m_int.m_point[0][2] + x * m_int.m_vector[1][2] + y * m_int.m_vector[2][2] + scaleMag *  m_int.m_vector[0][2]);
-					}
-				}
-				T.end();
-			}
+		case MVI_PLANE:
+      drawPlane(m_int.m_point[0], m_int.m_vector[0], m_int.m_vector[1], m_int.m_vector[2], m_int.m_scalar[0], DRAW_PLANE, 0, this);
 			break;
 		default:
 			cprintf("Can not (yet) draw the blade object #%d\n", m_int.type());
