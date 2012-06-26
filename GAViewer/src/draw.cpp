@@ -441,7 +441,7 @@ int drawTriVector(const GAIM_FLOAT base[3], GAIM_FLOAT scale, GAIM_FLOAT vector[
 }
 
 
-int drawLine(const GAIM_FLOAT point[3], GAIM_FLOAT magnitude, const GAIM_FLOAT vector[3], int method /*= DRAW_LINE_HOOKS */, int flags /*= 0*/, object *o /*= NULL*/) {
+int drawLine(const GAIM_FLOAT point[3], const GAIM_FLOAT normal[3], GAIM_FLOAT magnitude, int method /*= DRAW_LINE_HOOKS */, int flags /*= 0*/, object *o /*= NULL*/) {
 	TubeDraw &T = gui_state->m_tubeDraw;
   GAIM_FLOAT z, c, stepSize = 0.1, scaleConst = g_state->m_clipDistance * sqrt(2.0);
   e3ga e3gaR;
@@ -454,7 +454,7 @@ int drawLine(const GAIM_FLOAT point[3], GAIM_FLOAT magnitude, const GAIM_FLOAT v
   if (point) glTranslated(point[0], point[1], point[2]);
 
   // rotate e3 to line direction
-  e3gaRve3(e3gaR, e3ga(GRADE1, vector));
+  e3gaRve3(e3gaR, e3ga(GRADE1, normal));
   e3gaRotorToOpenGLMatrix(e3gaR, rotM);
   glMultMatrixf(rotM);
 
@@ -546,7 +546,78 @@ int drawLine(const GAIM_FLOAT point[3], GAIM_FLOAT magnitude, const GAIM_FLOAT v
 }
 
 
-int drawCircle(const GAIM_FLOAT point[3], GAIM_FLOAT radius, GAIM_FLOAT weight, const GAIM_FLOAT vector[3], int method /*= DRAW_CIRCLE_HOOKS*/, int flags /*= 0*/, object *o /*= NULL*/) {
+int drawPlane(const GAIM_FLOAT point[3], const GAIM_FLOAT normal[3], const GAIM_FLOAT ortho1[3], const GAIM_FLOAT ortho2[3], GAIM_FLOAT weight, int method, int flags, object *o) {
+  TubeDraw &T = gui_state->m_tubeDraw;
+	GAIM_FLOAT x, y;
+	int s;
+
+	GAIM_FLOAT stepSize = 0.1;
+	GAIM_FLOAT scaleConst = g_state->m_clipDistance * sqrt(2.0);
+	GAIM_FLOAT scaleMag = 1.0;
+  for (s = 0; s < 2; s++) { // draw both front and back side individually
+    if (s == 0) { // front
+      glPolygonMode(GL_FRONT, ((method == DRAW_RULED_SURFACE) || (o && o->m_drawMode & OD_WIREFRAME)) ? GL_LINE : GL_FILL);
+      glNormal3dv(normal); 
+    }
+    else { // back
+      glPolygonMode(GL_FRONT, ((method == DRAW_RULED_SURFACE) || (o && o->m_drawMode & OD_WIREFRAME) || (o && o->m_drawMode & OD_ORI)) ? GL_LINE : GL_FILL);
+      glNormal3d(-normal[0], -normal[1], -normal[2]); 
+    }
+    if (method == DRAW_RULED_SURFACE) {
+      T.begin(GL_LINES);
+      for (y = -scaleConst; y < scaleConst - stepSize * scaleConst; y += stepSize * scaleConst) {
+        T.vertex3d(
+              point[0] + -scaleConst * ortho1[0] + ((s == 0) ? (y + stepSize * scaleConst) : y) * ortho2[0],
+              point[1] + -scaleConst * ortho1[1] + ((s == 0) ? (y + stepSize * scaleConst) : y) * ortho2[1],
+              point[2] + -scaleConst * ortho1[2] + ((s == 0) ? (y + stepSize * scaleConst) : y) * ortho2[2]);
+        T.vertex3d(
+              point[0] + scaleConst * ortho1[0] + ((s == 0) ? (y + stepSize * scaleConst) : y) * ortho2[0],
+              point[1] + scaleConst * ortho1[1] + ((s == 0) ? (y + stepSize * scaleConst) : y) * ortho2[1],
+              point[2] + scaleConst * ortho1[2] + ((s == 0) ? (y + stepSize * scaleConst) : y) * ortho2[2]);
+      }
+      T.end();
+    }
+    else {
+      for (y = -scaleConst; y < scaleConst - stepSize * scaleConst; y += stepSize * scaleConst) {
+        glBegin(GL_QUAD_STRIP);
+        for (x = -scaleConst; x < scaleConst; x += stepSize * scaleConst) {
+          glVertex3d(
+              point[0] + x * ortho1[0] + ((s == 0) ? (y + stepSize * scaleConst) : y) * ortho2[0],
+              point[1] + x * ortho1[1] + ((s == 0) ? (y + stepSize * scaleConst) : y) * ortho2[1],
+              point[2] + x * ortho1[2] + ((s == 0) ? (y + stepSize * scaleConst) : y) * ortho2[2]);
+          glVertex3d(
+              point[0] + x * ortho1[0] + ((s == 1) ? (y + stepSize * scaleConst) : y) * ortho2[0],
+              point[1] + x * ortho1[1] + ((s == 1) ? (y + stepSize * scaleConst) : y) * ortho2[1],
+              point[2] + x * ortho1[2] + ((s == 1) ? (y + stepSize * scaleConst) : y) * ortho2[2]);
+        }
+        glEnd();
+      }
+    }
+  }
+
+  if (o && o->m_drawMode & OD_ORI) { // draw normals
+    if (o && o->m_drawMode & OD_MAGNITUDE) scaleMag *= weight;
+    glDisable(GL_LIGHTING);
+    T.begin(GL_LINES);
+    for (y = -scaleConst; y <= scaleConst; y += stepSize * scaleConst) {
+      for (x = -scaleConst; x <= scaleConst; x += stepSize * scaleConst) {
+        T.vertex3d(
+            point[0] + x * ortho1[0] + y * ortho2[0],
+            point[1] + x * ortho1[1] + y * ortho2[1],
+            point[2] + x * ortho1[2] + y * ortho2[2]);
+        T.vertex3d(
+            point[0] + x * ortho1[0] + y * ortho2[0] + scaleMag *  normal[0],
+            point[1] + x * ortho1[1] + y * ortho2[1] + scaleMag *  normal[1],
+            point[2] + x * ortho1[2] + y * ortho2[2] + scaleMag *  normal[2]);
+      }
+    }
+    T.end();
+  }
+  return 0;
+}
+
+
+int drawCircle(const GAIM_FLOAT point[3], const GAIM_FLOAT normal[3], GAIM_FLOAT radius, GAIM_FLOAT weight, int method /*= DRAW_CIRCLE_HOOKS*/, int flags /*= 0*/, object *o /*= NULL*/) {
 	TubeDraw &T = gui_state->m_tubeDraw;
   GAIM_FLOAT x;
   e3ga e3gaR;
@@ -560,7 +631,7 @@ int drawCircle(const GAIM_FLOAT point[3], GAIM_FLOAT radius, GAIM_FLOAT weight, 
   //glScaled(m_int.m_scalar[0], m_int.m_scalar[0], m_int.m_scalar[0]);
 
   // rotate e3 to plane normal
-  e3gaRve3(e3gaR, e3ga(GRADE1, vector[0], vector[1], vector[2]));
+  e3gaRve3(e3gaR, e3ga(GRADE1, normal[0], normal[1], normal[2]));
   e3gaRotorToOpenGLMatrix(e3gaR, rotM);
   glMultMatrixf(rotM);
 
@@ -606,20 +677,20 @@ int drawCircle(const GAIM_FLOAT point[3], GAIM_FLOAT radius, GAIM_FLOAT weight, 
 }
 
 
-int drawIdealLine(const GAIM_FLOAT point[3], GAIM_FLOAT weight, const GAIM_FLOAT vector[3], int method /*= DRAW_IDEAL_LINE_HOOKS*/, int flags /*= 0*/, object *o /*= NULL*/) {
+int drawIdealLine(const GAIM_FLOAT point[3], const GAIM_FLOAT normal[3], GAIM_FLOAT weight, int method /*= DRAW_IDEAL_LINE_HOOKS*/, int flags /*= 0*/, object *o /*= NULL*/) {
   switch (method) {
     case DRAW_IDEAL_LINE_HOOKS:
-      return drawCircle(point, 1, weight, vector, method, flags, o);
+      return drawCircle(point, normal, 1, weight, method, flags, o);
     case DRAW_IDEAL_LINE_RADIUS:
-      return drawCircle(point, weight, 1, vector, method, flags, o);
+      return drawCircle(point, normal, weight, 1, method, flags, o);
     default:
-      return drawLine(point, weight, vector, method, (flags | OD_ORI) ? 0x01 : 0, o);
+      return drawLine(point, normal, weight, method, (flags | OD_ORI) ? 0x01 : 0, o);
   }
-  return drawLine(point, weight, vector, method, (flags | OD_ORI) ? 0x01 : 0, o);
+  return drawLine(point, normal, weight, method, (flags | OD_ORI) ? 0x01 : 0, o);
 }
 
 
-int drawPencil(const GAIM_FLOAT center[3], GAIM_FLOAT weight, const GAIM_FLOAT normal[3], const GAIM_FLOAT ortho1[3], const GAIM_FLOAT ortho2[3], int method /*= DRAW_LINE_PENCIL*/, int flags /*= 0*/, object *o /*= NULL*/) {
+int drawLinePencil(const GAIM_FLOAT center[3], GAIM_FLOAT weight, const GAIM_FLOAT normal[3], const GAIM_FLOAT ortho1[3], const GAIM_FLOAT ortho2[3], int method /*= DRAW_LINE_PENCIL*/, int flags /*= 0*/, object *o /*= NULL*/) {
 	TubeDraw &T = gui_state->m_tubeDraw;
   const GAIM_FLOAT rotStep = 2 * M_PI / 64;
   GAIM_FLOAT x, scaleConst = g_state->m_clipDistance * sqrt(2.0);
@@ -656,5 +727,30 @@ int drawPencil(const GAIM_FLOAT center[3], GAIM_FLOAT weight, const GAIM_FLOAT n
   glPopMatrix();
 
 
+  return 0;
+}
+
+
+int drawCirclePencil(const GAIM_FLOAT center[3], const GAIM_FLOAT normal[3], const GAIM_FLOAT ortho1[3], const GAIM_FLOAT ortho2[3], GAIM_FLOAT weight, int method /*= DRAW_CIRCLE_HOOKS*/, int flags /*= 0*/, object *o /*= NULL*/) {
+  GAIM_FLOAT i, axis[3];
+  const GAIM_FLOAT rotStep = 2.0 * M_PI / 64.0,
+        cosr = cos(rotStep),
+        sinr = sin(rotStep);
+  axis[0] = ortho1[0];
+  axis[1] = ortho1[1];
+  axis[2] = ortho1[2];
+  for (i = 0; i < M_PI * + 0.001; i += rotStep) { // only need to draw half the circles
+    printf("i: %1.5f\n", i);
+    axis[0] = (cos(i) + (normal[0]*normal[0]*(1-cos(i)))) * ortho1[0]
+      + ((normal[0] * normal[1] * (1-cos(i))) - (normal[2]*sin(i))) * ortho1[1]
+      + ((normal[0] * normal[2] * (1-cos(i))) + (normal[1]*sin(i))) * ortho1[3];
+    axis[1] = ((normal[1] * normal[0] * (1-cos(i))) + (normal[2]*sin(i))) * ortho1[0]
+      + (cos(i) + (normal[1] * normal[1] * (1-cos(i)))) * ortho1[1]
+      + ((normal[1] * normal[2] * (1-cos(i))) - (normal[0]*sin(i))) * ortho1[2];
+    axis[2] = ((normal[2] * normal[0] * (1-cos(i))) - (normal[1]*sin(i))) * ortho1[0]
+      + ((normal[2] * normal[1] * (1-cos(i))) + (normal[0]*sin(i))) * ortho1[2]
+      + (cos(i) + (normal[2] * normal[2] * (1-cos(i)))) * ortho1[2];
+    drawIdealLine(center, axis, weight, method, flags, o);
+  }
   return 0;
 }

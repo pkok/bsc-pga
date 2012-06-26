@@ -107,18 +107,24 @@ the approriate colors (i.e. foreground, outline)
 Currently:
 0x01: draw something related to the orientation (if possible)
  */
-int drawLine(const GAIM_FLOAT point[3], GAIM_FLOAT magnitude, const GAIM_FLOAT vector[3], int method = DRAW_LINE_HOOKS, int flags = 0, object *o = NULL);
+int drawLine(const GAIM_FLOAT point[3], const GAIM_FLOAT normal[3], GAIM_FLOAT magnitude, int method = DRAW_LINE_HOOKS, int flags = 0, object *o = NULL);
 
+#define DRAW_PLANE 0
+int drawPlane(const GAIM_FLOAT point[3], const GAIM_FLOAT normal[3], const GAIM_FLOAT ortho1[3], const GAIM_FLOAT ortho2[3], GAIM_FLOAT weight, int method = DRAW_PLANE, int flags = 0, object *o = NULL);
 
 #define DRAW_CIRCLE_HOOKS 0
-int drawCircle(const GAIM_FLOAT point[3], GAIM_FLOAT radius, GAIM_FLOAT weight, const GAIM_FLOAT vector[3], int method = DRAW_CIRCLE_HOOKS, int flags = 0, object *o = NULL);
+int drawCircle(const GAIM_FLOAT point[3], const GAIM_FLOAT normal[3], GAIM_FLOAT radius, GAIM_FLOAT weight, int method = DRAW_CIRCLE_HOOKS, int flags = 0, object *o = NULL);
 
 
 #define DRAW_IDEAL_LINE_RADIUS 4
 #define DRAW_IDEAL_LINE_HOOKS 5
-int drawIdealLine(const GAIM_FLOAT point[3], GAIM_FLOAT weight, const GAIM_FLOAT vector[3], int method = DRAW_IDEAL_LINE_HOOKS, int flags = 0, object *o = NULL);
+int drawIdealLine(const GAIM_FLOAT point[3], const GAIM_FLOAT normal[3], GAIM_FLOAT weight, int method = DRAW_IDEAL_LINE_HOOKS, int flags = 0, object *o = NULL);
 
 
 #define DRAW_PENCIL 0
-int drawPencil(const GAIM_FLOAT center[3], GAIM_FLOAT weight, const GAIM_FLOAT normal[3], const GAIM_FLOAT ortho1[3], const GAIM_FLOAT ortho2[3], int method = DRAW_PENCIL, int flags = 0, object *o = NULL);
+int drawLinePencil(const GAIM_FLOAT center[3], GAIM_FLOAT weight, const GAIM_FLOAT normal[3], const GAIM_FLOAT ortho1[3], const GAIM_FLOAT ortho2[3], int method = DRAW_PENCIL, int flags = 0, object *o = NULL);
+
+int drawCirclePencil(const GAIM_FLOAT center[3], const GAIM_FLOAT normal[3], const GAIM_FLOAT ortho1[3], const GAIM_FLOAT ortho2[3], GAIM_FLOAT weight, int method = DRAW_CIRCLE_HOOKS, int flags = 0, object *o = NULL);
+
+#define DRAW_RULED_SURFACE 1
 #endif /* _DRAW_FUNCTIONS_H_ */
