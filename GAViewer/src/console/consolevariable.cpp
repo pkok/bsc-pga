@@ -1047,8 +1047,7 @@ consoleVariable *consoleVariable::castP3gaToL3ga() const {
     vp[GRADE2][P3GA_E2_E3] * l3ga::e23 +
     vp[GRADE2][P3GA_E3_E1] * l3ga::e31 +
     // grade 4 / 2
-    // Quite random decision. TODO: discuss with Leo what to cast to.
-    -vp[GRADE4][P3GA_I] * (l3ga::e01 ^ l3ga::e23);
+    -vp[GRADE4][P3GA_I] * ((l3ga::e01 ^ l3ga::e23) + (l3ga::e02 ^ l3ga::e31) + (l3ga::e03 ^ l3ga::e12)) / 3.0;
 
 	vl3.compress();
 	return new consoleVariable("", vl3);
@@ -1070,8 +1069,7 @@ consoleVariable *consoleVariable::castC3gaToL3ga() const {
     vc[GRADE2][C3GA_E2_E3] * l3ga::e23 +
     -vc[GRADE2][C3GA_E1_E3] * l3ga::e31 +
     // grade 4 / 2
-    // Quite random decision. TODO: discuss with Leo what to cast to.
-    -vc[GRADE4][C3GA_E1_E2_E3_NO] * (l3ga::e01 ^ l3ga::e23);
+    -vc[GRADE4][C3GA_E1_E2_E3_NO] * ((l3ga::e01 ^ l3ga::e23) + (l3ga::e02 ^ l3ga::e31) + (l3ga::e03 ^ l3ga::e12)) / 3.0;
 
 	vl3.compress();
 	return new consoleVariable("", vl3);
@@ -1093,8 +1091,7 @@ consoleVariable *consoleVariable::castC5gaToL3ga() const {
     vc[GRADE2][C5GA_E2_E3] * l3ga::e23 +
     -vc[GRADE2][C5GA_E1_E3] * l3ga::e31 +
     // grade 4 / 2
-    // Quite random decision. TODO: discuss with Leo what to cast to.
-    -vc[GRADE4][C5GA_E1_E2_E3_NO] * (l3ga::e01 ^ l3ga::e23);
+    -vc[GRADE4][C5GA_E1_E2_E3_NO] * ((l3ga::e01 ^ l3ga::e23) + (l3ga::e02 ^ l3ga::e31) + (l3ga::e03 ^ l3ga::e12)) / 3.0;
 
 	vl3.compress();
 	return new consoleVariable("", vl3);
