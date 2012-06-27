@@ -72,6 +72,7 @@ int mvInt::interpret(const l3ga &X, int creationFlags /* = 0*/) {
 
   if (type == GA_BLADE) { // ************************ all blades *********************
     GAIM_FLOAT X2 = (X * X).scalar(), weight2;
+    s = factorize_blade(X, grade, factors);
     switch (grade) {
       case 0: // ******************** scalar
         m_type |= MVI_SCALAR;
@@ -83,6 +84,7 @@ int mvInt::interpret(const l3ga &X, int creationFlags /* = 0*/) {
               fabs(X[GRADE1][L3GA_E02]) < epsilon &&
               fabs(X[GRADE1][L3GA_E03]) < epsilon) {
             m_type |= MVI_IDEAL_LINE;
+            printf("ideal line\n");
             /*
             scalar 0: weight
             vector 0: normal/reciprocal direction
@@ -97,6 +99,7 @@ int mvInt::interpret(const l3ga &X, int creationFlags /* = 0*/) {
           }
           else {
             m_type |= MVI_LINE;
+            printf("line\n");
             /*
             scalar 0: weight
             point 0: point closest to origin
@@ -130,7 +133,6 @@ int mvInt::interpret(const l3ga &X, int creationFlags /* = 0*/) {
         }
         break;
       case 2: // ******************** line pencil, skew line pair, 'line tangent', 'dual regulus pencil'
-        s = factorize_blade(X, grade, factors);
         for (i = 0; i < grade && factors[i].grade(); ++i) {
           if (fabs((factors[i] << factors[i]).scalar()) < epsilon) {
             ++null_vectors;
@@ -148,6 +150,7 @@ int mvInt::interpret(const l3ga &X, int creationFlags /* = 0*/) {
             // c = a[i] / x[i]
             if (ideal_lines == null_vectors) {
               m_type |= MVI_IDEAL_LINE_PENCIL;
+              printf("pencil of ideal lines\n");
               /*
               scalar 0: weight
               vector 0: normal
@@ -173,6 +176,7 @@ int mvInt::interpret(const l3ga &X, int creationFlags /* = 0*/) {
             }
             else if (is_parallel(factors[0], factors[1], epsilon)) {
               m_type |= MVI_RULED_SURFACE;
+              printf("ruled surface\n");
               /*
               scalar 0: weight;
               point 0: point on surface closest to chosen origin
@@ -207,6 +211,7 @@ int mvInt::interpret(const l3ga &X, int creationFlags /* = 0*/) {
             }
             else {
               m_type |= MVI_LINE_PENCIL;
+              printf("line pencil\n");
               /*
               scalar 0: weight
               point 0: center
@@ -245,26 +250,49 @@ int mvInt::interpret(const l3ga &X, int creationFlags /* = 0*/) {
               m_vector[2][2] = (m_vector[0][0] * m_vector[1][1]) - (m_vector[0][1] * m_vector[1][0]);
             }
           }
-          //else {
-          //  if (ideal_lines == null_vectors) {
-          //    m_type |= MVI_IDEAL_LINE_PAIR;
-          //    /*
-          //    scalar 0: weight
-          //    vector 0: normal/reciprocal direction of line 1
-          //    vector 1: normal/reciprocal direction of line 2
-          //    */
-          //  }
-          //  else {
-          //    m_type |= MVI_LINE_PAIR;
-          //    /*
-          //    scalar 0: weight;
-          //    point 0: point closest to origin of line 1
-          //    vector 0: direction of line 1
-          //    point 1: point closest to origin of line 2
-          //    vector 1: direction of line 2
-          //    */
-          //  }
-          //}
+          else {
+            if (ideal_lines == null_vectors) {
+              m_type |= MVI_IDEAL_LINE_PAIR;
+              printf("ideal line pair\n");
+              // Todo: Do these even exist?
+              /*
+              scalar 0: weight
+              scalar 1: signed radius(? is that meaningful?)
+              vector 0: normal/reciprocal direction of line 1
+              vector 1: normal/reciprocal direction of line 2
+              */
+            }
+            else {
+              m_type |= MVI_LINE_PAIR;
+              printf("line pair\n");
+              /*
+              scalar 0: weight;
+              scalar 1: signed radius(? is that meaningful? --> not set!)
+              point 0: point closest to origin of line 1
+              vector 0: direction of line 1
+              point 1: point closest to origin of line 2
+              vector 1: direction of line 2
+              */
+              mvInt l1, l2;
+              l1.interpret(factors[0]);
+              l2.interpret(factors[1]);
+
+              m_scalar[0] = s;
+              m_point[0][0] = l1.m_point[0][0];
+              m_point[0][1] = l1.m_point[0][1];
+              m_point[0][2] = l1.m_point[0][2];
+              m_vector[0][0] = l1.m_vector[0][0];
+              m_vector[0][1] = l1.m_vector[0][1];
+              m_vector[0][2] = l1.m_vector[0][2];
+
+              m_point[1][0] = l2.m_point[0][0];
+              m_point[1][1] = l2.m_point[0][1];
+              m_point[1][2] = l2.m_point[0][2];
+              m_vector[1][0] = l2.m_vector[0][0];
+              m_vector[1][1] = l2.m_vector[0][1];
+              m_vector[1][2] = l2.m_vector[0][2];
+            }
+          }
         }
         /*
         else if (null_vectors == 1) {
@@ -276,6 +304,7 @@ int mvInt::interpret(const l3ga &X, int creationFlags /* = 0*/) {
         */
         else {
           m_type |= MVI_UNKNOWN;
+          printf("grade 2 unknown; X2: %e; f0: %s; f1: %s\n", X2, factors[0].string(), factors[1].string());
           m_valid = 0;
         }
         break;
@@ -285,6 +314,7 @@ int mvInt::interpret(const l3ga &X, int creationFlags /* = 0*/) {
       case 6: // ******************** pseudoscalar
       default:
         m_type |= MVI_UNKNOWN;
+        printf("grade >2 unknown\n");
         m_valid = 0;
         break;
     }
@@ -292,6 +322,7 @@ int mvInt::interpret(const l3ga &X, int creationFlags /* = 0*/) {
   // TODO: Add interpretation for versors
   else {
     m_type |= MVI_UNKNOWN;
+    printf("unknown versor\n");
     m_valid = 0;
   }
 

@@ -104,6 +104,7 @@ l3gaObject::l3gaObject(const l3ga &mv, const std::string &name /*= std::string("
           break;
         case MVI_IDEAL_LINE_PENCIL:
           m_properties |= OP_DRAWMETHOD;
+          m_drawMode |= OD_STIPPLE;
           m_dmMenu = gui_l3gaIdealPencilDrawMethods;
           m_dmMenuIdx = DRAW_IDEAL_LINE_RADIUS;
           break;
@@ -115,6 +116,11 @@ l3gaObject::l3gaObject(const l3ga &mv, const std::string &name /*= std::string("
         case MVI_LINE_PENCIL:
           m_properties |= OP_DRAWMETHOD;
           m_dmMenu = gui_l3gaPencilDrawMethods;
+          m_dmMenuIdx = DRAW_PENCIL;
+          break;
+        case MVI_LINE_PAIR:
+          m_properties |= OP_DRAWMETHOD;
+          m_dmMenu = gui_l3gaLineDrawMethods;
           m_dmMenuIdx = DRAW_PENCIL;
           break;
 			}
@@ -244,6 +250,9 @@ int l3gaObject::draw(glwindow *window) {
           ? sqrt(fabs(m_int.m_scalar[0]) / M_PI) 
           : 1.0;
         drawLinePencil(m_int.m_point[0], scale, m_int.m_vector[0], m_int.m_vector[1], m_int.m_vector[2], m_dmMenuIdx, m_drawMode, this);
+      case MVI_LINE_PAIR:
+        drawLine(m_int.m_point[0], m_int.m_vector[0], s, m_dmMenuIdx, m_drawMode, this);
+        drawLine(m_int.m_point[1], m_int.m_vector[1], s, m_dmMenuIdx, m_drawMode, this);
       default:
         break;
     }
@@ -277,6 +286,7 @@ int l3gaObject::translate(glwindow *window, double depth, double motionX, double
       case MVI_LINE:
       case MVI_RULED_SURFACE:
       case MVI_LINE_PENCIL:
+      case MVI_LINE_PAIR:
       default:
         // translate; default behavior when dragging objects.
         versor = (v[GRADE1][E3GA_E3] * t3).exp() * (v[GRADE1][E3GA_E2] * t2).exp() * (v[GRADE1][E3GA_E1] * t1).exp();
@@ -320,14 +330,13 @@ int l3gaObject::description(char *buf, int bufLen, int sl /* = 0 */) {
     case MVI_LINE: // scalar 0: weight; point 0: closest to origin; vector 0: direction of line
       if (sl) sprintf(buf, "%s: l3ga line%s", m_name.c_str(), (m_int.dual()) ? " dual" : "");
 
-      /*
       else sprintf(buf, "l3ga line%s\nWeight: %f\nDirection: %2.2f %2.2f %2.2f\nPoint closest to origin: %2.2f %2.2f %2.2f\nCoordinates: %s", 
           (m_int.dual()) ? " dual" : "",
           m_int.m_scalar[0], 
           m_int.m_vector[0][0], m_int.m_vector[0][1], m_int.m_vector[0][2], 
           m_int.m_point[0][0], m_int.m_point[0][1], m_int.m_point[0][2], 
           m_mv.string());
-          */
+      /*
       else sprintf(buf, "l3ga line%s\nWeight: %f\nd = [%2.2f, %2.2f, %2.2f]\nm = [%2.2f, %2.2f, %2.2f]",
           (m_int.dual()) ? " dual" : "",
           m_int.m_scalar[0],
@@ -337,6 +346,7 @@ int l3gaObject::description(char *buf, int bufLen, int sl /* = 0 */) {
           m_mv[GRADE1][L3GA_E23],
           m_mv[GRADE1][L3GA_E31],
           m_mv[GRADE1][L3GA_E12]);
+          */
       break;
     case MVI_IDEAL_LINE:
       if (sl) sprintf(buf, "%s: l3ga line%s at infinity", m_name.c_str(), (m_int.dual()) ? " dual" : "");
@@ -367,6 +377,17 @@ int l3gaObject::description(char *buf, int bufLen, int sl /* = 0 */) {
           m_int.m_point[0][0], m_int.m_point[0][1], m_int.m_point[0][2],
           m_mv.string());
       break;
+    case MVI_LINE_PAIR:
+      if (sl) sprintf(buf, "%s: l3ga %sline pair", m_name.c_str(), (m_int.dual())? " dual" : "");
+
+      else sprintf(buf, "l3ga %sline pair\nWeight: %f\nDirection 1: %2.2f %2.2f %2.2f\nPoint 1 closest to origin: %2.2f %2.2f %2.2f\nDirection 2: %2.2f %2.2f %2.2f\nPoint 2 closest to origin: %2.2f %2.2f %2.2f\nCoordinates: %s", 
+          (m_int.dual()) ? " dual" : "",
+          m_int.m_scalar[0], 
+          m_int.m_vector[0][0], m_int.m_vector[0][1], m_int.m_vector[0][2], 
+          m_int.m_point[0][0], m_int.m_point[0][1], m_int.m_point[0][2], 
+          m_int.m_vector[1][0], m_int.m_vector[1][1], m_int.m_vector[1][2], 
+          m_int.m_point[1][0], m_int.m_point[1][1], m_int.m_point[1][2], 
+          m_mv.string());
     default:
       if (sl) sprintf(buf, "%s: unknown l3ga blade.", m_name.c_str());
       else sprintf(buf, "Unknown l3ga blade.\nCoordinates: %s", m_mv.string());
