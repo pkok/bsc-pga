@@ -732,25 +732,13 @@ int drawLinePencil(const GAIM_FLOAT center[3], GAIM_FLOAT weight, const GAIM_FLO
 
 
 int drawCirclePencil(const GAIM_FLOAT center[3], const GAIM_FLOAT normal[3], const GAIM_FLOAT ortho1[3], const GAIM_FLOAT ortho2[3], GAIM_FLOAT weight, int method /*= DRAW_CIRCLE_HOOKS*/, int flags /*= 0*/, object *o /*= NULL*/) {
-  GAIM_FLOAT i, axis[3];
-  const GAIM_FLOAT rotStep = 2.0 * M_PI / 64.0,
-        cosr = cos(rotStep),
-        sinr = sin(rotStep);
-  axis[0] = ortho1[0];
-  axis[1] = ortho1[1];
-  axis[2] = ortho1[2];
-  for (i = 0; i < M_PI * + 0.001; i += rotStep) { // only need to draw half the circles
-    printf("i: %1.5f\n", i);
-    axis[0] = (cos(i) + (normal[0]*normal[0]*(1-cos(i)))) * ortho1[0]
-      + ((normal[0] * normal[1] * (1-cos(i))) - (normal[2]*sin(i))) * ortho1[1]
-      + ((normal[0] * normal[2] * (1-cos(i))) + (normal[1]*sin(i))) * ortho1[3];
-    axis[1] = ((normal[1] * normal[0] * (1-cos(i))) + (normal[2]*sin(i))) * ortho1[0]
-      + (cos(i) + (normal[1] * normal[1] * (1-cos(i)))) * ortho1[1]
-      + ((normal[1] * normal[2] * (1-cos(i))) - (normal[0]*sin(i))) * ortho1[2];
-    axis[2] = ((normal[2] * normal[0] * (1-cos(i))) - (normal[1]*sin(i))) * ortho1[0]
-      + ((normal[2] * normal[1] * (1-cos(i))) + (normal[0]*sin(i))) * ortho1[2]
-      + (cos(i) + (normal[2] * normal[2] * (1-cos(i)))) * ortho1[2];
-    drawIdealLine(center, axis, weight, method, flags, o);
+  const GAIM_FLOAT rotStep = 360 / 64.0;
+  GAIM_FLOAT i;
+  for (i = 0; i < 180; i += rotStep) { // only need to draw half the circles
+    glPushMatrix();
+    glRotated(i, normal[0], normal[1], normal[2]);
+    drawIdealLine(center, ortho1, weight, method, flags, o);
+    glPopMatrix();
   }
   return 0;
 }
