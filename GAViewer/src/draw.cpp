@@ -582,7 +582,7 @@ int drawPlane(const GAIM_FLOAT point[3], const GAIM_FLOAT normal[3], const GAIM_
   if (o && o->m_drawMode & OD_ORI) { // draw normals
     if (o && o->m_drawMode & OD_MAGNITUDE) scaleMag *= weight;
     glDisable(GL_LIGHTING);
-    T.begin(GL_LINES);
+    T.begin(GL_LINE_STRIP);
     for (y = -scaleConst; y <= scaleConst; y += stepSize * scaleConst) {
       for (x = -scaleConst; x <= scaleConst; x += stepSize * scaleConst) {
         T.vertex3d(
@@ -767,5 +767,66 @@ int drawRuledPlane(const GAIM_FLOAT point[3], const GAIM_FLOAT normal[3], const 
     }
     T.end();
   }
+  return 0;
+}
+
+
+int drawScrew(const GAIM_FLOAT point[3], const GAIM_FLOAT direction[3], GAIM_FLOAT weight, GAIM_FLOAT pitch, int method /*= DRAW_SCREW_SPIRAL */, int flags /*= 0*/, object *o /*= NULL*/) {
+	TubeDraw &T = gui_state->m_tubeDraw;
+  GAIM_FLOAT x, scaleConst = g_state->m_clipDistance * sqrt(2.0);
+  double z;
+  e3ga e3gaR;
+  float rotM[16];
+  int stepSize = 64;
+  double scale = ((o && o->m_drawMode & OD_MAGNITUDE) ? weight : 1.0) / 2.0;
+  double vectorhead[3], vectordir[3] = {0.1, 0.0, 0.0};
+
+  glDisable(GL_LIGHTING);
+  glPushMatrix();
+  // translate to center, scale to weight 
+  if (point) glTranslated(point[0], point[1], point[2]);
+  //glScaled(m_int.m_scalar[0], m_int.m_scalar[0], m_int.m_scalar[0]);
+
+  // rotate e3 to plane normal
+  e3gaRve3(e3gaR, e3ga(GRADE1, direction[0], direction[1], direction[2]));
+  e3gaRotorToOpenGLMatrix(e3gaR, rotM);
+  glMultMatrixf(rotM);
+
+  // draw 1 or more spirals
+  switch (method) {
+    case DRAW_SCREW_SPIRAL:
+      T.begin(GL_LINE_STRIP);
+      for (x = 0, z = -pitch / 2.0; x < M_PI * 2; x += (M_PI * 2) / stepSize, z += pitch / stepSize) {
+        T.vertex3d(scale * sin(x), scale * cos(x), z);
+      }
+      T.end();
+      if ((flags & 0x01) || (o && o->m_drawMode & OD_ORI)) { // OD_ORI
+        glEnable(GL_LIGHTING);
+        vectorhead[0] = scale * sin(x);
+        vectorhead[1] = scale * cos(x);
+        vectorhead[2] = z;
+        drawVector(vectorhead, vectordir, 1.0);
+      }
+      break;
+    case DRAW_SCREW_LINE:
+      T.begin(GL_LINE_STRIP);
+      for (x = 0, z = -scaleConst; z <= scaleConst; x += (M_PI * 2) / stepSize, z += pitch / stepSize) {
+        T.vertex3d(scale * sin(x), scale * cos(x), z);
+      }
+      T.end();
+      if ((flags & 0x01) || (o && o->m_drawMode & OD_ORI)) { // OD_ORI
+        glEnable(GL_LIGHTING);
+        vectorhead[0] = 0;
+        vectorhead[1] = scale;
+        for (z = -scaleConst; z <= scaleConst; z += pitch) {
+          vectorhead[2] = z;
+          drawVector(vectorhead, vectordir, 1.0);
+        }
+      }
+      break;
+  }
+
+  glPopMatrix();
+
   return 0;
 }

@@ -30,14 +30,6 @@
 #include "geosphere.h"
 #include "uistate.h"
 
-Fl_Menu_Item gui_l3gaLineDrawMethods[] = {
-	{"Curve", 0, NULL, (void*)DRAW_LINE_CURVE, 0},
-	{"Curly tail", 0, NULL, (void*)DRAW_LINE_CURLYTAIL, 0},
-	{"Hooks", 0, NULL, (void*)DRAW_LINE_HOOKS, 0},
-	{"Hooks", 0, NULL, (void*)DRAW_LINE_HOOKCROSSES, 0},
-	{0}
-};
-
 Fl_Menu_Item gui_l3gaIdealLineDrawMethods[] = {
 	{"Curve", 0, NULL, (void*)DRAW_LINE_CURVE, 0},
 	{"Curly tail", 0, NULL, (void*)DRAW_LINE_CURLYTAIL, 0},
@@ -46,6 +38,20 @@ Fl_Menu_Item gui_l3gaIdealLineDrawMethods[] = {
 	{"Horizon, radius", 0, NULL, (void*)DRAW_IDEAL_LINE_RADIUS, 0},
 	{"Horizon, hooks", 0, NULL, (void*)DRAW_IDEAL_LINE_HOOKS, 0},
 	{0}
+};
+
+Fl_Menu_Item gui_l3gaLineDrawMethods[] = {
+	{"Curve", 0, NULL, (void*)DRAW_LINE_CURVE, 0},
+	{"Curly tail", 0, NULL, (void*)DRAW_LINE_CURLYTAIL, 0},
+	{"Hooks", 0, NULL, (void*)DRAW_LINE_HOOKS, 0},
+	{"Hooks", 0, NULL, (void*)DRAW_LINE_HOOKCROSSES, 0},
+	{0}
+};
+
+Fl_Menu_Item gui_l3gaScrewDrawMethods[] = {
+  {"Single screw", 0, NULL, (void*)DRAW_SCREW_SPIRAL, 0},
+  {"Screw line", 0, NULL, (void*)DRAW_SCREW_LINE, 0},
+  {0}
 };
 
 Fl_Menu_Item gui_l3gaIdealPencilDrawMethods[] = {
@@ -101,6 +107,11 @@ l3gaObject::l3gaObject(const l3ga &mv, const std::string &name /*= std::string("
           m_properties |= OP_DRAWMETHOD;
           m_dmMenu = gui_l3gaLineDrawMethods;
           m_dmMenuIdx = DRAW_LINE_HOOKS;
+          break;
+        case MVI_SCREW:
+          m_properties |= OP_DRAWMETHOD;
+          m_dmMenu = gui_l3gaScrewDrawMethods;
+          m_dmMenuIdx = DRAW_SCREW_SPIRAL;
           break;
         case MVI_IDEAL_LINE_PENCIL:
           m_properties |= OP_DRAWMETHOD;
@@ -222,11 +233,14 @@ int l3gaObject::draw(glwindow *window) {
       case MVI_SCALAR:
         // don't draw anything
         break;
+      case MVI_IDEAL_LINE:
+        drawIdealLine(NULL, m_int.m_vector[0], m_int.m_scalar[0], m_dmMenuIdx, m_drawMode, this);
+        break;
       case MVI_LINE:
         drawLine(m_int.m_point[0], m_int.m_vector[0], m_int.m_scalar[0], m_dmMenuIdx, (m_drawMode & OD_ORI) ? 0x01 : 0, this);
         break;
-      case MVI_IDEAL_LINE:
-        drawIdealLine(NULL, m_int.m_vector[0], m_int.m_scalar[0], m_dmMenuIdx, m_drawMode, this);
+      case MVI_SCREW:
+        drawScrew(m_int.m_point[0], m_int.m_vector[0], m_int.m_scalar[0], m_int.m_scalar[1], m_dmMenuIdx, (m_drawMode & OD_ORI) ? 0x01 : 0, this);
         break;
       case MVI_IDEAL_LINE_PENCIL:
         drawCirclePencil(NULL, m_int.m_vector[0], m_int.m_vector[1], m_int.m_vector[2], m_int.m_scalar[0], m_dmMenuIdx, m_drawMode, this);
@@ -287,6 +301,7 @@ int l3gaObject::translate(glwindow *window, double depth, double motionX, double
       case MVI_ZERO:
       case MVI_SCALAR:
       case MVI_LINE:
+      case MVI_SCREW:
       case MVI_RULED_PLANE:
       case MVI_LINE_PENCIL:
       case MVI_LINE_PAIR:
@@ -350,6 +365,17 @@ int l3gaObject::description(char *buf, int bufLen, int sl /* = 0 */) {
           m_mv[GRADE1][L3GA_E31],
           m_mv[GRADE1][L3GA_E12]);
           */
+      break;
+    case MVI_SCREW:
+      if (sl) sprintf(buf, "%s: l3ga screw%s", m_name.c_str(), (m_int.dual()) ? " dual" : "");
+
+      else sprintf(buf, "l3ga screw%s\nWeight: %f\nPitch: %f\nDirection: %2.2f %2.2f %2.2f\nPoint closest to origin: %2.2f %2.2f %2.2f\nCoordinates: %s", 
+          (m_int.dual()) ? " dual" : "",
+          m_int.m_scalar[0], 
+          m_int.m_scalar[1], 
+          m_int.m_vector[0][0], m_int.m_vector[0][1], m_int.m_vector[0][2], 
+          m_int.m_point[0][0], m_int.m_point[0][1], m_int.m_point[0][2], 
+          m_mv.string());
       break;
     case MVI_IDEAL_LINE:
       if (sl) sprintf(buf, "%s: l3ga line%s at infinity", m_name.c_str(), (m_int.dual()) ? " dual" : "");

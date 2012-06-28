@@ -79,7 +79,7 @@ int mvInt::interpret(const l3ga &X, int creationFlags /* = 0*/) {
         m_scalar[0] = X.scalar();
         break;
       case 1: // ******************** line, screw, kine
-        if (fabs(X2) < epsilon) {
+        //if (fabs(X2) < epsilon) {
           if (fabs(X[GRADE1][L3GA_E01]) < epsilon &&
               fabs(X[GRADE1][L3GA_E02]) < epsilon &&
               fabs(X[GRADE1][L3GA_E03]) < epsilon) {
@@ -98,22 +98,37 @@ int mvInt::interpret(const l3ga &X, int creationFlags /* = 0*/) {
             m_vector[0][2] = X[GRADE1][L3GA_E12] / m_scalar[0];
           }
           else {
-            m_type |= MVI_LINE;
-            printf("line\n");
-            /*
-            scalar 0: weight
-            point 0: point closest to origin
-            vector 0: direction of line
-            */
+            if (fabs(X2) < epsilon) {
+              m_type |= MVI_LINE;
+              printf("line\n");
+              /*
+              scalar 0: weight
+              point 0: point closest to origin
+              vector 0: direction of line
+              */
 
+
+              m_scalar[0] = sqrt(X[GRADE1][L3GA_E01] * X[GRADE1][L3GA_E01] + X[GRADE1][L3GA_E02] * X[GRADE1][L3GA_E02] + X[GRADE1][L3GA_E03] * X[GRADE1][L3GA_E03]);
+            }
+            else {
+              m_type |= MVI_SCREW;
+              printf("screw\n");
+              /*
+              scalar 0: weight
+              scalar 1: pitch (translation distance over 1 rotation)
+              point 0: point closest to origin
+              vector 0: direction of line
+              */
+
+
+              m_scalar[0] = sqrt(lcem(X, X).scalar());
+              m_scalar[1] = sqrt(X[GRADE1][L3GA_E01] * X[GRADE1][L3GA_E01] + X[GRADE1][L3GA_E02] * X[GRADE1][L3GA_E02] + X[GRADE1][L3GA_E03] * X[GRADE1][L3GA_E03])/sqrt(X[GRADE1][L3GA_E23] * X[GRADE1][L3GA_E23] + X[GRADE1][L3GA_E31] * X[GRADE1][L3GA_E31] + X[GRADE1][L3GA_E12] * X[GRADE1][L3GA_E12]);
+            }
             // 6D-vector = [d, m]
             // direction = d
             // moment = m
             // distance = crossprod(m, d)
             // weight = sqrt(distance^2)
-            //tmp.lcem(X,X);
-            //m_scalar[0] = sqrt(tmp.scalar());
-            m_scalar[0] = sqrt(X[GRADE1][L3GA_E01] * X[GRADE1][L3GA_E01] + X[GRADE1][L3GA_E02] * X[GRADE1][L3GA_E02] + X[GRADE1][L3GA_E03] * X[GRADE1][L3GA_E03]);
 
             m_vector[0][0] = X[GRADE1][L3GA_E01] / m_scalar[0];
             m_vector[0][1] = X[GRADE1][L3GA_E02] / m_scalar[0];
@@ -122,12 +137,14 @@ int mvInt::interpret(const l3ga &X, int creationFlags /* = 0*/) {
             m_point[0][0] = ((X[GRADE1][L3GA_E12] * m_vector[0][1]) - (X[GRADE1][L3GA_E31] * m_vector[0][2])) / m_scalar[0];
             m_point[0][1] = ((X[GRADE1][L3GA_E23] * m_vector[0][2]) - (X[GRADE1][L3GA_E12] * m_vector[0][0])) / m_scalar[0];
             m_point[0][2] = ((X[GRADE1][L3GA_E31] * m_vector[0][0]) - (X[GRADE1][L3GA_E23] * m_vector[0][1])) / m_scalar[0];
+
           }
 
           m_valid = 1;
-        }
+        //}
         // TODO: screw motion, kine
-        else {
+        //else {
+        if (!m_valid) {
           m_type |= MVI_UNKNOWN;
           m_valid = 0;
         }
