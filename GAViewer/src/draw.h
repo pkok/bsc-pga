@@ -126,5 +126,6 @@ int drawLinePencil(const GAIM_FLOAT center[3], GAIM_FLOAT weight, const GAIM_FLO
 
 int drawCirclePencil(const GAIM_FLOAT center[3], const GAIM_FLOAT normal[3], const GAIM_FLOAT ortho1[3], const GAIM_FLOAT ortho2[3], GAIM_FLOAT weight, int method = DRAW_CIRCLE_HOOKS, int flags = 0, object *o = NULL);
 
-#define DRAW_RULED_SURFACE 1
+#define DRAW_RULED_PLANE 1
+int drawRuledPlane(const GAIM_FLOAT point[3], const GAIM_FLOAT normal[3], const GAIM_FLOAT ortho1[3], const GAIM_FLOAT ortho2[3], GAIM_FLOAT weight, int method = DRAW_RULED_PLANE, int flags = 0, object *o = NULL);
 #endif /* _DRAW_FUNCTIONS_H_ */

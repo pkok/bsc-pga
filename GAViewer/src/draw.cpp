@@ -556,42 +556,26 @@ int drawPlane(const GAIM_FLOAT point[3], const GAIM_FLOAT normal[3], const GAIM_
 	GAIM_FLOAT scaleMag = 1.0;
   for (s = 0; s < 2; s++) { // draw both front and back side individually
     if (s == 0) { // front
-      glPolygonMode(GL_FRONT, ((method == DRAW_RULED_SURFACE) || (o && o->m_drawMode & OD_WIREFRAME)) ? GL_LINE : GL_FILL);
+      glPolygonMode(GL_FRONT, (o && o->m_drawMode & OD_WIREFRAME) ? GL_LINE : GL_FILL);
       glNormal3dv(normal); 
     }
     else { // back
-      glPolygonMode(GL_FRONT, ((method == DRAW_RULED_SURFACE) || (o && o->m_drawMode & OD_WIREFRAME) || (o && o->m_drawMode & OD_ORI)) ? GL_LINE : GL_FILL);
+      glPolygonMode(GL_FRONT, ((o && o->m_drawMode & OD_WIREFRAME) || (o && o->m_drawMode & OD_ORI)) ? GL_LINE : GL_FILL);
       glNormal3d(-normal[0], -normal[1], -normal[2]); 
     }
-    if (method == DRAW_RULED_SURFACE) {
-      T.begin(GL_LINES);
-      for (y = -scaleConst; y < scaleConst - stepSize * scaleConst; y += stepSize * scaleConst) {
-        T.vertex3d(
-              point[0] + -scaleConst * ortho1[0] + ((s == 0) ? (y + stepSize * scaleConst) : y) * ortho2[0],
-              point[1] + -scaleConst * ortho1[1] + ((s == 0) ? (y + stepSize * scaleConst) : y) * ortho2[1],
-              point[2] + -scaleConst * ortho1[2] + ((s == 0) ? (y + stepSize * scaleConst) : y) * ortho2[2]);
-        T.vertex3d(
-              point[0] + scaleConst * ortho1[0] + ((s == 0) ? (y + stepSize * scaleConst) : y) * ortho2[0],
-              point[1] + scaleConst * ortho1[1] + ((s == 0) ? (y + stepSize * scaleConst) : y) * ortho2[1],
-              point[2] + scaleConst * ortho1[2] + ((s == 0) ? (y + stepSize * scaleConst) : y) * ortho2[2]);
+    for (y = -scaleConst; y < scaleConst - stepSize * scaleConst; y += stepSize * scaleConst) {
+      glBegin(GL_QUAD_STRIP);
+      for (x = -scaleConst; x < scaleConst; x += stepSize * scaleConst) {
+        glVertex3d(
+            point[0] + x * ortho1[0] + ((s == 0) ? (y + stepSize * scaleConst) : y) * ortho2[0],
+            point[1] + x * ortho1[1] + ((s == 0) ? (y + stepSize * scaleConst) : y) * ortho2[1],
+            point[2] + x * ortho1[2] + ((s == 0) ? (y + stepSize * scaleConst) : y) * ortho2[2]);
+        glVertex3d(
+            point[0] + x * ortho1[0] + ((s == 1) ? (y + stepSize * scaleConst) : y) * ortho2[0],
+            point[1] + x * ortho1[1] + ((s == 1) ? (y + stepSize * scaleConst) : y) * ortho2[1],
+            point[2] + x * ortho1[2] + ((s == 1) ? (y + stepSize * scaleConst) : y) * ortho2[2]);
       }
-      T.end();
-    }
-    else {
-      for (y = -scaleConst; y < scaleConst - stepSize * scaleConst; y += stepSize * scaleConst) {
-        glBegin(GL_QUAD_STRIP);
-        for (x = -scaleConst; x < scaleConst; x += stepSize * scaleConst) {
-          glVertex3d(
-              point[0] + x * ortho1[0] + ((s == 0) ? (y + stepSize * scaleConst) : y) * ortho2[0],
-              point[1] + x * ortho1[1] + ((s == 0) ? (y + stepSize * scaleConst) : y) * ortho2[1],
-              point[2] + x * ortho1[2] + ((s == 0) ? (y + stepSize * scaleConst) : y) * ortho2[2]);
-          glVertex3d(
-              point[0] + x * ortho1[0] + ((s == 1) ? (y + stepSize * scaleConst) : y) * ortho2[0],
-              point[1] + x * ortho1[1] + ((s == 1) ? (y + stepSize * scaleConst) : y) * ortho2[1],
-              point[2] + x * ortho1[2] + ((s == 1) ? (y + stepSize * scaleConst) : y) * ortho2[2]);
-        }
-        glEnd();
-      }
+      glEnd();
     }
   }
 
@@ -739,6 +723,49 @@ int drawCirclePencil(const GAIM_FLOAT center[3], const GAIM_FLOAT normal[3], con
     glRotated(i, normal[0], normal[1], normal[2]);
     drawIdealLine(center, ortho1, weight, method, flags, o);
     glPopMatrix();
+  }
+  return 0;
+}
+
+
+int drawRuledPlane(const GAIM_FLOAT point[3], const GAIM_FLOAT normal[3], const GAIM_FLOAT ortho1[3], const GAIM_FLOAT ortho2[3], GAIM_FLOAT weight, int method /*= DRAW_RULED_PLANE*/, int flags /*= 0*/, object *o /*= NULL*/) {
+  TubeDraw &T = gui_state->m_tubeDraw;
+	GAIM_FLOAT x, y;
+	int s;
+
+	GAIM_FLOAT stepSize = 0.1;
+	GAIM_FLOAT scaleConst = g_state->m_clipDistance * sqrt(2.0);
+	GAIM_FLOAT scaleMag = 1.0;
+  T.begin(GL_LINES);
+  for (y = -scaleConst; y < scaleConst - stepSize * scaleConst; y += stepSize * scaleConst) {
+    T.vertex3d(
+        point[0] + -scaleConst * ortho1[0] + ((s == 0) ? (y + stepSize * scaleConst) : y) * ortho2[0],
+        point[1] + -scaleConst * ortho1[1] + ((s == 0) ? (y + stepSize * scaleConst) : y) * ortho2[1],
+        point[2] + -scaleConst * ortho1[2] + ((s == 0) ? (y + stepSize * scaleConst) : y) * ortho2[2]);
+    T.vertex3d(
+        point[0] + scaleConst * ortho1[0] + ((s == 0) ? (y + stepSize * scaleConst) : y) * ortho2[0],
+        point[1] + scaleConst * ortho1[1] + ((s == 0) ? (y + stepSize * scaleConst) : y) * ortho2[1],
+        point[2] + scaleConst * ortho1[2] + ((s == 0) ? (y + stepSize * scaleConst) : y) * ortho2[2]);
+  }
+  T.end();
+
+  if (o && o->m_drawMode & OD_ORI) { // draw normals
+    if (o && o->m_drawMode & OD_MAGNITUDE) scaleMag *= weight;
+    glDisable(GL_LIGHTING);
+    T.begin(GL_LINES);
+    for (y = -scaleConst; y <= scaleConst; y += stepSize * scaleConst) {
+      for (x = -scaleConst; x <= scaleConst; x += stepSize * scaleConst) {
+        T.vertex3d(
+            point[0] + x * ortho1[0] + y * ortho2[0],
+            point[1] + x * ortho1[1] + y * ortho2[1],
+            point[2] + x * ortho1[2] + y * ortho2[2]);
+        T.vertex3d(
+            point[0] + x * ortho1[0] + y * ortho2[0] + scaleMag *  normal[0],
+            point[1] + x * ortho1[1] + y * ortho2[1] + scaleMag *  normal[1],
+            point[2] + x * ortho1[2] + y * ortho2[2] + scaleMag *  normal[2]);
+      }
+    }
+    T.end();
   }
   return 0;
 }
