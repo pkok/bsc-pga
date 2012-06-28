@@ -175,11 +175,11 @@ int mvInt::interpret(const l3ga &X, int creationFlags /* = 0*/) {
               m_vector[0][2] = (m_vector[1][0] * m_vector[2][1]) - (m_vector[1][1] * m_vector[2][0]);
             }
             else if (is_parallel(factors[0], factors[1], epsilon)) {
-              m_type |= MVI_RULED_SURFACE;
-              printf("ruled surface\n");
+              m_type |= MVI_RULED_PLANE;
+              printf("ruled plane\n");
               /*
               scalar 0: weight;
-              point 0: point on surface closest to chosen origin
+              point 0: point on plane closest to chosen origin
               vector 0: normal
               vector 1: line direction
               vector 2: orthogonal to vector 0 and 1
@@ -190,10 +190,12 @@ int mvInt::interpret(const l3ga &X, int creationFlags /* = 0*/) {
               m_point[0][1] = sqrt(fabs(s)/2.0) * 0.5 * (factors[0][GRADE1][L3GA_E31] + factors[1][GRADE1][L3GA_E31]);
               m_point[0][2] = -sqrt(fabs(s)/2.0) * 0.5 * (factors[0][GRADE1][L3GA_E12] + factors[1][GRADE1][L3GA_E12]);
 
+              /*
               z = sqrt((factors[1][GRADE1][L3GA_E23] * factors[1][GRADE1][L3GA_E23]) + (factors[1][GRADE1][L3GA_E31] * factors[1][GRADE1][L3GA_E31]) + (factors[1][GRADE1][L3GA_E12] * factors[1][GRADE1][L3GA_E12]));
               m_point[0][0] = 0.5 * (factors[0][GRADE1][L3GA_E23] + factors[1][GRADE1][L3GA_E23] / z);
               m_point[0][1] = 0.5 * (factors[0][GRADE1][L3GA_E31] + factors[1][GRADE1][L3GA_E31] / z);
               m_point[0][2] = 0.5 * (factors[0][GRADE1][L3GA_E12] + factors[1][GRADE1][L3GA_E12] / z);
+              */
 
               z = sqrt((factors[0][GRADE1][L3GA_E01] * factors[0][GRADE1][L3GA_E01]) + (factors[0][GRADE1][L3GA_E02] * factors[0][GRADE1][L3GA_E02]) + (factors[0][GRADE1][L3GA_E03] * factors[0][GRADE1][L3GA_E03]));
               m_vector[1][0] = -factors[0][GRADE1][L3GA_E01] / z;
@@ -201,13 +203,32 @@ int mvInt::interpret(const l3ga &X, int creationFlags /* = 0*/) {
               m_vector[1][2] = -factors[0][GRADE1][L3GA_E03] / z;
 
               z = sqrt((factors[0][GRADE1][L3GA_E23] * factors[0][GRADE1][L3GA_E23]) + (factors[0][GRADE1][L3GA_E31] * factors[0][GRADE1][L3GA_E31]) + (factors[0][GRADE1][L3GA_E12] * factors[0][GRADE1][L3GA_E12]));
-              m_vector[2][0] = factors[0][GRADE1][L3GA_E23] / z;
-              m_vector[2][1] = factors[0][GRADE1][L3GA_E31] / z;
-              m_vector[2][2] = factors[0][GRADE1][L3GA_E12] / z;
+              if (fabs(z) < epsilon) {
+                z = sqrt((factors[1][GRADE1][L3GA_E01] * factors[1][GRADE1][L3GA_E01]) + (factors[1][GRADE1][L3GA_E02] * factors[1][GRADE1][L3GA_E02]) + (factors[1][GRADE1][L3GA_E03] * factors[1][GRADE1][L3GA_E03]));
+                if (fabs(z) >= epsilon) {
+                  m_vector[1][0] = -factors[1][GRADE1][L3GA_E01] / z;
+                  m_vector[1][1] = -factors[1][GRADE1][L3GA_E02] / z;
+                  m_vector[1][2] = -factors[1][GRADE1][L3GA_E03] / z;
+                }
+
+                z = sqrt((factors[1][GRADE1][L3GA_E23] * factors[1][GRADE1][L3GA_E23]) + (factors[1][GRADE1][L3GA_E31] * factors[1][GRADE1][L3GA_E31]) + (factors[1][GRADE1][L3GA_E12] * factors[1][GRADE1][L3GA_E12]));
+                m_vector[2][0] = factors[1][GRADE1][L3GA_E23] / z;
+                m_vector[2][1] = factors[1][GRADE1][L3GA_E31] / z;
+                m_vector[2][2] = factors[1][GRADE1][L3GA_E12] / z;
+              }
+              else {
+                m_vector[2][0] = factors[0][GRADE1][L3GA_E23] / z;
+                m_vector[2][1] = factors[0][GRADE1][L3GA_E31] / z;
+                m_vector[2][2] = factors[0][GRADE1][L3GA_E12] / z;
+              }
 
               m_vector[0][0] = (m_vector[1][1] * m_vector[2][2]) - (m_vector[1][2] * m_vector[2][1]);
               m_vector[0][1] = (m_vector[1][2] * m_vector[2][0]) - (m_vector[1][0] * m_vector[2][2]);
               m_vector[0][2] = (m_vector[1][0] * m_vector[2][1]) - (m_vector[1][1] * m_vector[2][0]);
+
+              if (m_vector[1][0] != m_vector[1][0]) printf("v1 is NaN\n");
+              if (m_vector[2][0] != m_vector[2][0]) printf("v2 is NaN; z is %2f\n", z);
+              if (m_vector[0][0] != m_vector[0][0]) printf("v0 is NaN\n");
             }
             else {
               m_type |= MVI_LINE_PENCIL;
