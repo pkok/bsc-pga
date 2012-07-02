@@ -1,6 +1,8 @@
 \section{Introduction}
 \label{ch:introduction}
 
+\comment{Needs to be rewritten. Will be done in the end?}
+
 Just as linear algebra, geometric algebra is an algebra over a given vector space $\reals^n$.  The difference lies in its operations; whereas linear algebra relies on matrix manipulations which cannot always be inverted, geometric algebra's base operation is the geometric product.  From this invertible product, one can deduce the inner product, known from linear algebra, and the outer product.  The outer product grants the user access to the exterior algebra $\bigwedge \reals^n$.  The outer product of $\V{A}, \V{B} \in \bigwedge \reals^n: \V{A} \wedge \V{B}$ represents the set of elements that are linear combinations of its operands $\left\{\alpha \V{A} + \beta \V{B} \mid \alpha, \beta \in \reals \right\}$
 
 There are already several models of geometry in use in the geometric algebra community, of which the conformal model is the most popular and widely known~\cite{TheBook}.  Although usable in many cases, the transformations of the conformal model are a subset of those of the projective model. The projective transformations are an important class of operations within computer vision and computer graphics. 
@@ -16,15 +18,8 @@ In their article, Li and Zhang have not discussed what each element in their alg
 
 
 \subsection{Document structure}
-In \autoref{ch:background} of this thesis, the basics of our mathematical toolkit are explained.  This includes a superficial introduction to geometric algebra and its conformal model, as well as a description of the Pl\"ucker space and how it is represented in geometric algebra.
+In \autoref{ch:background} of this thesis, the basics of our mathematical toolkit are explained.  This includes a superficial introduction to geometric algebra and its homogeneous model, as well as a description of the Pl\"ucker space and how it is represented in geometric algebra.
 
-\Autoref{ch:research} describes the problem of recognizing the geometrical interpretation of elements of the Pl\"ucker space.  In \autoref{sec:solution}, a method for achieving this classification is given.  This method is implemented as a wrapper for GAViewer in \autoref{ch:results}. 
+\Autoref{ch:research} describes the problem of recognizing the geometrical interpretation of elements of the Pl\"ucker space and parameterizing important features for displaying the element on a screen.  In \autoref{sec:solution}, methods for achieving this classification and parameterization are given.  The implementation of these methods in GAViewer is documented in \autoref{ch:results}. 
 
 This documents concludes at \autoref{ch:conclusion} with a discussion of this work as well as possible future work, and a bibliography.
-
-%%%% Van het ``originele document'' voor AE.
-%In the second part, an extension of GAViewer will be represented that will enable the user to work with, and visualize $\RL$.  Although the operations of conformal geometry are a subset of projective geometry, it does not mean the geometric objects of the conformal model are a subset of the projective model.  The conformal model uses the sphere with radius $0$ as its base element, and infinity should be treated specially (in fact, it is represented as a separate dimension).  The base element of our projective model is a line.  Also, due to the homogeneous nature of Pl\"ucker coordinates, infinity can be treated as any other number.  Therefore, one cannot assume it trivial to represent the items of the projective model in the conformal model.  Another non-triviality is the user interaction with the elements.  Even though only differentiable transformations will be considered for user interaction, only rotation and translation are implemented by default.  Other transformations might not be as intuitive to interact with for the user.  For this kind of interaction to work smoothly, it would be preferable that transformations in $\mathbb{E}^3$ correspond to a similar action in $\RL$.
-
-
-%%%% Dit echt niet.
-%This document is built up as follows.  \Autoref{ch:background} contains a short introduction of geometric algebra, projective geometry and how this geometry can be modeled in geometric algebra.  In \autoref{sec:problem} of \autoref{ch:research}, a detailed problem specification can be found.  A method to solve this problem has been given in \autoref{sec:solution}.  This method has been implemented as a wrapper around a visualizing calculator for the conformal model.  The implementation has been described in \autoref{ch:results}.  This document concludes with a discussion of this work as well as possible future work in \autoref{ch:conclusion}.

@@ -5,9 +5,36 @@
 \label{sec:intro-ga}
 \comment{Paraphrase Moos's work?}
 
-\subsection{Projective geometry}
-\label{sec:projective}
+\comment{Include the next notation explanation:}
+\begin{itemize}
+  \item Bold for Euclidean
+  \item Capital for multivectors
+  \item Lowercase for vectors/1-blades
+  \item Greek for scalars/0-blades
+  \item $\RL$
+  \item Geometric product: $A \gp B$ $\leftarrow$ small space
+  \item Geometric division $A \gpi B$ or too trivial?
+  \item Geometric division $A \mathbin{/} B$ or too trivial?
+  \item Outer product $\wedge$
+  \item Left contraction $\lcont$
+  \item Dot product $\dotp$
+  \item Dualization $\dual{A}$, undualization $\undual{A}$
+  \item Euclidean (un-)dualization $\edual{\V{A}}$, $\unedual{\V{A}}$
+\end{itemize}
 
-\subsection{Li and Zhang's~\cite{Hongbo} trick}
-\comment{Needs a different title.}
+\subsection{Pl\"ucker model}
 \label{sec:hongbo}
+\comment{This part will be paraphrased from \cite{TheBook} and \cite{Hongbo}.}
+
+In the homogeneous model, the line through points $p = \ez + \V{p}$ and $q = \ez + \V{q}$ is represented as 
+\begin{equation}
+  L = p \wedge q = \ez \wedge (\V{q} - \V{p}) + \V{p} \wedge \V{q} .
+\end{equation}
+
+The direction and moment of a line are easily recognised in this expression.  The direction $\V{d} = \V{p} - \V{q}$ is encoded in the first factor as $\ez \wedge -\V{d} = \V{d} \wedge \ez = \V{d} \ez$.  
+The moment $\V{m} = \V{p} \times \V{q} = \edual{(\V{p} \wedge \V{q})}$ can be found in the second term as $\unedual{\V{m}} = \unedual{(\edual{(\V{p} \wedge \V{q})})} = \V{p} \wedge \V{q}$, which results in another general formula for lines:
+\begin{equation}
+  L = \V{d} \ez + \unedual{\V{m}}.
+\end{equation}
+
+Within classical literature of linear algebra, the same object is written as $-\plucker{\V{d}}{\V{m}}$, using \emph{Pl\"ucker coordinates} to denote a line as a 6D vector.  

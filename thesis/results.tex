@@ -1,3 +1,28 @@
 \section{Implementation}
 \label{ch:results}
 
+\subsection{Design decision}
+
+Extending an existing program with more functionality can be done in two ways. 1: wrapping the original program in another layer of coding. 2: changing the code of the original program and recompile the whole thing.
+
+\newcommand{\pro}{\textbf{+} &}
+\newcommand{\con}{\textbf{--} &}
+\newcommand{\que}{\textbf{?} &}
+\begin{tabular}{p{0.5cm}p{5.5cm}|p{0.5cm}p{5.5cm}}
+  & Wrap program & & Edit source code \\
+  \hline
+  \con User will insert text in a separate box from the connected GAViewer, OR I need to build a whole new GUI. & \pro Is nicely integrated in current program \\
+  \pro Don't need to understand a complex code base & \con Code is not well-documented \\
+  \pro Can be done in C, C++, Java (limited by GAIGEN's output). My Java programming skills are better than those in C/C++ & \con Must be done in C++ \\
+  \con Java is often (a bit) slower than C++ & \pro C++ is fast in array manipulation \\
+  \pro GAIGEN 2.5 must be much faster than GAIGEN 1.0 & \que Need to find out if APIs of different GAIGENs are the same \\
+  \pro Can be wrapped over (and over and over\ldots), or use other GAViewer implementation. & \con Is not out-of-the-box compatible with other extensions of GAViewer, but can be made by patches and quite some more work \\
+  \con Multiple wrappers make running it difficult/slow & \pro Merging multiple edits of codebase makes implementation difficult, but running easy \\
+  \que How to cope with \texttt{dynamic}/dragged and interdepencency? & \pro Dragging and \texttt{dynamic} is implemented \\
+  \con Code to implement user interaction will be quite complex & \pro Is provided, doesn't need to be touched \\
+  \pro Can run ``modern'' versions of libraries (FLTK 1.3, ANTLR 3.4, GAIGEN 2.5) & \con Is based on old libraries (FLTK 1.1, ANTLR ??? GAIGEN 1.0), implies less functionality/speed \\
+  \con Need to write a whole new grammar & \que Need to edit old, undocumented grammar, of \emph{which} edition of ANTLR? \\
+  \con No possibility to add new graphical elements; everything must be composed from CGA elements & \que Should be possible, not sure how much effort that will cost (regulus, screws)
+\end{tabular}
+
+Decided to edit the source code.
