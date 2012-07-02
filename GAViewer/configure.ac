@@ -1,13 +1,7 @@
 dnl Process this file with autoconf to produce a configure script.
 AC_INIT()
 AM_INIT_AUTOMAKE(GAViewer, 0.87)
-if test -z $CFLAGS; then
-  CFLAGS='-ggdb -O0'
-fi
 AC_PROG_CC
-if test -z $CXXFLAGS; then
-  CXXFLAGS='-ggdb -O0'
-fi
 AC_PROG_CXX
 AC_PROG_RANLIB
 AQSIS_CHECK_FLTK
@@ -30,3 +24,4 @@ AC_OUTPUT(Makefile \
  src/console/Makefile src/console/codegen/Makefile src/typeset/Makefile \
  src/c3ga/Makefile src/c5ga/Makefile src/p3ga/Makefile src/e3ga/Makefile src/l3ga/Makefile \
  src/Makefile vs.net/Makefile vs.2005/Makefile vs2008/Makefile txtfiles/Makefile)
+sed -i "s/-Werror=format-security //g" Makefile src/Makefile
