@@ -132,7 +132,10 @@ l3gaObject::l3gaObject(const l3ga &mv, const std::string &name /*= std::string("
         case MVI_LINE_PAIR:
           m_properties |= OP_DRAWMETHOD;
           m_dmMenu = gui_l3gaLineDrawMethods;
-          m_dmMenuIdx = DRAW_PENCIL;
+          m_dmMenuIdx = DRAW_LINE_HOOKS;
+        case MVI_IDEAL_LINE_PAIR:
+          m_properties |= OP_DRAWMETHOD;
+          m_dmMenuIdx = DRAW_LINE_CURVE;
           break;
 			}
       /*
@@ -268,8 +271,15 @@ int l3gaObject::draw(glwindow *window) {
         drawLinePencil(m_int.m_point[0], scale, m_int.m_vector[0], m_int.m_vector[1], m_int.m_vector[2], m_dmMenuIdx, m_drawMode, this);
         break;
       case MVI_LINE_PAIR:
-        drawLine(m_int.m_point[0], m_int.m_vector[0], s, m_dmMenuIdx, m_drawMode, this);
-        drawLine(m_int.m_point[1], m_int.m_vector[1], s, m_dmMenuIdx, m_drawMode, this);
+        drawLine(m_int.m_point[0], m_int.m_vector[0], m_int.m_scalar[0], m_dmMenuIdx, m_drawMode, this);
+        drawLine(m_int.m_point[1], m_int.m_vector[1], m_int.m_scalar[0], m_dmMenuIdx, m_drawMode, this);
+        break;
+      case MVI_IDEAL_LINE_PAIR:
+        drawLine(m_int.m_point[1], m_int.m_vector[1], m_int.m_scalar[0], DRAW_LINE_HOOKS, (m_drawMode & OD_ORI) ? 0x01 : 0, this);
+        glEnable(GL_POLYGON_STIPPLE);
+        glEnable(GL_LINE_STIPPLE);
+        drawIdealLine(m_int.m_point[0], m_int.m_vector[0], m_int.m_scalar[0], DRAW_IDEAL_LINE_HOOKS, m_drawMode, this);
+        break;
       default:
         break;
     }
@@ -305,6 +315,7 @@ int l3gaObject::translate(glwindow *window, double depth, double motionX, double
       case MVI_RULED_PLANE:
       case MVI_LINE_PENCIL:
       case MVI_LINE_PAIR:
+      case MVI_IDEAL_LINE_PAIR:
       default:
         // translate; default behavior when dragging objects.
         versor = (v[GRADE1][E3GA_E3] * t3).exp() * (v[GRADE1][E3GA_E2] * t2).exp() * (v[GRADE1][E3GA_E1] * t1).exp();
@@ -406,6 +417,7 @@ int l3gaObject::description(char *buf, int bufLen, int sl /* = 0 */) {
           m_int.m_point[0][0], m_int.m_point[0][1], m_int.m_point[0][2],
           m_mv.string());
       break;
+    case MVI_IDEAL_LINE_PAIR:
     case MVI_LINE_PAIR:
       if (sl) sprintf(buf, "%s: l3ga %sline pair", m_name.c_str(), (m_int.dual())? " dual" : "");
 

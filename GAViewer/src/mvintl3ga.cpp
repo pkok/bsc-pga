@@ -289,47 +289,53 @@ int mvInt::interpret(const l3ga &X, int creationFlags /* = 0*/) {
             }
           }
           else {
-            if (ideal_lines == null_vectors) {
+            m_type |= MVI_LINE_PAIR;
+            printf("line pair\n");
+            /*
+            scalar 0: weight;
+            scalar 1: signed radius(? is that meaningful? --> not set!)
+            point 0: point closest to origin of line 1
+            vector 0: direction of line 1
+            point 1: point closest to origin of line 2
+            vector 1: direction of line 2
+            */
+            mvInt l1, l2, _tmp;
+            l1.interpret(factors[0]);
+            l2.interpret(factors[1]);
+            if (l1.m_type & MVI_IDEAL) {
               m_type |= MVI_IDEAL_LINE_PAIR;
-              printf("ideal line pair\n");
-              // Todo: Do these even exist?
-              /*
-              scalar 0: weight
-              scalar 1: signed radius(? is that meaningful?)
-              vector 0: normal/reciprocal direction of line 1
-              vector 1: normal/reciprocal direction of line 2
-              */
-            }
-            else {
-              m_type |= MVI_LINE_PAIR;
-              printf("line pair\n");
               /*
               scalar 0: weight;
               scalar 1: signed radius(? is that meaningful? --> not set!)
-              point 0: point closest to origin of line 1
-              vector 0: direction of line 1
-              point 1: point closest to origin of line 2
-              vector 1: direction of line 2
+              vector 0: normal to the ideal line
+              point 1: point closest to origin of the real line
+              vector 1: direction of the real line
               */
-              mvInt l1, l2;
-              l1.interpret(factors[0]);
-              l2.interpret(factors[1]);
 
-              m_scalar[0] = s;
-              m_point[0][0] = l1.m_point[0][0];
-              m_point[0][1] = l1.m_point[0][1];
-              m_point[0][2] = l1.m_point[0][2];
-              m_vector[0][0] = l1.m_vector[0][0];
-              m_vector[0][1] = l1.m_vector[0][1];
-              m_vector[0][2] = l1.m_vector[0][2];
-
-              m_point[1][0] = l2.m_point[0][0];
-              m_point[1][1] = l2.m_point[0][1];
-              m_point[1][2] = l2.m_point[0][2];
-              m_vector[1][0] = l2.m_vector[0][0];
-              m_vector[1][1] = l2.m_vector[0][1];
-              m_vector[1][2] = l2.m_vector[0][2];
+              // TODO: Better name for this blade.
+              // TODO: second, real line has always the same orientation.
             }
+            else if (l2.m_type & MVI_IDEAL) {
+              m_type |= MVI_IDEAL_LINE_PAIR;
+              _tmp = l1;
+              l1 = l2;
+              l2 = _tmp;
+            }
+
+            m_scalar[0] = s;
+            m_point[0][0] = l1.m_point[0][0];
+            m_point[0][1] = l1.m_point[0][1];
+            m_point[0][2] = l1.m_point[0][2];
+            m_vector[0][0] = l1.m_vector[0][0];
+            m_vector[0][1] = l1.m_vector[0][1];
+            m_vector[0][2] = l1.m_vector[0][2];
+
+            m_point[1][0] = l2.m_point[0][0];
+            m_point[1][1] = l2.m_point[0][1];
+            m_point[1][2] = l2.m_point[0][2];
+            m_vector[1][0] = l2.m_vector[0][0];
+            m_vector[1][1] = l2.m_vector[0][1];
+            m_vector[1][2] = l2.m_vector[0][2];
           }
         }
         /*
