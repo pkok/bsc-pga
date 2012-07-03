@@ -771,7 +771,7 @@ int drawRuledPlane(const GAIM_FLOAT point[3], const GAIM_FLOAT normal[3], const 
 }
 
 
-int drawScrew(const GAIM_FLOAT point[3], const GAIM_FLOAT direction[3], GAIM_FLOAT weight, GAIM_FLOAT pitch, int method /*= DRAW_SCREW_SPIRAL */, int flags /*= 0*/, object *o /*= NULL*/) {
+int drawScrew(const GAIM_FLOAT point[3], const GAIM_FLOAT direction[3], GAIM_FLOAT weight, GAIM_FLOAT pitch, GAIM_FLOAT rotation_direction, int method /*= DRAW_SCREW_SPIRAL */, int flags /*= 0*/, object *o /*= NULL*/) {
 	TubeDraw &T = gui_state->m_tubeDraw;
   GAIM_FLOAT x, scaleConst = g_state->m_clipDistance * sqrt(2.0);
   double z;
@@ -797,13 +797,13 @@ int drawScrew(const GAIM_FLOAT point[3], const GAIM_FLOAT direction[3], GAIM_FLO
     case DRAW_SCREW_SPIRAL:
       T.begin(GL_LINE_STRIP);
       for (x = 0, z = -pitch / 2.0; x < M_PI * 2; x += (M_PI * 2) / stepSize, z += pitch / stepSize) {
-        T.vertex3d(scale * sin(x), scale * cos(x), z);
+        T.vertex3d(scale * sin(x), rotation_direction * scale * cos(x), z);
       }
       T.end();
       if ((flags & 0x01) || (o && o->m_drawMode & OD_ORI)) { // OD_ORI
         glEnable(GL_LIGHTING);
         vectorhead[0] = scale * sin(x);
-        vectorhead[1] = scale * cos(x);
+        vectorhead[1] = rotation_direction * scale * cos(x);
         vectorhead[2] = z;
         drawVector(vectorhead, vectordir, 1.0);
       }

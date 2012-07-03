@@ -116,6 +116,7 @@ int mvInt::interpret(const l3ga &X, int creationFlags /* = 0*/) {
               /*
               scalar 0: weight
               scalar 1: pitch (translation distance over 1 rotation)
+              scalar 2: rotation direction; -1 is clockwise, 1 is ccw
               point 0: point closest to origin
               vector 0: direction of line
               */
@@ -123,6 +124,16 @@ int mvInt::interpret(const l3ga &X, int creationFlags /* = 0*/) {
 
               m_scalar[0] = sqrt(lcem(X, X).scalar());
               m_scalar[1] = sqrt(X[GRADE1][L3GA_E01] * X[GRADE1][L3GA_E01] + X[GRADE1][L3GA_E02] * X[GRADE1][L3GA_E02] + X[GRADE1][L3GA_E03] * X[GRADE1][L3GA_E03])/sqrt(X[GRADE1][L3GA_E23] * X[GRADE1][L3GA_E23] + X[GRADE1][L3GA_E31] * X[GRADE1][L3GA_E31] + X[GRADE1][L3GA_E12] * X[GRADE1][L3GA_E12]);
+              m_scalar[2] = -(X[GRADE1][L3GA_E23] + X[GRADE1][L3GA_E31] + X[GRADE1][L3GA_E12]) / sqrt(X[GRADE1][L3GA_E23] * X[GRADE1][L3GA_E23] + X[GRADE1][L3GA_E31] * X[GRADE1][L3GA_E31] + X[GRADE1][L3GA_E12] * X[GRADE1][L3GA_E12]);
+              if (m_scalar[2] < -epsilon) {
+                m_scalar[2] = -1;
+              }
+              else if (m_scalar[2] > epsilon) {
+                m_scalar[2] = 1;
+              }
+              else {
+                m_scalar[2] = 0;
+              }
             }
             // 6D-vector = [d, m]
             // direction = d
