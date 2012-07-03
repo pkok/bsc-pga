@@ -1,5 +1,6 @@
 % Math type specifying fonts
 \newcommand{\V}[1]{\ensuremath{\mathbf{#1}}}
+\newcommand{\s}[1]{\ensuremath{\mathcal{#1}}}
 
 % GA operators
 \newcommand{\gp}{\ensuremath{\;}}
@@ -10,9 +11,13 @@
 \newcommand{\dual}[1]{\ensuremath{#1^\ast}}
 \newcommand{\undual}[1]{\ensuremath{#1^{-\ast}}}
 %\newcommand{\edual}[1]{\ensuremath{#1^\bigstar}}
-%\newcommand{\unedual}[1]{\ensuremath{#1^{-\bigstar}}}
+%\newcommand{\eundual}[1]{\ensuremath{#1^{-\bigstar}}}
+\newcommand{\edotp}{\ensuremath{\dotp_\mathbb{E}}}
+\newcommand{\elcont}{\ensuremath{\lcont_\mathbb{E}}}
+\newcommand{\ercont}{\ensuremath{\rcont_\mathbb{E}}}
 \newcommand{\edual}[1]{\ensuremath{#1 \lcont \V{I}_3^{-1}}}
-\newcommand{\unedual}[1]{\ensuremath{#1 \lcont \V{I}_3}}
+\newcommand{\eundual}[1]{\ensuremath{#1 \lcont \V{I}_3}}
+\DeclareMathOperator{\Em}{Em}
 
 % Pl\"ucker notation
 \newcommand{\plucker}[2]{\ensuremath{\{#1 \mathbin{;} #2\}}}
@@ -21,7 +26,6 @@
 
 % Math-like symbols
 \newcommand{\reals}{\ensuremath{\mathbb{R}}}
-\newcommand{\RL}{\ensuremath{\reals^{3,3}}}
 \newcommand{\en}{\ensuremath{\mathbin{\mbox{and}}}}
 \newcommand{\of}{\ensuremath{\mathbin{\mbox{or}}}}
 \newcommand{\eql}{\ensuremath{\Leftrightarrow}}
@@ -36,6 +40,13 @@
 \newcommand{\etd}{e_{23}}
 \newcommand{\ede}{e_{31}}
 \newcommand{\eet}{e_{12}}
+
+\newcommand{\ap}{a_{+}}
+\newcommand{\am}{a_{-}}
+\newcommand{\bp}{b_{+}}
+\newcommand{\bm}{b_{-}}
+\newcommand{\cp}{c_{+}}
+\newcommand{\cm}{c_{-}}
 
 \newtheorem{theorem}{Theorem}
 \newtheorem{question}{Question}

@@ -11,30 +11,131 @@
   \item Capital for multivectors
   \item Lowercase for vectors/1-blades
   \item Greek for scalars/0-blades
-  \item $\RL$
+  \item $\reals^{3,3}$
   \item Geometric product: $A \gp B$ $\leftarrow$ small space
   \item Geometric division $A \gpi B$ or too trivial?
-  \item Geometric division $A \mathbin{/} B$ or too trivial?
   \item Outer product $\wedge$
-  \item Left contraction $\lcont$
+  \item Left contraction $\lcont$ \comment{Is this still ``default'' notation, or should I use only $\dotp$/$\bullet$?}
   \item Dot product $\dotp$
   \item Dualization $\dual{A}$, undualization $\undual{A}$
-  \item Euclidean (un-)dualization $\edual{\V{A}}$, $\unedual{\V{A}}$
+  \item Euclidean (un-)dualization $\edual{\V{A}}$, $\eundual{\V{A}}$ or introduce extra notation $\V{A}^{\star}$, $\V{A}^{-\star}$?
+  %\item Euclidean inproduct $\elcont$? $A \edotp B$, $A \elcont B$, $A \ercont B$\ldots
+  \item \ldots
+  \item Show that geometric product, cross product can be expressed in terms of $\wedge$ and $\lcont$ for $\Em$.
 \end{itemize}
 
 \subsection{Pl\"ucker model}
 \label{sec:hongbo}
-\comment{This part will be paraphrased from \cite{TheBook} and \cite{Hongbo}.}
+\comment{This part will be paraphrased from \cite{TheBook} and \cite{Hongbo}.  Where do I put the ref to \cite{TheBook}?}
 
 In the homogeneous model, the line through points $p = \ez + \V{p}$ and $q = \ez + \V{q}$ is represented as 
-\begin{equation}
-  L = p \wedge q = \ez \wedge (\V{q} - \V{p}) + \V{p} \wedge \V{q} .
+\begin{equation*}
+  L = p \wedge q = \ez \wedge (\V{q} - \V{p}) + \V{p} \wedge \V{q} ,
+\end{equation*}
+
+while the following dependency relationship: 
+\begin{equation} \label{eq:gaplucker0} 
+  \ez \wedge (\V{q} - \V{p}) \wedge (\V{p} \wedge \V{q}) = 0 .
 \end{equation}
+
+Because of this constraint, lines only have 5 degrees of freedom.  As this expression is based on six coordinates, the last represents its weight, as defined in the homogeneous model.
 
 The direction and moment of a line are easily recognised in this expression.  The direction $\V{d} = \V{p} - \V{q}$ is encoded in the first factor as $\ez \wedge -\V{d} = \V{d} \wedge \ez = \V{d} \ez$.  
-The moment $\V{m} = \V{p} \times \V{q} = \edual{(\V{p} \wedge \V{q})}$ can be found in the second term as $\unedual{\V{m}} = \unedual{(\edual{(\V{p} \wedge \V{q})})} = \V{p} \wedge \V{q}$, which results in another general formula for lines:
-\begin{equation}
-  L = \V{d} \ez + \unedual{\V{m}}.
+The moment $\V{m} = \V{p} \times \V{q} = \edual{(\V{p} \wedge \V{q})}$ can be found in the second term as $\eundual{\V{m}} = \eundual{(\edual{(\V{p} \wedge \V{q})})} = \V{p} \wedge \V{q}$, which results in another general formula for lines:
+\begin{equation*}
+  L = \V{d} \ez + \eundual{\V{m}}.
+\end{equation*}
+
+Within classical literature of linear algebra, the same object is written as $-\plucker{\V{d}}{\V{m}}$, using \emph{Pl\"ucker coordinates} to denote a line as a 6D vector.  The constraint of \autoref{eq:gaplucker0} is expressed as 
+\begin{equation} \label{eq:laplucker0}
+  \V{d} \lcont \V{m} = 0 .
 \end{equation}
 
-Within classical literature of linear algebra, the same object is written as $-\plucker{\V{d}}{\V{m}}$, using \emph{Pl\"ucker coordinates} to denote a line as a 6D vector.  
+The set of 6D vectors $-\plucker{\V{d}}{\V{m}}$ that comply with this constraint correspond to the points on the Klein quadric.
+
+The Pl\"ucker coordinates of a line are often treated as just six slots for storing numbers.  In most cases, operations on these elements are defined to manipulate two 3D vectors, \V{d} and \V{m}, instead of the whole 6D element.
+
+Because of this, the user is often unaware of most of the algebraic structure.  In fact, this 6D vector corresponds to
+\begin{equation*}
+  L = d_1 \ez\ee + d_2 \ez\et + d_3 \ez\ed + m_1 \et\ed + m_2 \ed\ee + m_3 \ee\et .
+\end{equation*}
+
+The set $\{\ez\ee, \ez\et, \ez\ed, \et\ed, \ed\ee, \ee\et\}$ forms an orthogonal and complete basis of the bivectors of the homogeneous model of $\reals^3$.  It is orthogonal, because for any two elements $x, y$ it holds that $x \lcont y = 0$. It is also complete; it contains $(^4_2) = 6$ linear independent elements.
+
+The Pl\"ucker model uses these six elements as its basis, and treats them as atomic values.  These elements will be known as $\{\eze, \ezt, \ezd, \etd, \ede, \eet\}$.  Li and Zhang~\cite{Hongbo} define an embedding from the Pl\"ucker model to the homogeneous model:
+\begin{equation*}
+  \Em(x) = \left\{ 
+    \begin{array}{ll}
+      \ez \wedge \V{e}_i &\mbox{if $x = e_{0i}$}; \\
+      \V{e}_i \wedge \V{e}_j &\mbox{if $x = e_{ij}$}; \\
+      \Em(y) + \Em(z) &\mbox{if $x = y + z$}; \\
+      \Em(y) \wedge \Em(z) &\mbox{if $x = y \wedge z$}; \\
+      \left[\Em(y) \wedge \Em(z)\right] &\mbox{if $x = y \lcont z$}. \\
+    \end{array}
+    \right.
+\end{equation*}
+
+In the last line, the inner product for the Pl\"ucker is defined.  The bracket returns the proportionality factor of $\Em(y) \wedge \Em(z)$ to the homogeneous pseudoscalar $\ez \V{I}_3$.  This metric gives the multiplication table of \autoref{tab:nullmetric}.  Li and Zhang show that lines correspond with the null vectors of this space.  Because each of its basis elements correspond to a null vector, this basis is called the null basis. 
+
+\begin{table}
+  \caption{The multiplication table of the inner product for the Pl\"ucker model on the null basis.}
+  \label{tab:nullmetric}
+  \begin{center}
+    \begin{tabular}{|c||c|c|c|c|c|c|}
+      \hline
+      $\lcont$ & $\eze$ & $\ezt$ & $\ezt$ & $\etd$ & $\ede$ & $\eet$ \\
+      \hline \hline
+      $\eze$ & 0 & 0 & 0 & 1 & 0 & 0 \\
+      \hline
+      $\ezt$ & 0 & 0 & 0 & 0 & 1 & 0 \\
+      \hline
+      $\ezd$ & 0 & 0 & 0 & 0 & 0 & 1 \\
+      \hline
+      $\etd$ & 1 & 0 & 0 & 0 & 0 & 0 \\
+      \hline
+      $\ede$ & 0 & 1 & 0 & 0 & 0 & 0 \\
+      \hline
+      $\eet$ & 0 & 0 & 1 & 0 & 0 & 0 \\
+      \hline
+    \end{tabular}
+  \end{center}
+\end{table}
+
+Li and Zhang also show that the 6D space has the metric structure of $\reals^{3,3}$.  To demonstrate this structure, a second basis is given:
+
+\begin{equation*}
+  \begin{split}
+  \left\{\ap, \bp, \cp, \am, \bm, \cm\right\} =
+    & \left\{ \frac{\eze + \etd}{\sqrt{2}}, \frac{\ezt + \ede}{\sqrt{2}}, \frac{\ezd + \eet}{\sqrt{2}}, \right.\\
+    & \left.  \frac{\eze - \etd}{\sqrt{2}}, \frac{\ezt - \ede}{\sqrt{2}}, \frac{\ezd - \eet}{\sqrt{2}}, \right\}
+.
+\end{split}
+\end{equation*}
+
+Without changing the semantics of the inner product, we obtain the multiplication table of \autoref{tab:pmmetric}.  It is apparent that the metric structure is $\reals^{3,3}$; three basis vectors, $\ap, \bp, \cp$, square to $1$, while the other three basis vectors, $\am, \bm, \cm$ square to $-1$.  
+
+It is also clear that the basis elements do not represent lines, as no basis vectors squares to $0$.  \Autoref{ch:research} demonstrates that all vectors of the Pl\"ucker model represent screw motions.  Therefore, we name this basis the screw basis.
+
+\begin{table}
+  \caption{The multiplication table of the inner product for the Pl\"ucker model on the screw basis.}
+  \label{tab:pmmetric}
+  \begin{center}
+    \begin{tabular}{|c||c|c|c|c|c|c|}
+      \hline
+      $\lcont$ & $\ap$ & $\bp$ & $\cp$ & $\am$ & $\bm$ & $\cm$ \\
+      \hline \hline
+      $\ap$ & 1 & 0 & 0 & 0 & 0 & 0 \\
+      \hline
+      $\bp$ & 0 & 1 & 0 & 0 & 0 & 0 \\
+      \hline
+      $\cp$ & 0 & 0 & 1 & 0 & 0 & 0 \\
+      \hline
+      $\am$ & 0 & 0 & 0 & -1 & 0 & 0 \\
+      \hline
+      $\bm$ & 0 & 0 & 0 & 0 & -1 & 0 \\
+      \hline
+      $\cm$ & 0 & 0 & 0 & 0 & 0 & -1 \\
+      \hline
+    \end{tabular}
+  \end{center}
+\end{table}
