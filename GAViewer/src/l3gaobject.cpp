@@ -110,6 +110,7 @@ l3gaObject::l3gaObject(const l3ga &mv, const std::string &name /*= std::string("
           break;
         case MVI_SCREW:
           m_properties |= OP_DRAWMETHOD;
+          m_drawMode |= OD_ORI;
           m_dmMenu = gui_l3gaScrewDrawMethods;
           m_dmMenuIdx = DRAW_SCREW_SPIRAL;
           break;
