@@ -15,9 +15,11 @@
 \newcommand{\edotp}{\ensuremath{\dotp_\mathbb{E}}}
 \newcommand{\elcont}{\ensuremath{\lcont_\mathbb{E}}}
 \newcommand{\ercont}{\ensuremath{\rcont_\mathbb{E}}}
-\newcommand{\edual}[1]{\ensuremath{#1 \lcont \V{I}_3^{-1}}}
-\newcommand{\eundual}[1]{\ensuremath{#1 \lcont \V{I}_3}}
+\newcommand{\edual}[1]{\ensuremath{#1 \lcont \epseudo^{-1}}}
+\newcommand{\eundual}[1]{\ensuremath{#1 \lcont \epseudo}}
+\newcommand{\norm}[1]{\ensuremath{\left\|#1\right\|}}
 \DeclareMathOperator{\Em}{Em}
+\DeclareMathOperator{\grade}{\mathtt{grade}}
 
 % Homogeneous equality
 \newcommand{\heq}{\ensuremath{\mathbin{=_{H}}}}
@@ -33,6 +35,11 @@
 \newcommand{\of}{\ensuremath{\mathbin{\mbox{or}}}}
 \newcommand{\eql}{\ensuremath{\Leftrightarrow}}
 
+\newcommand{\pline}{\ensuremath{\ell}}
+\newcommand{\rline}{\ensuremath{\ell_o}}
+\newcommand{\iline}{\ensuremath{\ell_\infty}}
+\newcommand{\screw}{\ensuremath{s}}
+
 \newcommand{\ez}{\ensuremath{e_0}}
 \newcommand{\ee}{\V{e}_1}
 \newcommand{\et}{\V{e}_2}
@@ -43,6 +50,8 @@
 \newcommand{\etd}{e_{23}}
 \newcommand{\ede}{e_{31}}
 \newcommand{\eet}{e_{12}}
+\newcommand{\epseudo}{\V{I}_3}
+\newcommand{\hpseudo}{\ez\V{I}_3}
 
 \newcommand{\ap}{a_{+}}
 \newcommand{\am}{a_{-}}
@@ -50,6 +59,8 @@
 \newcommand{\bm}{b_{-}}
 \newcommand{\cp}{c_{+}}
 \newcommand{\cm}{c_{-}}
+
+\newcommand{\newterm}{$^\dagger$}
 
 \newtheorem{theorem}{Theorem}
 \newtheorem{question}{Question}
