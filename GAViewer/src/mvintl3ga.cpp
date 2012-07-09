@@ -37,6 +37,7 @@ int mvInt::interpret(const l3ga &X, int creationFlags /* = 0*/) {
 
   const GAIM_FLOAT epsilon = 1e-6; // rather arbitrary limit on fp-noise
   l3ga tmp, factors[7];
+  mvInt l1, l2, _tmp;
   int i;
   double s, x, y, z;
   int null_vectors = 0;
@@ -310,7 +311,6 @@ int mvInt::interpret(const l3ga &X, int creationFlags /* = 0*/) {
             point 1: point closest to origin of line 2
             vector 1: direction of line 2
             */
-            mvInt l1, l2, _tmp;
             l1.interpret(factors[0]);
             l2.interpret(factors[1]);
             if (l1.m_type & MVI_IDEAL) {
@@ -363,13 +363,56 @@ int mvInt::interpret(const l3ga &X, int creationFlags /* = 0*/) {
           m_valid = 0;
         }
         break;
-      case 3: // ******************** line bundle/point, fied of lines/plane, regulus, double wheel pencil, ...
+        /* Temporary solution. Interpretation through dualization. */
       case 4: // ******************** regulus pencil, dual line pair, parabolic linear congruence, "[hyperbolic linear congruence], bundle + field"
       case 5: // ******************** regulus bundle, rotation invariants, translation invariants
+        _tmp.interpret(X.dual());
+        m_type = _tmp.m_type;
+        m_type |= MVI_DUAL;
+        m_valid = _tmp.m_valid;
+        m_scalar[0] = _tmp.m_scalar[0];
+        m_scalar[1] = _tmp.m_scalar[1];
+        m_scalar[2] = _tmp.m_scalar[2];
+        if (_tmp.m_vector[0] != NULL) {
+          m_vector[0][0] = _tmp.m_vector[0][0];
+          m_vector[0][1] = _tmp.m_vector[0][1];
+          m_vector[0][2] = _tmp.m_vector[0][2];
+        }
+        if (_tmp.m_vector[1] != NULL) {
+          m_vector[1][0] = _tmp.m_vector[1][0];
+          m_vector[1][1] = _tmp.m_vector[1][1];
+          m_vector[1][2] = _tmp.m_vector[1][2];
+        }
+        if (_tmp.m_vector[2] != NULL) {
+          m_vector[2][0] = _tmp.m_vector[2][0];
+          m_vector[2][1] = _tmp.m_vector[2][1];
+          m_vector[2][2] = _tmp.m_vector[2][2];
+        }
+        if (_tmp.m_point[0] != NULL) {
+          m_point[0][0] = _tmp.m_point[0][0];
+          m_point[0][1] = _tmp.m_point[0][1];
+          m_point[0][2] = _tmp.m_point[0][2];
+        }
+        if (_tmp.m_point[1] != NULL) {
+          m_point[1][0] = _tmp.m_point[1][0];
+          m_point[1][1] = _tmp.m_point[1][1];
+          m_point[1][2] = _tmp.m_point[1][2];
+        }
+        if (_tmp.m_point[2] != NULL) {
+          m_point[2][0] = _tmp.m_point[2][0];
+          m_point[2][1] = _tmp.m_point[2][1];
+          m_point[2][2] = _tmp.m_point[2][2];
+        }
+        break;
       case 6: // ******************** pseudoscalar
+        m_type = |= MVI_SPACE;
+        m_scalar[0] = X[GRADE6][L3GA_I];
+        m_valid = 1;
+        break;
+      case 3: // ******************** line bundle/point, fied of lines/plane, regulus, double wheel pencil, ...
       default:
         m_type |= MVI_UNKNOWN;
-        printf("grade >2 unknown\n");
+        printf("grade %d object unknown\n",grade);
         m_valid = 0;
         break;
     }

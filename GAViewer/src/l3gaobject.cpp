@@ -399,20 +399,20 @@ int l3gaObject::description(char *buf, int bufLen, int sl /* = 0 */) {
           m_mv.string());
       break;
     case MVI_IDEAL_LINE_PENCIL:
-      if (sl) sprintf(buf, "%s: l3ga %sline pencil at infinity", m_name.c_str(), (m_int.dual()) ? " dual" : "");
+      if (sl) sprintf(buf, "%s: l3ga %sline pencil at infinity", m_name.c_str(), (m_int.dual()) ? "dual " : "");
 
       else sprintf(buf, "l3ga %sline pencil at infinity\nWeight: %f\nNormal: %2.2f %2.2f %2.2f\nCoordinates: %s", 
-          (m_int.dual()) ? " dual" : "",
+          (m_int.dual()) ? "dual " : "",
           m_int.m_scalar[0], 
           m_int.m_vector[0][0], m_int.m_vector[0][1], m_int.m_vector[0][2], 
           m_mv.string());
       break;
     case MVI_RULED_PLANE:
     case MVI_LINE_PENCIL:
-      if (sl) sprintf(buf, "%s: l3ga %sline pencil", m_name.c_str(), (m_int.dual()) ? " dual" : "");
+      if (sl) sprintf(buf, "%s: l3ga %sline pencil", m_name.c_str(), (m_int.dual()) ? "dual " : "");
 
       else sprintf(buf, "l3ga %sline pencil\nWeight: %f\nNormal: %2.2f %2.2f %2.2f\nCenter:%2.2f %2.2f %2.2f\nCoordinates: %s", 
-          (m_int.dual()) ? " dual" : "",
+          (m_int.dual()) ? "dual " : "",
           m_int.m_scalar[0], 
           m_int.m_vector[0][0], m_int.m_vector[0][1], m_int.m_vector[0][2], 
           m_int.m_point[0][0], m_int.m_point[0][1], m_int.m_point[0][2],
@@ -420,10 +420,10 @@ int l3gaObject::description(char *buf, int bufLen, int sl /* = 0 */) {
       break;
     case MVI_IDEAL_LINE_PAIR:
     case MVI_LINE_PAIR:
-      if (sl) sprintf(buf, "%s: l3ga %sline pair", m_name.c_str(), (m_int.dual())? " dual" : "");
+      if (sl) sprintf(buf, "%s: l3ga %sline pair", m_name.c_str(), (m_int.dual())? "dual " : "");
 
       else sprintf(buf, "l3ga %sline pair\nWeight: %f\nDirection 1: %2.2f %2.2f %2.2f\nPoint 1 closest to origin: %2.2f %2.2f %2.2f\nDirection 2: %2.2f %2.2f %2.2f\nPoint 2 closest to origin: %2.2f %2.2f %2.2f\nCoordinates: %s", 
-          (m_int.dual()) ? " dual" : "",
+          (m_int.dual()) ? "dual " : "",
           m_int.m_scalar[0], 
           m_int.m_vector[0][0], m_int.m_vector[0][1], m_int.m_vector[0][2], 
           m_int.m_point[0][0], m_int.m_point[0][1], m_int.m_point[0][2], 
