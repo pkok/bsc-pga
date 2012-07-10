@@ -802,8 +802,8 @@ int drawScrew(const GAIM_FLOAT point[3], const GAIM_FLOAT direction[3], GAIM_FLO
       T.end();
       if ((flags & 0x01) || (o && o->m_drawMode & OD_ORI)) { // OD_ORI
         glEnable(GL_LIGHTING);
-        vectorhead[0] = rotation_direction * scale * sin(x);
-        vectorhead[1] = rotation_direction * scale * cos(x);
+        vectorhead[0] = rotation_direction * scale * sin(x - (M_PI * 2) / stepSize);
+        vectorhead[1] = rotation_direction * scale * cos(x - (M_PI * 2) / stepSize);
         vectorhead[2] = z;
         vectordir[0] = rotation_direction * scale * (sin(x) - sin(x - (M_PI * 2) / stepSize));
         vectordir[1] = rotation_direction * scale * (cos(x) - cos(x - (M_PI * 2) / stepSize));
@@ -813,10 +813,13 @@ int drawScrew(const GAIM_FLOAT point[3], const GAIM_FLOAT direction[3], GAIM_FLO
         vectordir[1] /= z;
         vectordir[2] /= z;
         if (vectordir[0] != vectordir[0] || vectordir[1] != vectordir[1]) {
+          vectorhead[2] -= (gui_state->m_vectorHeadSize * 0.14);
           vectordir[0] = 0.0;
           vectordir[1] = 0.0;
           vectordir[2] = 0.1;
         }
+        printf("vh: %2.2f, %2.2f, %2.2f\n", vectorhead[0], vectorhead[1], vectorhead[2]);
+        printf("vd: %2.2f, %2.2f, %2.2f\n", vectordir[0], vectordir[1], vectordir[2]);
         drawVector(vectorhead, vectordir, 1.0);
       }
       break;
@@ -828,6 +831,7 @@ int drawScrew(const GAIM_FLOAT point[3], const GAIM_FLOAT direction[3], GAIM_FLO
       }
       T.end();
       if ((flags & 0x01) || (o && o->m_drawMode & OD_ORI)) { // OD_ORI
+        GAIM_FLOAT is_straight = 0;
         glEnable(GL_LIGHTING);
         vectorhead[0] = rotation_direction * scale * sin(x);
         vectorhead[1] = rotation_direction * scale * cos(x);
@@ -839,11 +843,12 @@ int drawScrew(const GAIM_FLOAT point[3], const GAIM_FLOAT direction[3], GAIM_FLO
         vectordir[1] /= z;
         vectordir[2] /= z;
         if (vectordir[0] != vectordir[0] || vectordir[1] != vectordir[1]) {
+          is_straight = 1.0;
           vectordir[0] = 0.0;
           vectordir[1] = 0.0;
           vectordir[2] = 0.1;
         }
-        for (vectorhead[2] = -scaleConst + ((M_PI * 2 / stepSize) * pitch); vectorhead[2] <= scaleConst; vectorhead[2] += pitch) {
+        for (vectorhead[2] = -scaleConst + ((M_PI * 2 / stepSize) * pitch) - (is_straight * gui_state->m_vectorHeadSize * 0.14); vectorhead[2] <= scaleConst; vectorhead[2] += pitch) {
           drawVector(vectorhead, vectordir, 1.0);
         }
       }
