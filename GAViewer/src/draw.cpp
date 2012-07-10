@@ -811,15 +811,15 @@ int drawScrew(const GAIM_FLOAT point[3], const GAIM_FLOAT direction[3], GAIM_FLO
     case DRAW_SCREW_LINE:
       T.begin(GL_LINE_STRIP);
       for (x = 0, z = -scaleConst; z <= scaleConst; x += (M_PI * 2) / stepSize, z += pitch / stepSize) {
-        T.vertex3d(scale * sin(x), scale * cos(x), z);
+        //T.vertex3d(scale * sin(x), scale * cos(x), z);
+        T.vertex3d(scale * sin(x), rotation_direction * scale * cos(x), z);
       }
       T.end();
       if ((flags & 0x01) || (o && o->m_drawMode & OD_ORI)) { // OD_ORI
         glEnable(GL_LIGHTING);
-        vectorhead[0] = 0;
-        vectorhead[1] = scale;
-        for (z = -scaleConst; z <= scaleConst; z += pitch) {
-          vectorhead[2] = z;
+        vectorhead[0] = scale * sin(x);
+        vectorhead[1] = rotation_direction * scale * cos(x);
+        for (vectorhead[2] = -scaleConst; vectorhead[2] <= scaleConst; vectorhead[2] += pitch) {
           drawVector(vectorhead, vectordir, 1.0);
         }
       }
