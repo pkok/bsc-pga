@@ -404,7 +404,7 @@ int mvInt::interpret(const l3ga &X, int creationFlags /* = 0*/) {
         }
         break;
       case 6: // ******************** pseudoscalar
-        m_type = |= MVI_SPACE;
+        m_type |= MVI_SPACE;
         m_scalar[0] = X[GRADE6][L3GA_I];
         m_valid = 1;
         break;
