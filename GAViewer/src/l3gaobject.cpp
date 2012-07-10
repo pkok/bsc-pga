@@ -101,7 +101,7 @@ l3gaObject::l3gaObject(const l3ga &mv, const std::string &name /*= std::string("
           m_properties |= OP_DRAWMETHOD;
           m_drawMode |= OD_STIPPLE;
           m_dmMenu = gui_l3gaIdealLineDrawMethods;
-          m_dmMenuIdx = DRAW_IDEAL_LINE_HOOKS;
+          m_dmMenuIdx = DRAW_IDEAL_LINE_RADIUS;
           break;
         case MVI_LINE:
           m_properties |= OP_DRAWMETHOD;
