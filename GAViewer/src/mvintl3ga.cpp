@@ -154,7 +154,6 @@ int mvInt::interpret(const l3ga &X, int creationFlags /* = 0*/) {
 
           m_valid = 1;
         //}
-        // TODO: screw motion, kine
         //else {
         if (!m_valid) {
           m_type |= MVI_UNKNOWN;
