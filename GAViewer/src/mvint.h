@@ -97,6 +97,12 @@ as operators like translation, rotation and inversion.
 #define MVI_ROTOR (MVI_VERSOR + 0)
 #define MVI_ODD_3D_VERSOR (MVI_VERSOR + 1)
 
+#define MVI_VERSOR_ROTATION (MVI_VERSOR + 2)
+#define MVI_VERSOR_TRANSLATION (MVI_VERSOR + 3)
+#define MVI_VERSOR_PERSPECTIVE_TRANSFORMATION (MVI_VERSOR + 4)
+#define MVI_VERSOR_DIRECTIONAL_SCALING (MVI_VERSOR + 5)
+#define MVI_VERSOR_SQUEEZE (MVI_VERSOR + 6)
+
 // internal constants:
 #define MVINT_NB_POINTS 2
 #define MVINT_NB_VECTORS 4

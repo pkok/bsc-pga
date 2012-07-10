@@ -16,6 +16,8 @@
 
 #include <stdio.h>
 #include <math.h>
+#include <algorithm>
+#include <vector>
 
 #include "object.h"
 #include "mvint.h"
@@ -24,6 +26,7 @@
 
 double factorize_blade(const l3ga &B, int grade, l3ga (&factors)[7]);
 int is_parallel(l3ga &a, l3ga &b, double epsilon);
+bool only_coordinates_set(const l3ga &a, GAIM_FLOAT epsilon, int grade, std::vector<int> coordinates);
 
 int mvInt::interpret(const l3ga &X, int creationFlags /* = 0*/) {
   l3ga I3real(l3ga::e01 ^ l3ga::e02 ^ l3ga::e03);
@@ -80,81 +83,78 @@ int mvInt::interpret(const l3ga &X, int creationFlags /* = 0*/) {
         m_scalar[0] = X.scalar();
         break;
       case 1: // ******************** line, screw, kine
-        //if (fabs(X2) < epsilon) {
-          if (fabs(X[GRADE1][L3GA_E01]) < epsilon &&
-              fabs(X[GRADE1][L3GA_E02]) < epsilon &&
-              fabs(X[GRADE1][L3GA_E03]) < epsilon) {
-            m_type |= MVI_IDEAL_LINE;
-            printf("ideal line\n");
-            /*
-            scalar 0: weight
-            vector 0: normal/reciprocal direction
-            */
-            //tmp.lcem(X,X);
-            //m_scalar[0] = sqrt(tmp.scalar());
-            m_scalar[0] = sqrt(X[GRADE1][L3GA_E23] * X[GRADE1][L3GA_E23] + X[GRADE1][L3GA_E31] * X[GRADE1][L3GA_E31] + X[GRADE1][L3GA_E12] * X[GRADE1][L3GA_E12]);
+        if (fabs(X[GRADE1][L3GA_E01]) < epsilon &&
+            fabs(X[GRADE1][L3GA_E02]) < epsilon &&
+            fabs(X[GRADE1][L3GA_E03]) < epsilon) {
+          m_type |= MVI_IDEAL_LINE;
+          printf("ideal line\n");
+          /*
+             scalar 0: weight
+             vector 0: normal/reciprocal direction
+             */
+          //tmp.lcem(X,X);
+          //m_scalar[0] = sqrt(tmp.scalar());
+          m_scalar[0] = sqrt(X[GRADE1][L3GA_E23] * X[GRADE1][L3GA_E23] + X[GRADE1][L3GA_E31] * X[GRADE1][L3GA_E31] + X[GRADE1][L3GA_E12] * X[GRADE1][L3GA_E12]);
 
-            m_vector[0][0] = X[GRADE1][L3GA_E23] / m_scalar[0];
-            m_vector[0][1] = X[GRADE1][L3GA_E31] / m_scalar[0];
-            m_vector[0][2] = X[GRADE1][L3GA_E12] / m_scalar[0];
+          m_vector[0][0] = X[GRADE1][L3GA_E23] / m_scalar[0];
+          m_vector[0][1] = X[GRADE1][L3GA_E31] / m_scalar[0];
+          m_vector[0][2] = X[GRADE1][L3GA_E12] / m_scalar[0];
+        }
+        else {
+          if (fabs(X2) < epsilon) {
+            m_type |= MVI_LINE;
+            printf("line\n");
+            /*
+               scalar 0: weight
+               point 0: point closest to origin
+               vector 0: direction of line
+               */
+
+
+            m_scalar[0] = sqrt(X[GRADE1][L3GA_E01] * X[GRADE1][L3GA_E01] + X[GRADE1][L3GA_E02] * X[GRADE1][L3GA_E02] + X[GRADE1][L3GA_E03] * X[GRADE1][L3GA_E03]);
           }
           else {
-            if (fabs(X2) < epsilon) {
-              m_type |= MVI_LINE;
-              printf("line\n");
-              /*
-              scalar 0: weight
-              point 0: point closest to origin
-              vector 0: direction of line
-              */
+            m_type |= MVI_SCREW;
+            printf("screw\n");
+            /*
+               scalar 0: weight
+               scalar 1: pitch (translation distance over 1 rotation)
+               scalar 2: rotation direction; -1 is clockwise, 1 is ccw
+               point 0: point closest to origin
+               vector 0: direction of line
+               */
 
 
-              m_scalar[0] = sqrt(X[GRADE1][L3GA_E01] * X[GRADE1][L3GA_E01] + X[GRADE1][L3GA_E02] * X[GRADE1][L3GA_E02] + X[GRADE1][L3GA_E03] * X[GRADE1][L3GA_E03]);
+            m_scalar[0] = sqrt(lcem(X, X).scalar());
+            m_scalar[1] = sqrt(X[GRADE1][L3GA_E01] * X[GRADE1][L3GA_E01] + X[GRADE1][L3GA_E02] * X[GRADE1][L3GA_E02] + X[GRADE1][L3GA_E03] * X[GRADE1][L3GA_E03])/sqrt(X[GRADE1][L3GA_E23] * X[GRADE1][L3GA_E23] + X[GRADE1][L3GA_E31] * X[GRADE1][L3GA_E31] + X[GRADE1][L3GA_E12] * X[GRADE1][L3GA_E12]);
+            m_scalar[2] = -(X[GRADE1][L3GA_E23] + X[GRADE1][L3GA_E31] + X[GRADE1][L3GA_E12]) / sqrt(X[GRADE1][L3GA_E23] * X[GRADE1][L3GA_E23] + X[GRADE1][L3GA_E31] * X[GRADE1][L3GA_E31] + X[GRADE1][L3GA_E12] * X[GRADE1][L3GA_E12]);
+            if (m_scalar[2] < -epsilon) {
+              m_scalar[2] = -1;
+            }
+            else if (m_scalar[2] > epsilon) {
+              m_scalar[2] = 1;
             }
             else {
-              m_type |= MVI_SCREW;
-              printf("screw\n");
-              /*
-              scalar 0: weight
-              scalar 1: pitch (translation distance over 1 rotation)
-              scalar 2: rotation direction; -1 is clockwise, 1 is ccw
-              point 0: point closest to origin
-              vector 0: direction of line
-              */
-
-
-              m_scalar[0] = sqrt(lcem(X, X).scalar());
-              m_scalar[1] = sqrt(X[GRADE1][L3GA_E01] * X[GRADE1][L3GA_E01] + X[GRADE1][L3GA_E02] * X[GRADE1][L3GA_E02] + X[GRADE1][L3GA_E03] * X[GRADE1][L3GA_E03])/sqrt(X[GRADE1][L3GA_E23] * X[GRADE1][L3GA_E23] + X[GRADE1][L3GA_E31] * X[GRADE1][L3GA_E31] + X[GRADE1][L3GA_E12] * X[GRADE1][L3GA_E12]);
-              m_scalar[2] = -(X[GRADE1][L3GA_E23] + X[GRADE1][L3GA_E31] + X[GRADE1][L3GA_E12]) / sqrt(X[GRADE1][L3GA_E23] * X[GRADE1][L3GA_E23] + X[GRADE1][L3GA_E31] * X[GRADE1][L3GA_E31] + X[GRADE1][L3GA_E12] * X[GRADE1][L3GA_E12]);
-              if (m_scalar[2] < -epsilon) {
-                m_scalar[2] = -1;
-              }
-              else if (m_scalar[2] > epsilon) {
-                m_scalar[2] = 1;
-              }
-              else {
-                m_scalar[2] = 0;
-              }
+              m_scalar[2] = 0;
             }
-            // 6D-vector = [d, m]
-            // direction = d
-            // moment = m
-            // distance = crossprod(m, d)
-            // weight = sqrt(distance^2)
-
-            m_vector[0][0] = X[GRADE1][L3GA_E01] / m_scalar[0];
-            m_vector[0][1] = X[GRADE1][L3GA_E02] / m_scalar[0];
-            m_vector[0][2] = X[GRADE1][L3GA_E03] / m_scalar[0];
-
-            m_point[0][0] = ((X[GRADE1][L3GA_E12] * m_vector[0][1]) - (X[GRADE1][L3GA_E31] * m_vector[0][2])) / m_scalar[0];
-            m_point[0][1] = ((X[GRADE1][L3GA_E23] * m_vector[0][2]) - (X[GRADE1][L3GA_E12] * m_vector[0][0])) / m_scalar[0];
-            m_point[0][2] = ((X[GRADE1][L3GA_E31] * m_vector[0][0]) - (X[GRADE1][L3GA_E23] * m_vector[0][1])) / m_scalar[0];
-
           }
+          // 6D-vector = [d, m]
+          // direction = d
+          // moment = m
+          // distance = crossprod(m, d)
+          // weight = sqrt(distance^2)
 
-          m_valid = 1;
-        //}
-        //else {
+          m_vector[0][0] = X[GRADE1][L3GA_E01] / m_scalar[0];
+          m_vector[0][1] = X[GRADE1][L3GA_E02] / m_scalar[0];
+          m_vector[0][2] = X[GRADE1][L3GA_E03] / m_scalar[0];
+
+          m_point[0][0] = ((X[GRADE1][L3GA_E12] * m_vector[0][1]) - (X[GRADE1][L3GA_E31] * m_vector[0][2])) / m_scalar[0];
+          m_point[0][1] = ((X[GRADE1][L3GA_E23] * m_vector[0][2]) - (X[GRADE1][L3GA_E12] * m_vector[0][0])) / m_scalar[0];
+          m_point[0][2] = ((X[GRADE1][L3GA_E31] * m_vector[0][0]) - (X[GRADE1][L3GA_E23] * m_vector[0][1])) / m_scalar[0];
+
+        }
+
+        m_valid = 1;
         if (!m_valid) {
           m_type |= MVI_UNKNOWN;
           m_valid = 0;
@@ -405,6 +405,10 @@ int mvInt::interpret(const l3ga &X, int creationFlags /* = 0*/) {
         break;
       case 6: // ******************** pseudoscalar
         m_type |= MVI_SPACE;
+        printf("pseudoscalar\n");
+        /*
+        scalar0: weight
+        */
         m_scalar[0] = X[GRADE6][L3GA_I];
         m_valid = 1;
         break;
@@ -417,6 +421,65 @@ int mvInt::interpret(const l3ga &X, int creationFlags /* = 0*/) {
     }
   }
   // TODO: Add interpretation for versors
+  else if (type == GA_VERSOR) {
+    l3ga g1, g2, g3, g4;
+    g1.takeGrade(X, GRADE1);
+    g2.takeGrade(X, GRADE2);
+    g3.takeGrade(X, GRADE3);
+    g4.takeGrade(X, GRADE4);
+    if (X.maxGrade() == 2 && 
+        fabs(X.scalar()) >= epsilon &&
+        fabs(lcem(g1, g1).scalar()) < epsilon && 
+        fabs(lcem(g2, g2).scalar()) >= epsilon) {
+      /* For translation, only bivectors of 2 ideal lines are set */
+      std::vector<int> translation_coordinates, perspective_coordinates;
+      translation_coordinates.push_back(L3GA_E23_E31);
+      translation_coordinates.push_back(L3GA_E23_E12);
+      translation_coordinates.push_back(L3GA_E31_E12);
+
+      perspective_coordinates.push_back(L3GA_E01_E02);
+      perspective_coordinates.push_back(L3GA_E01_E03);
+      perspective_coordinates.push_back(L3GA_E02_E03);
+
+      if (only_coordinates_set(X, epsilon, GRADE2, translation_coordinates)) {
+        printf("versor: translation\n");
+        m_type |= MVI_VERSOR_TRANSLATION;
+        m_valid = 1;
+      } else if (only_coordinates_set(X, epsilon, GRADE2, perspective_coordinates)) {
+        printf("versor: perspective transformation\n");
+        m_type |= MVI_VERSOR_PERSPECTIVE_TRANSFORMATION;
+        m_valid = 1;
+      }
+      else {
+        printf("versor: directional scaling\n");
+        m_type |= MVI_VERSOR_DIRECTIONAL_SCALING;
+        m_valid = 1;
+      }
+    }
+    else if (X.maxGrade() == 4 && 
+        fabs(X.scalar()) >= epsilon && 
+        fabs(lcem(g1, g1).scalar()) < epsilon &&
+        fabs(lcem(g2, g2).scalar()) >= epsilon &&
+        fabs(lcem(g3, g3).scalar()) < epsilon &&
+        fabs(lcem(g4, g4).scalar()) >= epsilon) {
+      std::vector<int> rotation_squeeze_coordinates;
+      rotation_squeeze_coordinates.push_back(L3GA_E01_E23_E02_E31);
+      rotation_squeeze_coordinates.push_back(L3GA_E01_E23_E03_E12);
+      rotation_squeeze_coordinates.push_back(L3GA_E02_E31_E03_E12);
+      if (only_coordinates_set(X, epsilon, GRADE4, rotation_squeeze_coordinates)) {
+        if (X[GRADE4][L3GA_E01_E23_E02_E31] + X[GRADE4][L3GA_E01_E23_E03_E12] + X[GRADE4][L3GA_E02_E31_E03_E12] > 0) {
+          printf("versor: rotation\n");
+          m_type |= MVI_VERSOR_ROTATION;
+          m_valid = 1;
+        }
+        else {
+          printf("versor: lorentz transformation (squeeze)\n");
+          m_type |= MVI_VERSOR_SQUEEZE;
+          m_valid = 1;
+        }
+      }
+    }
+  }
   else {
     m_type |= MVI_UNKNOWN;
     printf("unknown versor\n");
@@ -429,6 +492,9 @@ int mvInt::interpret(const l3ga &X, int creationFlags /* = 0*/) {
 
 // According to factorization algorithm in Dorst et al., p.535.
 double factorize_blade(const l3ga &B, int grade, l3ga (&factors)[7]) {
+  if (B.grade() == 6) { 
+    return 0; 
+  }
   static const int num_basis_blades[] = {1, 6, 15, 20, 15, 6, 1};
   static const l3ga b[6] = {l3ga::e01, l3ga::e23, l3ga::e02, l3ga::e31, l3ga::e03, l3ga::e12};
   l3ga terminal = l3ga(1, 0.0);
@@ -519,4 +585,33 @@ int is_parallel(l3ga &a, l3ga &b, double epsilon) {
   return (fabs(c_e01 - c_e02) < epsilon) 
     && (fabs(c_e02 - c_e03) < epsilon) 
     && (fabs(c_e03 - c_e01) < epsilon);
+}
+
+
+bool only_coordinates_set(const l3ga &a, GAIM_FLOAT epsilon, int grade, std::vector<int> coordinates) {
+  int i = 0, i_max;
+  switch (grade) {
+    case GRADE0:
+    case GRADE6:
+      i_max = 1;
+      break;
+    case GRADE1:
+    case GRADE5:
+      i_max = 6;
+      break;
+    case GRADE2:
+    case GRADE4:
+      i_max = 15;
+      break;
+    case GRADE3:
+      i_max = 20;
+      break;
+  }
+  for (; i < i_max; ++i) {
+    if ((std::find(coordinates.begin(), coordinates.end(), i) == coordinates.end()) &&
+        (a[grade][i] >= epsilon)) {
+      return false;
+    }
+  }
+  return true;
 }
