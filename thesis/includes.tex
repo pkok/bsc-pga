@@ -1,8 +1,8 @@
-% Math type specifying fonts
+%% Math type specifying fonts
 \newcommand{\V}[1]{\ensuremath{\mathbf{#1}}}
 \newcommand{\s}[1]{\ensuremath{\mathcal{#1}}}
 
-% GA operators
+%% GA operators
 \newcommand{\gp}{\ensuremath{\;}}
 \newcommand{\gpi}{\ensuremath{\mathbin{/}}}
 \newcommand{\lcont}{\ensuremath{\mathbin{\rfloor}}}
@@ -10,56 +10,57 @@
 \newcommand{\dotp}{\ensuremath{\mathbin{\cdot}}}
 \newcommand{\dual}[1]{\ensuremath{#1^\ast}}
 \newcommand{\undual}[1]{\ensuremath{#1^{-\ast}}}
-%\newcommand{\edual}[1]{\ensuremath{#1^\bigstar}}
-%\newcommand{\eundual}[1]{\ensuremath{#1^{-\bigstar}}}
 \newcommand{\edotp}{\ensuremath{\dotp_\mathbb{E}}}
 \newcommand{\elcont}{\ensuremath{\lcont_\mathbb{E}}}
 \newcommand{\ercont}{\ensuremath{\rcont_\mathbb{E}}}
 \newcommand{\edual}[1]{\ensuremath{#1 \lcont \epseudo^{-1}}}
 \newcommand{\eundual}[1]{\ensuremath{#1 \lcont \epseudo}}
+%\newcommand{\edual}[1]{\ensuremath{#1^\bigstar}}
+%\newcommand{\eundual}[1]{\ensuremath{#1^{-\bigstar}}}
 \newcommand{\norm}[1]{\ensuremath{\left\|#1\right\|}}
 \DeclareMathOperator{\Em}{Em}
 \DeclareMathOperator{\grade}{\mathtt{grade}}
 
-% Homogeneous equality
-\newcommand{\heq}{\ensuremath{\mathbin{=_{H}}}}
+\newcommand{\heq}{\ensuremath{\mathbin{=_{H}}}} % Homogeneous equality
 
-% Pl\"ucker notation
+%% Pl\"ucker notation
 \newcommand{\plucker}[2]{\ensuremath{\{#1 \mathbin{;} #2\}}}
 %\newcommand{\pluckerpoint}[2]{\ensuremath{(#1 \mathbin{:} #2)}}
 %\newcommand{\pluckerplane}[2]{\ensuremath{[#1 \mathbin{:} #2]}}
 
-% Math-like symbols
+%% Math-like symbols
 \newcommand{\reals}{\ensuremath{\mathbb{R}}}
 \newcommand{\en}{\ensuremath{\mathbin{\mbox{and}}}}
 \newcommand{\of}{\ensuremath{\mathbin{\mbox{or}}}}
 \newcommand{\eql}{\ensuremath{\Leftrightarrow}}
 
+%% Math constants and shorthands
 \newcommand{\pline}{\ensuremath{\ell}}
 \newcommand{\rline}{\ensuremath{\ell_o}}
 \newcommand{\iline}{\ensuremath{\ell_\infty}}
 \newcommand{\screw}{\ensuremath{s}}
 
 \newcommand{\ez}{\ensuremath{e_0}}
-\newcommand{\ee}{\V{e}_1}
-\newcommand{\et}{\V{e}_2}
-\newcommand{\ed}{\V{e}_3}
-\newcommand{\eze}{e_{01}}
-\newcommand{\ezt}{e_{02}}
-\newcommand{\ezd}{e_{03}}
-\newcommand{\etd}{e_{23}}
-\newcommand{\ede}{e_{31}}
-\newcommand{\eet}{e_{12}}
-\newcommand{\epseudo}{\V{I}_3}
-\newcommand{\hpseudo}{\ez\V{I}_3}
+\newcommand{\ee}{\ensuremath{\V{e}_1}}
+\newcommand{\et}{\ensuremath{\V{e}_2}}
+\newcommand{\ed}{\ensuremath{\V{e}_3}}
+\newcommand{\eze}{\ensuremath{e_{01}}}
+\newcommand{\ezt}{\ensuremath{e_{02}}}
+\newcommand{\ezd}{\ensuremath{e_{03}}}
+\newcommand{\etd}{\ensuremath{e_{23}}}
+\newcommand{\ede}{\ensuremath{e_{31}}}
+\newcommand{\eet}{\ensuremath{e_{12}}}
+\newcommand{\epseudo}{\ensuremath{\V{I}_3}}
+\newcommand{\hpseudo}{\ensuremath{\ez\V{I}_3}}
 
-\newcommand{\ap}{a_{+}}
-\newcommand{\am}{a_{-}}
-\newcommand{\bp}{b_{+}}
-\newcommand{\bm}{b_{-}}
-\newcommand{\cp}{c_{+}}
-\newcommand{\cm}{c_{-}}
+\newcommand{\ap}{\ensuremath{a_{+}}}
+\newcommand{\am}{\ensuremath{a_{-}}}
+\newcommand{\bp}{\ensuremath{b_{+}}}
+\newcommand{\bm}{\ensuremath{b_{-}}}
+\newcommand{\cp}{\ensuremath{c_{+}}}
+\newcommand{\cm}{\ensuremath{c_{-}}}
 
+%% Text symbols
 \newcommand{\newterm}{$^\dagger$}
 
 \newcommand{\ega}{\texttt{e3ga}}
@@ -69,7 +70,39 @@
 \newcommand{\iga}{\texttt{i2ga}}
 \newcommand{\lga}{\texttt{l3ga}}
 
+%% Setting color definitions
+\definecolor{nicered}{rgb}{0.6, 0, 0.24}
+\definecolor{nicegreen}{rgb}{0.0, 0.5, 0.24}
+\definecolor{niceblue}{rgb}{0, 0.4, 1}
+\definecolor{lightgray}{rgb}{0.4,0.4,0.4}
+
+\newtoggle{draft}
+
+\AtEndPreamble{
+  \iftoggle{draft}{
+    \hypersetup{
+      colorlinks=true, 
+      urlcolor=nicegreen,
+      linkcolor=niceblue,
+      citecolor=nicered,
+    }
+    \newcommand{\comment}[1]{\colorbox{red}{\bfseries\color{white}#1}}
+    \newcommand{\TODO}[1]{\colorbox{niceblue}{\bfseries\color{white}TODO: #1}}
+    \newcommand{\askLeo}[1]{\colorbox{yellow}{\bfseries Leo: #1}}
+  }{
+    \hypersetup{
+      colorlinks=true,
+      urlcolor=gray,
+      linkcolor=gray,
+      citecolor=lightgray,
+    \newcommand{\comment}[1]{ }
+    \newcommand{\TODO}[1]{ }
+    \newcommand{\askLeo}[1] {}
+
+    }}}
+
 \makeatletter
+%% Provide \Autoref; the \autoref with a printed capital
 \def\figureautorefname{figure}
 \def\tableautorefname{table}
 \def\Autoref#1{%
@@ -94,5 +127,90 @@
   }{%
     \autoref{#3}%
   }%
+}
+
+%% Commands for the title page.
+% The title page needs the following data to be shown correctly:
+% - \title
+% - \subtitle (optional)
+% - \studentid
+% - \ects
+% - \programme
+% - \programmeaddress
+% - \supervisor
+% - \supervisoraddress
+% - \finaldate or \date
+\def\title#1{\gdef\@title{#1}}
+\def\subtitle#1{\gdef\@subtitle{#1}}
+\def\studentid#1{\gdef\@studentid{#1}}
+\def\ects#1{\gdef\@ects{#1}}
+\def\programme#1{\gdef\@programme{#1}}
+\def\programmeaddress#1{\gdef\@programmeaddress{#1}}
+\def\supervisor#1{\gdef\@supervisor{#1}}
+\def\supervisoraddress#1{\gdef\@supervisoraddress{#1}}
+\def\finaldate#1{\gdef\@finaldate{#1}}
+
+\renewcommand{\maketitle}{
+\begin{titlepage}
+\begin{center}
+
+\vspace{2.5cm}
+
+\begin{Huge}
+\@title
+\end{Huge}
+\rule{\linewidth}{0.1pt}
+
+\ifdef{\@subtitle}{
+\begin{large}
+\@subtitle
+\end{large}}{}
+
+\vspace{1.5cm}
+
+\@author\\
+\@studentid
+
+\vspace{1.5cm}
+
+% [DO NOT CHANGE]
+Bachelor thesis\\
+% [CHANGE] Whether your Bachelor thesis is 6 ECTS (regular) or 9 ECTS (Honours
+% programme).
+Credits: \@ects{}EC
+
+\vspace{0.5cm}
+
+% [DO NOT CHANGE] The name of the educational programme.
+\@programme
+
+\vspace{0.25cm}
+
+% [DO NOT CHANGE] The addess of the educational programme.
+\@programmeaddress
+
+\vspace{4cm}
+
+\emph{Supervisor}\\
+% [CHANGE] The name of your supervisor. Include the titles of your supervisor,
+% as well as the initials for *all* of his/her first names.
+\@supervisor
+
+\vspace{0.25cm}
+
+% [CHANGE] The address of the institute at which your supervisor is working.
+% Be sure to include (1) institute (is appropriate), (2) faculty (if
+% appropriate), (3) organisation name, (4) organisation address (2 lines).
+\@supervisoraddress
+
+\vspace{1.5cm}
+
+% [CHANGE] The date at which you will finalize and submit your thesis.
+\ifdef{\@finaldate}{\@finaldate}{\@date}
+
+\end{center}
+\addtocounter{page}{-1}
+\end{titlepage}
+
 }
 \makeatother

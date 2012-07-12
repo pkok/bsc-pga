@@ -10,18 +10,11 @@
 \usepackage{fancyhdr} % For the page headers
 \usepackage{graphicx} % Including images
 \usepackage{hyperref} % Including links
-\usepackage{ifthen}
+\usepackage{etoolbox}
 \usepackage{longtable}
 \usepackage{sectsty} % Makes changing \chapter, \section, etc. easier
 
 \usepackage{catoptions}
-
-\definecolor{nicered}{rgb}{0.6, 0, 0.24}
-\definecolor{nicegreen}{rgb}{0.0, 0.5, 0.24}
-%\definecolor{niceblue}{rgb}{0, 0.4, 1}
-\definecolor{niceblue}{rgb}{0,0,0}
-\definecolor{gray}{rgb}{0.2,0.2,0.2}
-\definecolor{lightgray}{rgb}{0.4,0.4,0.4}
 
 \captionsetup{
   margin=10pt,
@@ -30,41 +23,56 @@
   position=top,
 }
 
-
-\hypersetup{
-  colorlinks=true,
-%  urlcolor=nicegreen,
-%  linkcolor=niceblue,
-%  citecolor=nicered,
-  urlcolor=gray,
-  linkcolor=gray,
-  citecolor=lightgray,
-}
-
-\title{Visualization of the projective line geometry for geometric algebra} % FIXME betere titel
-\author{\href{mailto:pkok@science.uva.nl}{Patrick de Kok}\\ Supervisor: \href{mailto:L.Dorst@uva.nl}{Leo Dorst}}
-
 \include{includes}
 
-\def\isdraft{true}
-%\def\isdraft{false}
+\toggletrue{draft}
+
+\title{Visualization of the projective line geometry for geometric algebra} % FIXME betere titel
+\subtitle{Drawing lines in GAViewer}
+\author{\href{mailto:dhrdekok@gmail.com}{Patrick de Kok}}
+\studentid{5640318}
+\ects{18}
+\programme{Bacheloropleiding Kunstmatige Intelligentie}
+\programmeaddress{University of Amsterdam\\Faculty of Science\\Science Park 904\\1098 XH Amsterdam}
+\supervisor{\href{mailto:L.Dorst@uva.nl}{Dr.ir.\ Leo Dorst}}
+\supervisoraddress{Intelligent Systems Laboratory Amsterdam\\Faculty of Science\\Science Park 904\\1098 XH Amsterdam}
+\date{July 24th, 2012}
 
 %%% Adding own commands, renew old ones
 %\renewcommand{\familydefault}{\sfdefault}
-\ifthenelse{\equal{\isdraft}{true}}{
-  \newcommand{\comment}[1]{\colorbox{red}{\bfseries\color{white}#1}}
-  \newcommand{\TODO}[1]{\colorbox{niceblue}{\bfseries\color{white}TODO: #1}}}
-  {
-  \newcommand{\comment}[1]{}
-  \newcommand{\TODO}[1]{}}
 
 \begin{document}
 %\frontmatter
-%\thispagestyle{empty}
-\begin{titlepage}
-  \include{title}
-\end{titlepage}
-%\maketitle
+\iftoggle{draft}{
+  \begin{center}
+    \begin{Huge}
+      {\color{red} NOTE!}
+    \end{Huge}
+  \end{center}
+  This document contains some notes. Explanation of the notes:
+  \begin{itemize}
+    \item \colorbox{red}{\bfseries\color{white}Red comments}: directed to the reader in general.  These include questions like how to cite, how something could be rephrased, and questions on spelling.
+    \item \colorbox{yellow}{\bfseries Yellow notes}: directed at the supervisor (\makeatletter\@supervisor\makeatother) which are on the subject of the thesis.
+    \item \colorbox{niceblue}{\bfseries\color{white}Blue todos}: directed mostly at myself, but might be convenient for the general reader as well.
+  \end{itemize}
+
+Now let's start off with a question to the reader:
+
+\comment{If putting a reference at the end of a sentence, how should that be done?}
+\begin{enumerate}
+  \item This is a reference to some article.~\cite{TheBook}
+  \item This is a reference to some article~\cite{TheBook}.
+\end{enumerate}
+
+And a small caution:
+
+\TODO{Fix table placement.}
+
+    \setcounter{page}{-1}
+  \newpage
+}{}
+
+\maketitle
 \begin{abstract}
 \input{abstract}
 \end{abstract}
