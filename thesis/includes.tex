@@ -10,21 +10,24 @@
 \newcommand{\dotp}{\ensuremath{\mathbin{\cdot}}}
 \newcommand{\dual}[1]{\ensuremath{#1^\ast}}
 \newcommand{\undual}[1]{\ensuremath{#1^{-\ast}}}
-\newcommand{\edotp}{\ensuremath{\dotp_\mathbb{E}}}
-\newcommand{\elcont}{\ensuremath{\lcont_\mathbb{E}}}
-\newcommand{\ercont}{\ensuremath{\rcont_\mathbb{E}}}
+\newcommand{\edotp}{\ensuremath{\mathbin{\dotp_\mathbb{E}}}}
+\newcommand{\elcont}{\ensuremath{\mathbin{\lcont_\mathbb{E}}}}
+\newcommand{\ercont}{\ensuremath{\mathbin{\rcont_\mathbb{E}}}}
 \newcommand{\edual}[1]{\ensuremath{#1 \lcont \epseudo^{-1}}}
 \newcommand{\eundual}[1]{\ensuremath{#1 \lcont \epseudo}}
 %\newcommand{\edual}[1]{\ensuremath{#1^\bigstar}}
 %\newcommand{\eundual}[1]{\ensuremath{#1^{-\bigstar}}}
 \newcommand{\norm}[1]{\ensuremath{\left\|#1\right\|}}
+
+\DeclareMathOperator{\pluckerid}{\Omega_q}
 \DeclareMathOperator{\Em}{Em}
 \DeclareMathOperator{\grade}{\mathtt{grade}}
+\newcommand{\pdual}[1]{\ensuremath{#1^\natural}}
 
 \newcommand{\heq}{\ensuremath{\mathbin{=_{H}}}} % Homogeneous equality
 
 %% Pl\"ucker notation
-\newcommand{\plucker}[2]{\ensuremath{\{#1 \mathbin{;} #2\}}}
+\newcommand{\plucker}[2]{\ensuremath{\{#1 \mathbin{:} #2\}}}
 %\newcommand{\pluckerpoint}[2]{\ensuremath{(#1 \mathbin{:} #2)}}
 %\newcommand{\pluckerplane}[2]{\ensuremath{[#1 \mathbin{:} #2]}}
 

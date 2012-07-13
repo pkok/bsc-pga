@@ -56,7 +56,7 @@ In the homogeneous model, the line through points $p = \ez + \V{p}$ and $q = \ez
 \end{equation*}
 with the following dependency relationship: 
 \begin{equation} \label{eq:gaplucker0} 
-  \ez \wedge (\V{q} - \V{p}) \wedge (\V{p} \wedge \V{q}) = 0 .
+  \pluckerid(L) = \ez \wedge (\V{q} - \V{p}) \wedge (\V{p} \wedge \V{q}) = 0 .
 \end{equation}
 
 This relationship limits the number of degrees of freedom from 6 to 5.
@@ -69,12 +69,22 @@ The moment $\V{m} = \V{p} \times \V{q} = \edual{(\V{p} \wedge \V{q})}$ can be fo
 
 Within classical literature of linear algebra, the same object is written as $-\plucker{\V{d}}{\V{m}}$, using \emph{Pl\"ucker coordinates} to denote a line as a 6D vector.  The constraint of \autoref{eq:gaplucker0} is expressed as 
 \begin{equation} \label{eq:laplucker0}
-  \V{d} \dotp \V{m} = 0 .
+  \pluckerid(L) = \V{d} \dotp \V{m} = 0 .
 \end{equation}
+
+Pottmann and Wallner~\cite[Lemma 2.1.2]{Pottmann} show that these indeed are the same, and name this relationship the Pl\"ucker identity.  They also define dual Pl\"ucker coordinates.  If $L$ is a line, then its dual Pl\"ucker coordinates are given by $\pdual{L} = \pdual{\plucker{\V{d}}{\V{m}}} = \plucker{\V{m}}{\V{d}} = \V{m} \ez + \edual{\V{d}}$~\cite[Lemma 2.1.4]{Pottmann}.  This gives yet another way of expressing the Pl\"ucker identity:
+
+\begin{align*}
+  \pluckerid(L) &= \V{d} \dotp \V{m} \\
+  &= \frac{1}{2} \left( \V{d} \dotp \V{m} + \V{m} \dotp \V{d} \right) \\
+  &= \frac{1}{2} \left( \plucker{\V{d}}{\V{m}} \dotp \plucker{\V{m}}{\V{d}} \right) \\
+  &= \frac{1}{2} \left( \plucker{\V{d}}{\V{m}} \dotp \pdual{\plucker{\V{d}}{\V{m}}} \right) \\
+  &= \frac{1}{2} L \cdot \pdual{L} \\
+\end{align*}
 
 The set of 6D vectors $-\plucker{\V{d}}{\V{m}}$ that comply with this constraint correspond to the points on the Klein quadric.
 
-The Pl\"ucker coordinates of a line are often treated as just six slots for storing numbers.  In most cases, operations on these elements are defined to manipulate two 3D vectors, \V{d} and \V{m}, instead of the whole 6D element.
+The Pl\"ucker coordinates of a line are often treated as just six slots for storing numbers.  In most cases, operations on these elements are defined to manipulate two 3D vectors, \V{d} and \V{m}, instead of the whole 6D element.  
 
 Because of this, the user is often unaware of most of the algebraic structure.  In fact, this 6D vector corresponds to
 \begin{equation*}
@@ -96,7 +106,17 @@ The Pl\"ucker model uses these six elements as its basis; it treats these bivect
     \right.
 \end{equation}
 
-In the last line, the inner product for the Pl\"ucker is defined.  The bracket returns the proportionality factor of $\Em(y) \wedge \Em(z)$ to the homogeneous pseudoscalar $\hpseudo$.  This metric gives the multiplication table of \autoref{tab:nullmetric}.  Li and Zhang show that lines correspond with the null vectors of this space.  Because each of its basis elements correspond to a null vector, this basis is called the null basis. 
+In the last line, the inner product for the Pl\"ucker is defined.  The bracket returns the proportionality factor of $\Em(y) \wedge \Em(z)$ to the homogeneous pseudoscalar $\hpseudo$.  Giving the homogeneous space metric structure $\reals^{4,0}$, the bracket construction is the same as dualization with respect to the pseudoscalar.  This metric gives the multiplication table of \autoref{tab:nullmetric}.  Because each of its basis elements correspond to a null vector, this basis is called the null basis.  Li and Zhang show that each null vector of this space satisfies the Pl\"ucker identity, and thus correspond to a line.  Let $v$ be a vector in this model.  $v$ is a line if and only if
+
+\begin{align*}
+  \Em(v \lcont v) &= \left[\Em(v) \wedge \Em(v)\right] \\
+    &= \left[ 2 \left( v_{01} v_{23} \ez\ee \wedge \et\ed + v_{02} v_{31} \ez\et \wedge \ed\ee + v_{03} v_{12} \ez\ed \wedge \ee\et \right) \right] \\
+    &= 2 \left( v_{01} v_{23} + v_{02} v_{31} + v_{03} v_{12} \right) \hpseudo \lcont \left(\hpseudo\right)^{-1} \\
+    &= 2 \left( v_{01} v_{23} + v_{02} v_{31} + v_{03} v_{12} \right) \\
+    &= V \dotp \pdual{V} \\
+    &= 2 \pluckerid(V),
+\end{align*}
+with $V$ the corresponding Pl\"ucker coordinate representation of $v$.
 
 \begin{table}
   \caption{The multiplication table of the inner product for the Pl\"ucker model on the null basis.}
@@ -122,7 +142,7 @@ In the last line, the inner product for the Pl\"ucker is defined.  The bracket r
   \end{center}
 \end{table}
 
-Li and Zhang also show that the 6D space has the metric structure of $\reals^{3,3}$.  To demonstrate this structure, a second basis is given:
+Li and Zhang also show that the 6D space has the metric structure of $\reals^{3,3}$.  To demonstrate this structure, we give a second basis:
 
 \begin{equation*}
   \begin{split}
