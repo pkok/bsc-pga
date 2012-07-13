@@ -4,32 +4,17 @@
 
 
 \subsection{Design decision}
+Extending GAViewer's functionalities can be done in two ways.  
 
-\TODO{Convert from note-wise text to nicer prose.}
+Since version 0.4, GAViewer can open a TCP port for communication with other programs~\cite{GAViewer}.  The extended functionality can be implemented by a program that maintains an own interface for user input.  The input will be sent to GAViewer over a TCP port, after it has been processed by the new application.  Textual results are returned over the TCP port, and thus can be shown in the application's own user interface.  However, the visualization of the elements will be shown in GAViewer's own viewport.  The user has to switch between user interfaces to view textual or visual representations, which the user probably experience as confusing or annoying.  To show the new model's blades correctly, it should be possible to characterize their visualization in terms of elements of other models, and elements of those models should be passed around between the new program and GAViewer.  This limitation seems undesired for our elements; no supported model has primitives that can make up a screw axis' visualization.  
 
-Extending an existing program with more functionality can be done in two ways. 1: wrapping the original program in another layer of coding. 2: changing the code of the original program and recompile the whole thing.
+Users might still interact with the drawn elements in GAViewer.  This means that their transformations will have to be translated to corresponding transformations of our model.  Some objects, like a pencil of line, will have to be drawn by a set of elements of an existent model.  This complexity grows when such elements of the new model are declared dynamic; a whole net of interdependencies arises.  We would rather avoid code complexity, as that often gives rise to bugs.
 
-\newcommand{\pro}{\textbf{+} &}
-\newcommand{\con}{\textbf{--} &}
-\newcommand{\que}{\textbf{?} &}
-\begin{tabular}{p{0.5cm}p{5.5cm}|p{0.5cm}p{5.5cm}}
-  & Wrap program & & Edit source code \\
-  \hline
-  \con User will insert text in a separate box from the connected GAViewer, OR I need to build a whole new GUI. & \pro Is nicely integrated in current program \\
-  \pro Don't need to understand a complex code base & \con Code is not well-documented \\
-  \pro Can be done in C, C++, Java (limited by GAIGEN's output). My Java programming skills are better than those in C/C++ & \con Must be done in C++ \\
-  \con Java is often (a bit) slower than C++ & \pro C++ is fast in array manipulation \\
-  \pro GAIGEN 2.5 must be much faster than GAIGEN 1.0 & \que Need to find out if APIs of different GAIGENs are the same \\
-  \pro Can be wrapped over (and over and over\ldots), or use other GAViewer implementation. & \con Is not out-of-the-box compatible with other extensions of GAViewer, but can be made by patches and quite some more work \\
-  \con Multiple wrappers make running it difficult/slow & \pro Merging multiple edits of codebase makes implementation difficult, but running easy \\
-  \que How to cope with \texttt{dynamic}/dragged and interdepencency? & \pro Dragging and \texttt{dynamic} is implemented \\
-  \con Code to implement user interaction will be quite complex & \pro Is provided, doesn't need to be touched \\
-  \pro Can run ``modern'' versions of libraries (FLTK 1.3, ANTLR 3.4, GAIGEN 2.5) & \con Is based on old libraries (FLTK 1.1, ANTLR ??? GAIGEN 1.0), implies less functionality/speed \\
-  \con Need to write a whole new grammar & \que Need to edit old, undocumented grammar, of \emph{which} edition of ANTLR? \\
-  \con No possibility to add new graphical elements; everything must be composed from CGA elements & \que Should be possible, not sure how much effort that will cost (regulus, screws)
-\end{tabular}
+The C++ source code of GAViewer is free available on the internet\footnote{The source code of GAViewer can be downloaded from \url{http://geometricalgebra.net/gaviewer\_download.html}.}.  This means that GAViewer could also be extended by adding the new functionality in the original source code, and compile it all together to form a unified piece of software.  Because there is very little documentation in the source code on how to extend the functionality of GAViewer with a new model, an old model that has gone out of use might be replaced with our new one.  With a textual search through the source code, it will be possible to find all hooks for adding the right functionality.  
 
-Decided to edit the source code.  Replaced \iga{} with \lga{}. 
+The problems that arose from extension through an external implementation do not apply.  The unified user interface can be taken for granted.  User interaction and dynamic statement management are all implemented independent from the models.  Only the transformation resulting in the new object when dragged has to be implemented once.  This is easy to do for all elements, because our model is operational.  New graphical elements can be made when needed, because calls to OpenGL routines can be made. 
+
+We have decided to remove the model for \iga{} and substitute it with our new model, named \lga{}.  No element of \iga{} has currently visualizations, and after a short interview, interest in \iga{} within the user base of GAViewer has dropped.
 
 \subsection{Computing with \lga{} in GAViewer}
 GAViewer relies on code generated by Gaigen for the implementation of each model~\cite{Gaigen}.  Although more recent versions of Gaigen, such as version 2.5, have a better performance, the code for \lga{} has been generated by the same version of Gaigen, version 1.0, which generated the other models as well.  This has three reasons.  The API of more recent versions are not compatible with the API of the version used by the application.  The documentation of GAViewer states that it is inappropriate to use GAViewer in applications that need good performance, as the internal, interpreted programming language is too slow and limited~\cite[page 7]{GAViewer}.  Therefore, performance improvements in only a model would not suffice to make the program more useful.  Furthermore, the used implementations are fast enough to handle hand-typed expressions without any noticeable delay for the user.
