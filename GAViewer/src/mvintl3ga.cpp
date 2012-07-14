@@ -143,11 +143,7 @@ int mvInt::interpret(const l3ga &X, int creationFlags /* = 0*/) {
 
           m_scalar[1] = (X[GRADE1][L3GA_E01] * X[GRADE1][L3GA_E23] + X[GRADE1][L3GA_E02] * X[GRADE1][L3GA_E31] + X[GRADE1][L3GA_E03] * X[GRADE1][L3GA_E12]) / (X[GRADE1][L3GA_E01] * X[GRADE1][L3GA_E01] + X[GRADE1][L3GA_E02] * X[GRADE1][L3GA_E02] + X[GRADE1][L3GA_E03] * X[GRADE1][L3GA_E03]);
 
-          printf("p: %2.2f\n", m_scalar[1]);
           tmp = X - (m_scalar[1] * (X[GRADE1][L3GA_E01] * l3ga::e23 + X[GRADE1][L3GA_E02] * l3ga::e31 + X[GRADE1][L3GA_E03] * l3ga::e12));
-          printf("  X: %s\n", X.string());
-          printf("tmp: %s\n", tmp.string());
-
           _tmp.interpret(tmp);
 
           m_vector[0][0] = _tmp.m_vector[0][0];

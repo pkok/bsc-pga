@@ -821,8 +821,6 @@ int drawScrew(const GAIM_FLOAT point[3], const GAIM_FLOAT direction[3], GAIM_FLO
           vectordir[1] = 0.0;
           vectordir[2] = 0.1;
         }
-        printf("vh: %2.2f, %2.2f, %2.2f\n", vectorhead[0], vectorhead[1], vectorhead[2]);
-        printf("vd: %2.2f, %2.2f, %2.2f\n", vectordir[0], vectordir[1], vectordir[2]);
         drawVector(vectorhead, vectordir, 1.0);
       }
       break;
