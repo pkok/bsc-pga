@@ -134,9 +134,11 @@ int mvInt::interpret(const l3ga &X, int creationFlags /* = 0*/) {
 
           /*
           scalar 0: weight
-          scalar 1: pitch (translation distance over 1 rotation)
+          scalar 1: pitch (translation distance over 1 rotation).
           point 0: point closest to origin on the screw axis, if not ideal
           vector 0: direction of screw axis
+
+          If pitch > 0, screw is called right-handed, otherwise left-handed.
           */
 
           m_scalar[0] = sqrt(lcem(X, X).scalar());

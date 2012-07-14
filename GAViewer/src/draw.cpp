@@ -797,20 +797,20 @@ int drawScrew(const GAIM_FLOAT point[3], const GAIM_FLOAT direction[3], GAIM_FLO
     case DRAW_SCREW_SPIRAL:
       T.begin(GL_LINE_STRIP);
       for (x = 0, z = -pitch / 2.0; x < M_PI * 2; x += (M_PI * 2) / stepSize, z += pitch / stepSize) {
-        T.vertex3d(scale * sin(x), scale * cos(x), z);
+        T.vertex3d(scale * sin(x), -scale * cos(x), z);
       }
       T.end();
       if ((flags & 0x01) || (o && o->m_drawMode & OD_ORI)) { // OD_ORI
         glEnable(GL_LIGHTING);
         vectorhead[0] = scale * sin(x - (M_PI * 2) / stepSize);
-        vectorhead[1] = scale * cos(x - (M_PI * 2) / stepSize);
+        vectorhead[1] = -scale * cos(x - (M_PI * 2) / stepSize);
         vectorhead[2] = z;
         vectordir[0] = 1;
         vectordir[1] = 0;
         vectordir[2] = 0;
         vectordir[0] = scale * (sin(x) - sin(x - (M_PI * 2) / stepSize));
         vectordir[1] = scale * (cos(x) - cos(x - (M_PI * 2) / stepSize));
-        vectordir[3] = 0.0;
+        vectordir[2] = pitch / stepSize;
         z = 10 * sqrt(vectordir[0] * vectordir[0] + vectordir[1] * vectordir[1] + vectordir[2] * vectordir[2]);
         vectordir[0] /= z;
         vectordir[1] /= z;
@@ -828,17 +828,17 @@ int drawScrew(const GAIM_FLOAT point[3], const GAIM_FLOAT direction[3], GAIM_FLO
       T.begin(GL_LINE_STRIP);
       for (x = 0, z = -scaleConst; z <= scaleConst; x += (M_PI * 2) / stepSize, z += pitch / stepSize) {
         //T.vertex3d(scale * sin(x), scale * cos(x), z);
-        T.vertex3d(scale * sin(x), scale * cos(x), z);
+        T.vertex3d(scale * sin(x), -scale * cos(x), z);
       }
       T.end();
       if ((flags & 0x01) || (o && o->m_drawMode & OD_ORI)) { // OD_ORI
         GAIM_FLOAT is_straight = 0;
         glEnable(GL_LIGHTING);
         vectorhead[0] = scale * sin(x);
-        vectorhead[1] = scale * cos(x);
+        vectorhead[1] = -scale * cos(x);
         vectordir[0] = scale * (sin(x) - sin(x - (M_PI * 2) / stepSize));
-        vectordir[1] = scale * (cos(x) - cos(x - (M_PI * 2) / stepSize));
-        vectordir[3] = 0.0;
+        vectordir[1] = -scale * (cos(x) - cos(x - (M_PI * 2) / stepSize));
+        vectordir[2] = pitch / stepSize;
         z = 10 * sqrt(vectordir[0] * vectordir[0] + vectordir[1] * vectordir[1] + vectordir[2] * vectordir[2]);
         vectordir[0] /= z;
         vectordir[1] /= z;
