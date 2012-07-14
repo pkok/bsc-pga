@@ -67,20 +67,12 @@ The moment $\V{m} = \V{p} \times \V{q} = \edual{(\V{p} \wedge \V{q})}$ can be fo
   L = \V{d} \ez + \eundual{\V{m}}.
 \end{equation*}
 
-Within classical literature of linear algebra, the same object is written as $-\plucker{\V{d}}{\V{m}}$, using \emph{Pl\"ucker coordinates} to denote a line as a 6D vector.  The constraint of \autoref{eq:gaplucker0} is expressed as 
+Within classical literature of linear algebra, the same object is written as $-\plucker{\V{d}}{\V{m}}$, using Pl\"ucker coordinates to denote a line as a 6D vector.  The constraint of \autoref{eq:gaplucker0} is expressed as 
 \begin{equation} \label{eq:laplucker0}
   \pluckerid(L) = \V{d} \dotp \V{m} = 0 .
 \end{equation}
 
-Pottmann and Wallner~\cite[Lemma 2.1.2]{Pottmann} show that these indeed are the same, and name this relationship the Pl\"ucker identity.  They also define dual Pl\"ucker coordinates.  If $L$ is a line, then its dual Pl\"ucker coordinates are given by $\pdual{L} = \pdual{\plucker{\V{d}}{\V{m}}} = \plucker{\V{m}}{\V{d}} = \V{m} \ez + \edual{\V{d}}$~\cite[Lemma 2.1.4]{Pottmann}.  This gives yet another way of expressing the Pl\"ucker identity:
-
-\begin{align*}
-  \pluckerid(L) &= \V{d} \dotp \V{m} \\
-  &= \frac{1}{2} \left( \V{d} \dotp \V{m} + \V{m} \dotp \V{d} \right) \\
-  &= \frac{1}{2} \left( \plucker{\V{d}}{\V{m}} \dotp \plucker{\V{m}}{\V{d}} \right) \\
-  &= \frac{1}{2} \left( \plucker{\V{d}}{\V{m}} \dotp \pdual{\plucker{\V{d}}{\V{m}}} \right) \\
-  &= \frac{1}{2} L \cdot \pdual{L} \\
-\end{align*}
+Pottmann and Wallner~\cite[Lemma 2.1.2]{Pottmann} show that \autoref{eq:gaplucker0} and \autoref{eq:laplucker0} indeed express the same relationship, and name it the Pl\"ucker identity.  Based on this identity, a bilinear form is presented: $\pluckerbilin(L_1, L_2) = \pluckerid(L_1 + L_2) - \pluckerid(L_1) - \pluckerid(L_2)$.  
 
 The set of 6D vectors $-\plucker{\V{d}}{\V{m}}$ that comply with this constraint correspond to the points on the Klein quadric.
 
@@ -113,7 +105,7 @@ In the last line, the inner product for the Pl\"ucker is defined.  The bracket r
     &= \left[ 2 \left( v_{01} v_{23} \ez\ee \wedge \et\ed + v_{02} v_{31} \ez\et \wedge \ed\ee + v_{03} v_{12} \ez\ed \wedge \ee\et \right) \right] \\
     &= 2 \left( v_{01} v_{23} + v_{02} v_{31} + v_{03} v_{12} \right) \hpseudo \lcont \left(\hpseudo\right)^{-1} \\
     &= 2 \left( v_{01} v_{23} + v_{02} v_{31} + v_{03} v_{12} \right) \\
-    &= V \dotp \pdual{V} \\
+    &= \pluckerbilin(V, V) \\
     &= 2 \pluckerid(V),
 \end{align*}
 with $V$ the corresponding Pl\"ucker coordinate representation of $v$.
@@ -193,10 +185,10 @@ The classical approach of linear algebra~\cite{Shoemake} gives a formula to test
     &= d_{1,1} \eze \lcont m_{2,1} \etd + d_{1,2} \ezt \lcont m_{2,2} \ede + d_{1,3} \ezd \lcont m_{2,3} \eet \\
     &\quad + m_{1,1} \etd \lcont d_{2,1} \eze + m_{1,2} \ede \lcont d_{2,2} \ezt + m_{1,3} \eet \lcont d_{2,3} \ezd \\
     &= \Em^{-1}\left( \V{d}_1\ez + \eundual{\V{m}_1} \right) \lcont \Em^{-1}\left( \V{d}_2\ez + \eundual{\V{m}_2} \right) \\
-    &= \ell_1 \lcont \ell_2,
+    &= l_1 \lcont l_2,
 \end{align*}
 
-with $\ell_1, \ell_2$ the null vectors of the Pl\"ucker model corresponding to $L_1, L_2$.  This test for coplanarity is a projective interpretation of intersection.  Points at infinity are not any different from other points.  Because of this property, one can say they intersect in the point at infinity.  This test for intersection also gives a geometric interpretation to the inner product of the Pl\"ucker model.
+with $l_1, l_2$ the null vectors of the Pl\"ucker model corresponding to $L_1, L_2$.  This test for coplanarity is a projective interpretation of intersection.  Points at infinity are not any different from other points.  Because of this property, one can say they intersect in the point at infinity.  This test for intersection also gives a geometric interpretation to the inner product of the Pl\"ucker model.
 
 To test for intersection in a finite point, or to test for parallel lines, are tests that are not based on projective qualities.  Even though, a coordinate based version is given for both tests~\cite{Shoemake}.
 
@@ -213,4 +205,4 @@ Testing if lines $L_1$ and $L_2$ are parallel can be done by:
     &= \left( \V{d}_1 \V{d}_2 \right) \lcont \epseudo
 \end{align*}
 
-\askLeo{Or should I just drop the last two formul\ae?}
+\askLeo{Should I just drop the last two formul\ae? Or the whole section?}
