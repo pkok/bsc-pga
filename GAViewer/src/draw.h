@@ -131,5 +131,5 @@ int drawRuledPlane(const GAIM_FLOAT point[3], const GAIM_FLOAT normal[3], const 
 
 #define DRAW_SCREW_SPIRAL 0
 #define DRAW_SCREW_LINE 1
-int drawScrew(const GAIM_FLOAT point[3], const GAIM_FLOAT direction[3], GAIM_FLOAT weight, GAIM_FLOAT pitch, GAIM_FLOAT rotation_direction, int method /*= DRAW_SCREW_SPIRAL */, int flags /*= 0*/, object *o /*= NULL*/);
+int drawScrew(const GAIM_FLOAT point[3], const GAIM_FLOAT direction[3], GAIM_FLOAT weight, GAIM_FLOAT pitch, int method /*= DRAW_SCREW_SPIRAL */, int flags /*= 0*/, object *o /*= NULL*/);
 #endif /* _DRAW_FUNCTIONS_H_ */

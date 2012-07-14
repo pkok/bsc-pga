@@ -83,25 +83,25 @@ int mvInt::interpret(const l3ga &X, int creationFlags /* = 0*/) {
         m_scalar[0] = X.scalar();
         break;
       case 1: // ******************** line, screw, kine
-        if (fabs(X[GRADE1][L3GA_E01]) < epsilon &&
-            fabs(X[GRADE1][L3GA_E02]) < epsilon &&
-            fabs(X[GRADE1][L3GA_E03]) < epsilon) {
-          m_type |= MVI_IDEAL_LINE;
-          printf("ideal line\n");
-          /*
-             scalar 0: weight
-             vector 0: normal/reciprocal direction
-             */
-          //tmp.lcem(X,X);
-          //m_scalar[0] = sqrt(tmp.scalar());
-          m_scalar[0] = sqrt(X[GRADE1][L3GA_E23] * X[GRADE1][L3GA_E23] + X[GRADE1][L3GA_E31] * X[GRADE1][L3GA_E31] + X[GRADE1][L3GA_E12] * X[GRADE1][L3GA_E12]);
+        if (fabs(X2) < epsilon) {
+          if (fabs(X[GRADE1][L3GA_E01]) < epsilon &&
+              fabs(X[GRADE1][L3GA_E02]) < epsilon &&
+              fabs(X[GRADE1][L3GA_E03]) < epsilon) {
+            m_type |= MVI_IDEAL_LINE;
+            printf("ideal line\n");
+            /*
+               scalar 0: weight
+               vector 0: normal/reciprocal direction
+               */
+            //tmp.lcem(X,X);
+            //m_scalar[0] = sqrt(tmp.scalar());
+            m_scalar[0] = sqrt(X[GRADE1][L3GA_E23] * X[GRADE1][L3GA_E23] + X[GRADE1][L3GA_E31] * X[GRADE1][L3GA_E31] + X[GRADE1][L3GA_E12] * X[GRADE1][L3GA_E12]);
 
-          m_vector[0][0] = X[GRADE1][L3GA_E23] / m_scalar[0];
-          m_vector[0][1] = X[GRADE1][L3GA_E31] / m_scalar[0];
-          m_vector[0][2] = X[GRADE1][L3GA_E12] / m_scalar[0];
-        }
-        else {
-          if (fabs(X2) < epsilon) {
+            m_vector[0][0] = X[GRADE1][L3GA_E23] / m_scalar[0];
+            m_vector[0][1] = X[GRADE1][L3GA_E31] / m_scalar[0];
+            m_vector[0][2] = X[GRADE1][L3GA_E12] / m_scalar[0];
+          }
+          else {
             m_type |= MVI_LINE;
             printf("line\n");
             /*
@@ -111,48 +111,62 @@ int mvInt::interpret(const l3ga &X, int creationFlags /* = 0*/) {
                */
 
 
+            // 6D-vector = [d, m]
+            // direction = d
+            // moment = m
+            // distance = crossprod(m, d)
+            // weight = sqrt(distance^2)
             m_scalar[0] = sqrt(X[GRADE1][L3GA_E01] * X[GRADE1][L3GA_E01] + X[GRADE1][L3GA_E02] * X[GRADE1][L3GA_E02] + X[GRADE1][L3GA_E03] * X[GRADE1][L3GA_E03]);
+
+            m_vector[0][0] = X[GRADE1][L3GA_E01] / m_scalar[0];
+            m_vector[0][1] = X[GRADE1][L3GA_E02] / m_scalar[0];
+            m_vector[0][2] = X[GRADE1][L3GA_E03] / m_scalar[0];
+
+            m_point[0][0] = ((X[GRADE1][L3GA_E12] * m_vector[0][1]) - (X[GRADE1][L3GA_E31] * m_vector[0][2])) / m_scalar[0];
+            m_point[0][1] = ((X[GRADE1][L3GA_E23] * m_vector[0][2]) - (X[GRADE1][L3GA_E12] * m_vector[0][0])) / m_scalar[0];
+            m_point[0][2] = ((X[GRADE1][L3GA_E31] * m_vector[0][0]) - (X[GRADE1][L3GA_E23] * m_vector[0][1])) / m_scalar[0];
+          }
+        }
+        else {
+          // (ideal) screw
+          m_type |= MVI_SCREW;
+          printf("screw\n");
+
+          /*
+          scalar 0: weight
+          scalar 1: pitch (translation distance over 1 rotation)
+          point 0: point closest to origin on the screw axis, if not ideal
+          vector 0: direction of screw axis
+          */
+
+          m_scalar[0] = sqrt(lcem(X, X).scalar());
+
+          m_scalar[1] = (X[GRADE1][L3GA_E01] * X[GRADE1][L3GA_E23] + X[GRADE1][L3GA_E02] * X[GRADE1][L3GA_E31] + X[GRADE1][L3GA_E03] * X[GRADE1][L3GA_E12]) / (X[GRADE1][L3GA_E01] * X[GRADE1][L3GA_E01] + X[GRADE1][L3GA_E02] * X[GRADE1][L3GA_E02] + X[GRADE1][L3GA_E03] * X[GRADE1][L3GA_E03]);
+
+          printf("p: %2.2f\n", m_scalar[1]);
+          tmp = X - (m_scalar[1] * (X[GRADE1][L3GA_E01] * l3ga::e23 + X[GRADE1][L3GA_E02] * l3ga::e31 + X[GRADE1][L3GA_E03] * l3ga::e12));
+          printf("  X: %s\n", X.string());
+          printf("tmp: %s\n", tmp.string());
+
+          _tmp.interpret(tmp);
+
+          m_vector[0][0] = _tmp.m_vector[0][0];
+          m_vector[0][1] = _tmp.m_vector[0][1];
+          m_vector[0][2] = _tmp.m_vector[0][2];
+
+          m_point[0][0] = _tmp.m_point[0][0];
+          m_point[0][1] = _tmp.m_point[0][1];
+          m_point[0][2] = _tmp.m_point[0][2];
+
+
+          if (_tmp.m_type & MVI_IDEAL) {
+            printf("ideal screw\n");
           }
           else {
-            m_type |= MVI_SCREW;
-            printf("screw\n");
-            /*
-               scalar 0: weight
-               scalar 1: pitch (translation distance over 1 rotation)
-               scalar 2: rotation direction; -1 is clockwise, 1 is ccw
-               point 0: point closest to origin
-               vector 0: direction of line
-               */
-
-
-            m_scalar[0] = sqrt(lcem(X, X).scalar());
-            m_scalar[1] = sqrt(X[GRADE1][L3GA_E01] * X[GRADE1][L3GA_E01] + X[GRADE1][L3GA_E02] * X[GRADE1][L3GA_E02] + X[GRADE1][L3GA_E03] * X[GRADE1][L3GA_E03])/sqrt(X[GRADE1][L3GA_E23] * X[GRADE1][L3GA_E23] + X[GRADE1][L3GA_E31] * X[GRADE1][L3GA_E31] + X[GRADE1][L3GA_E12] * X[GRADE1][L3GA_E12]);
-            m_scalar[2] = -(X[GRADE1][L3GA_E23] + X[GRADE1][L3GA_E31] + X[GRADE1][L3GA_E12]) / sqrt(X[GRADE1][L3GA_E23] * X[GRADE1][L3GA_E23] + X[GRADE1][L3GA_E31] * X[GRADE1][L3GA_E31] + X[GRADE1][L3GA_E12] * X[GRADE1][L3GA_E12]);
-            if (m_scalar[2] < -epsilon) {
-              m_scalar[2] = -1;
-            }
-            else if (m_scalar[2] > epsilon) {
-              m_scalar[2] = 1;
-            }
-            else {
-              m_scalar[2] = 0;
-            }
+            printf("real screw\n");
           }
-          // 6D-vector = [d, m]
-          // direction = d
-          // moment = m
-          // distance = crossprod(m, d)
-          // weight = sqrt(distance^2)
-
-          m_vector[0][0] = X[GRADE1][L3GA_E01] / m_scalar[0];
-          m_vector[0][1] = X[GRADE1][L3GA_E02] / m_scalar[0];
-          m_vector[0][2] = X[GRADE1][L3GA_E03] / m_scalar[0];
-
-          m_point[0][0] = ((X[GRADE1][L3GA_E12] * m_vector[0][1]) - (X[GRADE1][L3GA_E31] * m_vector[0][2])) / m_scalar[0];
-          m_point[0][1] = ((X[GRADE1][L3GA_E23] * m_vector[0][2]) - (X[GRADE1][L3GA_E12] * m_vector[0][0])) / m_scalar[0];
-          m_point[0][2] = ((X[GRADE1][L3GA_E31] * m_vector[0][0]) - (X[GRADE1][L3GA_E23] * m_vector[0][1])) / m_scalar[0];
-
         }
+        
 
         m_valid = 1;
         if (!m_valid) {

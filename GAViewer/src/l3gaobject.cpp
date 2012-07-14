@@ -247,7 +247,7 @@ int l3gaObject::draw(glwindow *window) {
         drawLine(m_int.m_point[0], m_int.m_vector[0], m_int.m_scalar[0], m_dmMenuIdx, (m_drawMode & OD_ORI) ? 0x01 : 0, this);
         break;
       case MVI_SCREW:
-        drawScrew(m_int.m_point[0], m_int.m_vector[0], m_int.m_scalar[0], m_int.m_scalar[1], m_int.m_scalar[2], m_dmMenuIdx, (m_drawMode & OD_ORI) ? 0x01 : 0, this);
+        drawScrew(m_int.m_point[0], m_int.m_vector[0], m_int.m_scalar[0], m_int.m_scalar[1], m_dmMenuIdx, (m_drawMode & OD_ORI) ? 0x01 : 0, this);
         break;
       case MVI_IDEAL_LINE_PENCIL:
         drawCirclePencil(NULL, m_int.m_vector[0], m_int.m_vector[1], m_int.m_vector[2], m_int.m_scalar[0], m_dmMenuIdx, m_drawMode, this);
