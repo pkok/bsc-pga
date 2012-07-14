@@ -157,16 +157,7 @@ int mvInt::interpret(const l3ga &X, int creationFlags /* = 0*/) {
           m_point[0][0] = _tmp.m_point[0][0];
           m_point[0][1] = _tmp.m_point[0][1];
           m_point[0][2] = _tmp.m_point[0][2];
-
-
-          if (_tmp.m_type & MVI_IDEAL) {
-            printf("ideal screw\n");
-          }
-          else {
-            printf("real screw\n");
-          }
         }
-        
 
         m_valid = 1;
         if (!m_valid) {
