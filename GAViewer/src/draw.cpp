@@ -779,7 +779,7 @@ int drawScrew(const GAIM_FLOAT point[3], const GAIM_FLOAT direction[3], GAIM_FLO
   float rotM[16];
   int stepSize = 64;
   double scale = ((o && o->m_drawMode & OD_MAGNITUDE) ? weight : 1.0) / 2.0;
-  double vectorhead[3], vectordir[3];
+  double arrowpos[3], arrowdir[3];
 
   glDisable(GL_LIGHTING);
   glPushMatrix();
@@ -802,55 +802,39 @@ int drawScrew(const GAIM_FLOAT point[3], const GAIM_FLOAT direction[3], GAIM_FLO
       T.end();
       if ((flags & 0x01) || (o && o->m_drawMode & OD_ORI)) { // OD_ORI
         glEnable(GL_LIGHTING);
-        vectorhead[0] = scale * sin(x - (M_PI * 2) / stepSize);
-        vectorhead[1] = -scale * cos(x - (M_PI * 2) / stepSize);
-        vectorhead[2] = z;
-        vectordir[0] = 1;
-        vectordir[1] = 0;
-        vectordir[2] = 0;
-        vectordir[0] = scale * (sin(x) - sin(x - (M_PI * 2) / stepSize));
-        vectordir[1] = scale * (cos(x) - cos(x - (M_PI * 2) / stepSize));
-        vectordir[2] = pitch / stepSize;
-        z = 10 * sqrt(vectordir[0] * vectordir[0] + vectordir[1] * vectordir[1] + vectordir[2] * vectordir[2]);
-        vectordir[0] /= z;
-        vectordir[1] /= z;
-        vectordir[2] /= z;
-        if (vectordir[0] != vectordir[0] || vectordir[1] != vectordir[1]) {
-          vectorhead[2] -= (gui_state->m_vectorHeadSize * 0.14);
-          vectordir[0] = 0.0;
-          vectordir[1] = 0.0;
-          vectordir[2] = 0.1;
-        }
-        drawVector(vectorhead, vectordir, 1.0);
+        arrowpos[0] = scale * sin(x - (M_PI * 2) / stepSize);
+        arrowpos[1] = -scale * cos(x - (M_PI * 2) / stepSize);
+        arrowpos[2] = z;
+        arrowdir[0] = scale * (sin(x) - sin(x - (M_PI * 2) / stepSize));
+        arrowdir[1] = scale * (cos(x) - cos(x - (M_PI * 2) / stepSize));
+        arrowdir[2] = pitch / stepSize;
+        z = 10 * sqrt(arrowdir[0] * arrowdir[0] + arrowdir[1] * arrowdir[1] + arrowdir[2] * arrowdir[2]);
+        arrowdir[0] /= z;
+        arrowdir[1] /= z;
+        arrowdir[2] /= z;
+        drawVector(arrowpos, arrowdir, 1.0);
       }
       break;
     case DRAW_SCREW_LINE:
       T.begin(GL_LINE_STRIP);
       for (x = 0, z = -scaleConst; z <= scaleConst; x += (M_PI * 2) / stepSize, z += pitch / stepSize) {
-        //T.vertex3d(scale * sin(x), scale * cos(x), z);
         T.vertex3d(scale * sin(x), -scale * cos(x), z);
       }
       T.end();
       if ((flags & 0x01) || (o && o->m_drawMode & OD_ORI)) { // OD_ORI
-        GAIM_FLOAT is_straight = 0;
         glEnable(GL_LIGHTING);
-        vectorhead[0] = scale * sin(x);
-        vectorhead[1] = -scale * cos(x);
-        vectordir[0] = scale * (sin(x) - sin(x - (M_PI * 2) / stepSize));
-        vectordir[1] = -scale * (cos(x) - cos(x - (M_PI * 2) / stepSize));
-        vectordir[2] = pitch / stepSize;
-        z = 10 * sqrt(vectordir[0] * vectordir[0] + vectordir[1] * vectordir[1] + vectordir[2] * vectordir[2]);
-        vectordir[0] /= z;
-        vectordir[1] /= z;
-        vectordir[2] /= z;
-        if (vectordir[0] != vectordir[0] || vectordir[1] != vectordir[1]) {
-          is_straight = 1.0;
-          vectordir[0] = 0.0;
-          vectordir[1] = 0.0;
-          vectordir[2] = 0.1;
-        }
-        for (vectorhead[2] = -scaleConst + ((M_PI * 2 / stepSize) * pitch) - (is_straight * gui_state->m_vectorHeadSize * 0.14); vectorhead[2] <= scaleConst; vectorhead[2] += pitch) {
-          drawVector(vectorhead, vectordir, 1.0);
+        arrowpos[0] = scale * sin(x - (M_PI * 2) / stepSize);
+        arrowpos[1] = -scale * cos(x - (M_PI * 2) / stepSize);
+        arrowpos[2] = z;
+        arrowdir[0] = scale * (sin(x) - sin(x - (M_PI * 2) / stepSize));
+        arrowdir[1] = -scale * (cos(x) - cos(x - (M_PI * 2) / stepSize));
+        arrowdir[2] = pitch / stepSize;
+        z = 10 * sqrt(arrowdir[0] * arrowdir[0] + arrowdir[1] * arrowdir[1] + arrowdir[2] * arrowdir[2]);
+        arrowdir[0] /= z;
+        arrowdir[1] /= z;
+        arrowdir[2] /= z;
+        for (arrowpos[2] = scaleConst; arrowpos[2] >= -scaleConst; arrowpos[2] -= pitch) {
+          drawVector(arrowpos, arrowdir, 1.0);
         }
       }
       break;
