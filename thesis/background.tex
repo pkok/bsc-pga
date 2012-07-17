@@ -38,7 +38,7 @@ The system of Pl\"ucker coordinates is another framework for geometric problems;
 
 \askLeo{Are all weighted lines directed lines?}
 
-Weighted, infinitely-extending lines of $\reals^3$ have 5 degrees of freedom.  Such a line can be fully described by five numeric quantities. First, take a vector $\V{p}$ to a point on the line.  The point should be chosen so that the vector is orthogonal to the line.  The direction and weight of the line is given by a vector $\V{d}$.  These vectors are denoted in \autoref{fig:linedef}.
+Weighted, infinitely-extending lines of $\reals^3$ have 5 degrees of freedom.  Such a line can be fully described by five numerical quantities. First, take a vector $\V{p}$ to a point on the line.  The point should be chosen so that the vector is orthogonal to the line.  The direction and weight of the line are given by a vector $\V{d}$.  These vectors are denoted in \autoref{fig:linedef}.
 
 \begin{figure}
   \caption{A weighted line $L$ can be defined by any two of its weighted direction $\V{d}$, a vector $\V{p}$ orthogonal to the line, and its moment $\V{m} = \V{p} \times \V{d}$.}
@@ -61,7 +61,7 @@ with the following dependency relationship:
 
 This relationship limits the number of degrees of freedom from 6 to 5.
 
-The direction and moment of a line are easily recognised in this expression.  The direction $\V{d} = \V{p} - \V{q}$ is encoded in the first factor as $\ez \wedge -\V{d} = \V{d} \wedge \ez = \V{d} \ez$.  
+The direction and moment of a line are easily recognized in this expression.  The direction $\V{d} = \V{p} - \V{q}$ is encoded in the first factor as $\ez \wedge -\V{d} = \V{d} \wedge \ez = \V{d} \ez$.  
 The moment $\V{m} = \V{p} \times \V{q} = \edual{(\V{p} \wedge \V{q})}$ can be found in the second term as $\eundual{\V{m}} = \eundual{(\edual{(\V{p} \wedge \V{q})})} = \V{p} \wedge \V{q}$, which results in another general formula for lines:
 \begin{equation*}
   L = \V{d} \ez + \eundual{\V{m}}.
@@ -74,7 +74,7 @@ Within classical literature of linear algebra, the same object is written as $-\
 
 Pottmann and Wallner~\cite[Lemma 2.1.2]{Pottmann} show that \autoref{eq:gaplucker0} and \autoref{eq:laplucker0} indeed express the same relationship, and name it the Pl\"ucker identity.  Based on this identity, a bilinear form is presented: $\pluckerbilin(L_1, L_2) = \pluckerid(L_1 + L_2) - \pluckerid(L_1) - \pluckerid(L_2)$.  
 
-The set of 6D vectors $-\plucker{\V{d}}{\V{m}}$ that comply with this constraint correspond to the points on the Klein quadric.
+The set of 6D vectors $-\plucker{\V{d}}{\V{m}}$ that comply with this constraint corresponds to the points on the Klein quadric.
 
 The Pl\"ucker coordinates of a line are often treated as just six slots for storing numbers.  In most cases, operations on these elements are defined to manipulate two 3D vectors, \V{d} and \V{m}, instead of the whole 6D element.  
 
@@ -170,7 +170,7 @@ Without changing the semantics of the inner product, we obtain the multiplicatio
   \end{center}
 \end{table}
 
-It is also clear that the basis elements do not represent lines, as no basis vectors squares to $0$.  \Autoref{ch:research} demonstrates that all non-null vectors of the Pl\"ucker model represent screw axes.  
+It is also clear that the basis elements do not represent lines, as no basis vectors square to $0$.  \Autoref{ch:research} demonstrates that all non-null vectors of the Pl\"ucker model represent screw axes.  
 
 This screw basis is good to demonstrate the metric structure of the model.  However, the null basis makes the connection to the homogeneous model more transparant.  
 
@@ -187,9 +187,9 @@ The classical approach of linear algebra~\cite{Shoemake} gives a formula to test
     &= l_1 \lcont l_2,
 \end{align*}
 
-with $l_1, l_2$ the null vectors of the Pl\"ucker model corresponding to $L_1, L_2$.  This test for coplanarity is a projective interpretation of intersection.  Points at infinity are not any different from other points.  Because of this property, one can say they intersect in the point at infinity.  This test for intersection also gives a geometric interpretation to the inner product of the Pl\"ucker model.
+with $l_1, l_2$ the null vectors of the Pl\"ucker model corresponding to $L_1, L_2$.  This test for coplanarity is a projective interpretation of intersection.  Points at infinity are not any different from other points.  Because of this property, one can say they intersect at the point at infinity.  This test for intersection also gives a geometric interpretation to the inner product of the Pl\"ucker model.
 
-To test for intersection in a finite point, or to test for parallel lines, are tests that are not based on projective qualities.  Even though, a coordinate based version is given for both tests~\cite{Shoemake}.
+The tests designed to examine intersection in a finite point or parallel lines, are tests not based on projective qualities.  Still, a coordinate based version is given for both tests~\cite{Shoemake}.
 
 To find the homogeneous point of intersection, one should solve the equation:
 \begin{align*}

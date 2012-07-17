@@ -1,15 +1,16 @@
 \section{Classifying and parameterizing elements of different geometric interpretations}
 \label{ch:research}
 
-Before an implementation of a visualization can be made for a model, the geometrical aspects of the elements of the model must be investigated.  A full inventory of the geometrical elements has been done~\cite[Chapter 3]{Pottmann}, but in different terms.  Those terms are traditional, but do not hint at the geometric concept.  Besides the traditional terms, geometric inspired terms will be used.  
+Before an implementation of a visualization can be made for a model, the geometric aspects of the elements of the model must be investigated.  A full inventory of the geometric elements has been done~\cite[Chapter 3]{Pottmann}, but in different terms.  Those terms are traditional, but do not hint at the geometric concept.  Besides the traditional terms, geometric inspired terms will be used.  
 
-The following sections will discuss all geometric different blades of a certain grade, together with their duals.  Besides text, each part has an accompanying table that contains the following information on the discussed blades:
+The following sections will discuss all geometrically different blades of a certain grade, together with their duals.  Besides text, each part has an accompanying table that contains the following information on the discussed blades:
 \begin{itemize}
   \item \texttt{g}: the grade of the blade.
-  \item $B^2$: the square of the blade, if it is a scalar value.  It could be either greater than, equal to, less than or not equal to 0, respectively denoted with $> 0$, $= 0$, $< 0$ and $\not= 0$.
-  \item Form: the general formula.  A blade factor can be either a line or screw axis, denoted by $\pline$ and $\screw$.  In certain cases, the difference between a real and ideal line is made with $\rline$ and $\iline$.  Here it does not concern any algebraic difference.  The difference is based on the visualization.  In other cases, a small textual note is given to indicate that the factors coincide at a single point (``pt.\ int.'') or in a plane (``pl.\ int.''), intersect each other pairwise (``pw.\ int''), or no factors do intersect at all (``skew'').
+  \item $B^2$: the square of the blade, if it is a scalar value.  It could be either greater than, equal to, less than or not equal to 0, respectively indicated with $> 0$, $= 0$, $< 0$ and $\not= 0$.
+  \item $B^2$: the square of the blade.  The relation of this scalar value to zero is indicated in the table with $> 0$, $= 0$, $< 0$ and $\not= 0$.
+  \item Form: the general formula.  A blade factor can be either a line or screw axis, denoted by $\pline$ and $\screw$.  In certain cases, the difference between a real and ideal line is made with $\rline$ and $\iline$.  Here it does not concern any algebraic difference.  The difference is based on the visualization.  In other cases, a small textual note is given to indicate that the factors coincide at a single point (``pt.\ int.'') or in a plane (``pl.\ int.''), intersect each other pairwise (``pw.\ int''), or no factors intersect at all (``skew'').
   \item Visualization: the picture of a typical blade of this type.
-  \item Name: what the blade class is named.  Traditional names, if needed, have been referenced.  In case of non-geometric inspired terms, a more geometric alternative is given.  These are marked with ``\newterm''.
+  \item Name: what the blade class is named.  Traditional names, if needed, have been referenced.  In case of non-geometrically inspired terms, a more geometric alternative is given.  These are marked with ``\newterm''.
 \end{itemize}
 
 \TODO{Add pictures!}
@@ -40,22 +41,22 @@ Scalars and pseudoscalars are interpreted the same as in other models for geomet
     \hline
     \multicolumn{1}{|c|}{\texttt{g}} & $B^2$ & \multicolumn{1}{|c|}{Form} & \multicolumn{1}{|c|}{Visualization} & \multicolumn{1}{|c|}{Name} \\ \hline
     \hline
-    1 & $= 0$ & $\rline$ & & Real line, path normal for uniform rotation\\ \hline
-    1 & $= 0$ & $\iline$ & & Ideal line, path normal for uniform translation\\ \hline
+    1 & $= 0$ & $\rline$ & & Real line, path normal for uniform rotating motion\\ \hline
+    1 & $= 0$ & $\iline$ & & Ideal line, path normal for uniform translating motion\\ \hline
     1 & $\not= 0$ & $\screw$ & & Screw axis \\ \hline
-    5 & $= 0$ & $\dual{\rline}$ & & Singular line complex~\cite{Pottmann}, uniform rotation \\ \hline
-    5 & $= 0$ & $\dual{\iline}$ & & Singular line complex~\cite{Pottmann}, uniform translation \\ \hline
-    5 & $\not= 0$ & $\dual{\screw}$ & & Regular line complex~\cite{Pottmann}, screw motion \\ \hline
+    5 & $= 0$ & $\dual{\rline}$ & & Singular linear complex~\cite{Pottmann}, uniform rotating motion \\ \hline
+    5 & $= 0$ & $\dual{\iline}$ & & Singular linear complex~\cite{Pottmann}, uniform translating motion \\ \hline
+    5 & $\not= 0$ & $\dual{\screw}$ & & Regular linear complex~\cite{Pottmann}, screw motion \\ \hline
   \end{tabular}
 \end{table}
 
-It is clear from \autoref{sec:plucker} that the null vectors of the Pl\"ucker model (those vectors satisfying the Pl\"ucker identity $\pluckerid$) are interpreted as lines.  Let $l = d_1 \eze + d_2 \ezt + d_3 \ezd + m_1 \etd + m_2 \ede + m_3 \eet$ be a null vector.  The line can be interpreted through the homogeneous model.  The direction of the line corresponds to $\Em(d_1 \eze + d_2 \ezt + d_3 \ezd) \lcont -\ez = (d_1 \ee + d_2 \et + d_3 \ed)$, while its moment is $\V{m} = \edual{\Em(m_1 \etd + m_2 \ede + m_3 \eet)} = m_1 \ee + m_2 \et + m_3 \ed$.
+It is clear from \autoref{sec:plucker} that the null vectors of the Pl\"ucker model (those vectors $v$ satisfying the Pl\"ucker identity $\pluckerid(v) = 0$) are interpreted as lines.  Let $l = d_1 \eze + d_2 \ezt + d_3 \ezd + m_1 \etd + m_2 \ede + m_3 \eet$ be a null vector.  The line can be interpreted through the homogeneous model.  The direction of the line corresponds to $\Em(d_1 \eze + d_2 \ezt + d_3 \ezd) \lcont -\ez = (d_1 \ee + d_2 \et + d_3 \ed)$, while its moment is $\V{m} = \edual{\Em(m_1 \etd + m_2 \ede + m_3 \eet)} = m_1 \ee + m_2 \et + m_3 \ed$.
 
 Ideal lines cannot be interpreted in this way.  The homogeneous model treats these purely Euclidean elements as bivectors.  In the Pl\"ucker model, there is no such thing as a purely Euclidean element, which leaves room for interpretation in a projective way.  These elements represent lines at infinity, or ideal lines.  One can visualize an ideal line $l_\infty = \beta_1 \etd + \beta_2 \ede + \beta_3 \eet$ as a horizon, a circle on the heavenly sphere in direction $\Em(l_\infty)$.  
 
 The vectors that do not square to $0$ can be interpreted as the dual of a helical, or screw motion~\cite[Section 3.1.2]{Pottmann}.  A screw motion simultaneously translates and rotates an object.  The object is translated along the same line as around which the rotation is performed.  The motion can be fully characterized by this line $a$ and the pitch $p$, the amount of translation per rotation.  For the grade 5 screw motion $S = \dual{\plucker{\V{d}}{\V{m}}}$, its pitch and axis are given by $p = \V{d} \dotp \V{m} / \V{d}^2, a = \plucker{\V{d}}{\V{m} - p \V{d}}$~\cite[Theorem 3.1.9]{Pottmann}.  
 
-From this, one can deduce what kind of objects the dual elements of real and ideal lines represent.  For an ideal line $l_\infty$ with $p = 0 \dotp \V{m} / 0^2 = \infty$ and $a = \plucker{0}{\V{m} - \infty 0} = l_\infty$, we see that it is a pure translation; even the slightest bit of rotation lets the object be translated.  Given a real line $l_o$, its pitch is $p = 0 / \V{d}^2 = 0$, because of the Pl\"ucker identity, seen in \autoref{eq:laplucker0}.  Its axis is $a = \plucker{\V{d}}{\V{m} - 0} = l_o$.  How much of the rotation is applied, no translation will occur.  This shows that the real lines are the duals of pure rotational motions.
+From this, one can deduce what kind of objects the dual elements of real and ideal lines represent.  For an ideal line $l_\infty$ with $p = 0 \dotp \V{m} / 0^2 = \infty$ and $a = \plucker{0}{\V{m} - \infty 0} = l_\infty$, we see that it is a pure translation; even the slightest bit of rotation lets the object be translated.  Given a real line $l_o$, its pitch is $p = 0 / \V{d}^2 = 0$, because of the Pl\"ucker identity, seen in \autoref{eq:laplucker0}.  Its axis is $a = \plucker{\V{d}}{\V{m} - 0} = l_o$.  No matter how much of the rotation is applied, no translation will occur.  This shows that the real lines are the duals of pure rotational motions.
 
 These results are presented summarized in \autoref{tab:inv1}. 
 
