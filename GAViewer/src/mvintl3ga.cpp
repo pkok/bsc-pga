@@ -25,20 +25,21 @@
 #include "state.h"
 #include "console/consolevariable.h"
 
+#define p3gaToL3ga(x) (consoleVariable("", x).castToL3ga()->l3())
+#define l3gaToP3ga(x) (consoleVariable("", x).castToP3ga()->p())
+
 double factorize_blade(const l3ga &B, int grade, l3ga (&factors)[7]);
 int is_parallel(l3ga &a, l3ga &b, double epsilon);
 bool only_coordinates_set(const l3ga &a, GAIM_FLOAT epsilon, int grade, std::vector<int> coordinates);
 
-int mvInt::interpret(const l3ga &X, int creationFlags /* = 0*/) {
-  l3ga I3real(l3ga::e01 ^ l3ga::e02 ^ l3ga::e03);
-  l3ga I3ideal(l3ga::e23 ^ l3ga::e31 ^ l3ga::e12);
-  l3ga e01(l3ga::e01);
-  l3ga e02(l3ga::e02);
-  l3ga e03(l3ga::e03);
-  l3ga e23(l3ga::e23);
-  l3ga e31(l3ga::e31);
-  l3ga e12(l3ga::e12);
 
+p3ga direction(p3ga x);
+p3ga moment(p3ga x);
+p3ga cross_product(p3ga x, p3ga y); 
+p3ga point_on_line(p3ga x, GAIM_FLOAT t);
+
+
+int mvInt::interpret(const l3ga &X, int creationFlags /* = 0*/) {
   const GAIM_FLOAT epsilon = 1e-6; // rather arbitrary limit on fp-noise
   l3ga tmp, factors[7];
   mvInt l1, l2, _tmp;
@@ -218,49 +219,47 @@ int mvInt::interpret(const l3ga &X, int creationFlags /* = 0*/) {
               */
               m_scalar[0] = s;
 
-              m_point[0][0] = sqrt(fabs(s)/2.0) * 0.5 * (factors[0][GRADE1][L3GA_E23] + factors[1][GRADE1][L3GA_E23]);
-              m_point[0][1] = sqrt(fabs(s)/2.0) * 0.5 * (factors[0][GRADE1][L3GA_E31] + factors[1][GRADE1][L3GA_E31]);
-              m_point[0][2] = -sqrt(fabs(s)/2.0) * 0.5 * (factors[0][GRADE1][L3GA_E12] + factors[1][GRADE1][L3GA_E12]);
-
-              /*
-              z = sqrt((factors[1][GRADE1][L3GA_E23] * factors[1][GRADE1][L3GA_E23]) + (factors[1][GRADE1][L3GA_E31] * factors[1][GRADE1][L3GA_E31]) + (factors[1][GRADE1][L3GA_E12] * factors[1][GRADE1][L3GA_E12]));
-              m_point[0][0] = 0.5 * (factors[0][GRADE1][L3GA_E23] + factors[1][GRADE1][L3GA_E23] / z);
-              m_point[0][1] = 0.5 * (factors[0][GRADE1][L3GA_E31] + factors[1][GRADE1][L3GA_E31] / z);
-              m_point[0][2] = 0.5 * (factors[0][GRADE1][L3GA_E12] + factors[1][GRADE1][L3GA_E12] / z);
-              */
-
-              z = sqrt((factors[0][GRADE1][L3GA_E01] * factors[0][GRADE1][L3GA_E01]) + (factors[0][GRADE1][L3GA_E02] * factors[0][GRADE1][L3GA_E02]) + (factors[0][GRADE1][L3GA_E03] * factors[0][GRADE1][L3GA_E03]));
-              m_vector[1][0] = -factors[0][GRADE1][L3GA_E01] / z;
-              m_vector[1][1] = -factors[0][GRADE1][L3GA_E02] / z;
-              m_vector[1][2] = -factors[0][GRADE1][L3GA_E03] / z;
-
-              z = sqrt((factors[0][GRADE1][L3GA_E23] * factors[0][GRADE1][L3GA_E23]) + (factors[0][GRADE1][L3GA_E31] * factors[0][GRADE1][L3GA_E31]) + (factors[0][GRADE1][L3GA_E12] * factors[0][GRADE1][L3GA_E12]));
-              if (fabs(z) < epsilon) {
-                z = sqrt((factors[1][GRADE1][L3GA_E01] * factors[1][GRADE1][L3GA_E01]) + (factors[1][GRADE1][L3GA_E02] * factors[1][GRADE1][L3GA_E02]) + (factors[1][GRADE1][L3GA_E03] * factors[1][GRADE1][L3GA_E03]));
-                if (fabs(z) >= epsilon) {
-                  m_vector[1][0] = -factors[1][GRADE1][L3GA_E01] / z;
-                  m_vector[1][1] = -factors[1][GRADE1][L3GA_E02] / z;
-                  m_vector[1][2] = -factors[1][GRADE1][L3GA_E03] / z;
-                }
-
-                z = sqrt((factors[1][GRADE1][L3GA_E23] * factors[1][GRADE1][L3GA_E23]) + (factors[1][GRADE1][L3GA_E31] * factors[1][GRADE1][L3GA_E31]) + (factors[1][GRADE1][L3GA_E12] * factors[1][GRADE1][L3GA_E12]));
-                m_vector[2][0] = factors[1][GRADE1][L3GA_E23] / z;
-                m_vector[2][1] = factors[1][GRADE1][L3GA_E31] / z;
-                m_vector[2][2] = factors[1][GRADE1][L3GA_E12] / z;
+              l1.interpret(factors[0]);
+              l2.interpret(factors[1]);
+              if (l1.m_type & MVI_IDEAL) {
+                factors[0] = p3gaToL3ga(l3gaToP3ga(factors[0]) - (p3ga::e0 ^ direction(l3gaToP3ga(factors[1]))));
               }
-              else {
-                m_vector[2][0] = factors[0][GRADE1][L3GA_E23] / z;
-                m_vector[2][1] = factors[0][GRADE1][L3GA_E31] / z;
-                m_vector[2][2] = factors[0][GRADE1][L3GA_E12] / z;
+              if (l2.m_type & MVI_IDEAL) {
+                factors[1] = p3gaToL3ga(l3gaToP3ga(factors[1]) - (p3ga::e0 ^ direction(l3gaToP3ga(factors[0]))));
               }
+              int t0 = 0, t1 = 0;
+              p3ga p0 = point_on_line(l3gaToP3ga(factors[0]), t0),
+                   p1 = point_on_line(l3gaToP3ga(factors[1]), t0),
+                   p = point_on_line(p0^p1, t1);
 
-              m_vector[0][0] = (m_vector[1][1] * m_vector[2][2]) - (m_vector[1][2] * m_vector[2][1]);
-              m_vector[0][1] = (m_vector[1][2] * m_vector[2][0]) - (m_vector[1][0] * m_vector[2][2]);
-              m_vector[0][2] = (m_vector[1][0] * m_vector[2][1]) - (m_vector[1][1] * m_vector[2][0]);
+              m_point[0][0] = p[GRADE1][P3GA_E1] / p[GRADE1][P3GA_E0];
+              m_point[0][1] = p[GRADE1][P3GA_E2] / p[GRADE1][P3GA_E0];
+              m_point[0][2] = p[GRADE1][P3GA_E3] / p[GRADE1][P3GA_E0];
 
-              if (m_vector[1][0] != m_vector[1][0]) printf("v1 is NaN\n");
-              if (m_vector[2][0] != m_vector[2][0]) printf("v2 is NaN; z is %2f\n", z);
-              if (m_vector[0][0] != m_vector[0][0]) printf("v0 is NaN\n");
+              p0 = p0 - p1;
+              p0 /= sqrt((p0 * p0).scalar());
+              m_vector[2][0] = p0[GRADE1][P3GA_E1];
+              m_vector[2][1] = p0[GRADE1][P3GA_E2];
+              m_vector[2][2] = p0[GRADE1][P3GA_E3];
+
+              p1.meet(l3gaToP3ga(factors[0]), l3gaToP3ga(factors[1]));
+              p1 /= sqrt((p1 * p1).scalar());
+              m_vector[1][0] = p1[GRADE1][P3GA_E1];
+              m_vector[1][1] = p1[GRADE1][P3GA_E2];
+              m_vector[1][2] = p1[GRADE1][P3GA_E3];
+
+              p = cross_product(p0, p1);
+              p /= sqrt((p * p).scalar());
+              m_vector[0][0] = p[GRADE1][P3GA_E1];
+              m_vector[0][1] = p[GRADE1][P3GA_E2];
+              m_vector[0][2] = p[GRADE1][P3GA_E3];
+
+
+              printf("p0: %2.2f %2.2f %2.2f\n", m_point[0][0], m_point[0][1], m_point[0][2]);
+              printf("v0: %2.2f %2.2f %2.2f\n", m_vector[0][0], m_vector[0][1], m_vector[0][2]);
+              printf("v1: %2.2f %2.2f %2.2f\n", m_vector[1][0], m_vector[1][1], m_vector[1][2]);
+              printf("v2: %2.2f %2.2f %2.2f\n", m_vector[2][0], m_vector[2][1], m_vector[2][2]);
+
             }
             else {
               m_type |= MVI_LINE_PENCIL;
@@ -285,7 +284,7 @@ int mvInt::interpret(const l3ga &X, int creationFlags /* = 0*/) {
               m_point[0][2] = intersection_point[GRADE1][P3GA_E3] / intersection_point[GRADE1][P3GA_E0];
 
               // normal to direction is:
-              //    e3dual(factors1_d ^ factors2_d) = cross(factor1_d, factor2_d) 
+              //    e3dual(factors1_d ^ factors2_d) = cross_product(factor1_d, factor2_d) 
               m_vector[0][0] = ((factors[0][GRADE1][L3GA_E02] * factors[1][GRADE1][L3GA_E03]) - (factors[0][GRADE1][L3GA_E03] * factors[1][GRADE1][L3GA_E02]));
               m_vector[0][1] = ((factors[0][GRADE1][L3GA_E03] * factors[1][GRADE1][L3GA_E01]) - (factors[0][GRADE1][L3GA_E01] * factors[1][GRADE1][L3GA_E03]));
               m_vector[0][2] = ((factors[0][GRADE1][L3GA_E01] * factors[1][GRADE1][L3GA_E02]) - (factors[0][GRADE1][L3GA_E02] * factors[1][GRADE1][L3GA_E01]));
@@ -571,6 +570,7 @@ double factorize_blade(const l3ga &B, int grade, l3ga (&factors)[7]) {
 
 
 int is_parallel(l3ga &a, l3ga &b, double epsilon) {
+  // cross_product(a_direction, b_direction) ** 2 < epsilon?
   e3ga x = ((a[GRADE1][L3GA_E02] * b[GRADE1][L3GA_E03]) - (a[GRADE1][L3GA_E03] * b[GRADE1][L3GA_E02])) * e3ga::e1 +
     ((a[GRADE1][L3GA_E03] * b[GRADE1][L3GA_E01]) - (a[GRADE1][L3GA_E01] * b[GRADE1][L3GA_E03])) * e3ga::e2 +
     ((a[GRADE1][L3GA_E01] * b[GRADE1][L3GA_E02]) - (a[GRADE1][L3GA_E02] * b[GRADE1][L3GA_E01])) * e3ga::e3;
@@ -604,4 +604,24 @@ bool only_coordinates_set(const l3ga &a, GAIM_FLOAT epsilon, int grade, std::vec
     }
   }
   return true;
+}
+
+
+p3ga direction(p3ga x) {
+  return x[GRADE2][P3GA_E1_E0] * p3ga::e1 + x[GRADE2][P3GA_E2_E0] * p3ga::e2 + x[GRADE2][P3GA_E3_E0] * p3ga::e3;
+}
+
+
+p3ga moment(p3ga x) {
+  return (x - (direction(x) * p3ga::e0)) << (p3ga::e1 * p3ga::e2 * p3ga::e3);
+}
+
+
+p3ga cross_product(p3ga x, p3ga y) { 
+  return lcem((x * y), -(p3ga::e1 * p3ga::e2 * p3ga::e3));
+}
+
+
+p3ga point_on_line(p3ga x, GAIM_FLOAT t) {
+  return (cross_product(moment(x), direction(x)) + (t * direction(x)) + (direction(x) * direction(x) * p3ga::e0)) / (direction(x) * direction(x));
 }

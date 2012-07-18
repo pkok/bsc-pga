@@ -733,7 +733,7 @@ int drawRuledPlane(const GAIM_FLOAT point[3], const GAIM_FLOAT normal[3], const 
 	GAIM_FLOAT x, y;
 	int s;
 
-	GAIM_FLOAT stepSize = 0.1;
+	GAIM_FLOAT stepSize = 0.01;
 	GAIM_FLOAT scaleConst = g_state->m_clipDistance * sqrt(2.0);
 	GAIM_FLOAT scaleMag = 1.0;
   T.begin(GL_LINES);
