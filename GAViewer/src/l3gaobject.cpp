@@ -253,12 +253,6 @@ int l3gaObject::draw(glwindow *window) {
         drawCirclePencil(NULL, m_int.m_vector[0], m_int.m_vector[1], m_int.m_vector[2], m_int.m_scalar[0], m_dmMenuIdx, m_drawMode, this);
         break;
       case MVI_RULED_PLANE:
-        /*
-        drawVector(NULL, m_int.m_point[0], 1.0);
-        drawVector(m_int.m_point[0], m_int.m_vector[0], 1.0);
-        drawVector(m_int.m_point[0], m_int.m_vector[1], 2.0);
-        drawVector(m_int.m_point[0], m_int.m_vector[2], 3.0);
-        */
         drawRuledPlane(m_int.m_point[0], m_int.m_vector[0], m_int.m_vector[1], m_int.m_vector[2], m_int.m_scalar[0], DRAW_RULED_PLANE, 0, this);
         break;
       case MVI_LINE_PENCIL:
@@ -437,6 +431,7 @@ int l3gaObject::description(char *buf, int bufLen, int sl /* = 0 */) {
           m_int.m_vector[1][0], m_int.m_vector[1][1], m_int.m_vector[1][2], 
           m_int.m_point[1][0], m_int.m_point[1][1], m_int.m_point[1][2], 
           m_mv.string());
+      break;
     case MVI_SPACE: // scalar 0: weight
         if (sl) sprintf(buf, "%s: l3ga %spseudoscalar, weight: %f", m_name.c_str(), (m_int.dual()) ? "dual " : "", m_int.m_scalar[0]);
 			else sprintf(buf, "l3ga %spseudoscalar\nWeight: %f", 
