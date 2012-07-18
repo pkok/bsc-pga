@@ -275,10 +275,10 @@ int mvInt::interpret(const l3ga &X, int creationFlags /* = 0*/) {
               m_scalar[0] = s;
 
               // point of intersection is the meet of the two homogeneous lines!
-              consoleVariable a1 = consoleVariable("", factors[0]),
-                              a2 = consoleVariable("", factors[1]);
+              p3ga a1 = (consoleVariable("", factors[0]).castToP3ga())->p(),
+                   a2 = (consoleVariable("", factors[1]).castToP3ga())->p();
               p3ga intersection_point;
-              intersection_point.meet((a1.castToP3ga())->p(), (a2.castToP3ga())->p());
+              intersection_point.meet(a1, a2);
 
               m_point[0][0] = intersection_point[GRADE1][P3GA_E1] / intersection_point[GRADE1][P3GA_E0];
               m_point[0][1] = intersection_point[GRADE1][P3GA_E2] / intersection_point[GRADE1][P3GA_E0];
