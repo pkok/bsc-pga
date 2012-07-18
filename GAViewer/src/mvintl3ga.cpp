@@ -569,10 +569,12 @@ double factorize_blade(const l3ga &B, int grade, l3ga (&factors)[7]) {
   return s;
 }
 
+
 int is_parallel(l3ga &a, l3ga &b, double epsilon) {
-  e3ga a_d = a[GRADE1][L3GA_E01] * e3ga::e1 + a[GRADE1][L3GA_E02] * e3ga::e2 + a[GRADE1][L3GA_E03] * e3ga::e3,
-       b_d = b[GRADE1][L3GA_E01] * e3ga::e1 + b[GRADE1][L3GA_E02] * e3ga::e2 + b[GRADE1][L3GA_E03] * e3ga::e3;
-  return fabs(((a_d * b_d) << e3ga::I).scalar()) < epsilon;
+  e3ga x = ((a[GRADE1][L3GA_E02] * b[GRADE1][L3GA_E03]) - (a[GRADE1][L3GA_E03] * b[GRADE1][L3GA_E02])) * e3ga::e1 +
+    ((a[GRADE1][L3GA_E03] * b[GRADE1][L3GA_E01]) - (a[GRADE1][L3GA_E01] * b[GRADE1][L3GA_E03])) * e3ga::e2 +
+    ((a[GRADE1][L3GA_E01] * b[GRADE1][L3GA_E02]) - (a[GRADE1][L3GA_E02] * b[GRADE1][L3GA_E01])) * e3ga::e3;
+  return fabs((x * x).scalar()) < epsilon;
 }
 
 
