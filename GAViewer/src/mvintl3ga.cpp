@@ -275,6 +275,8 @@ int mvInt::interpret(const l3ga &X, int creationFlags /* = 0*/) {
 
               // point of intersection is:
               //   cross(factor1_m, factor2_m) / dot(factor1_d, factor2_m)
+              //
+              // TODO: NO! This is given on p. 333 of The Book!
               z = (factors[0][GRADE1][L3GA_E01] * factors[1][GRADE1][L3GA_E23]) + (factors[0][GRADE1][L3GA_E02] * factors[1][GRADE1][L3GA_E31]) + (factors[0][GRADE1][L3GA_E03] * factors[1][GRADE1][L3GA_E12]);
 
               m_point[0][0] = ((factors[0][GRADE1][L3GA_E12] * factors[1][GRADE1][L3GA_E31]) - (factors[0][GRADE1][L3GA_E31] * factors[1][GRADE1][L3GA_E12])) / z;
