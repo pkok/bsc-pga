@@ -23,6 +23,7 @@
 #include "mvint.h"
 #include "util.h"
 #include "state.h"
+#include "console/consolevariable.h"
 
 double factorize_blade(const l3ga &B, int grade, l3ga (&factors)[7]);
 int is_parallel(l3ga &a, l3ga &b, double epsilon);
@@ -273,22 +274,23 @@ int mvInt::interpret(const l3ga &X, int creationFlags /* = 0*/) {
               */
               m_scalar[0] = s;
 
-              // point of intersection is:
-              //   cross(factor1_m, factor2_m) / dot(factor1_d, factor2_m)
-              //
-              // TODO: NO! This is given on p. 333 of The Book!
-              z = (factors[0][GRADE1][L3GA_E01] * factors[1][GRADE1][L3GA_E23]) + (factors[0][GRADE1][L3GA_E02] * factors[1][GRADE1][L3GA_E31]) + (factors[0][GRADE1][L3GA_E03] * factors[1][GRADE1][L3GA_E12]);
+              // point of intersection is the meet of the two homogeneous lines!
+              consoleVariable a1 = consoleVariable("", factors[0]),
+                              a2 = consoleVariable("", factors[1]);
+              p3ga intersection_point;
+              intersection_point.meet((a1.castToP3ga())->p(), (a2.castToP3ga())->p());
 
-              m_point[0][0] = ((factors[0][GRADE1][L3GA_E12] * factors[1][GRADE1][L3GA_E31]) - (factors[0][GRADE1][L3GA_E31] * factors[1][GRADE1][L3GA_E12])) / z;
-              m_point[0][1] = ((factors[0][GRADE1][L3GA_E23] * factors[1][GRADE1][L3GA_E12]) - (factors[0][GRADE1][L3GA_E12] * factors[1][GRADE1][L3GA_E23])) / z;
-              m_point[0][2] = ((factors[0][GRADE1][L3GA_E31] * factors[1][GRADE1][L3GA_E23]) - (factors[0][GRADE1][L3GA_E23] * factors[1][GRADE1][L3GA_E31])) / z;
+              m_point[0][0] = intersection_point[GRADE1][P3GA_E1] / intersection_point[GRADE1][P3GA_E0];
+              m_point[0][1] = intersection_point[GRADE1][P3GA_E2] / intersection_point[GRADE1][P3GA_E0];
+              m_point[0][2] = intersection_point[GRADE1][P3GA_E3] / intersection_point[GRADE1][P3GA_E0];
 
               // normal to direction is:
-              //    cross(factor1_d, factor2_d)
-              m_vector[0][0] = ((factors[0][GRADE1][L3GA_E02] * factors[1][GRADE1][L3GA_E03]) - (factors[0][GRADE1][L3GA_E03] * factors[1][GRADE1][L3GA_E02])) / z;
-              m_vector[0][1] = ((factors[0][GRADE1][L3GA_E03] * factors[1][GRADE1][L3GA_E01]) - (factors[0][GRADE1][L3GA_E01] * factors[1][GRADE1][L3GA_E03])) / z;
-              m_vector[0][2] = ((factors[0][GRADE1][L3GA_E01] * factors[1][GRADE1][L3GA_E02]) - (factors[0][GRADE1][L3GA_E02] * factors[1][GRADE1][L3GA_E01])) / z;
+              //    e3dual(factors1_d ^ factors2_d) = cross(factor1_d, factor2_d) 
+              m_vector[0][0] = ((factors[0][GRADE1][L3GA_E02] * factors[1][GRADE1][L3GA_E03]) - (factors[0][GRADE1][L3GA_E03] * factors[1][GRADE1][L3GA_E02]));
+              m_vector[0][1] = ((factors[0][GRADE1][L3GA_E03] * factors[1][GRADE1][L3GA_E01]) - (factors[0][GRADE1][L3GA_E01] * factors[1][GRADE1][L3GA_E03]));
+              m_vector[0][2] = ((factors[0][GRADE1][L3GA_E01] * factors[1][GRADE1][L3GA_E02]) - (factors[0][GRADE1][L3GA_E02] * factors[1][GRADE1][L3GA_E01]));
 
+              // normalize
               z = sqrt((m_vector[0][0] * m_vector[0][0]) + (m_vector[0][1] * m_vector[0][1]) + (m_vector[0][2] * m_vector[0][2]));
               m_vector[0][0] /= z;
               m_vector[0][1] /= z;
