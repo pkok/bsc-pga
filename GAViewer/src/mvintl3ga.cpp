@@ -570,28 +570,9 @@ double factorize_blade(const l3ga &B, int grade, l3ga (&factors)[7]) {
 }
 
 int is_parallel(l3ga &a, l3ga &b, double epsilon) {
-  GAIM_FLOAT c_e01 = a[GRADE1][L3GA_E01] / b[GRADE1][L3GA_E01],
-             c_e02 = a[GRADE1][L3GA_E02] / b[GRADE1][L3GA_E02],
-             c_e03 = a[GRADE1][L3GA_E03] / b[GRADE1][L3GA_E03];
-  int e01is0 = (fabs(a[GRADE1][L3GA_E01]) < epsilon) && (fabs(b[GRADE1][L3GA_E01]) < epsilon);
-  int e02is0 = (fabs(a[GRADE1][L3GA_E02]) < epsilon) && (fabs(b[GRADE1][L3GA_E02]) < epsilon);
-  int e03is0 = (fabs(a[GRADE1][L3GA_E03]) < epsilon) && (fabs(b[GRADE1][L3GA_E03]) < epsilon);
-
-  if ((e01is0 && e02is0) || (e01is0 && e03is0) || (e02is0 && e03is0)) {
-    return 1;
-  }
-  else if (e01is0) {
-    return fabs(c_e02 - c_e03) < epsilon;
-  }
-  else if (e02is0) {
-    return fabs(c_e01 - c_e03) < epsilon;
-  }
-  else if (e03is0) {
-    return fabs(c_e01 - c_e02) < epsilon;
-  }
-  return (fabs(c_e01 - c_e02) < epsilon) 
-    && (fabs(c_e02 - c_e03) < epsilon) 
-    && (fabs(c_e03 - c_e01) < epsilon);
+  e3ga a_d = a[GRADE1][L3GA_E01] * e3ga::e1 + a[GRADE1][L3GA_E02] * e3ga::e2 + a[GRADE1][L3GA_E03] * e3ga::e3,
+       b_d = b[GRADE1][L3GA_E01] * e3ga::e1 + b[GRADE1][L3GA_E02] * e3ga::e2 + b[GRADE1][L3GA_E03] * e3ga::e3;
+  return fabs(((a_d * b_d) << e3ga::I).scalar()) < epsilon;
 }
 
 
