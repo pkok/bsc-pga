@@ -54,9 +54,9 @@ It is clear from \autoref{sec:plucker} that the null vectors of the Pl\"ucker mo
 
 Ideal lines cannot be interpreted in this way.  The homogeneous model treats these purely Euclidean elements as bivectors.  In the Pl\"ucker model, there is no such thing as a purely Euclidean element, which leaves room for interpretation in a projective way.  These elements represent lines at infinity, or ideal lines.  One can visualize an ideal line $l_\infty = \beta_1 \etd + \beta_2 \ede + \beta_3 \eet$ as a horizon, a circle on the heavenly sphere in direction $\Em(l_\infty)$.  
 
-The vectors that do not square to $0$ can be interpreted as the dual of a helical, or screw motion~\cite[Section 3.1.2]{Pottmann}.  A screw motion simultaneously translates and rotates an object.  The object is translated along the same line as around which the rotation is performed.  The motion can be fully characterized by this line $a$ and the pitch $p$, the amount of translation per rotation.  For the grade 5 screw motion $S = \dual{\plucker{\V{d}}{\V{m}}}$, its pitch and axis are given by $p = \V{d} \dotp \V{m} / \V{d}^2, a = \plucker{\V{d}}{\V{m} - p \V{d}}$~\cite[Theorem 3.1.9]{Pottmann}.  
+The vectors that do not square to $0$ can be interpreted as the dual of a helical, or screw motion~\cite[Section 3.1.2]{Pottmann}.  A screw motion simultaneously translates and rotates an object.  The object is translated along the same line as around which the rotation is performed.  The motion can be fully characterized by this line $a$ and the pitch $p$, the amount of translation per rotation.  For the grade 5 screw motion $S = \dual{\plucker{\V{d}}{\V{m}}}$, its pitch and axis are given by $p = \V{d} \lcont \V{m} / \V{d}^2, a = \plucker{\V{d}}{\V{m} - p \V{d}}$~\cite[Theorem 3.1.9]{Pottmann}.  
 
-From this, one can deduce what kind of objects the dual elements of real and ideal lines represent.  For an ideal line $l_\infty$ with $p = 0 \dotp \V{m} / 0^2 = \infty$ and $a = \plucker{0}{\V{m} - \infty 0} = l_\infty$, we see that it is a pure translation; even the slightest bit of rotation lets the object be translated.  Given a real line $l_o$, its pitch is $p = 0 / \V{d}^2 = 0$, because of the Pl\"ucker identity, seen in \autoref{eq:laplucker0}.  Its axis is $a = \plucker{\V{d}}{\V{m} - 0} = l_o$.  No matter how much of the rotation is applied, no translation will occur.  This shows that the real lines are the duals of pure rotational motions.
+From this, one can deduce what kind of objects the dual elements of real and ideal lines represent.  For an ideal line $l_\infty$ with $p = 0 \lcont \V{m} / 0^2 = \infty$ and $a = \plucker{0}{\V{m} - \infty 0} = l_\infty$, we see that it is a pure translation; even the slightest bit of rotation lets the object be translated.  Given a real line $l_o$, its pitch is $p = 0 / \V{d}^2 = 0$, because of the Pl\"ucker identity, seen in \autoref{eq:laplucker0}.  Its axis is $a = \plucker{\V{d}}{\V{m} - 0} = l_o$.  No matter how much of the rotation is applied, no translation will occur.  This shows that the real lines are the duals of pure rotational motions.
 
 These results are presented summarized in \autoref{tab:inv1}. 
 
@@ -69,17 +69,44 @@ These results are presented summarized in \autoref{tab:inv1}.
     \hline
     \multicolumn{1}{|c|}{\texttt{g}} & $B^2$ & \multicolumn{1}{|c|}{Form} & \multicolumn{1}{|c|}{Graphical representation} & \multicolumn{1}{|c|}{Name} \\ \hline
     \hline
-    2 & $= 0$ & $\pline \wedge \pline$, pt.\ int. & & Pencil of lines~\cite{Pottmann,Hongbo} \\ \hline
+    2 & $= 0$ & $\pline \wedge \pline$, pt.\ int. & & Pencil of linear line complexes~\cite{Pottmann}, pencil of lines~\cite{Hongbo} \\ \hline
     2 & $> 0$ & $\pline \wedge \pline$, skew & & Skew line pair~\newterm \\ \hline
     2 & $\not= 0$ & $\pline \wedge \screw$ & & ??? \\ \hline
     2 & $< 0$ & $\screw \wedge \screw$ & & ??? \\ \hline
-    4 & $= 0$ & $\dual{\left( \pline \wedge \pline \right)}$ & & ??? \\ \hline
+    4 & $= 0$ & $\dual{\left( \pline \wedge \pline \right)}$ & & Pencil of singular linear complexes~\cite{Pottmann}, dual pencil of lines \\ \hline
     4 & $> 0$ & $\dual{\left( \pline \wedge \pline \right)}$, skew & & Hyperbolic linear congruence~\cite{Pottmann}, dual skew line pair~\newterm \\ \hline
     4 & $\not= 0$ & $\dual{\left( \pline \wedge \screw \right)}$ & & ??? \\ \hline
     4 & $< 0$ & $\dual{\left( \screw \wedge \screw \right)}$ & & Elliptic linear congruence~\cite{Pottmann}, pencil of reguli~\newterm \\ \hline
   \end{tabular}
 \end{table}
 
+A two-blade $C = a \wedge b$ represents the set of linear combinations of $a$ and $b$:
+\begin{equation*}
+  \s{C} = \left\{ c \mid c \wedge C = 0 \right\} = \left\{ \lambda a + \mu b \mid \lambda, \mu \in \reals \right\} .
+\end{equation*}
+For the geometric interpretation of these blades, it should be clear what kind of objects are in this set.  On first inspection, this can be split in three cases, based on the number of null vectors among the factors.
+
+
+When both $a$ and $b$ are null vectors, a linear combination $c = \lambda a + \mu b$ is a null vector if:
+\begin{align*}
+  c^2 &= (\lambda a + \mu b) \lcont (\lambda a + \mu b) \\
+  &= \lambda^2 a^2 + 2 \lambda \mu a \lcont b + \mu^2 b^2 \\
+  &= 2 \lambda \mu a \lcont b
+\end{align*}
+
+When $a$ and $b$ are coplanar, their inner product is zero (see \autoref{eq:coplanar}), and each linear combination is a null vector.  This kind of object is called a pencil of linear line complexes~\cite[Section 3.2.1]{Pottmann}, or, a bit shorter, a pencil of lines~\cite{Hongbo}.  The homogeneous point in which all lines intersect, is called its center~\cite{Hongbo}, and can be computed by \autoref{eq:intersect}.  The bivector direction containing the pencil can be computed by:
+
+\begin{equation*}
+  \V{D} = \Em(a) \lcont \ez \wedge \Em(b) \lcont \ez
+\end{equation*}
+
+\TODO{Skew lines}
+
+\TODO{Line and screw}
+
+\TODO{Screws}
+
+ 
 \subsection{Elements of grade 3}
 \begin{table}
   \caption{An inventory of the blades of grade 3.}
@@ -94,3 +121,5 @@ These results are presented summarized in \autoref{tab:inv1}.
     3 & $\not= 0$ & $\pline \wedge \pline \wedge \pline$, pw.\ int. & & Couple-wheel pencil~\cite{Hongbo}, line pencil pair~\newterm \\ \hline
   \end{tabular}
 \end{table}
+
+
