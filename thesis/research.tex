@@ -70,7 +70,7 @@ These results are presented summarized in \autoref{tab:inv1}.
     \multicolumn{1}{|c|}{\texttt{g}} & $B^2$ & \multicolumn{1}{|c|}{Form} & \multicolumn{1}{|c|}{Graphical representation} & \multicolumn{1}{|c|}{Name} \\ \hline
     \hline
     2 & $= 0$ & $\pline \wedge \pline$, pt.\ int. & & Pencil of linear line complexes~\cite{Pottmann}, pencil of lines~\cite{Hongbo} \\ \hline
-    2 & $> 0$ & $\pline \wedge \pline$, skew & & Skew line pair~\newterm \\ \hline
+    2 & $> 0$ & $\pline \wedge \pline$, skew & & Hyperbolic pencil of linear complexes~\cite{Pottmann}, Skew line pair~\newterm \\ \hline
     2 & $\not= 0$ & $\pline \wedge \screw$ & & ??? \\ \hline
     2 & $< 0$ & $\screw \wedge \screw$ & & ??? \\ \hline
     4 & $= 0$ & $\dual{\left( \pline \wedge \pline \right)}$ & & Pencil of singular linear complexes~\cite{Pottmann}, dual pencil of lines \\ \hline
@@ -94,18 +94,35 @@ When both $a$ and $b$ are null vectors, a linear combination $c = \lambda a + \m
   &= 2 \lambda \mu a \lcont b
 \end{align*}
 
-When $a$ and $b$ are coplanar, their inner product is zero (see \autoref{eq:coplanar}), and each linear combination is a null vector.  This kind of object is called a pencil of linear line complexes~\cite[Section 3.2.1]{Pottmann}, or, a bit shorter, a pencil of lines~\cite{Hongbo}.  The homogeneous point in which all lines intersect, is called its center~\cite{Hongbo}, and can be computed by \autoref{eq:intersect}.  The bivector direction containing the pencil can be computed by:
+When $a$ and $b$ are coplanar, their inner product is zero (see \autoref{eq:coplanar}), and each linear combination $c = \lambda a + \mu b$ is a null vector.  This kind of object is called a pencil of linear line complexes~\cite[Section 3.2.1]{Pottmann}, or, a bit shorter, a pencil of lines~\cite{Hongbo}.
+
+We can find two The homogeneous point in which all lines intersect, is called its center~\cite{Hongbo}, and can be computed, as seen in \autoref{eq:intersect}.  The bivector direction containing the pencil can be computed by:
 
 \begin{equation*}
   \V{D} = \Em(a) \lcont \ez \wedge \Em(b) \lcont \ez
 \end{equation*}
 
+This does not apply when $a$ and $b$ are parallel.  When they are parallel, $\Em(a) \lcont \ez$ and $\Em(b) \lcont \ez$ only differ in a scalar factor, and therefore their outer product is $0$.
+
+\begin{itemize}
+  \item Point on $l_1$: $p_1 = \V{m}_1 \times \V{d}_1 + \V{d}_1^2 \ez$
+  \item Point on $l_2$: $p_2 = \V{m}_2 \times \V{d}_2 + \V{d}_2^2 \ez$
+  \item Point on $l_\bot = p_1 \wedge p_2$: $p_o = \V{m}_\bot \times \V{d}_\bot + \V{d}_\bot^2 \ez$
+  \item ``Direction'' of plane $\V{D}$: $(l_1 \cup l_2) \wedge (p_2 - p_1)$
+\end{itemize}
+
+
 \TODO{Skew lines}
+
+Van lineaire combinaties $c = \lambda a + \mu b$ zijn alleen $c$'s met $\lambda = 0$ of $\mu = 0$ lijnen. $\lambda a \heq a$, $\mu b \heq b$, dus tekenen we maar 2 lijnen.
+
+Dual zijn alle lijnen die door $a$ en $b$ gaan. Pottmann!
 
 \TODO{Line and screw}
 
 \TODO{Screws}
 
+??? Een van deze twee is ``elliptic pencil of linear complexes'' met dual ``elliptic linear congruence'', de andere moeten ``parabolic pencil of linear complexes'' met dual ``parabolic linear congruence'', maar welke? $\Delta$ uitrekenen!
  
 \subsection{Elements of grade 3}
 \begin{table}
@@ -122,4 +139,5 @@ When $a$ and $b$ are coplanar, their inner product is zero (see \autoref{eq:copl
   \end{tabular}
 \end{table}
 
+None implemented.  Difficult to draw reguli correctly.
 
