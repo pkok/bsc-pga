@@ -3,7 +3,7 @@
 \TODO{Introductory text.}
 
 
-\subsection{Design decision}
+\subsection{Software design decision}
 Extending GAViewer's functionalities can be done in two ways.  
 
 Since version 0.4, GAViewer can open a TCP port for communication with other programs~\cite{GAViewer}.  The extended functionality can be implemented by a program that maintains an own interface for user input.  The input will be sent to GAViewer over a TCP port, after it has been processed by the new application.  Textual results are returned over the TCP port, and thus can be shown in the application's own user interface.  However, the visualization of the elements will be shown in GAViewer's own viewport.  The user has to switch between user interfaces to view textual or visual representations, which the user probably experiences as confusing or annoying.  To show the new model's blades correctly, it should be possible to characterize their visualization in terms of elements of other models, and elements of those models should be passed around between the new program and GAViewer.  This limitation seems undesired for our elements; no supported model has primitives that can make up a screw axis' visualization.  
@@ -74,15 +74,21 @@ Ideal lines are not represented by the same visualization as \ega's bivectors ar
 
 
 \subsubsection{Grade 2}
-\TODO{Some implemented.  Explain where errors arise.}
+\TODO{Some implemented.  Explain why some not.}
 
 
 \subsubsection{Grade 3}
 \comment{None implemented}
 
+\TODO{Explain why no g3 are implemented}
+
 
 \subsubsection{Grade 4}
 \comment{Fully implemented as dual to grade 2}
+
+\TODO{Explain why pencils of lines are okay to dually draw}
+
+\TODO{Line pair dual\ldots}
 
 
 \subsubsection{Grade 5}
