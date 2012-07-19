@@ -82,6 +82,7 @@ int mvInt::interpret(const l3ga &X, int creationFlags /* = 0*/) {
     switch (grade) {
       case 0: // ******************** scalar
         m_type |= MVI_SCALAR;
+        //printf("scalar\n");
         m_scalar[0] = X.scalar();
         break;
       case 1: // ******************** line, screw, kine
@@ -90,7 +91,7 @@ int mvInt::interpret(const l3ga &X, int creationFlags /* = 0*/) {
               fabs(X[GRADE1][L3GA_E02]) < epsilon &&
               fabs(X[GRADE1][L3GA_E03]) < epsilon) {
             m_type |= MVI_IDEAL_LINE;
-            printf("ideal line\n");
+            //printf("ideal line\n");
             /*
                scalar 0: weight
                vector 0: normal/reciprocal direction
@@ -105,7 +106,7 @@ int mvInt::interpret(const l3ga &X, int creationFlags /* = 0*/) {
           }
           else {
             m_type |= MVI_LINE;
-            printf("line\n");
+            //printf("line\n");
             /*
                scalar 0: weight
                point 0: point closest to origin
@@ -132,7 +133,7 @@ int mvInt::interpret(const l3ga &X, int creationFlags /* = 0*/) {
         else {
           // (ideal) screw
           m_type |= MVI_SCREW;
-          printf("screw\n");
+          //printf("screw\n");
 
           /*
           scalar 0: weight
@@ -253,13 +254,6 @@ int mvInt::interpret(const l3ga &X, int creationFlags /* = 0*/) {
               m_vector[0][0] = p[GRADE1][P3GA_E1];
               m_vector[0][1] = p[GRADE1][P3GA_E2];
               m_vector[0][2] = p[GRADE1][P3GA_E3];
-
-
-              printf("p0: %2.2f %2.2f %2.2f\n", m_point[0][0], m_point[0][1], m_point[0][2]);
-              printf("v0: %2.2f %2.2f %2.2f\n", m_vector[0][0], m_vector[0][1], m_vector[0][2]);
-              printf("v1: %2.2f %2.2f %2.2f\n", m_vector[1][0], m_vector[1][1], m_vector[1][2]);
-              printf("v2: %2.2f %2.2f %2.2f\n", m_vector[2][0], m_vector[2][1], m_vector[2][2]);
-
             }
             else {
               m_type |= MVI_LINE_PENCIL;
@@ -364,7 +358,7 @@ int mvInt::interpret(const l3ga &X, int creationFlags /* = 0*/) {
         */
         else {
           m_type |= MVI_UNKNOWN;
-          printf("grade 2 unknown; X2: %e; f0: %s; f1: %s\n", X2, factors[0].string(), factors[1].string());
+          printf("grade 2 unknown; X2: %2.2f; f0: %s; f1: %s, #0: %d\n", X2, factors[0].string(), factors[1].string(), null_vectors);
           m_valid = 0;
         }
         break;
@@ -411,7 +405,7 @@ int mvInt::interpret(const l3ga &X, int creationFlags /* = 0*/) {
         break;
       case 6: // ******************** pseudoscalar
         m_type |= MVI_SPACE;
-        printf("pseudoscalar\n");
+        //printf("pseudoscalar\n");
         /*
         scalar0: weight
         */
