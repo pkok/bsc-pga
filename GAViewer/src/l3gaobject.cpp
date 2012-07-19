@@ -139,6 +139,9 @@ l3gaObject::l3gaObject(const l3ga &mv, const std::string &name /*= std::string("
           m_properties |= OP_DRAWMETHOD;
           m_dmMenuIdx = DRAW_LINE_CURVE;
           break;
+        case MVI_POINT:
+          m_properties |= OP_DRAWMETHOD;
+          break;
         case MVI_SPACE: // pseudoscalar
           // don't draw anything
           break;
@@ -279,6 +282,18 @@ int l3gaObject::draw(glwindow *window) {
         glEnable(GL_LINE_STIPPLE);
         drawIdealLine(m_int.m_point[0], m_int.m_vector[0], m_int.m_scalar[0], DRAW_IDEAL_LINE_HOOKS, m_drawMode, this);
         break;
+      case MVI_POINT:
+        glDisable(GL_LIGHTING);
+        glPolygonMode(GL_FRONT_AND_BACK, (m_drawMode & OD_WIREFRAME) ? GL_LINE : GL_FILL);
+        glPushMatrix();
+        glTranslated(m_int.m_point[0][0], m_int.m_point[0][1], m_int.m_point[0][2]);
+        glScaled(gui_state->m_pointSize, gui_state->m_pointSize, gui_state->m_pointSize);
+        if (m_drawMode & OD_MAGNITUDE)
+          glScaled(fabs(m_int.m_scalar[0]), fabs(m_int.m_scalar[0]), fabs(m_int.m_scalar[0]));
+
+        gsDraw(g_pointSphere, (m_drawMode & OD_ORI) ? 0.01 * m_int.m_scalar[0] : 0.0);
+        glPopMatrix();
+        break;
       case MVI_SPACE:
         // don't draw anything
         break;
@@ -318,6 +333,7 @@ int l3gaObject::translate(glwindow *window, double depth, double motionX, double
       case MVI_LINE_PENCIL:
       case MVI_LINE_PAIR:
       case MVI_IDEAL_LINE_PAIR:
+      case MVI_POINT:
       case MVI_SPACE:
       default:
         // translate; default behavior when dragging objects.
@@ -433,12 +449,21 @@ int l3gaObject::description(char *buf, int bufLen, int sl /* = 0 */) {
           m_int.m_point[1][0], m_int.m_point[1][1], m_int.m_point[1][2], 
           m_mv.string());
       break;
+    case MVI_POINT: 
+      if (sl) sprintf(buf, "%s: l3ga point%s", m_name.c_str(), (m_int.dual()) ? " dual" : "");
+
+      else sprintf(buf, "l3ga point%s\nWeight: %f\nPoint: %2.2f %2.2f %2.2f\nCoordinates: %s", 
+          (m_int.dual()) ? " dual" : "",
+          m_int.m_scalar[0], 
+          m_int.m_point[0][0], m_int.m_point[0][1], m_int.m_point[0][2], 
+          mv.string());
+      break;
     case MVI_SPACE: // scalar 0: weight
-        if (sl) sprintf(buf, "%s: l3ga %spseudoscalar, weight: %f", m_name.c_str(), (m_int.dual()) ? "dual " : "", m_int.m_scalar[0]);
-			else sprintf(buf, "l3ga %spseudoscalar\nWeight: %f", 
-				(m_int.dual()) ? "dual " : "",
-				m_int.m_scalar[0]); 
-			break;
+      if (sl) sprintf(buf, "%s: l3ga %spseudoscalar, weight: %f", m_name.c_str(), (m_int.dual()) ? "dual " : "", m_int.m_scalar[0]);
+      else sprintf(buf, "l3ga %spseudoscalar\nWeight: %f", 
+          (m_int.dual()) ? "dual " : "",
+          m_int.m_scalar[0]); 
+      break;
     default:
       if (sl) sprintf(buf, "%s: unknown l3ga blade.", m_name.c_str());
       else sprintf(buf, "Unknown l3ga blade.\nCoordinates: %s", m_mv.string());

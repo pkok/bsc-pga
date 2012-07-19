@@ -42,7 +42,7 @@ p3ga point_on_line(p3ga x, GAIM_FLOAT t);
 int mvInt::interpret(const l3ga &X, int creationFlags /* = 0*/) {
   const GAIM_FLOAT epsilon = 1e-6; // rather arbitrary limit on fp-noise
   l3ga tmp, factors[7];
-  mvInt l1, l2, _tmp;
+  mvInt l1, l2, l3, _tmp;
   int i;
   double s, x, y, z;
   int null_vectors = 0;
@@ -413,6 +413,42 @@ int mvInt::interpret(const l3ga &X, int creationFlags /* = 0*/) {
         m_valid = 1;
         break;
       case 3: // ******************** line bundle/point, fied of lines/plane, regulus, double wheel pencil, ...
+        l1.interpret(factors[0]);
+        l2.interpret(factors[1]);
+        l3.interpret(factors[2]);
+        if (!((l1.m_type & MVI_DUAL) || (l2.m_type & MVI_DUAL) || (l3.m_type & MVI_DUAL))) {
+          if (fabs(lcont(factors[0], factors[1]).scalar()) < epsilon && 
+              fabs(lcont(factors[1], factors[2]).scalar()) < epsilon &&
+              fabs(lcont(factors[2], factors[0]).scalar()) < epsilon) {
+            m_type |= MVI_POINT;
+            printf("brush/point\n");
+            /*
+            scalar0: weight
+            point0: position
+            */
+            m_scalar[0] = s;
+            
+            // point of intersection is the meet of the two homogeneous lines!
+            p3ga a1 = (consoleVariable("", factors[0]).castToP3ga())->p(),
+                 a2 = (consoleVariable("", factors[1]).castToP3ga())->p();
+            p3ga intersection_point;
+            intersection_point.meet(a1, a2);
+
+            m_point[0][0] = intersection_point[GRADE1][P3GA_E1] / intersection_point[GRADE1][P3GA_E0];
+            m_point[0][1] = intersection_point[GRADE1][P3GA_E2] / intersection_point[GRADE1][P3GA_E0];
+            m_point[0][2] = intersection_point[GRADE1][P3GA_E3] / intersection_point[GRADE1][P3GA_E0];
+            m_valid = 1;
+            printf("p: %s\n", intersection_point.string());
+            printf("mp: %2.2f %2.2f %2.2f\n", m_point[0][0], m_point[0][1], m_point[0][2]);
+          }
+        }
+        else {
+          m_type |= MVI_UNKNOWN;
+          printf("grade %d object unknown\n",grade);
+          printf("grade 3 unknown; X2: %2.2f; f0: %s; f1: %s, f2: %s, #0: %d\n", X2, factors[0].string(), factors[1].string(), factors[2].string(), null_vectors);
+          m_valid = 0;
+        }
+        break;
       default:
         m_type |= MVI_UNKNOWN;
         printf("grade %d object unknown\n",grade);
