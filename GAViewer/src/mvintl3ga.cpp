@@ -438,8 +438,6 @@ int mvInt::interpret(const l3ga &X, int creationFlags /* = 0*/) {
             m_point[0][1] = intersection_point[GRADE1][P3GA_E2] / intersection_point[GRADE1][P3GA_E0];
             m_point[0][2] = intersection_point[GRADE1][P3GA_E3] / intersection_point[GRADE1][P3GA_E0];
             m_valid = 1;
-            printf("p: %s\n", intersection_point.string());
-            printf("mp: %2.2f %2.2f %2.2f\n", m_point[0][0], m_point[0][1], m_point[0][2]);
           }
         }
         else {
