@@ -1,3 +1,11 @@
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{caption}
+\usepackage{catoptions}
+\usepackage{color}
+\usepackage{etoolbox}
+\usepackage{hyperref}
+
 %% Math type specifying fonts
 \newcommand{\V}[1]{\ensuremath{\mathbf{#1}}}
 \newcommand{\s}[1]{\ensuremath{\mathcal{#1}}}
@@ -81,6 +89,16 @@
 \definecolor{niceblue}{rgb}{0, 0.4, 1}
 \definecolor{gray}{rgb}{0.2, 0.2, 0.2}
 \definecolor{lightgray}{rgb}{0.4, 0.4, 0.4}
+
+%% We want also \paragraph and \subparagraph to work!
+\setcounter{secnumdepth}{5}
+
+\captionsetup{
+  margin=10pt,
+  font=small,
+  labelfont=bf,
+  position=top,
+}
 
 \newtoggle{draft}
 
