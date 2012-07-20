@@ -93,11 +93,9 @@ int mvInt::interpret(const l3ga &X, int creationFlags /* = 0*/) {
             m_type |= MVI_IDEAL_LINE;
             //printf("ideal line\n");
             /*
-               scalar 0: weight
-               vector 0: normal/reciprocal direction
-               */
-            //tmp.lcem(X,X);
-            //m_scalar[0] = sqrt(tmp.scalar());
+            scalar 0: weight
+            vector 0: normal/reciprocal direction
+            */
             m_scalar[0] = sqrt(X[GRADE1][L3GA_E23] * X[GRADE1][L3GA_E23] + X[GRADE1][L3GA_E31] * X[GRADE1][L3GA_E31] + X[GRADE1][L3GA_E12] * X[GRADE1][L3GA_E12]);
 
             m_vector[0][0] = X[GRADE1][L3GA_E23] / m_scalar[0];
@@ -108,10 +106,10 @@ int mvInt::interpret(const l3ga &X, int creationFlags /* = 0*/) {
             m_type |= MVI_LINE;
             //printf("line\n");
             /*
-               scalar 0: weight
-               point 0: point closest to origin
-               vector 0: direction of line
-               */
+            scalar 0: weight
+            point 0: point closest to origin
+            vector 0: direction of line
+            */
 
 
             // 6D-vector = [d, m]
@@ -144,7 +142,7 @@ int mvInt::interpret(const l3ga &X, int creationFlags /* = 0*/) {
           If pitch > 0, screw is called right-handed, otherwise left-handed.
           */
 
-          m_scalar[0] = sqrt(lcem(X, X).scalar());
+          m_scalar[0] = sqrt(lcont(X, X).scalar());
 
           m_scalar[1] = (X[GRADE1][L3GA_E01] * X[GRADE1][L3GA_E23] + X[GRADE1][L3GA_E02] * X[GRADE1][L3GA_E31] + X[GRADE1][L3GA_E03] * X[GRADE1][L3GA_E12]) / (X[GRADE1][L3GA_E01] * X[GRADE1][L3GA_E01] + X[GRADE1][L3GA_E02] * X[GRADE1][L3GA_E02] + X[GRADE1][L3GA_E03] * X[GRADE1][L3GA_E03]);
 
