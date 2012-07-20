@@ -19,13 +19,15 @@ The following sections will discuss all geometrically different blades of a cert
 \begin{table}
   \caption{An inventory of the blades of grade 0 and 6.}
   \label{tab:inv0}
-  \begin{tabular}{|c|r|l|c|l|}
-    \hline
-    \multicolumn{1}{|c|}{\texttt{g}} & $B^2$ & \multicolumn{1}{|c|}{Form} & \multicolumn{1}{|c|}{Graphical representation} & \multicolumn{1}{|c|}{Name} \\ \hline
-    \hline
-    0 & $\in \reals$ & $1 = \dual{I_6}$ & & Scalar~\cite{TheBook} \\ \hline
-    6 & $\in \reals$ & $I_6 = \dual{1}$ & & Pseudoscalar~\cite{TheBook} \\ \hline
-  \end{tabular}
+  \begin{center}
+    \begin{tabular}{|c|r|l|c|l|}
+      \hline
+      \multicolumn{1}{|c|}{\texttt{g}} & $B^2$ & \multicolumn{1}{|c|}{Form} & \multicolumn{1}{|c|}{Graphical representation} & \multicolumn{1}{|c|}{Name} \\ \hline
+      \hline
+      0 & $\in \reals$ & $1 = \dual{I_6}$ & & Scalar~\cite{TheBook} \\ \hline
+      6 & $\in \reals$ & $I_6 = \dual{1}$ & & Pseudoscalar~\cite{TheBook} \\ \hline
+    \end{tabular}
+  \end{center}
 \end{table}
 
 Scalars and pseudoscalars are interpreted the same as in other models for geometric algebra.  Scalars can be used to represent angles, weights, and many other scalar quantities.  Its dual, the pseudoscalar, may be utilized to denote the subspace volume, as well as for dualization.
@@ -37,24 +39,31 @@ Scalars and pseudoscalars are interpreted the same as in other models for geomet
   \caption{An inventory of the blades of grade 1 and 5.  
     \askLeo{Should I distinguish $\rline$ and $\iline$ in these tables?}}
   \label{tab:inv1}
-  \begin{tabular}{|c|r|p{2.7cm}|p{2cm}|p{5cm}|}
-    \hline
-    \multicolumn{1}{|c|}{\texttt{g}} & $B^2$ & \multicolumn{1}{|c|}{Form} & \multicolumn{1}{|c|}{Visualization} & \multicolumn{1}{|c|}{Name} \\ \hline
-    \hline
-    1 & $= 0$ & $\rline$ & & Real line, path normal for uniform rotating motion\\ \hline
-    1 & $= 0$ & $\iline$ & & Ideal line, path normal for uniform translating motion\\ \hline
-    1 & $\not= 0$ & $\screw$ & & Screw axis \\ \hline
-    5 & $= 0$ & $\dual{\rline}$ & & Singular linear complex~\cite{Pottmann}, uniform rotating motion \\ \hline
-    5 & $= 0$ & $\dual{\iline}$ & & Singular linear complex~\cite{Pottmann}, uniform translating motion \\ \hline
-    5 & $\not= 0$ & $\dual{\screw}$ & & Regular linear complex~\cite{Pottmann}, screw motion \\ \hline
-  \end{tabular}
+  \begin{center}
+    \begin{tabular}{|c|r|p{2.7cm}|p{2cm}|p{5cm}|}
+      \hline
+      \multicolumn{1}{|c|}{\texttt{g}} & $B^2$ & \multicolumn{1}{|c|}{Form} & \multicolumn{1}{|c|}{Visualization} & \multicolumn{1}{|c|}{Name} \\ \hline
+      \hline
+      1 & $= 0$ & $\rline$ & & Real line, path normal for uniform rotating motion\\ \hline
+      1 & $= 0$ & $\iline$ & & Ideal line, path normal for uniform translating motion\\ \hline
+      1 & $\not= 0$ & $\screw$ & & Screw axis \\ \hline
+      5 & $= 0$ & $\dual{\rline}$ & & Singular linear complex~\cite{Pottmann}, uniform rotating motion \\ \hline
+      5 & $= 0$ & $\dual{\iline}$ & & Singular linear complex~\cite{Pottmann}, uniform translating motion \\ \hline
+      5 & $\not= 0$ & $\dual{\screw}$ & & Regular linear complex~\cite{Pottmann}, screw motion \\ \hline
+    \end{tabular}
+  \end{center}
 \end{table}
 
 It is clear from \autoref{sec:plucker} that the null vectors of the Pl\"ucker model (those vectors $v$ satisfying the Pl\"ucker identity $\pluckerid(v) = 0$) are interpreted as lines.  Let $l = d_1 \eze + d_2 \ezt + d_3 \ezd + m_1 \etd + m_2 \ede + m_3 \eet$ be a null vector.  The line can be interpreted through the homogeneous model.  The direction of the line corresponds to $\Em(d_1 \eze + d_2 \ezt + d_3 \ezd) \lcont -\ez = (d_1 \ee + d_2 \et + d_3 \ed)$, while its moment is $\V{m} = \edual{\Em(m_1 \etd + m_2 \ede + m_3 \eet)} = m_1 \ee + m_2 \et + m_3 \ed$.
 
 Ideal lines cannot be interpreted in this way.  The homogeneous model treats these purely Euclidean elements as bivectors.  In the Pl\"ucker model, there is no such thing as a purely Euclidean element, which leaves room for interpretation in a projective way.  These elements represent lines at infinity, or ideal lines.  One can visualize an ideal line $l_\infty = \beta_1 \etd + \beta_2 \ede + \beta_3 \eet$ as a horizon, a circle on the heavenly sphere in direction $\Em(l_\infty)$.  
 
-The vectors that do not square to $0$ can be interpreted as the dual of a helical, or screw motion~\cite[Section 3.1.2]{Pottmann}.  A screw motion simultaneously translates and rotates an object.  The object is translated along the same line as around which the rotation is performed.  The motion can be fully characterized by this line $a$ and the pitch $p$, the amount of translation per rotation.  For the grade 5 screw motion $S = \dual{\plucker{\V{d}}{\V{m}}}$, its pitch and axis are given by $p = \V{d} \lcont \V{m} / \V{d}^2, a = \plucker{\V{d}}{\V{m} - p \V{d}}$~\cite[Theorem 3.1.9]{Pottmann}.  
+The vectors that do not square to $0$ can be interpreted as the dual of a helical, or screw motion~\cite[Section 3.1.2]{Pottmann}.  A screw motion simultaneously translates and rotates an object.  The object is translated along the same line as around which the rotation is performed.  The motion can be fully characterized by this line $a$ and the pitch $p$, the amount of translation per rotation.  For the grade 5 screw motion $S = \dual{\plucker{\V{d}}{\V{m}}}$, its pitch and axis are given by ~\cite[Theorem 3.1.9]{Pottmann}:
+\begin{align}
+  \label{eq:screwparams}
+  p &= \V{d} \lcont \V{m} / \V{d}^2 \nonumber \\
+  a &= \plucker{\V{d}}{\V{m} - p \V{d}} .
+\end{align}
 
 From this, one can deduce what kind of objects the dual elements of real and ideal lines represent.  For an ideal line $l_\infty$ with $p = 0 \lcont \V{m} / 0^2 = \infty$ and $a = \plucker{0}{\V{m} - \infty 0} = l_\infty$, we see that it is a pure translation; even the slightest bit of rotation lets the object be translated.  Given a real line $l_o$, its pitch is $p = 0 / \V{d}^2 = 0$, because of the Pl\"ucker identity, seen in \autoref{eq:laplucker0}.  Its axis is $a = \plucker{\V{d}}{\V{m} - 0} = l_o$.  No matter how much of the rotation is applied, no translation will occur.  This shows that the real lines are the duals of pure rotational motions.
 
@@ -65,29 +74,36 @@ These results are presented summarized in \autoref{tab:inv1}.
 \begin{table}
   \caption{An inventory of the blades of grade 2 and 4.}
   \label{tab:inv2}
-  \begin{tabular}{|c|r|p{2.7cm}|p{2cm}|p{5cm}|}
-    \hline
-    \multicolumn{1}{|c|}{\texttt{g}} & $B^2$ & \multicolumn{1}{|c|}{Form} & \multicolumn{1}{|c|}{Graphical representation} & \multicolumn{1}{|c|}{Name} \\ \hline
-    \hline
-    2 & $= 0$ & $\pline \wedge \pline$, pt.\ int. & & Pencil of linear line complexes~\cite{Pottmann}, pencil of lines~\cite{Hongbo} \\ \hline
-    2 & $> 0$ & $\pline \wedge \pline$, skew & & Hyperbolic pencil of linear complexes~\cite{Pottmann}, Skew line pair~\newterm \\ \hline
-    2 & $\not= 0$ & $\pline \wedge \screw$ & & ??? \\ \hline
-    2 & $< 0$ & $\screw \wedge \screw$ & & Elliptic pencil of linear complexes~\cite{Pottmann} \\ \hline
-    4 & $= 0$ & $\dual{\left( \pline \wedge \pline \right)}$ & & Pencil of singular linear complexes~\cite{Pottmann}, dual pencil of lines \\ \hline
-    4 & $> 0$ & $\dual{\left( \pline \wedge \pline \right)}$, skew & & Hyperbolic linear congruence~\cite{Pottmann}, dual skew line pair~\newterm \\ \hline
-    4 & $\not= 0$ & $\dual{\left( \pline \wedge \screw \right)}$ & & ??? \\ \hline
-    4 & $< 0$ & $\dual{\left( \screw \wedge \screw \right)}$ & & Elliptic linear congruence~\cite{Pottmann}, pencil of reguli~\newterm \\ \hline
-  \end{tabular}
+  \begin{center}
+    \begin{tabular}{|c|r|p{2.7cm}|p{2cm}|p{5cm}|}
+      \hline
+      \multicolumn{1}{|c|}{\texttt{g}} & $B^2$ & \multicolumn{1}{|c|}{Form} & \multicolumn{1}{|c|}{Graphical representation} & \multicolumn{1}{|c|}{Name} \\ \hline
+      \hline
+      2 & $= 0$ & $\pline \wedge \pline$, pt.\ int. & & Pencil of linear line complexes~\cite{Pottmann}, pencil of lines~\cite{Hongbo} \\ \hline
+      2 & $> 0$ & $\pline \wedge \pline$, skew & & Hyperbolic pencil of linear complexes~\cite{Pottmann}, Skew line pair~\newterm \\ \hline
+      2 & $\not= 0$ & $\pline \wedge \screw$ & \comment{HIDE THIS ROW} & Parabolic pencil of linear complexes~\cite{Pottmann} \\ \hline
+      2 & $< 0$ & $\screw \wedge \screw$ & \comment{HIDE THIS ROW} & Elliptic pencil of linear complexes~\cite{Pottmann} \\ \hline
+      4 & $= 0$ & $\dual{\left( \pline \wedge \pline \right)}$ & & Pencil of singular linear complexes~\cite{Pottmann}, dual pencil of lines \\ \hline
+      4 & $> 0$ & $\dual{\left( \pline \wedge \pline \right)}$, skew & & Hyperbolic linear congruence~\cite{Pottmann}, dual skew line pair~\newterm \\ \hline
+      4 & $\not= 0$ & $\dual{\left( \pline \wedge \screw \right)}$ & \comment{HIDE THIS ROW} & Parabolic linear congruence~\cite{Pottmann} \\ \hline
+      4 & $< 0$ & $\dual{\left( \screw \wedge \screw \right)}$ & \comment{HIDE THIS ROW} & Elliptic linear congruence~\cite{Pottmann}, pencil of reguli~\newterm \\ \hline
+    \end{tabular}
+  \end{center}
 \end{table}
 
 A two-blade $C = a \wedge b$ represents the set of linear combinations of $a$ and $b$:
 \begin{equation*}
   \s{C} = \left\{ c \mid c \wedge C = 0 \right\} = \left\{ \lambda a + \mu b \mid \lambda, \mu \in \reals \right\} .
 \end{equation*}
-For the geometric interpretation of these blades, clarity on what kind of objects are in this set is needed.  On first inspection, this can be split in three cases, based on the number of null vectors among the factors, based on the number of null vectors contained by $\s{C}$.
+For the geometric interpretation of these blades, clarity on what kind of objects are in this set is needed.  On first inspection, this can be split in three cases, based on the number of null vectors among the factors.  We will limit this discussion to the case where both $a$ and $b$ are null vectors.
 
+\comment{Easy way out. I don't understand Pottmann enough on this.}
 
-When both $a$ and $b$ are null vectors, a linear combination $c = \lambda a + \mu b$ is a null vector if:
+\TODO{Two screws}
+
+\TODO{Line and screw}
+
+A linear combination $c = \lambda a + \mu b$ is a null vector if:
 \begin{align}
   \label{eq:lincombnull}
   c^2 &= (\lambda a + \mu b) \lcont (\lambda a + \mu b) \nonumber \\
@@ -117,28 +133,25 @@ The dual of a pencil of lines contains the same set of lines~\cite[Section 3.2.1
 
 \askLeo{Above does not make complete sense, does it?}\footnote{If true, this should mean that $\dual{\eze}$ represents the same object as $\eze$; a line and not a scala of reguli.}
 
-Now look at the case where $a$ and $b$ are not coplanar.  \autoref{eq:lincombnull} shows that either $\lambda = 0$ or $\mu = 0$, as $a \lcont b \not= 0$ per definition.  This means that all null vectors in $\s{C}$ must be homogeneously equivalent to $a$ or $b$.  This class of geometric objects is known as the hyperbolic pencils of linear complexes.  The lines of hyperbolic pencil can be drawn 
+Now look at the case where $a$ and $b$ are not coplanar.  \autoref{eq:lincombnull} shows that either $\lambda = 0$ or $\mu = 0$, as $a \lcont b \not= 0$ per definition.  This means that all null vectors in $\s{C}$ must be homogeneously equivalent to $a$ or $b$.  This class of geometric objects is known as the hyperbolic pencils of linear complexes.  Its dual, the hyperbolic linear congruence, contains all lines intersecting both $a$ and $b$~\cite[Proposition 3.2.3]{Pottmann}. That is, for each point $p_a$ on $a$ and $p_b$ on $b$, the line $c$ with embedding $\Em(c) = p_a \wedge p_b$ is in $\dual{C}$.  
 
-The hyperbolic linear congruence, or the dual of a skew line pair, contains all lines intersecting both $a$ and $b$~\cite[Proposition 3.2.3]{Pottmann}. That is, for each point $p_a$ on $a$ and $p_b$ on $b$, the line $c$ with embedding $\Em(c) = p_a \wedge p_b$ is in $\dual{C}$.
-
-Now that we have handled the cases where $a$ and $b$ are both null-vectors, we will investigate the \ldots.
-
-\TODO{Screws}
-\TODO{Line and screw}
+Now that we have handled the cases where $a$ and $b$ are both null-vectors, we will investigate the case where .
 
 \subsection{Elements of grade 3}
 \begin{table}
   \caption{An inventory of the blades of grade 3.}
   \label{tab:inv3}
-  \begin{tabular}{|c|r|p{2.7cm}|p{2cm}|p{5cm}|}
-    \hline
-    \multicolumn{1}{|c|}{\texttt{g}} & $B^2$ & \multicolumn{1}{|c|}{Form} & \multicolumn{1}{|c|}{Graphical representation} & \multicolumn{1}{|c|}{Name} \\ \hline
-    \hline
-    3 & $= 0$ & $\pline \wedge \pline \wedge \pline$, pt.\ int. & & Bundle of lines, point~\newterm \\ \hline
-    3 & $\not= 0$ & $\pline \wedge \pline \wedge \pline$, pl.\ int. & & Field of lines, plane~\newterm \\ \hline
-    3 & $\not= 0$ & $\pline \wedge \pline \wedge \pline$, skew & & Regulus~\cite{Hongbo} \\ \hline
-    3 & $\not= 0$ & $\pline \wedge \pline \wedge \pline$, pw.\ int. & & Couple-wheel pencil~\cite{Hongbo}, line pencil pair~\newterm \\ \hline
-  \end{tabular}
+  \begin{center}
+    \begin{tabular}{|c|r|p{2.7cm}|p{2cm}|p{5cm}|}
+      \hline
+      \multicolumn{1}{|c|}{\texttt{g}} & $B^2$ & \multicolumn{1}{|c|}{Form} & \multicolumn{1}{|c|}{Graphical representation} & \multicolumn{1}{|c|}{Name} \\ \hline
+      \hline
+      3 & $= 0$ & $\pline \wedge \pline \wedge \pline$, pt.\ int. & & Bundle of lines, point~\newterm \\ \hline
+      3 & $\not= 0$ & $\pline \wedge \pline \wedge \pline$, pl.\ int. & & Field of lines, plane~\newterm \\ \hline
+      3 & $\not= 0$ & $\pline \wedge \pline \wedge \pline$, skew & & Regulus~\cite{Hongbo} \\ \hline
+      3 & $\not= 0$ & $\pline \wedge \pline \wedge \pline$, pw.\ int. & & Couple-wheel pencil~\cite{Hongbo}, line pencil pair~\newterm \\ \hline
+    \end{tabular}
+  \end{center}
 \end{table}
 
 None implemented.  Difficult to draw reguli correctly.

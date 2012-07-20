@@ -29,24 +29,33 @@ The casting from \lga{} to \pga{} has been implemented in the same way as expres
 Casting to \lga{} has been done in a corresponding way.  As a consequence, only even grade terms of a multivector can be cast from the current models to \lga{}.  The objects \texttt{e1\^{}e2\^{}e3\^{}e0} from \pga{} and \texttt{e1\^{}e2\^{}e3\^{}no} from \cga{} and \cbga{}, are algebraically equivalent to \texttt{-e01\^{}e23}, \texttt{-e02\^{}e31} and \texttt{-e03\^{}e12}.  This ambiguity has been resolved by returning the sum of all these three blades, divided by \texttt{3}.
 
 \subsection{Blade interpretation and visualization}
-\Autoref{ch:research} discusses several classes of blades with their geometric interpretation.  In this section, the computations of the characteristics needed to draw these blades are given, together with a justification of the visualization.
+\begin{table}
+  \caption{GAViewer uses colors to encode the grade of the object.}
+  \label{tab:gradecolor}
+  \begin{center}
+    \begin{tabular}{|l|l|}
+      \hline
+      Grade & Color \\
+      \hline
+      \hline
+      0 & Black \\
+      1 & Red \\
+      2 & Blue \\
+      3 & Green \\
+      4 & Yellow \\
+      5 & White \\
+      6 & Red \\
+      \hline
+    \end{tabular}
+  \end{center}
+\end{table}
 
-\TODO{Explain what kind of characteristics one expects to encounter.  Examples:}
-\begin{itemize}
-  \item Weight, as meant in the homogeneous model.
-  \item Location with respect to the origin.  GAViewer uses a certain standardized location on the object, so drawing is made easier.
-  \item Direction
-  \item Normal
-  \item Orthogonal1 to normal and ortho2
-  \item Orthogonal2 to normal and ortho1
-  \item Pitch
-  \item Rotation
-  \item Signed radius
-\end{itemize}
+\Autoref{ch:research} discusses several classes of blades with their geometric interpretation.  In this section, the computations of the position and stance of these blades in 3D space are given, together with a motivation for the chosen visualization.  
 
+GAViewer provides user controlled switches for visualizing the object's orientation and weight.  How these properties of the object are displayed is discussed as well.
 
-\comment{Treat implementation of grade 4, 5, 6 in section on 2, 1, 0, resp.?}
-\comment{Maybe in start of the higher-level section?}
+In the visualization, the grade of the object is shown through usage of certain colors.  This association of color and grade is given in \autoref{tab:gradecolor}.  Note that grade 1 and grade 6 objects share the same color; during the original design of GAViewer, no grade 6 objects were expected to be visualized.
+
 \subsubsection{Grade 0}
 GAViewer does not visualize scalars for the originally implemented models, \ega{}, \pga{}, \cga{}, \cbga{}, and \iga.  With \lga{}, we have decided to follow this example.  It adds a piece of consistency in the interface of the application.  When no explicit casting is done, objects are cast to the simplest model that contains the object.  Scalars are thus identified as part of \ega{}.  When they are cast to \lga{}, it is consistent not to display the object, as no geometric semantics of this element have changed.
 
@@ -54,27 +63,38 @@ GAViewer does not visualize scalars for the originally implemented models, \ega{
 \subsubsection{Grade 1}
 1-blades can be either a real line, an ideal line or a screw axis.  Each class needs to be interpreted slightly differently.
 
-Real lines have a weight, direction and a location.  The direction vector $\V{d}$ as mentioned in \autoref{sec:plucker} determines the line's orientation.  To determine its direction properly, the software uses the normalized direction $\V{d} / \norm{\V{d}}$.
+\paragraph{Real line}
+Real lines have a weight, orientation and a location.  The direction vector $\V{d}$ as mentioned in \autoref{sec:plucker} determines the line's orientation.  To determine its orientation properly, the software uses the normalized direction $\V{d} / \norm{\V{d}}$.
 
 The location is standardized to be the point closest to the origin of GAViewer's drawing area.  The classical literature on Pl\"ucker coordinates~\cite{Shoemake} presents a way to parameterize the homogeneous points on a line $-\plucker{\V{d}, \V{m}}$.  This parametrization is given by $p(t) = \V{m} \times \V{d} + t \V{d} + \V{d}^2\ez$.  For $t = 0$, the normalized point nearest to the origin is $(\V{m} \times \V{d}) / \V{d}^2$.
 
 For its weight, one cannot take the inner product with itself, as lines are represented by null blades.  Recognizing the repetitious appearance of $\V{d}$ by normalization of the normalized direction and location of the line, it seems reasonable that $\norm{\V{d}}$ will represent the weight.  As current literature has not mentioned weight, the application uses this value.
 
-Real lines are represented similarly to the lines of \pga{}, \cga{} and \cbga{}; a solid line with optional direction marks.  The length of the marks are a visual clue of the weight.
+Real lines are represented similarly to the lines of \pga{}, \cga{} and \cbga{}; a solid line with optional orientation marks.  The length of the marks are a visual clue of the weight.  Although the mathematical object is infinitely long, the length of the lines drawn are limited by a constant, internally defined in GAViewer.
 
-Ideal lines cannot be characterized in this way as $\V{d} = 0$ per definition.  They have no specific location (each point on an ideal line is infinitely far away from any other non-ideal point).  That means that $\V{m}$ represents an ideal line's direction, and $\norm{\V{m}}$ is its norm.
+\paragraph{Ideal line}
+Ideal lines cannot be characterized in this way as $\V{d} = 0$ per definition.  They have no specific location (each point on an ideal line is infinitely far away from any other non-ideal point).  That means that $\V{m}$ represents an ideal line's orientation, and $\norm{\V{m}}$ is its weight.
 
-The direction of an ideal line $L$ can be seen as a direct or indirect representation.  Directly, this would give us a line through the origin, in the direction of $\dual{\Em(L)}$, where $\V{d}_{\dual{\Em(L)}} = \edual{\Em(L)}$.  With this representation, ideal lines are displayed the same way as real lines, except that the line is dotted to show the difference. 
+The orientation of an ideal line $L$ can be seen as a direct or indirect representation.  Directly, this would give us a line through the origin, in the direction of $\dual{\Em(L)}$, where $\V{d}_{\dual{\Em(L)}} = \edual{\Em(L)}$.  With this representation, ideal lines are displayed the same way as real lines, except that the line is dotted to show the difference. 
 
-In the indirect representation, the ideal line is represented as a circle in $\Em(L)$, where the direction acts as the ideal line's normal.  This agrees with the interpretation of ideal lines as horizons.  The direction is represented by hooks attached on the circle.  Weight can be visualized either by the length of the marks, or by varying the radius of the circle.  To prevent confusion with ``real'' circles of other models and for consistency with the line visualization, the horizon visualization is dotted.
+In the indirect representation, the ideal line is represented as a circle in $\Em(L)$, where the orientation acts as the ideal line's normal.  This agrees with the interpretation of ideal lines as horizons.  The orientation is represented by hooks attached on the circle.  Weight can be visualized either by the length of the marks, or by varying the radius of the circle.  To prevent confusion with ``real'' circles of other models and for consistency with the line visualization, the horizon visualization is dotted.
 
 Ideal lines are not represented by the same visualization as \ega's bivectors are, even though they have a more directional aspect than the other vector classes.  This has been done to make clear that these objects represent lines nonetheless, and are fundamentally different from \ega's bivectors, even when an ideal line can be cast to such a bivector.
 
-% Screws!
+\paragraph{Screw axis}
+The axes of screw motions have two visualizations.  By default, only one period is shown.  The screw axis is shown as a spiral, with its pitch determining the length of the spiral.  With a positive pitch, the spiral performs a right-handed rotation.  In case of a negative pitch, the spiral is left-handed.  The orientation of the screw axis is given by the orientation of its axis (see \autoref{eq:screwparams}), and visually represented by a vector's arrow head on the corresponding end of the spiral.
 
+The weight of a screw axis $s$ is given by $\norm{s} = \sqrt{s \lcont s}$.  We can compute its weight in this way, because it is not a null vector.  Its weight can be shown visually by the radius of the spiral.
+
+As an alternate visualization, the user can choose to show a whole column of joined spirals.
 
 \subsubsection{Grade 2}
-\TODO{Some implemented.  Explain why some not.}
+The visualization of the pencil of linear line complexes, and the hyperbolic pencil of linear complexes are provided. 
+
+\paragraph{Pencil of linear line complexes}
+
+\paragraph{Hyperbolic pencil of linear complexes}
+
 
 
 \subsubsection{Grade 3}
@@ -84,16 +104,19 @@ Ideal lines are not represented by the same visualization as \ega's bivectors ar
 
 
 \subsubsection{Grade 4}
-\comment{Fully implemented as dual to grade 2}
+\TODO{intro?}
+The visualization of the parabolic linear congruence and the elliptic linear congruence are not implemented.
 
-\TODO{Explain why pencils of lines are okay to dually draw}
+\paragraph{Dual pencil of linear line complexes}
+Pottmann and Wallner show that the dual of a pencil of linear line complexes contains the same lines as its direct representation~\cite[Section 3.2.1]{Pottmann}.  Therefore, the computations needed for the visualizations are done with the dual element.  The visual representation is equivalent to that of the grade 2 element.
 
-\TODO{Line pair dual\ldots}
+\paragraph{Hyperbolic linear congruence}
+The location and orientation of a hyperbolic linear congruence is also computed with its dual, a pair of skew lines.  The visualization shows a sample of the direct representation of the four-blade.  The sample takes 31 evenly spaced points on both lines of its dual, and connects them.  The lines are not drawn with the same length as the grade 1 lines.  We believe that this amount of long lines clutter the interface and obscures the geometrical structure of the object.  The line pieces are only drawn from a point from one line to a point on the other line.
 
+The orientation of this congruence is defined as the orientation of its dual.  When the orientation is shown, the line pieces are replaced with vector objects, pointing in the same direction as the single vector points in the case of the dual.
 
 \subsubsection{Grade 5}
-\comment{Fully implemented as dual to grade 1}
-
+Five-blades are visualized in the same way as their duals.  Vectors represent the axis of the motion of a grade 5 object, and thus can give a good visual indication of the nature of the motion itself.
 
 \subsubsection{Grade 6}
-The originally implemented models show a slight inconsistency for visualization of their pseudoscalar.  While GAViewer displays a transparant sphere for \ega{}'s pseudoscalar, the other models display nothing.  Again, we have chosen for consistency.  By duality to scalars, it is safe to say that the semantics of the pseudoscalar have not changed.
+The originally implemented models show a slight inconsistency for visualization of their pseudoscalar.  While GAViewer displays a transparant sphere for \ega{}'s pseudoscalar, the other models display nothing.  As in the scalar case, we have chosen for consistency.  By duality to scalars, it is safe to say that the semantics of the pseudoscalar have not changed.
