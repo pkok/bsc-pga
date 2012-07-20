@@ -861,14 +861,20 @@ int drawScrew(const GAIM_FLOAT point[3], const GAIM_FLOAT direction[3], GAIM_FLO
 }
 
 
-int drawLinePair(const GAIM_FLOAT point1[3], const GAIM_FLOAT direction1[3], const GAIM_FLOAT point2[3], const GAIM_FLOAT direction2[3], const GAIM_FLOAT weight, int method /*= DRAW_LINE_PAIR*/, int flags /*= 0*/, object *o /*= NULL*/) {
+int drawLinePair(const GAIM_FLOAT point1[3], const GAIM_FLOAT direction1[3], const GAIM_FLOAT point2[3], const GAIM_FLOAT direction2[3], const GAIM_FLOAT weight, int method /*= DRAW_LINE_HOOKS*/, int flags /*= 0*/, object *o /*= NULL*/) {
+  GAIM_FLOAT orientation[3];
+
   if (weight < 0) {
     return drawLinePair(point2, direction2, point1, direction1, -weight, method, flags, o);
   }
+
   if (o && o->m_drawMode & OD_ORI) {
-    drawVector(point1, point2, 1);
+    orientation[0] = point2[0] - point1[0];
+    orientation[1] = point2[1] - point1[1];
+    orientation[2] = point2[2] - point1[2];
+    drawVector(point1, orientation, 1.0);
   }
-  return drawLine(point1, direction1, weight, DRAW_LINE_HOOKS, flags, o) + drawLine(point2, direction2, weight, DRAW_LINE_HOOKS, flags, o);
+  return drawLine(point1, direction1, weight, method, flags, o) + drawLine(point2, direction2, weight, method, flags, o);
 }
 
 
@@ -887,7 +893,7 @@ int drawDualLinePair(const GAIM_FLOAT point1[3], const GAIM_FLOAT direction1[3],
 
   GAIM_FLOAT normalize1 = (direction1[0] * direction1[0]) + (direction1[1] * direction1[1]) + (direction1[2] * direction1[2]);
   GAIM_FLOAT normalize2 = (direction2[0] * direction2[0]) + (direction2[1] * direction2[1]) + (direction2[2] * direction2[2]);
-  for (i = 0 ; i < 2 * resolution; ++i) {
+  for (i = 0 ; i <= 2 * resolution; ++i) {
     for (j = 0; j < 3; ++j) {
       focalpoints[0][i][j] = (point1[j] + ((i - resolution) * focalStepSize * direction1[j])) / normalize1;
       focalpoints[1][i][j] = (point2[j] + ((i - resolution) * focalStepSize * direction2[j])) / normalize2;
@@ -895,15 +901,15 @@ int drawDualLinePair(const GAIM_FLOAT point1[3], const GAIM_FLOAT direction1[3],
   }
 
 	glMatrixMode(GL_MODELVIEW);
-  //glDisable(GL_LIGHTING);
-  for (i = 0; i < 2 * resolution; ++i) {
+
+  for (i = 0; i <= 2 * resolution; ++i) {
 
     if (!(o && o->m_drawMode & OD_ORI)) {
       glPushMatrix();
       glTranslated(focalpoints[0][i][0], focalpoints[0][i][1], focalpoints[0][i][2]);
     }
 
-    for (j = 0; j < 2 * resolution; ++j) {
+    for (j = 0; j <= 2 * resolution; ++j) {
       tmp[0] = focalpoints[1][j][0] - focalpoints[0][i][0];
       tmp[1] = focalpoints[1][j][1] - focalpoints[0][i][1];
       tmp[2] = focalpoints[1][j][2] - focalpoints[0][i][2];

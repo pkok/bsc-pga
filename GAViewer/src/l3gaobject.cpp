@@ -132,7 +132,6 @@ l3gaObject::l3gaObject(const l3ga &mv, const std::string &name /*= std::string("
           break;
         case MVI_LINE_PAIR:
           m_properties |= OP_DRAWMETHOD;
-          m_dmMenu = gui_l3gaLineDrawMethods;
           m_dmMenuIdx = DRAW_LINE_HOOKS;
           break;
         case MVI_IDEAL_LINE_PAIR:
