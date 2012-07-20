@@ -72,7 +72,7 @@ These results are presented summarized in \autoref{tab:inv1}.
     2 & $= 0$ & $\pline \wedge \pline$, pt.\ int. & & Pencil of linear line complexes~\cite{Pottmann}, pencil of lines~\cite{Hongbo} \\ \hline
     2 & $> 0$ & $\pline \wedge \pline$, skew & & Hyperbolic pencil of linear complexes~\cite{Pottmann}, Skew line pair~\newterm \\ \hline
     2 & $\not= 0$ & $\pline \wedge \screw$ & & ??? \\ \hline
-    2 & $< 0$ & $\screw \wedge \screw$ & & ??? \\ \hline
+    2 & $< 0$ & $\screw \wedge \screw$ & & Elliptic pencil of linear complexes~\cite{Pottmann} \\ \hline
     4 & $= 0$ & $\dual{\left( \pline \wedge \pline \right)}$ & & Pencil of singular linear complexes~\cite{Pottmann}, dual pencil of lines \\ \hline
     4 & $> 0$ & $\dual{\left( \pline \wedge \pline \right)}$, skew & & Hyperbolic linear congruence~\cite{Pottmann}, dual skew line pair~\newterm \\ \hline
     4 & $\not= 0$ & $\dual{\left( \pline \wedge \screw \right)}$ & & ??? \\ \hline
@@ -84,46 +84,47 @@ A two-blade $C = a \wedge b$ represents the set of linear combinations of $a$ an
 \begin{equation*}
   \s{C} = \left\{ c \mid c \wedge C = 0 \right\} = \left\{ \lambda a + \mu b \mid \lambda, \mu \in \reals \right\} .
 \end{equation*}
-For the geometric interpretation of these blades, it should be clear what kind of objects are in this set.  On first inspection, this can be split in three cases, based on the number of null vectors among the factors.
+For the geometric interpretation of these blades, clarity on what kind of objects are in this set is needed.  On first inspection, this can be split in three cases, based on the number of null vectors among the factors, based on the number of null vectors contained by $\s{C}$.
 
 
 When both $a$ and $b$ are null vectors, a linear combination $c = \lambda a + \mu b$ is a null vector if:
-\begin{align*}
-  c^2 &= (\lambda a + \mu b) \lcont (\lambda a + \mu b) \\
-  &= \lambda^2 a^2 + 2 \lambda \mu a \lcont b + \mu^2 b^2 \\
+\begin{align}
+  \label{eq:lincombnull}
+  c^2 &= (\lambda a + \mu b) \lcont (\lambda a + \mu b) \nonumber \\
+  &= \lambda^2 a^2 + 2 \lambda \mu a \lcont b + \mu^2 b^2 \nonumber \\
   &= 2 \lambda \mu a \lcont b
-\end{align*}
+\end{align}
 
 When $a$ and $b$ are coplanar, their inner product is zero (see \autoref{eq:coplanar}), and each linear combination $c = \lambda a + \mu b$ is a null vector.  This kind of object is called a pencil of linear line complexes~\cite[Section 3.2.1]{Pottmann}, or, a bit shorter, a pencil of lines~\cite{Hongbo}.
 
-We can find two The homogeneous point in which all lines intersect, is called its center~\cite{Hongbo}, and can be computed, as seen in \autoref{eq:intersect}.  The bivector direction containing the pencil can be computed by:
+The homogeneous point in which all lines intersect, is called its center~\cite{Hongbo}, and can be computed, as seen in \autoref{eq:intersect}.  The bivector direction containing the pencil can be computed by:
 
 \begin{equation*}
-  \V{D} = \Em(a) \lcont \ez \wedge \Em(b) \lcont \ez
+  \V{D} = \left(\Em(a) \lcont \ez \right) \wedge \left(\Em(b) \lcont \ez\right)
 \end{equation*}
 
-This does not apply when $a$ and $b$ are parallel.  When they are parallel, $\Em(a) \lcont \ez$ and $\Em(b) \lcont \ez$ only differ in a scalar factor, and therefore their outer product is $0$.
+This has no practical results when $a$ and $b$ are parallel.  When they are parallel, $\Em(a) \lcont \ez$ differs from $\Em(b) \lcont \ez$ only in a scalar factor, and therefore their outer product is $0$.  The intersection of $a$ and $b$ happens at a point at infinity.  For visualizations, it proves useful to know the pencil's bivector direction, as well as a finite point on the pencil.  
 
-\begin{itemize}
-  \item Point on $l_1$: $p_1 = \V{m}_1 \times \V{d}_1 + \V{d}_1^2 \ez$
-  \item Point on $l_2$: $p_2 = \V{m}_2 \times \V{d}_2 + \V{d}_2^2 \ez$
-  \item Point on $l_\bot = p_1 \wedge p_2$: $p_o = \V{m}_\bot \times \V{d}_\bot + \V{d}_\bot^2 \ez$
-  \item ``Direction'' of plane $\V{D}$: $(l_1 \cup l_2) \wedge (p_2 - p_1)$
-\end{itemize}
+Often one takes the point on the object closest to the chosen origin.  For a line $l = \plucker{\V{d}}{\V{m}}$, this is given by $p = \V{m} \times \V{d} + \V{d}^2 \ez$~\cite{Shoemake}.  Let $p_a$ and $p_b$ be such points for $a$ and $b$.  Define such a third point $p_c$ for line $c = p_a \wedge p_b$.  This is the point on the pencil closest to the origin.  
 
+As discussed, the intersection of two parallel lines results in a Euclidean vector, which can be interpreted as either a point at infinity in the homogeneous model, or a direction in the Euclidean model.  We can define the bivector direction of a pencil of parallel lines as:
 
-\TODO{Skew lines}
+\begin{equation*}
+  \V{D} = \left(\Em(a) \cap \Em(b)\right) \wedge \left(p_b - p_a\right)
+\end{equation*}
 
-Van lineaire combinaties $c = \lambda a + \mu b$ zijn alleen $c$'s met $\lambda = 0$ of $\mu = 0$ lijnen. $\lambda a \heq a$, $\mu b \heq b$, dus tekenen we maar 2 lijnen.
+The dual of a pencil of lines contains the same set of lines~\cite[Section 3.2.1]{Pottmann}.  This can be easily shown.  Stating the definition of $\s{C}$ differently, we are looking for all lines that intersect $C$.  This is expressed as $c \lcont C = 0$.  For the grade-4 object $\dual{C}$, this can be written as $c \lcont \dual{C} = c \lcont (C \lcont \inverse{I_6}) = (c \wedge C) \lcont \inverse{I_6}$, with $I_6$ the pseudoscalar of the space $\reals^{3,3}$.  This is only true for $c \wedge C = 0$, a test for containment of $c$ in $C$.
 
-Dual zijn alle lijnen die door $a$ en $b$ gaan. Pottmann!
+\askLeo{Above does not make complete sense, does it?}\footnote{If true, this should mean that $\dual{\eze}$ represents the same object as $\eze$; a line and not a scala of reguli.}
+
+Now look at the case where $a$ and $b$ are not coplanar.  \autoref{eq:lincombnull} shows that either $\lambda = 0$ or $\mu = 0$, as $a \lcont b \not= 0$ per definition.  This means that all null vectors in $\s{C}$ must be homogeneously equivalent to $a$ or $b$.  This class of geometric objects is known as the hyperbolic pencils of linear complexes.  The lines of hyperbolic pencil can be drawn 
+
+The hyperbolic linear congruence, or the dual of a skew line pair, contains all lines intersecting both $a$ and $b$~\cite[Proposition 3.2.3]{Pottmann}. That is, for each point $p_a$ on $a$ and $p_b$ on $b$, the line $c$ with embedding $\Em(c) = p_a \wedge p_b$ is in $\dual{C}$.
 
 \TODO{Line and screw}
 
 \TODO{Screws}
 
-??? Een van deze twee is ``elliptic pencil of linear complexes'' met dual ``elliptic linear congruence'', de andere moeten ``parabolic pencil of linear complexes'' met dual ``parabolic linear congruence'', maar welke? $\Delta$ uitrekenen!
- 
 \subsection{Elements of grade 3}
 \begin{table}
   \caption{An inventory of the blades of grade 3.}
