@@ -109,10 +109,13 @@ Currently:
  */
 int drawLine(const GAIM_FLOAT point[3], const GAIM_FLOAT normal[3], GAIM_FLOAT magnitude, int method = DRAW_LINE_HOOKS, int flags = 0, object *o = NULL);
 
+
 int drawPoint(const GAIM_FLOAT point[3], GAIM_FLOAT weight, int flags, object *o);
+
 
 #define DRAW_PLANE 0
 int drawPlane(const GAIM_FLOAT point[3], const GAIM_FLOAT normal[3], const GAIM_FLOAT ortho1[3], const GAIM_FLOAT ortho2[3], GAIM_FLOAT weight, int method = DRAW_PLANE, int flags = 0, object *o = NULL);
+
 
 #define DRAW_CIRCLE_HOOKS 0
 int drawCircle(const GAIM_FLOAT point[3], const GAIM_FLOAT normal[3], GAIM_FLOAT radius, GAIM_FLOAT weight, int method = DRAW_CIRCLE_HOOKS, int flags = 0, object *o = NULL);
@@ -126,12 +129,19 @@ int drawIdealLine(const GAIM_FLOAT point[3], const GAIM_FLOAT normal[3], GAIM_FL
 #define DRAW_PENCIL 0
 int drawLinePencil(const GAIM_FLOAT center[3], GAIM_FLOAT weight, const GAIM_FLOAT normal[3], const GAIM_FLOAT ortho1[3], const GAIM_FLOAT ortho2[3], int method = DRAW_PENCIL, int flags = 0, object *o = NULL);
 
+
 int drawCirclePencil(const GAIM_FLOAT center[3], const GAIM_FLOAT normal[3], const GAIM_FLOAT ortho1[3], const GAIM_FLOAT ortho2[3], GAIM_FLOAT weight, int method = DRAW_CIRCLE_HOOKS, int flags = 0, object *o = NULL);
+
 
 #define DRAW_RULED_PLANE 1
 int drawRuledPlane(const GAIM_FLOAT point[3], const GAIM_FLOAT normal[3], const GAIM_FLOAT ortho1[3], const GAIM_FLOAT ortho2[3], GAIM_FLOAT weight, int method = DRAW_RULED_PLANE, int flags = 0, object *o = NULL);
 
+
 #define DRAW_SCREW_SPIRAL 0
 #define DRAW_SCREW_LINE 1
-int drawScrew(const GAIM_FLOAT point[3], const GAIM_FLOAT direction[3], GAIM_FLOAT weight, GAIM_FLOAT pitch, int method /*= DRAW_SCREW_SPIRAL */, int flags /*= 0*/, object *o /*= NULL*/);
+int drawScrew(const GAIM_FLOAT point[3], const GAIM_FLOAT direction[3], GAIM_FLOAT weight, GAIM_FLOAT pitch, int method = DRAW_SCREW_SPIRAL, int flags = 0, object *o = NULL);
+
+
+#define DRAW_DUAL_LINE_PAIR 0
+int drawDualLinePair(const GAIM_FLOAT point1[3], const GAIM_FLOAT direction1[3], const GAIM_FLOAT point2[3], const GAIM_FLOAT direction2[3], const GAIM_FLOAT weight, int method = DRAW_DUAL_LINE_PAIR, int flags = 0, object *o = NULL);
 #endif /* _DRAW_FUNCTIONS_H_ */
