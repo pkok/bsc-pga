@@ -702,7 +702,7 @@ int drawLinePencil(const GAIM_FLOAT center[3], GAIM_FLOAT weight, const GAIM_FLO
   glTranslated(center[0], center[1], center[2]);
 
   if (o != NULL && o->m_drawMode & OD_MAGNITUDE) {
-    weight = sqrt(fabs(weight)) / M_PI;
+    //weight = sqrt(fabs(weight)) / M_PI;
     glScaled(weight, weight, weight);
   }
   else {
@@ -861,62 +861,77 @@ int drawScrew(const GAIM_FLOAT point[3], const GAIM_FLOAT direction[3], GAIM_FLO
 }
 
 
+int drawLinePair(const GAIM_FLOAT point1[3], const GAIM_FLOAT direction1[3], const GAIM_FLOAT point2[3], const GAIM_FLOAT direction2[3], const GAIM_FLOAT weight, int method /*= DRAW_LINE_PAIR*/, int flags /*= 0*/, object *o /*= NULL*/) {
+  if (weight < 0) {
+    return drawLinePair(point2, direction2, point1, direction1, -weight, method, flags, o);
+  }
+  if (o && o->m_drawMode & OD_ORI) {
+    drawVector(point1, point2, 1);
+  }
+  return drawLine(point1, direction1, weight, DRAW_LINE_HOOKS, flags, o) + drawLine(point2, direction2, weight, DRAW_LINE_HOOKS, flags, o);
+}
+
+
 int drawDualLinePair(const GAIM_FLOAT point1[3], const GAIM_FLOAT direction1[3], const GAIM_FLOAT point2[3], const GAIM_FLOAT direction2[3], const GAIM_FLOAT weight, int method /*= DRAW_DUAL_LINE_PAIR*/, int flags /*= 0*/, object *o /*= NULL*/) {
   TubeDraw &T = gui_state->m_tubeDraw;
   int i, j, resolution = 15;
-  GAIM_FLOAT focalpoints[2][2 * resolution][3],
+  GAIM_FLOAT focalpoints[2][1 + 2 * resolution][3],
              tmp[3],
              z,
              c,
              scaleConst = g_state->m_clipDistance * sqrt(2.0),
-             stepSize = scaleConst / resolution;
+             focalStepSize = scaleConst / resolution,
+             lineStepSize = 0.1;
   e3ga e3gaR;
   float rotM[16];
 
-  p3ga tmp1, tmp2, line1, line2;
-  tmp1.set(GRADE1, point1[0], point1[1], point1[2], 1);
-  tmp2.set(GRADE1, direction1[0], direction1[1], direction1[2], 1);
-  line1 = tmp1 ^ tmp2;
-  
-  tmp1.set(GRADE1, point2[0], point2[1], point2[2], 1);
-  tmp2.set(GRADE1, direction2[0], direction2[1], direction2[2], 1);
-  line2 = tmp1 ^ tmp2;
-
   GAIM_FLOAT normalize1 = (direction1[0] * direction1[0]) + (direction1[1] * direction1[1]) + (direction1[2] * direction1[2]);
   GAIM_FLOAT normalize2 = (direction2[0] * direction2[0]) + (direction2[1] * direction2[1]) + (direction2[2] * direction2[2]);
-  for (i = 0 ; i < resolution; ++i) {
+  for (i = 0 ; i < 2 * resolution; ++i) {
     for (j = 0; j < 3; ++j) {
-      focalpoints[0][i][j] = (point1[j] + (i * stepSize * direction1[j])) / normalize1;
-      focalpoints[1][i][j] = (point2[j] + (i * stepSize * direction2[j])) / normalize2;
-      focalpoints[0][resolution + i][j] = (point1[j] - (i * stepSize * direction1[j])) / normalize1;
-      focalpoints[1][resolution + i][j] = (point2[j] - (i * stepSize * direction2[j])) / normalize2;
+      focalpoints[0][i][j] = (point1[j] + ((i - resolution) * focalStepSize * direction1[j])) / normalize1;
+      focalpoints[1][i][j] = (point2[j] + ((i - resolution) * focalStepSize * direction2[j])) / normalize2;
     }
   }
 
 	glMatrixMode(GL_MODELVIEW);
   //glDisable(GL_LIGHTING);
   for (i = 0; i < 2 * resolution; ++i) {
-    glPushMatrix();
-    glTranslated(focalpoints[0][i][0], focalpoints[0][i][1], focalpoints[0][i][2]);
+
+    if (!(o && o->m_drawMode & OD_ORI)) {
+      glPushMatrix();
+      glTranslated(focalpoints[0][i][0], focalpoints[0][i][1], focalpoints[0][i][2]);
+    }
 
     for (j = 0; j < 2 * resolution; ++j) {
       tmp[0] = focalpoints[1][j][0] - focalpoints[0][i][0];
       tmp[1] = focalpoints[1][j][1] - focalpoints[0][i][1];
       tmp[2] = focalpoints[1][j][2] - focalpoints[0][i][2];
       c = sqrt((tmp[0] * tmp[0]) + (tmp[1] * tmp[1]) + (tmp[2] * tmp[2]));
-      glPushMatrix();
-      e3gaRve3(e3gaR, e3ga(GRADE1, tmp));
-      e3gaRotorToOpenGLMatrix(e3gaR, rotM);
-      glMultMatrixf(rotM);
-      T.begin(GL_LINE_STRIP);
-      for (z = 0; z <= c; z += 0.1 * scaleConst) {
-        T.vertex3d(0.0, 0.0, z);
+      tmp[0] /= c;
+      tmp[1] /= c;
+      tmp[2] /= c;
+
+      if (o && o->m_drawMode & OD_ORI) {
+        glPolygonMode(GL_FRONT_AND_BACK, (o && o->m_drawMode & OD_WIREFRAME) ? GL_LINE : GL_FILL);
+        drawVector(focalpoints[0][i], tmp, c);
       }
-      T.end();
-      glPopMatrix();
+      else {
+        glPushMatrix();
+        e3gaRve3(e3gaR, e3ga(GRADE1, tmp));
+        e3gaRotorToOpenGLMatrix(e3gaR, rotM);
+        glMultMatrixf(rotM);
+        T.begin(GL_LINE_STRIP);
+        T.vertex3d(0.0, 0.0, 0.0);
+        T.vertex3d(0.0, 0.0, c);
+        T.end();
+        glPopMatrix();
+      }
     }
 
-    glPopMatrix();
+    if (!(o && o->m_drawMode & OD_ORI)) {
+      glPopMatrix();
+    }
   }
   return 0;
 }

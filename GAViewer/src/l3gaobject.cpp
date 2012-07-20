@@ -277,8 +277,7 @@ int l3gaObject::draw(glwindow *window) {
           drawDualLinePair(m_int.m_point[0], m_int.m_vector[0], m_int.m_point[1], m_int.m_vector[1], m_int.m_scalar[0], m_dmMenuIdx, m_drawMode, this);
         }
         else {
-          drawLine(m_int.m_point[0], m_int.m_vector[0], m_int.m_scalar[0], m_dmMenuIdx, m_drawMode, this);
-          drawLine(m_int.m_point[1], m_int.m_vector[1], m_int.m_scalar[0], m_dmMenuIdx, m_drawMode, this);
+          drawLinePair(m_int.m_point[0], m_int.m_vector[0], m_int.m_point[1], m_int.m_vector[1], m_int.m_scalar[0], m_dmMenuIdx, m_drawMode, this);
         }
         break;
       case MVI_IDEAL_LINE_PAIR:
@@ -446,9 +445,9 @@ int l3gaObject::description(char *buf, int bufLen, int sl /* = 0 */) {
           m_mv.string());
       break;
     case MVI_POINT: 
-      if (sl) sprintf(buf, "%s: l3ga point%s", m_name.c_str(), (m_int.dual()) ? " dual" : "");
+      if (sl) sprintf(buf, "%s: l3ga bundle of lines (point)%s", m_name.c_str(), (m_int.dual()) ? " dual" : "");
 
-      else sprintf(buf, "l3ga point%s\nWeight: %f\nPoint: %2.2f %2.2f %2.2f\nCoordinates: %s", 
+      else sprintf(buf, "l3ga bundle of lines (point)%s\nWeight: %f\nPoint: %2.2f %2.2f %2.2f\nCoordinates: %s", 
           (m_int.dual()) ? " dual" : "",
           m_int.m_scalar[0], 
           m_int.m_point[0][0], m_int.m_point[0][1], m_int.m_point[0][2], 
