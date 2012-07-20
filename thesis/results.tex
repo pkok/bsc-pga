@@ -1,9 +1,11 @@
 \section{Implementation}
 \label{ch:implementation}
 \TODO{Introductory text.}
+With the knowledge of the frameworks acquired in \autoref{ch:background} and \autoref{ch:research}, we now can extend the functionality of GAViewer.  The following parts will discuss the following subjects: how GAViewer can be extended, and how it has been done;  the origins of the software for computing with the Pl\"ucker model;  how casting from and to the Pl\"ucker model is realized;  and, lastly, the visualization of each provided element is explained.
 
 
 \subsection{Software design decision}
+\label{sec:softwaredesign}
 Extending GAViewer's functionalities can be done in two ways.  
 
 Since version 0.4, GAViewer can open a TCP port for communication with other programs~\cite{GAViewer}.  The extended functionality can be implemented by a program that maintains an own interface for user input.  The input will be sent to GAViewer over a TCP port, after it has been processed by the new application.  Textual results are returned over the TCP port, and thus can be shown in the application's own user interface.  However, the visualization of the elements will be shown in GAViewer's own viewport.  The user has to switch between user interfaces to view textual or visual representations, which the user probably experiences as confusing or annoying.  To show the new model's blades correctly, it should be possible to characterize their visualization in terms of elements of other models, and elements of those models should be passed around between the new program and GAViewer.  This limitation seems undesired for our elements; no supported model has primitives that can make up a screw axis' visualization.  
@@ -104,8 +106,8 @@ The visualization of the pencil of linear line complexes, and the hyperbolic pen
 
 
 \subsubsection{Grade 4}
-\TODO{intro?}
-The visualization of the parabolic linear congruence and the elliptic linear congruence are not implemented.
+Just as their duals, the dual pencil of linear line complexes as well as the hyperbolic linear congruence are provided with visualizations.
+%The visualization of the parabolic linear congruence and the elliptic linear congruence are not implemented.
 
 \paragraph{Dual pencil of linear line complexes}
 Pottmann and Wallner show that the dual of a pencil of linear line complexes contains the same lines as its direct representation~\cite[Section 3.2.1]{Pottmann}.  Therefore, the computations needed for the visualizations are done with the dual element.  The visual representation is equivalent to that of the grade 2 element.
