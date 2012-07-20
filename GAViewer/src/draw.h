@@ -109,6 +109,8 @@ Currently:
  */
 int drawLine(const GAIM_FLOAT point[3], const GAIM_FLOAT normal[3], GAIM_FLOAT magnitude, int method = DRAW_LINE_HOOKS, int flags = 0, object *o = NULL);
 
+int drawPoint(const GAIM_FLOAT point[3], GAIM_FLOAT weight, int flags, object *o);
+
 #define DRAW_PLANE 0
 int drawPlane(const GAIM_FLOAT point[3], const GAIM_FLOAT normal[3], const GAIM_FLOAT ortho1[3], const GAIM_FLOAT ortho2[3], GAIM_FLOAT weight, int method = DRAW_PLANE, int flags = 0, object *o = NULL);
 

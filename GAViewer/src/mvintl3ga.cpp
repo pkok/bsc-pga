@@ -416,10 +416,28 @@ int mvInt::interpret(const l3ga &X, int creationFlags /* = 0*/) {
         l1.interpret(factors[0]);
         l2.interpret(factors[1]);
         l3.interpret(factors[2]);
-        if (!((l1.m_type & MVI_DUAL) || (l2.m_type & MVI_DUAL) || (l3.m_type & MVI_DUAL))) {
-          if (fabs(lcont(factors[0], factors[1]).scalar()) < epsilon && 
-              fabs(lcont(factors[1], factors[2]).scalar()) < epsilon &&
-              fabs(lcont(factors[2], factors[0]).scalar()) < epsilon) {
+        if (!((l1.m_type & MVI_DUAL) || (l2.m_type & MVI_DUAL) || (l3.m_type & MVI_DUAL)) &&
+            fabs(lcont(factors[0], factors[1]).scalar()) < epsilon && 
+            fabs(lcont(factors[1], factors[2]).scalar()) < epsilon &&
+            fabs(lcont(factors[2], factors[0]).scalar()) < epsilon) {
+
+          // point of intersection is the meet of the two homogeneous lines!
+          p3ga a1 = (consoleVariable("", factors[0]).castToP3ga())->p(),
+               a2 = (consoleVariable("", factors[1]).castToP3ga())->p(),
+               a3 = (consoleVariable("", factors[2]).castToP3ga())->p();
+          p3ga intersection1, intersection2, intersection3;
+          intersection1.meet(a1, a2);
+          intersection2.meet(a2, a3);
+          intersection3.meet(a3, a1);
+
+          intersection1 = intersection1 / intersection1[GRADE1][P3GA_E0];
+          intersection2 = intersection2 / intersection2[GRADE1][P3GA_E0];
+          intersection3 = intersection3 / intersection3[GRADE1][P3GA_E0];
+
+          if (fabs((intersection1 - intersection2).norm_a()) < epsilon &&
+              fabs((intersection2 - intersection3).norm_a()) < epsilon &&
+              fabs((intersection3 - intersection1).norm_a()) < epsilon) {
+            // a1, a2 and a3 intersect in one point:
             m_type |= MVI_POINT;
             printf("brush/point\n");
             /*
@@ -427,17 +445,16 @@ int mvInt::interpret(const l3ga &X, int creationFlags /* = 0*/) {
             point0: position
             */
             m_scalar[0] = s;
-            
-            // point of intersection is the meet of the two homogeneous lines!
-            p3ga a1 = (consoleVariable("", factors[0]).castToP3ga())->p(),
-                 a2 = (consoleVariable("", factors[1]).castToP3ga())->p();
-            p3ga intersection_point;
-            intersection_point.meet(a1, a2);
 
-            m_point[0][0] = intersection_point[GRADE1][P3GA_E1] / intersection_point[GRADE1][P3GA_E0];
-            m_point[0][1] = intersection_point[GRADE1][P3GA_E2] / intersection_point[GRADE1][P3GA_E0];
-            m_point[0][2] = intersection_point[GRADE1][P3GA_E3] / intersection_point[GRADE1][P3GA_E0];
+            m_point[0][0] = intersection1[GRADE1][P3GA_E1] / intersection1[GRADE1][P3GA_E0];
+            m_point[0][1] = intersection1[GRADE1][P3GA_E2] / intersection1[GRADE1][P3GA_E0];
+            m_point[0][2] = intersection1[GRADE1][P3GA_E3] / intersection1[GRADE1][P3GA_E0];
             m_valid = 1;
+          }
+          else {
+            m_type |= MVI_PLANE;
+            printf("plane\n");
+            m_valid = 0;
           }
         }
         else {

@@ -546,6 +546,21 @@ int drawLine(const GAIM_FLOAT point[3], const GAIM_FLOAT normal[3], GAIM_FLOAT m
 }
 
 
+int drawPoint(const GAIM_FLOAT point[3], GAIM_FLOAT weight, int flags, object *o) {
+  glDisable(GL_LIGHTING);
+  glPolygonMode(GL_FRONT_AND_BACK, (o && o->m_drawMode & OD_WIREFRAME) ? GL_LINE : GL_FILL);
+  glPushMatrix();
+  glTranslated(point[0], point[1], point[2]);
+  glScaled(gui_state->m_pointSize, gui_state->m_pointSize, gui_state->m_pointSize);
+  if (o && o->m_drawMode & OD_MAGNITUDE)
+    glScaled(fabs(weight), fabs(weight), fabs(weight));
+
+  gsDraw(g_pointSphere, (o && o->m_drawMode & OD_ORI) ? 0.01 * weight : 0.0);
+  glPopMatrix();
+  return 0;
+}
+
+
 int drawPlane(const GAIM_FLOAT point[3], const GAIM_FLOAT normal[3], const GAIM_FLOAT ortho1[3], const GAIM_FLOAT ortho2[3], GAIM_FLOAT weight, int method, int flags, object *o) {
   TubeDraw &T = gui_state->m_tubeDraw;
 	GAIM_FLOAT x, y;

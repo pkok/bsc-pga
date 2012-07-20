@@ -283,6 +283,8 @@ int l3gaObject::draw(glwindow *window) {
         drawIdealLine(m_int.m_point[0], m_int.m_vector[0], m_int.m_scalar[0], DRAW_IDEAL_LINE_HOOKS, m_drawMode, this);
         break;
       case MVI_POINT:
+        drawPoint(m_int.m_point[0], m_int.m_scalar[0], 0, this);
+        /*
         glDisable(GL_LIGHTING);
         glPolygonMode(GL_FRONT_AND_BACK, (m_drawMode & OD_WIREFRAME) ? GL_LINE : GL_FILL);
         glPushMatrix();
@@ -293,6 +295,7 @@ int l3gaObject::draw(glwindow *window) {
 
         gsDraw(g_pointSphere, (m_drawMode & OD_ORI) ? 0.01 * m_int.m_scalar[0] : 0.0);
         glPopMatrix();
+        */
         break;
       case MVI_SPACE:
         // don't draw anything

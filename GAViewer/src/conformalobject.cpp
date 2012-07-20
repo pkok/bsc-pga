@@ -143,16 +143,7 @@ int conformalObject::draw(glwindow *window) {
 			break;
 		case MVI_POINT:
 		case MVI_FLAT_POINT:
-			glDisable(GL_LIGHTING);
-			glPolygonMode(GL_FRONT_AND_BACK, (m_drawMode & OD_WIREFRAME) ? GL_LINE : GL_FILL);
-			glPushMatrix();
-			glTranslated(m_int.m_point[0][0], m_int.m_point[0][1], m_int.m_point[0][2]);
-			glScaled(gui_state->m_pointSize, gui_state->m_pointSize, gui_state->m_pointSize);
-			if (m_drawMode & OD_MAGNITUDE)
-				glScaled(fabs(m_int.m_scalar[0]), fabs(m_int.m_scalar[0]), fabs(m_int.m_scalar[0]));
-
-			gsDraw(g_pointSphere, (m_drawMode & OD_ORI) ? 0.01 * m_int.m_scalar[0] : 0.0);
-			glPopMatrix();
+      drawPoint(m_int.m_point[0], m_int.m_scalar[0], 0, this);
 			break;
 		case MVI_LINE: 
       drawLine(m_int.m_point[0], m_int.m_vector[0], m_int.m_scalar[0], m_dmMenuIdx, (m_drawMode & OD_ORI) ? 0x01 : 0, this);
