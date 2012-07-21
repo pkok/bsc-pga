@@ -79,9 +79,27 @@ int mvInt::interpret(const l3ga &X, int creationFlags /* = 0*/) {
   if (type == GA_BLADE) { // ************************ all blades *********************
     GAIM_FLOAT X2 = (X * X).scalar(), weight2;
     s = factorize_blade(X, grade, factors);
-    for (i = 0; grade > 1 && i < grade; ++i) {
-      interpret[i].interpret(factors[i] * (i == 0 ? s : 1));
+    if (grade > 1) {
+      m_scalar[0] = 1;
+      m_scalar[1] = 1;
+      for (i = 0; i < grade && factors[i].grade(); ++i) {
+        if (i == 0) {
+          factors[i] *= s;
+        }
+        interpret[i].interpret(factors[i]);
+
+        if (fabs((factors[i] << factors[i]).scalar()) < epsilon) {
+          ++null_vectors;
+        }
+        if (interpret[i].m_type & MVI_IDEAL) {
+          ++ideal_lines;
+        }
+        m_scalar[0] *= interpret[i].m_scalar[0];
+        m_scalar[1] *= interpret[i].m_scalar[1];
+      }
+      m_scalar[0] = fabs(m_scalar[0]);
     }
+
     switch (grade) {
       case 0: // ******************** scalar
         m_type |= MVI_SCALAR;
@@ -97,6 +115,7 @@ int mvInt::interpret(const l3ga &X, int creationFlags /* = 0*/) {
             //printf("ideal line\n");
             /*
             scalar 0: weight
+            scalar 1: orientation
             vector 0: normal/reciprocal direction
             */
             m_scalar[0] = sqrt(X[GRADE1][L3GA_E23] * X[GRADE1][L3GA_E23] + X[GRADE1][L3GA_E31] * X[GRADE1][L3GA_E31] + X[GRADE1][L3GA_E12] * X[GRADE1][L3GA_E12]);
@@ -110,6 +129,7 @@ int mvInt::interpret(const l3ga &X, int creationFlags /* = 0*/) {
             //printf("line\n");
             /*
             scalar 0: weight
+            scalar 1: orientation
             point 0: point closest to origin
             vector 0: direction of line
             */
@@ -138,18 +158,21 @@ int mvInt::interpret(const l3ga &X, int creationFlags /* = 0*/) {
 
           /*
           scalar 0: weight
-          scalar 1: pitch (translation distance over 1 rotation).
+          scalar 1: orientation
+          scalar 2: pitch (translation distance over 1 rotation).
           point 0: point closest to origin on the screw axis, if not ideal
           vector 0: direction of screw axis
 
           If pitch > 0, screw is called right-handed, otherwise left-handed.
           */
 
-          m_scalar[0] = sqrt(lcont(X, X).scalar());
+          m_scalar[0] = sqrt(X2);
 
-          m_scalar[1] = (X[GRADE1][L3GA_E01] * X[GRADE1][L3GA_E23] + X[GRADE1][L3GA_E02] * X[GRADE1][L3GA_E31] + X[GRADE1][L3GA_E03] * X[GRADE1][L3GA_E12]) / (X[GRADE1][L3GA_E01] * X[GRADE1][L3GA_E01] + X[GRADE1][L3GA_E02] * X[GRADE1][L3GA_E02] + X[GRADE1][L3GA_E03] * X[GRADE1][L3GA_E03]);
+          m_scalar[2] = (X[GRADE1][L3GA_E01] * X[GRADE1][L3GA_E23] + X[GRADE1][L3GA_E02] * X[GRADE1][L3GA_E31] + X[GRADE1][L3GA_E03] * X[GRADE1][L3GA_E12]) / (X[GRADE1][L3GA_E01] * X[GRADE1][L3GA_E01] + X[GRADE1][L3GA_E02] * X[GRADE1][L3GA_E02] + X[GRADE1][L3GA_E03] * X[GRADE1][L3GA_E03]);
 
-          tmp = X - (m_scalar[1] * (X[GRADE1][L3GA_E01] * l3ga::e23 + X[GRADE1][L3GA_E02] * l3ga::e31 + X[GRADE1][L3GA_E03] * l3ga::e12));
+          tmp = X - (m_scalar[2] * (X[GRADE1][L3GA_E01] * l3ga::e23 + X[GRADE1][L3GA_E02] * l3ga::e31 + X[GRADE1][L3GA_E03] * l3ga::e12));
+
+          tmpInt.interpret(tmp);
 
           m_vector[0][0] = tmpInt.m_vector[0][0];
           m_vector[0][1] = tmpInt.m_vector[0][1];
@@ -160,25 +183,15 @@ int mvInt::interpret(const l3ga &X, int creationFlags /* = 0*/) {
           m_point[0][2] = tmpInt.m_point[0][2];
         }
 
+        m_scalar[1] = 1;
+        m_scalar[1] *= (0 < m_vector[0][0]) - (m_vector[0][0] <= 0);
+        m_scalar[1] *= (0 < m_vector[0][1]) - (m_vector[0][1] <= 0);
+        m_scalar[1] *= (0 < m_vector[0][2]) - (m_vector[0][2] <= 0);
+
         m_valid = 1;
-        if (!m_valid) {
-          m_type |= MVI_UNKNOWN;
-          m_valid = 0;
-        }
         break;
       case 2: // ******************** line pencil, skew line pair, 'line tangent', 'dual regulus pencil'
-        for (i = 0; i < grade && factors[i].grade(); ++i) {
-          if (fabs((factors[i] << factors[i]).scalar()) < epsilon) {
-            ++null_vectors;
-          }
-          if (fabs(factors[i][GRADE1][L3GA_E01]) < epsilon &&
-              fabs(factors[i][GRADE1][L3GA_E02]) < epsilon &&
-              fabs(factors[i][GRADE1][L3GA_E03]) < epsilon) {
-            ++ideal_lines;
-          }
-        } 
         if (null_vectors == 2) { 
-          m_scalar[0] = (interpret[0].m_scalar[0] * interpret[1].m_scalar[0]);
           if (fabs(X2) < epsilon) {
             // Detect if lines are parallel.
             // Line L1=(a:b) and L2=(x:y) are parallel when:
@@ -194,7 +207,6 @@ int mvInt::interpret(const l3ga &X, int creationFlags /* = 0*/) {
               */
               //m_scalar[0] = s;
 
-              printf("f1: %s\nf2: %s\n", factors[0].string(), factors[1].string());
               z = sqrt((factors[0][GRADE1][L3GA_E23] * factors[0][GRADE1][L3GA_E23]) + (factors[0][GRADE1][L3GA_E31] * factors[0][GRADE1][L3GA_E31]) + (factors[0][GRADE1][L3GA_E12] * factors[0][GRADE1][L3GA_E12]));
               m_vector[1][0] = -factors[0][GRADE1][L3GA_E23] / z;
               m_vector[1][1] = -factors[0][GRADE1][L3GA_E31] / z;
@@ -256,7 +268,7 @@ int mvInt::interpret(const l3ga &X, int creationFlags /* = 0*/) {
             }
             else {
               m_type |= MVI_LINE_PENCIL;
-              printf("line pencil -- f0: %s \t\tf1: %s\n", factors[0].string(), factors[1].string());
+              printf("line pencil\n");
               /*
               scalar 0: weight
               point 0: center
@@ -345,21 +357,19 @@ int mvInt::interpret(const l3ga &X, int creationFlags /* = 0*/) {
             m_vector[1][2] = interpret[1].m_vector[0][2];
           }
         }
-        /*
-        else if (null_vectors == 1) {
-          // line tangent
-        }
-        else if (null_vectors == 0) {
-          // dual regulus pencil?
-        }
-        */
         else {
           m_type |= MVI_UNKNOWN;
-          printf("grade 2 unknown; X2: %2.2f; f0: %s; f1: %s, #0: %d\n", X2, factors[0].string(), factors[1].string(), null_vectors);
+          printf("grade 2 unknown; \n\tX²:\t%2.2f\n\tf0:\t%s\n\tf1:\t%s\n\t#0:\t%d\n", X2, factors[0].string(), factors[1].string(), null_vectors);
           m_valid = 0;
+
+          if (null_vectors == 1) {
+            printf("parabolic pencil of linear complexes / line tangent?\n");
+          }
+          else if (null_vectors == 0) {
+            printf("elliptic pencil of linear complexes / dual regulus pencil?\n");
+          }
         }
         break;
-        /* Temporary solution. Interpretation through dualization. */
       case 3: // ******************** line bundle/point, fied of lines/plane, regulus, double wheel pencil, ...
         if (!((interpret[0].m_type & MVI_DUAL) || (interpret[1].m_type & MVI_DUAL) || (interpret[2].m_type & MVI_DUAL)) &&
             fabs(lcont(factors[0], factors[1]).scalar()) < epsilon && 
@@ -404,10 +414,11 @@ int mvInt::interpret(const l3ga &X, int creationFlags /* = 0*/) {
         }
         else {
           m_type |= MVI_UNKNOWN;
-          printf("grade 3 unknown; X2: %2.2f; f0: %s; f1: %s, f2: %s, #0: %d\n", X2, factors[0].string(), factors[1].string(), factors[2].string(), null_vectors);
+          printf("grade 3 unknown;\n\tX²:\t%2.2f\n\tf0:\t%s\n\tf1:\t%s\n\tf2:\t%s\n\t#0:\t%d\n", X2, factors[0].string(), factors[1].string(), factors[2].string(), null_vectors);
           m_valid = 0;
         }
         break;
+        /* Temporary solution. Interpretation through dualization. */
       case 4: // ******************** regulus pencil, dual line pair, parabolic linear congruence, "[hyperbolic linear congruence], bundle + field"
       case 5: // ******************** regulus bundle, rotation invariants, translation invariants
         m_type = tmpInt.m_type;
@@ -478,6 +489,7 @@ int mvInt::interpret(const l3ga &X, int creationFlags /* = 0*/) {
         }
         break;
     }
+    //printf("o: %2.2f\tw: %2.2f\t#0: %d\n", m_scalar[1], m_scalar[0], null_vectors);
   }
   // TODO: Add interpretation for versors
   else if (type == GA_VERSOR) {
@@ -601,7 +613,7 @@ double factorize_blade(const l3ga &B, int grade, l3ga (&factors)[7]) {
     // For all but one of the basis vectors e[i] of E:
     for (i = 0; i < (k - 1); ++i) {
       // Project e[i] onto Bc
-      tmp1.scpem(B, B.reverse());
+      tmp1.scpem(B/s, (B/s).reverse());
       if (fabs(tmp1.scalar()) > 0.0) {
         tmp1.set(GRADE0, (1.0/tmp1.scalar()));
       }
@@ -610,11 +622,12 @@ double factorize_blade(const l3ga &B, int grade, l3ga (&factors)[7]) {
       fi.gpem(tmp2, tmp1);
       // Normalize fi. Add it to the list of factors.
       tmp1.lcem(fi, fi);
-      factors[i].gpem(fi, l3ga(1.0 / sqrt(tmp1.scalar())));
+      fi.gpem(fi, l3ga(1, 1.0 / sqrt(tmp1.scalar())));
+      factors[i] = fi;
       // Update Bc
       tmp1.scpem(fi, fi.reverse());
       tmp1.gpem(fi, l3ga(1.0 / tmp1.scalar()));
-      Bc.lcem(tmp1, Bc);
+      Bc.lcem(fi, Bc);
     }
     factors[k - 1] = Bc;
   }
