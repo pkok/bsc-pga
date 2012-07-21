@@ -42,7 +42,7 @@ p3ga point_on_line(p3ga x, GAIM_FLOAT t);
 int mvInt::interpret(const l3ga &X, int creationFlags /* = 0*/) {
   const GAIM_FLOAT epsilon = 1e-6; // rather arbitrary limit on fp-noise
   l3ga tmp, factors[7];
-  mvInt l1, l2, l3, _tmp;
+  mvInt tmpInt, interpret[7];
   int i;
   double s, x, y, z;
   int null_vectors = 0;
@@ -79,6 +79,9 @@ int mvInt::interpret(const l3ga &X, int creationFlags /* = 0*/) {
   if (type == GA_BLADE) { // ************************ all blades *********************
     GAIM_FLOAT X2 = (X * X).scalar(), weight2;
     s = factorize_blade(X, grade, factors);
+    for (i = 0; grade > 1 && i < grade; ++i) {
+      interpret[i].interpret(factors[i] * (i == 0 ? s : 1));
+    }
     switch (grade) {
       case 0: // ******************** scalar
         m_type |= MVI_SCALAR;
@@ -147,15 +150,14 @@ int mvInt::interpret(const l3ga &X, int creationFlags /* = 0*/) {
           m_scalar[1] = (X[GRADE1][L3GA_E01] * X[GRADE1][L3GA_E23] + X[GRADE1][L3GA_E02] * X[GRADE1][L3GA_E31] + X[GRADE1][L3GA_E03] * X[GRADE1][L3GA_E12]) / (X[GRADE1][L3GA_E01] * X[GRADE1][L3GA_E01] + X[GRADE1][L3GA_E02] * X[GRADE1][L3GA_E02] + X[GRADE1][L3GA_E03] * X[GRADE1][L3GA_E03]);
 
           tmp = X - (m_scalar[1] * (X[GRADE1][L3GA_E01] * l3ga::e23 + X[GRADE1][L3GA_E02] * l3ga::e31 + X[GRADE1][L3GA_E03] * l3ga::e12));
-          _tmp.interpret(tmp);
 
-          m_vector[0][0] = _tmp.m_vector[0][0];
-          m_vector[0][1] = _tmp.m_vector[0][1];
-          m_vector[0][2] = _tmp.m_vector[0][2];
+          m_vector[0][0] = tmpInt.m_vector[0][0];
+          m_vector[0][1] = tmpInt.m_vector[0][1];
+          m_vector[0][2] = tmpInt.m_vector[0][2];
 
-          m_point[0][0] = _tmp.m_point[0][0];
-          m_point[0][1] = _tmp.m_point[0][1];
-          m_point[0][2] = _tmp.m_point[0][2];
+          m_point[0][0] = tmpInt.m_point[0][0];
+          m_point[0][1] = tmpInt.m_point[0][1];
+          m_point[0][2] = tmpInt.m_point[0][2];
         }
 
         m_valid = 1;
@@ -176,6 +178,7 @@ int mvInt::interpret(const l3ga &X, int creationFlags /* = 0*/) {
           }
         } 
         if (null_vectors == 2) { 
+          m_scalar[0] = (interpret[0].m_scalar[0] * interpret[1].m_scalar[0]);
           if (fabs(X2) < epsilon) {
             // Detect if lines are parallel.
             // Line L1=(a:b) and L2=(x:y) are parallel when:
@@ -189,7 +192,7 @@ int mvInt::interpret(const l3ga &X, int creationFlags /* = 0*/) {
               vector 1: orthogonal to vector 0 and 2
               vector 2: orthogonal to vector 0 and 1
               */
-              m_scalar[0] = s;
+              //m_scalar[0] = s;
 
               printf("f1: %s\nf2: %s\n", factors[0].string(), factors[1].string());
               z = sqrt((factors[0][GRADE1][L3GA_E23] * factors[0][GRADE1][L3GA_E23]) + (factors[0][GRADE1][L3GA_E31] * factors[0][GRADE1][L3GA_E31]) + (factors[0][GRADE1][L3GA_E12] * factors[0][GRADE1][L3GA_E12]));
@@ -216,14 +219,12 @@ int mvInt::interpret(const l3ga &X, int creationFlags /* = 0*/) {
               vector 1: line direction
               vector 2: orthogonal to vector 0 and 1
               */
-              m_scalar[0] = s;
+              //m_scalar[0] = s;
 
-              l1.interpret(factors[0]);
-              l2.interpret(factors[1]);
-              if (l1.m_type & MVI_IDEAL) {
+              if (interpret[0].m_type & MVI_IDEAL) {
                 factors[0] = p3gaToL3ga(l3gaToP3ga(factors[0]) - (p3ga::e0 ^ direction(l3gaToP3ga(factors[1]))));
               }
-              if (l2.m_type & MVI_IDEAL) {
+              if (interpret[1].m_type & MVI_IDEAL) {
                 factors[1] = p3gaToL3ga(l3gaToP3ga(factors[1]) - (p3ga::e0 ^ direction(l3gaToP3ga(factors[0]))));
               }
               int t0 = 0, t1 = 0;
@@ -255,7 +256,7 @@ int mvInt::interpret(const l3ga &X, int creationFlags /* = 0*/) {
             }
             else {
               m_type |= MVI_LINE_PENCIL;
-              printf("line pencil\n");
+              printf("line pencil -- f0: %s \t\tf1: %s\n", factors[0].string(), factors[1].string());
               /*
               scalar 0: weight
               point 0: center
@@ -263,7 +264,7 @@ int mvInt::interpret(const l3ga &X, int creationFlags /* = 0*/) {
               vector 1: orthogonal to vector 0 and 2
               vector 2: orthogonal to vector 0 and 1
               */
-              m_scalar[0] = s;
+              //m_scalar[0] = (interpret[0].m_scalar[0] * interpret[1].m_scalar[0]);
 
               // point of intersection is the meet of the two homogeneous lines!
               p3ga a1 = (consoleVariable("", factors[0]).castToP3ga())->p(),
@@ -308,9 +309,7 @@ int mvInt::interpret(const l3ga &X, int creationFlags /* = 0*/) {
             point 1: point closest to origin of line 2
             vector 1: direction of line 2
             */
-            l1.interpret(factors[0]);
-            l2.interpret(factors[1]);
-            if (l1.m_type & MVI_IDEAL) {
+            if (interpret[0].m_type & MVI_IDEAL) {
               m_type |= MVI_IDEAL_LINE_PAIR;
               /*
               scalar 0: weight;
@@ -323,27 +322,27 @@ int mvInt::interpret(const l3ga &X, int creationFlags /* = 0*/) {
               // TODO: Better name for this blade.
               // TODO: second, real line has always the same orientation.
             }
-            else if (l2.m_type & MVI_IDEAL) {
+            else if (interpret[1].m_type & MVI_IDEAL) {
               m_type |= MVI_IDEAL_LINE_PAIR;
-              _tmp = l1;
-              l1 = l2;
-              l2 = _tmp;
+              tmpInt = interpret[0];
+              interpret[0] = interpret[1];
+              interpret[1] = tmpInt;
             }
 
-            m_scalar[0] = s;
-            m_point[0][0] = l1.m_point[0][0];
-            m_point[0][1] = l1.m_point[0][1];
-            m_point[0][2] = l1.m_point[0][2];
-            m_vector[0][0] = l1.m_vector[0][0];
-            m_vector[0][1] = l1.m_vector[0][1];
-            m_vector[0][2] = l1.m_vector[0][2];
+            //m_scalar[0] = s;
+            m_point[0][0] = interpret[0].m_point[0][0];
+            m_point[0][1] = interpret[0].m_point[0][1];
+            m_point[0][2] = interpret[0].m_point[0][2];
+            m_vector[0][0] = interpret[0].m_vector[0][0];
+            m_vector[0][1] = interpret[0].m_vector[0][1];
+            m_vector[0][2] = interpret[0].m_vector[0][2];
 
-            m_point[1][0] = l2.m_point[0][0];
-            m_point[1][1] = l2.m_point[0][1];
-            m_point[1][2] = l2.m_point[0][2];
-            m_vector[1][0] = l2.m_vector[0][0];
-            m_vector[1][1] = l2.m_vector[0][1];
-            m_vector[1][2] = l2.m_vector[0][2];
+            m_point[1][0] = interpret[1].m_point[0][0];
+            m_point[1][1] = interpret[1].m_point[0][1];
+            m_point[1][2] = interpret[1].m_point[0][2];
+            m_vector[1][0] = interpret[1].m_vector[0][0];
+            m_vector[1][1] = interpret[1].m_vector[0][1];
+            m_vector[1][2] = interpret[1].m_vector[0][2];
           }
         }
         /*
@@ -362,10 +361,7 @@ int mvInt::interpret(const l3ga &X, int creationFlags /* = 0*/) {
         break;
         /* Temporary solution. Interpretation through dualization. */
       case 3: // ******************** line bundle/point, fied of lines/plane, regulus, double wheel pencil, ...
-        l1.interpret(factors[0]);
-        l2.interpret(factors[1]);
-        l3.interpret(factors[2]);
-        if (!((l1.m_type & MVI_DUAL) || (l2.m_type & MVI_DUAL) || (l3.m_type & MVI_DUAL)) &&
+        if (!((interpret[0].m_type & MVI_DUAL) || (interpret[1].m_type & MVI_DUAL) || (interpret[2].m_type & MVI_DUAL)) &&
             fabs(lcont(factors[0], factors[1]).scalar()) < epsilon && 
             fabs(lcont(factors[1], factors[2]).scalar()) < epsilon &&
             fabs(lcont(factors[2], factors[0]).scalar()) < epsilon) {
@@ -414,42 +410,41 @@ int mvInt::interpret(const l3ga &X, int creationFlags /* = 0*/) {
         break;
       case 4: // ******************** regulus pencil, dual line pair, parabolic linear congruence, "[hyperbolic linear congruence], bundle + field"
       case 5: // ******************** regulus bundle, rotation invariants, translation invariants
-        _tmp.interpret(X.dual());
-        m_type = _tmp.m_type;
+        m_type = tmpInt.m_type;
         m_type |= MVI_DUAL;
-        m_valid = _tmp.m_valid;
-        m_scalar[0] = _tmp.m_scalar[0];
-        m_scalar[1] = _tmp.m_scalar[1];
-        m_scalar[2] = _tmp.m_scalar[2];
-        if (_tmp.m_vector[0] != NULL) {
-          m_vector[0][0] = _tmp.m_vector[0][0];
-          m_vector[0][1] = _tmp.m_vector[0][1];
-          m_vector[0][2] = _tmp.m_vector[0][2];
+        m_valid = tmpInt.m_valid;
+        m_scalar[0] = tmpInt.m_scalar[0];
+        m_scalar[1] = tmpInt.m_scalar[1];
+        m_scalar[2] = tmpInt.m_scalar[2];
+        if (tmpInt.m_vector[0] != NULL) {
+          m_vector[0][0] = tmpInt.m_vector[0][0];
+          m_vector[0][1] = tmpInt.m_vector[0][1];
+          m_vector[0][2] = tmpInt.m_vector[0][2];
         }
-        if (_tmp.m_vector[1] != NULL) {
-          m_vector[1][0] = _tmp.m_vector[1][0];
-          m_vector[1][1] = _tmp.m_vector[1][1];
-          m_vector[1][2] = _tmp.m_vector[1][2];
+        if (tmpInt.m_vector[1] != NULL) {
+          m_vector[1][0] = tmpInt.m_vector[1][0];
+          m_vector[1][1] = tmpInt.m_vector[1][1];
+          m_vector[1][2] = tmpInt.m_vector[1][2];
         }
-        if (_tmp.m_vector[2] != NULL) {
-          m_vector[2][0] = _tmp.m_vector[2][0];
-          m_vector[2][1] = _tmp.m_vector[2][1];
-          m_vector[2][2] = _tmp.m_vector[2][2];
+        if (tmpInt.m_vector[2] != NULL) {
+          m_vector[2][0] = tmpInt.m_vector[2][0];
+          m_vector[2][1] = tmpInt.m_vector[2][1];
+          m_vector[2][2] = tmpInt.m_vector[2][2];
         }
-        if (_tmp.m_point[0] != NULL) {
-          m_point[0][0] = _tmp.m_point[0][0];
-          m_point[0][1] = _tmp.m_point[0][1];
-          m_point[0][2] = _tmp.m_point[0][2];
+        if (tmpInt.m_point[0] != NULL) {
+          m_point[0][0] = tmpInt.m_point[0][0];
+          m_point[0][1] = tmpInt.m_point[0][1];
+          m_point[0][2] = tmpInt.m_point[0][2];
         }
-        if (_tmp.m_point[1] != NULL) {
-          m_point[1][0] = _tmp.m_point[1][0];
-          m_point[1][1] = _tmp.m_point[1][1];
-          m_point[1][2] = _tmp.m_point[1][2];
+        if (tmpInt.m_point[1] != NULL) {
+          m_point[1][0] = tmpInt.m_point[1][0];
+          m_point[1][1] = tmpInt.m_point[1][1];
+          m_point[1][2] = tmpInt.m_point[1][2];
         }
-        if (_tmp.m_point[2] != NULL) {
-          m_point[2][0] = _tmp.m_point[2][0];
-          m_point[2][1] = _tmp.m_point[2][1];
-          m_point[2][2] = _tmp.m_point[2][2];
+        if (tmpInt.m_point[2] != NULL) {
+          m_point[2][0] = tmpInt.m_point[2][0];
+          m_point[2][1] = tmpInt.m_point[2][1];
+          m_point[2][2] = tmpInt.m_point[2][2];
         }
         break;
       case 6: // ******************** pseudoscalar
