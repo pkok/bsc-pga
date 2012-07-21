@@ -681,7 +681,7 @@ int drawIdealLine(const GAIM_FLOAT point[3], const GAIM_FLOAT normal[3], GAIM_FL
     case DRAW_IDEAL_LINE_HOOKS:
       return drawCircle(point, normal, 1, weight, method, flags, o);
     case DRAW_IDEAL_LINE_RADIUS:
-      return drawCircle(point, normal, weight, 1, method, flags, o);
+      return drawCircle(point, normal, (o && o->m_drawMode & OD_MAGNITUDE) ? weight : 1, 1, method, flags, o);
     default:
       return drawLine(point, normal, weight, method, (flags | OD_ORI) ? 0x01 : 0, o);
   }
