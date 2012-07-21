@@ -74,9 +74,7 @@ For all three cases, their direction and moment are algebraically the same; thes
       \weight(\Em(x)) = \sqrt{(\Em(x) \lcont -\ez)^2 + (\dual{\Em(x)})^2} 
 \end{equation*}
 
-For non-null vectors, the weight can also be computed as $\sqrt{x \lcont x}$.
-
-In the general case of a $k$-blade $x_1 \wedge \cdots \wedge x_k$, we define its weight as 
+For non-null vectors, the weight can also be computed as $\sqrt{x \lcont x}$.  In the general case of a $k$-blade $x_1 \wedge \cdots \wedge x_k$, we define its weight as 
 \begin{equation*}
   \weight(x_1 \wedge \cdots \wedge x_k) = \weight(\Em(x_1)) \cdots \weight(\Em(x_k)) .
 \end{equation*}
@@ -129,9 +127,10 @@ When $a$ and $b$ are coplanar, their inner product is zero (see \autoref{eq:copl
 
 The homogeneous point in which all lines intersect, is called its center~\cite{Hongbo}, and can be computed, as seen in \autoref{eq:intersect}.  The bivector direction containing the pencil can be computed by:
 
-\begin{equation*}
-  \V{D} = \left(\Em(a) \lcont \ez \right) \wedge \left(\Em(b) \lcont \ez\right)
-\end{equation*}
+\begin{align*}
+  \V{D} &= \left(\Em(a) \lcont \ez \right) \wedge \left(\Em(b) \lcont \ez\right) \\
+  &= \V{d}_a \wedge \V{d}_b 
+\end{align*}
 
 This has no practical results when $a$ and $b$ are parallel.  When they are parallel, $\Em(a) \lcont \ez$ differs from $\Em(b) \lcont \ez$ only in a scalar factor, and therefore their outer product is $0$.  The intersection of $a$ and $b$ happens at a point at infinity.  For visualizations, it proves useful to know the pencil's bivector direction, as well as a finite point on the pencil.  
 
