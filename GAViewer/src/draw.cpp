@@ -756,14 +756,24 @@ int drawLinePencil(const GAIM_FLOAT center[3], GAIM_FLOAT weight, const GAIM_FLO
 
 
 int drawCirclePencil(const GAIM_FLOAT center[3], const GAIM_FLOAT normal[3], const GAIM_FLOAT ortho1[3], const GAIM_FLOAT ortho2[3], GAIM_FLOAT weight, int method /*= DRAW_CIRCLE_HOOKS*/, int flags /*= 0*/, object *o /*= NULL*/) {
-  const GAIM_FLOAT rotStep = 360 / 64.0;
+  const GAIM_FLOAT rotStep = 360 / 32.0;
   GAIM_FLOAT i;
+  GAIM_FLOAT negnormal[3];
+  negnormal[0] = -normal[0];
+  negnormal[1] = -normal[1];
+  negnormal[2] = -normal[2];
+  int drawMode;
+
+  if (o && o->m_drawMode & OD_ORI) {
+    drawVector(negnormal, normal, 2 * weight);
+  }
   for (i = 0; i < 180; i += rotStep) { // only need to draw half the circles
     glPushMatrix();
     glRotated(i, normal[0], normal[1], normal[2]);
-    drawIdealLine(center, ortho1, weight, method, flags, o);
+    drawIdealLine(center, ortho1, weight, method, flags, NULL);
     glPopMatrix();
   }
+
   return 0;
 }
 
@@ -888,18 +898,31 @@ int drawScrew(const GAIM_FLOAT point[3], const GAIM_FLOAT direction[3], GAIM_FLO
 
 int drawLinePair(const GAIM_FLOAT point1[3], const GAIM_FLOAT direction1[3], const GAIM_FLOAT point2[3], const GAIM_FLOAT direction2[3], const GAIM_FLOAT weight, int method /*= DRAW_LINE_HOOKS*/, int flags /*= 0*/, object *o /*= NULL*/) {
   GAIM_FLOAT orientation[3];
+  int ori = 1;
 
-  if (weight < 0) {
-    return drawLinePair(point2, direction2, point1, direction1, -weight, method, flags, o);
-  }
+  ori *= (0 < direction1[0]) - (direction1[0] <= 0);
+  ori *= (0 < direction1[1]) - (direction1[1] <= 0);
+  ori *= (0 < direction1[2]) - (direction1[2] <= 0);
+  ori *= (0 < direction2[0]) - (direction2[0] <= 0);
+  ori *= (0 < direction2[1]) - (direction2[1] <= 0);
+  ori *= (0 < direction2[2]) - (direction2[2] <= 0);
 
   if (o && o->m_drawMode & OD_ORI) {
-    orientation[0] = point2[0] - point1[0];
-    orientation[1] = point2[1] - point1[1];
-    orientation[2] = point2[2] - point1[2];
-    drawVector(point1, orientation, 1.0);
+    if (ori < 0) {
+      printf("switched\n");
+      orientation[0] = point1[0] - point2[0];
+      orientation[1] = point1[1] - point2[1];
+      orientation[2] = point1[2] - point2[2];
+      drawVector(point2, orientation, 1.0);
+    }
+    else {
+      orientation[0] = point2[0] - point1[0];
+      orientation[1] = point2[1] - point1[1];
+      orientation[2] = point2[2] - point1[2];
+      drawVector(point1, orientation, 1.0);
+    }
   }
-  return drawLine(point1, direction1, weight, method, flags, o) + drawLine(point2, direction2, weight, method, flags, o);
+  return drawLine(point1, direction1, weight, DRAW_LINE_HOOKS, flags, o) + drawLine(point2, direction2, weight, DRAW_LINE_HOOKS, flags, o);
 }
 
 

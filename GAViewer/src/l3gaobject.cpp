@@ -276,7 +276,7 @@ int l3gaObject::draw(glwindow *window) {
           drawDualLinePair(m_int.m_point[0], m_int.m_vector[0], m_int.m_point[1], m_int.m_vector[1], m_int.m_scalar[0], m_dmMenuIdx, m_drawMode, this);
         }
         else {
-          drawLinePair(m_int.m_point[0], m_int.m_vector[0], m_int.m_point[1], m_int.m_vector[1], m_int.m_scalar[0], m_dmMenuIdx, m_drawMode, this);
+          drawLinePair(m_int.m_point[0], m_int.m_vector[0], m_int.m_point[1], m_int.m_vector[1], m_int.m_scalar[0], m_dmMenuIdx, (m_drawMode & OD_ORI) ? 0x01 : 0, this);
         }
         break;
       case MVI_IDEAL_LINE_PAIR:
