@@ -1042,7 +1042,7 @@ consoleVariable *consoleVariable::castP3gaToL3ga() const {
     // grade 2 / 1
     -vp[GRADE2][P3GA_E1_E0] * l3ga::e01 +
     -vp[GRADE2][P3GA_E2_E0] * l3ga::e02 +
-    -vp[GRADE3][P3GA_E3_E0] * l3ga::e03 +
+    -vp[GRADE2][P3GA_E3_E0] * l3ga::e03 +
     vp[GRADE2][P3GA_E1_E2] * l3ga::e12 +
     vp[GRADE2][P3GA_E2_E3] * l3ga::e23 +
     vp[GRADE2][P3GA_E3_E1] * l3ga::e31 +
