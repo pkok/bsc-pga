@@ -3,7 +3,7 @@
 
 Before an implementation of a visualization can be made for a model, the geometric aspects of the elements of the model must be investigated.  A full inventory of the geometric elements has been done~\cite[Chapter 3]{Pottmann}, but in different terms.  Those terms are traditional, but do not hint at the geometric concept.  Besides the traditional terms, geometric inspired terms will be used.  
 
-The following sections will discuss all geometrically different blades of a certain grade, together with their duals.  Besides text, each part has an accompanying table that contains the following information on the discussed blades:
+The following sections will discuss the geometrically different blades of a certain grade, together with their duals.  The discussion of $n>1$-blades is limited to those composed of null vectors.  Besides text, each part has an accompanying table that contains the following information on the discussed blades:
 \begin{itemize}
   \item \texttt{g}: the grade of the blade.
   \item $B^2$: the square of the blade, if it is a scalar value.  It could be either greater than, equal to, less than or not equal to 0, respectively indicated with $> 0$, $= 0$, $< 0$ and $\not= 0$.
@@ -12,6 +12,7 @@ The following sections will discuss all geometrically different blades of a cert
   \item Visualization: the picture of a typical blade of this type.
   \item Name: what the blade class is named.  Traditional names, if needed, have been referenced.  In case of non-geometrically inspired terms, a more geometric alternative is given.  These are marked with ``\newterm''.
 \end{itemize}
+
 
 \TODO{Add pictures!}
 
@@ -44,9 +45,9 @@ Scalars and pseudoscalars are interpreted the same as in other models for geomet
       \hline
       \multicolumn{1}{|c|}{\texttt{g}} & $B^2$ & \multicolumn{1}{|c|}{Form} & \multicolumn{1}{|c|}{Visualization} & \multicolumn{1}{|c|}{Name} \\ \hline
       \hline
-      1 & $= 0$ & $\rline$ & & Real line, path normal for uniform rotating motion\\ \hline
-      1 & $= 0$ & $\iline$ & & Ideal line, path normal for uniform translating motion\\ \hline
-      1 & $\not= 0$ & $\screw$ & & Screw axis \\ \hline
+      1 & $= 0$ & $\rline$ & & Real line, path normal for uniform rotating motion~\cite{Pottmann}\\ \hline
+      1 & $= 0$ & $\iline$ & & Ideal line, path normal for uniform translating motion~\cite{Pottmann}\\ \hline
+      1 & $\not= 0$ & $\screw$ & & Axis of a screw motion~\cite{Pottmann}\\ \hline
       5 & $= 0$ & $\dual{\rline}$ & & Singular linear complex~\cite{Pottmann}, uniform rotating motion \\ \hline
       5 & $= 0$ & $\dual{\iline}$ & & Singular linear complex~\cite{Pottmann}, uniform translating motion \\ \hline
       5 & $\not= 0$ & $\dual{\screw}$ & & Regular linear complex~\cite{Pottmann}, screw motion \\ \hline
@@ -54,9 +55,9 @@ Scalars and pseudoscalars are interpreted the same as in other models for geomet
   \end{center}
 \end{table}
 
-It is clear from \autoref{sec:plucker} that the null vectors of the Pl\"ucker model (those vectors $v$ satisfying the Pl\"ucker identity $\pluckerid(v) = 0$) are interpreted as lines.  Let $l = d_1 \eze + d_2 \ezt + d_3 \ezd + m_1 \etd + m_2 \ede + m_3 \eet$ be a null vector.  The line can be interpreted through the homogeneous model.  The direction of the line corresponds to $\Em(d_1 \eze + d_2 \ezt + d_3 \ezd) \lcont -\ez = (d_1 \ee + d_2 \et + d_3 \ed)$, while its moment is $\V{m} = \edual{\Em(m_1 \etd + m_2 \ede + m_3 \eet)} = m_1 \ee + m_2 \et + m_3 \ed$.
+It is clear from \autoref{sec:plucker} that the null vectors of the Pl\"ucker model (those vectors $v$ satisfying the Pl\"ucker identity $\pluckerid(v) = 0$) are interpreted as lines.  Let $l = d_1 \eze + d_2 \ezt + d_3 \ezd + m_1 \etd + m_2 \ede + m_3 \eet$ be a null vector.  The line can be interpreted through the homogeneous model.  The direction of the line corresponds to $\Em(l) \lcont -\ez$, while its moment is $\dual{(\Em(l) \wedge \ez)} = \Em(l) \lcont (\ez \lcont \inverse{(\hpseudo)}) = \edual{\Em(l)}$.  
 
-Ideal lines cannot be interpreted in this way.  The homogeneous model treats these purely Euclidean elements as bivectors.  In the Pl\"ucker model, there is no such thing as a purely Euclidean element, which leaves room for interpretation in a projective way.  These elements represent lines at infinity, or ideal lines.  One can visualize an ideal line $l_\infty = \beta_1 \etd + \beta_2 \ede + \beta_3 \eet$ as a horizon, a circle on the heavenly sphere in direction $\Em(l_\infty)$.  
+A special case are the ideal lines.  The homogeneous model treats these purely Euclidean elements as bivectors.  In the Pl\"ucker model, there is no such thing as a purely Euclidean element, which leaves room for interpretation in a projective way.  These elements represent lines at infinity, or ideal lines.  One can visualize an ideal line $l_\infty = m_1 \etd + m_2 \ede + m_3 \eet$ as a horizon, a circle on the heavenly sphere in direction $\dual{(\Em(l_\infty) \wedge \ez)}$.  
 
 The vectors that do not square to $0$ can be interpreted as the dual of a helical, or screw motion~\cite[Section 3.1.2]{Pottmann}.  A screw motion simultaneously translates and rotates an object.  The object is translated along the same line as around which the rotation is performed.  The motion can be fully characterized by this line $a$ and the pitch $p$, the amount of translation per rotation.  For the grade 5 screw motion $S = \dual{\plucker{\V{d}}{\V{m}}}$, its pitch and axis are given by ~\cite[Theorem 3.1.9]{Pottmann}:
 \begin{align}
@@ -67,7 +68,20 @@ The vectors that do not square to $0$ can be interpreted as the dual of a helica
 
 From this, one can deduce what kind of objects the dual elements of real and ideal lines represent.  For an ideal line $l_\infty$ with $p = 0 \lcont \V{m} / 0^2 = \infty$ and $a = \plucker{0}{\V{m} - \infty 0} = l_\infty$, we see that it is a pure translation; even the slightest bit of rotation lets the object be translated.  Given a real line $l_o$, its pitch is $p = 0 / \V{d}^2 = 0$, because of the Pl\"ucker identity, seen in \autoref{eq:laplucker0}.  Its axis is $a = \plucker{\V{d}}{\V{m} - 0} = l_o$.  No matter how much of the rotation is applied, no translation will occur.  This shows that the real lines are the duals of pure rotational motions.
 
-These results are presented summarized in \autoref{tab:inv1}. 
+For all three cases, their direction and moment are algebraically the same; these components are only interpreted differently in the geometric domain.  Computing the weight of all three types of vectors can also be done in a uniform way, again through the homogeneous model:
+\begin{equation*}
+  \weight(x) = 
+      \weight(\Em(x)) = \sqrt{(\Em(x) \lcont -\ez)^2 + (\dual{\Em(x)})^2} 
+\end{equation*}
+
+For non-null vectors, the weight can also be computed as $\sqrt{x \lcont x}$.
+
+In the general case of a $k$-blade $x_1 \wedge \cdots \wedge x_k$, we define its weight as 
+\begin{equation*}
+  \weight(x_1 \wedge \cdots \wedge x_k) = \weight(\Em(x_1)) \cdots \weight(\Em(x_k)) .
+\end{equation*}
+
+A list of these elements is presented as a summary in \autoref{tab:inv1}. 
 
 
 \subsection{Elements of grade 2 and 4}
@@ -80,7 +94,7 @@ These results are presented summarized in \autoref{tab:inv1}.
       \multicolumn{1}{|c|}{\texttt{g}} & $B^2$ & \multicolumn{1}{|c|}{Form} & \multicolumn{1}{|c|}{Graphical representation} & \multicolumn{1}{|c|}{Name} \\ \hline
       \hline
       2 & $= 0$ & $\pline \wedge \pline$, pt.\ int. & & Pencil of linear line complexes~\cite{Pottmann}, pencil of lines~\cite{Hongbo} \\ \hline
-      2 & $> 0$ & $\pline \wedge \pline$, skew & & Hyperbolic pencil of linear complexes~\cite{Pottmann}, Skew line pair~\newterm \\ \hline
+      2 & $> 0$ & $\pline \wedge \pline$, skew & & Hyperbolic pencil of linear complexes~\cite{Pottmann}, skew line pair~\newterm \\ \hline
       2 & $\not= 0$ & $\pline \wedge \screw$ & \comment{HIDE THIS ROW} & Parabolic pencil of linear complexes~\cite{Pottmann} \\ \hline
       2 & $< 0$ & $\screw \wedge \screw$ & \comment{HIDE THIS ROW} & Elliptic pencil of linear complexes~\cite{Pottmann} \\ \hline
       4 & $= 0$ & $\dual{\left( \pline \wedge \pline \right)}$ & & Pencil of singular linear complexes~\cite{Pottmann}, dual pencil of lines \\ \hline
