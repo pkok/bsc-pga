@@ -300,10 +300,10 @@ int mvInt::interpret(const l3ga &X, int creationFlags /* = 0*/) {
               m_vector[0][1] /= z;
               m_vector[0][2] /= z;
 
-              z = sqrt((factors[0][GRADE1][L3GA_E23] * factors[0][GRADE1][L3GA_E23]) + (factors[0][GRADE1][L3GA_E31] * factors[0][GRADE1][L3GA_E31]) + (factors[0][GRADE1][L3GA_E12] * factors[0][GRADE1][L3GA_E12]));
-              m_vector[1][0] = factors[0][GRADE1][L3GA_E23] / z;
-              m_vector[1][1] = factors[0][GRADE1][L3GA_E31] / z;
-              m_vector[1][2] = factors[0][GRADE1][L3GA_E12] / z;
+              z = sqrt((factors[0][GRADE1][L3GA_E01] * factors[0][GRADE1][L3GA_E01]) + (factors[0][GRADE1][L3GA_E02] * factors[0][GRADE1][L3GA_E02]) + (factors[0][GRADE1][L3GA_E03] * factors[0][GRADE1][L3GA_E03]));
+              m_vector[1][0] = factors[0][GRADE1][L3GA_E01] / z;
+              m_vector[1][1] = factors[0][GRADE1][L3GA_E02] / z;
+              m_vector[1][2] = factors[0][GRADE1][L3GA_E03] / z;
 
               m_vector[2][0] = (m_vector[0][1] * m_vector[1][2]) - (m_vector[0][2] * m_vector[1][1]);
               m_vector[2][1] = (m_vector[0][2] * m_vector[1][0]) - (m_vector[0][0] * m_vector[1][2]);

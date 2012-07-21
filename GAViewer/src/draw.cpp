@@ -695,13 +695,15 @@ int drawLinePencil(const GAIM_FLOAT center[3], GAIM_FLOAT weight, const GAIM_FLO
   GAIM_FLOAT x, scaleConst = g_state->m_clipDistance * sqrt(2.0);
   e3ga rt;
   float rotM[16];
+  GAIM_FLOAT ori_pt[3], ori_dir[3];
+  int orientation = 1;
 
   glMatrixMode(GL_MODELVIEW);
   glPushMatrix();
   glDisable(GL_LIGHTING);
   glTranslated(center[0], center[1], center[2]);
 
-  if (o != NULL && o->m_drawMode & OD_MAGNITUDE) {
+  if (o && o->m_drawMode & OD_MAGNITUDE) {
     //weight = sqrt(fabs(weight)) / M_PI;
     glScaled(weight, weight, weight);
   }
@@ -714,13 +716,36 @@ int drawLinePencil(const GAIM_FLOAT center[3], GAIM_FLOAT weight, const GAIM_FLO
   e3gaRotorToOpenGLMatrix(rt, rotM);
   glMultMatrixf(rotM);
 
-  if (o->fgColor(3) > 0.0) {
-    T.begin(GL_LINE_STRIP);
-    for (x = 0; x < M_PI * 2.0 + 0.001; x += rotStep) {
-      T.vertex3d(-cos(x), sin(x), 0);
-      T.vertex3d(0.0, 0.0, 0.0);
+  if (o && o->fgColor(3) > 0.0) {
+    if (o && o->m_drawMode & OD_ORI) {
+      glEnable(GL_LIGHTING);
+      orientation *= (0 < ortho1[0]) - (ortho1[0] <= 0);
+      orientation *= (0 < ortho1[1]) - (ortho1[1] <= 0);
+      orientation *= (0 < ortho1[2]) - (ortho1[2] <= 0);
+      orientation *= (0 < ortho2[0]) - (ortho2[0] <= 0);
+      orientation *= (0 < ortho2[1]) - (ortho2[1] <= 0);
+      orientation *= (0 < ortho2[2]) - (ortho2[2] <= 0);
+      printf("center: %2.2f, %2.2f, %2.2f\n", center[0], center[1], center[2]);
+      printf("normal: %2.2f, %2.2f, %2.2f\n", normal[0], normal[1], normal[2]);
+      printf("ortho1: %2.2f, %2.2f, %2.2f\n", ortho1[0], ortho1[1], ortho1[2]);
+      printf("ortho2: %2.2f, %2.2f, %2.2f\n", ortho2[0], ortho2[1], ortho2[2]);
+      printf("ori: %d\n",orientation);
+      for (x = 0; x < M_PI * 2 + 0.001; x += 4 *rotStep) {
+        ori_dir[0] = -cos(x);
+        ori_dir[1] = sin(x);
+        ori_pt[0] = (orientation > 0) * cos(x);
+        ori_pt[1] = (orientation > 0) * -sin(x);
+        drawVector(ori_pt, ori_dir, 1);
+      }
     }
-    T.end();
+    else {
+      T.begin(GL_LINE_STRIP);
+      for (x = 0; x < M_PI * 2.0 + 0.001; x += rotStep) {
+        T.vertex3d(-cos(x), sin(x), 0);
+        T.vertex3d(0.0, 0.0, 0.0);
+      }
+      T.end();
+    }
   }
 
   glPopMatrix();
