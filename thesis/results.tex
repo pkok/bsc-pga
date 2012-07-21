@@ -1,6 +1,5 @@
 \section{Implementation}
 \label{ch:implementation}
-\TODO{Introductory text.}
 With the knowledge of the frameworks acquired in \autoref{ch:background} and \autoref{ch:research}, we now can extend the functionality of GAViewer.  The following parts will discuss the following subjects: how GAViewer can be extended, and how it has been done;  the origins of the software for computing with the Pl\"ucker model;  how casting from and to the Pl\"ucker model is realized;  and, lastly, the visualization of each provided element is explained.
 
 
@@ -91,9 +90,16 @@ As an alternate visualization, the user can choose to show a whole column of joi
 The visualization of the pencil of linear line complexes, and the hyperbolic pencil of linear complexes are provided. 
 
 \paragraph{Pencil of linear line complexes}
+Pencils of real, not parallel lines are visualized as a sample of the lines contained by the blade.  For the pencil of real lines $B = a \wedge b$, 64 evenly distributed line pieces of length $w(B)$ are drawn that intersect at the center of $B$.  We have chosen to limit the sample to this number of line pieces, as the interface might get cluttered.  We draw line pieces instead of full lines with the same reason.  If the user desires to have the orientation visualized, the line pieces are replaced with four times fewer vectors of the same length.  For a positive orientation, the vectors point to the center.  For a negative orientation, the vectors point the other way.
+
+In case of a pencil of real, parallel lines, a set of parallel lines in direction $\V{D} = (\Em(a) \lcont -\ez) \wedge (\Em(b) \lcont -\ez)$ are drawn.  This set has the same dimensions as the implemented visualization of a plane.  Given the width of the drawn plane $w$, $5w$ lines are drawn.  Weight and orientation are drawn in the same way as it is drawn for planes; normal lines appear on one side of the pencil, their direction representing the orientation, and their length representing the weight.
+
+When the pencil contains only ideal lines, 32 evenly distributed ideal lines in the horizon representation are drawn.  These result in a set of rotated circles.  If the orientation is displayed, a vector is drawn on either of the intersection of the circles, pointing at the other intersection.
 
 \paragraph{Hyperbolic pencil of linear complexes}
+The two-blade of two lines that are not coplanar contains only these two lines.  We only draw these two lines for their visualization.  These lines can be both real, or one real and one ideal.  To indicate the orientation in the case of two real lines, a vector is drawn between the points nearest to the origin of both lines, as well as the hooks that are default for lines.  If the blade contains one real and one ideal line, only the hooks are displayed.  
 
+The weight is visualized by the size of the hooks.
 
 
 \subsubsection{Grade 3}
