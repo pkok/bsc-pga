@@ -385,9 +385,15 @@ int mvInt::interpret(const l3ga &X, int creationFlags /* = 0*/) {
           intersection2.meet(a2, a3);
           intersection3.meet(a3, a1);
 
-          intersection1 = intersection1 / intersection1[GRADE1][P3GA_E0];
-          intersection2 = intersection2 / intersection2[GRADE1][P3GA_E0];
-          intersection3 = intersection3 / intersection3[GRADE1][P3GA_E0];
+          if (fabs(intersection1[GRADE1][P3GA_E0]) >= epsilon) {
+            intersection1 = intersection1 / intersection1[GRADE1][P3GA_E0];
+          }
+          if (fabs(intersection2[GRADE1][P3GA_E0]) >= epsilon) {
+            intersection2 = intersection2 / intersection2[GRADE1][P3GA_E0];
+          }
+          if (fabs(intersection3[GRADE1][P3GA_E0]) >= epsilon) {
+            intersection3 = intersection3 / intersection3[GRADE1][P3GA_E0];
+          }
 
           if (fabs((intersection1 - intersection2).norm_a()) < epsilon &&
               fabs((intersection2 - intersection3).norm_a()) < epsilon &&
@@ -409,7 +415,26 @@ int mvInt::interpret(const l3ga &X, int creationFlags /* = 0*/) {
           else {
             m_type |= MVI_PLANE;
             printf("plane\n");
-            m_valid = 0;
+
+            tmpInt.interpret(intersection1 ^ intersection2 ^ intersection3);
+            m_scalar[0] = tmpInt.m_scalar[0];
+
+            m_point[0][0] = tmpInt.m_point[0][0];
+            m_point[0][1] = tmpInt.m_point[0][1];
+            m_point[0][2] = tmpInt.m_point[0][2];
+
+            m_vector[0][0] = tmpInt.m_vector[0][0];
+            m_vector[0][1] = tmpInt.m_vector[0][1];
+            m_vector[0][2] = tmpInt.m_vector[0][2];
+
+            m_vector[1][0] = tmpInt.m_vector[1][0];
+            m_vector[1][1] = tmpInt.m_vector[1][1];
+            m_vector[1][2] = tmpInt.m_vector[1][2];
+
+            m_vector[2][0] = tmpInt.m_vector[2][0];
+            m_vector[2][1] = tmpInt.m_vector[2][1];
+            m_vector[2][2] = tmpInt.m_vector[2][2];
+            m_valid = 1;
           }
         }
         else {

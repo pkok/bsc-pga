@@ -115,7 +115,6 @@ l3gaObject::l3gaObject(const l3ga &mv, const std::string &name /*= std::string("
           m_dmMenuIdx = DRAW_SCREW_SPIRAL;
           break;
         case MVI_IDEAL_LINE_PENCIL:
-          m_properties |= OP_DRAWMETHOD;
           m_drawMode |= OD_STIPPLE;
           m_dmMenu = gui_l3gaIdealPencilDrawMethods;
           m_dmMenuIdx = DRAW_IDEAL_LINE_RADIUS;
@@ -126,20 +125,19 @@ l3gaObject::l3gaObject(const l3ga &mv, const std::string &name /*= std::string("
           m_dmMenuIdx = DRAW_RULED_PLANE;
           break;
         case MVI_LINE_PENCIL:
-          m_properties |= OP_DRAWMETHOD;
           m_dmMenu = gui_l3gaPencilDrawMethods;
           m_dmMenuIdx = DRAW_PENCIL;
           break;
         case MVI_LINE_PAIR:
-          m_properties |= OP_DRAWMETHOD;
           m_dmMenuIdx = DRAW_LINE_HOOKS;
           break;
         case MVI_IDEAL_LINE_PAIR:
-          m_properties |= OP_DRAWMETHOD;
           m_dmMenuIdx = DRAW_LINE_CURVE;
           break;
         case MVI_POINT:
-          m_properties |= OP_DRAWMETHOD;
+          break;
+        case MVI_PLANE:
+          m_dmMenuIdx = DRAW_PLANE;
           break;
         case MVI_SPACE: // pseudoscalar
           // don't draw anything
@@ -288,6 +286,8 @@ int l3gaObject::draw(glwindow *window) {
       case MVI_POINT:
         drawPoint(m_int.m_point[0], m_int.m_scalar[0], 0, this);
         break;
+      case MVI_PLANE:
+        drawPlane(m_int.m_point[0], m_int.m_vector[0], m_int.m_vector[1], m_int.m_vector[2], m_int.m_scalar[0], DRAW_PLANE, 0, this);
       case MVI_SPACE:
         // don't draw anything
         break;
@@ -328,6 +328,7 @@ int l3gaObject::translate(glwindow *window, double depth, double motionX, double
       case MVI_LINE_PAIR:
       case MVI_IDEAL_LINE_PAIR:
       case MVI_POINT:
+      case MVI_PLANE:
       case MVI_SPACE:
       default:
         // translate; default behavior when dragging objects.
@@ -452,6 +453,16 @@ int l3gaObject::description(char *buf, int bufLen, int sl /* = 0 */) {
           m_int.m_point[0][0], m_int.m_point[0][1], m_int.m_point[0][2], 
           m_mv.string());
       break;
+    case MVI_PLANE:
+			if (sl) sprintf(buf, "%s: l3ga plane%s", m_name.c_str(), (m_int.dual()) ? " dual" : "");
+
+			else sprintf(buf, "l3ga plane%s\nWeight: %f\nNormal: %2.2f %2.2f %2.2f\nPoint closest to origin: %2.2f %2.2f %2.2f\nCoordinates: %s", 
+				(m_int.dual()) ? " dual" : "",
+				m_int.m_scalar[0], 
+				m_int.m_vector[0][0], m_int.m_vector[0][1], m_int.m_vector[0][2], 
+				m_int.m_point[0][0], m_int.m_point[0][1], m_int.m_point[0][2], 
+				m_mv.string());
+			break;
     case MVI_SPACE: // scalar 0: weight
       if (sl) sprintf(buf, "%s: l3ga %spseudoscalar, weight: %f", m_name.c_str(), (m_int.dual()) ? "dual " : "", m_int.m_scalar[0]);
       else sprintf(buf, "l3ga %spseudoscalar\nWeight: %f", 
