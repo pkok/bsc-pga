@@ -3,27 +3,30 @@
 
 Before an implementation of a visualization can be made for a model, the geometric aspects of the elements of the model must be investigated.  A full inventory of the geometric elements has been done~\cite[Chapter 3]{Pottmann}, but in different terms.  Those terms are traditional, but do not hint at the geometric concept.  Besides the traditional terms, geometric inspired terms will be used.  
 
-The following sections will discuss the geometrically different blades of a certain grade, together with their duals.  The discussion of $n>1$-blades is limited to those composed of null vectors.  Besides text, each part has an accompanying table that contains the following information on the discussed blades:
+The following sections will discuss the geometrically different blades of a certain grade, together with their duals.  The discussion of $n>1$-blades is limited to those composed of null vectors.  Besides text, each part has an accompanying table that contains the following information on the discussed blades:\note{\LeosReply{Als deze dingen van mijn 'internal report' komen moet je dat vermelden, als je ze zelf aanvult is het 'partially based on'.}
+
+\myReply{Hoe verwijs ik naar dit artikel?}}
 \begin{itemize}
   \item \texttt{g}: the grade of the blade.
-  \item $B^2$: the square of the blade, if it is a scalar value.  It could be either greater than, equal to, less than or not equal to 0, respectively indicated with $> 0$, $= 0$, $< 0$ and $\not= 0$.
   \item $B^2$: the square of the blade.  The relation of this scalar value to zero is indicated in the table with $> 0$, $= 0$, $< 0$ and $\not= 0$.
   \item Form: the general formula.  A blade factor can be either a line or screw axis, denoted by $\pline$ and $\screw$.  In certain cases, the difference between a real and ideal line is made with $\rline$ and $\iline$.  Here it does not concern any algebraic difference.  The difference is based on the visualization.  In other cases, a small textual note is given to indicate that the factors coincide at a single point (``pt.\ int.'') or in a plane (``pl.\ int.''), intersect each other pairwise (``pw.\ int''), or no factors intersect at all (``skew'').
   \item Visualization: the picture of a typical blade of this type.
   \item Name: what the blade class is named.  Traditional names, if needed, have been referenced.  In case of non-geometrically inspired terms, a more geometric alternative is given.  These are marked with ``\newterm''.
+    
+    \myReply{Leo: Deze namen gebruik ik alleen in de tabel, of meer beschrijvend (``the blade of two skew lines'').  Is het wel gepast om nieuwe namen te introduceren zonder al te veel motivatie, of is dit al genoeg motivatie?}
 \end{itemize}
 
 
 \TODO{Add pictures!}
 
-\subsection{Elements of grade 0 and 6}
+\subsection{Blades of grade 0 and 6}
 \begin{table}
   \caption{An inventory of the blades of grade 0 and 6.}
   \label{tab:inv0}
   \begin{center}
     \begin{tabular}{|c|r|l|c|l|}
       \hline
-      \multicolumn{1}{|c|}{\texttt{g}} & $B^2$ & \multicolumn{1}{|c|}{Form} & \multicolumn{1}{|c|}{Graphical representation} & \multicolumn{1}{|c|}{Name} \\ \hline
+      \multicolumn{1}{|c|}{\texttt{g}} & $B^2$ & \multicolumn{1}{|c|}{Form} & \multicolumn{1}{|c|}{Visualization} & \multicolumn{1}{|c|}{Name} \\ \hline
       \hline
       0 & $\in \reals$ & $1 = \dual{I_6}$ & & Scalar~\cite{TheBook} \\ \hline
       6 & $\in \reals$ & $I_6 = \dual{1}$ & & Pseudoscalar~\cite{TheBook} \\ \hline
@@ -31,14 +34,11 @@ The following sections will discuss the geometrically different blades of a cert
   \end{center}
 \end{table}
 
-Scalars and pseudoscalars are interpreted the same as in other models for geometric algebra.  Scalars can be used to represent angles, weights, and many other scalar quantities.  Its dual, the pseudoscalar, may be utilized to denote the subspace volume, as well as for dualization.
+Scalars and pseudoscalars are interpreted the same as in other models for geometric algebra.  Scalars can be used to represent weights.  Its dual, the pseudoscalar, may be utilized to denote the subspace volume.
 
-\askLeo{Explain a bit more about pseudoscalar? Or scrap this whole section?}
-
-\subsection{Elements of grade 1 and 5}
+\subsection{Blades of grade 1 and 5}
 \begin{table}
-  \caption{An inventory of the blades of grade 1 and 5.  
-    \askLeo{Should I distinguish $\rline$ and $\iline$ in these tables?}}
+  \caption{An inventory of the blades of grade 1 and 5.}
   \label{tab:inv1}
   \begin{center}
     \begin{tabular}{|c|r|p{2.7cm}|p{2cm}|p{5cm}|}
@@ -54,42 +54,44 @@ Scalars and pseudoscalars are interpreted the same as in other models for geomet
     \end{tabular}
   \end{center}
 \end{table}
+Although all vectors are projectively equivalent, we will distinguish three geometric classes.  For all three classes, their direction and moment are algebraically the same; these components are only interpreted differently in the domain of geometric interpretation.  The weight is computed as well in a uniform way, again through the homogeneous model:
+\begin{equation*}
+  \weight(x) = 
+      \weight(\Em(x)) = \sqrt{(\Em(x) \lcont -\ez)^2 + (\dual{\Em(x)})^2} 
+\end{equation*}
+For non-null vectors, the weight can also be computed as $\sqrt{x \lcont x}$.  In the general case of a $k$-blade $x_1 \wedge \cdots \wedge x_k$, we define its weight as 
 
-It is clear from \autoref{sec:plucker} that the null vectors of the Pl\"ucker model (those vectors $v$ satisfying the Pl\"ucker identity $\pluckerid(v) = 0$) are interpreted as lines.  Let $l = d_1 \eze + d_2 \ezt + d_3 \ezd + m_1 \etd + m_2 \ede + m_3 \eet$ be a null vector.  The line can be interpreted through the homogeneous model.  The direction of the line corresponds to $\Em(l) \lcont -\ez$, while its moment is $\dual{(\Em(l) \wedge \ez)} = \Em(l) \lcont (\ez \lcont \inverse{(\hpseudo)}) = \edual{\Em(l)}$.  
+\begin{equation*}
+  \weight(x_1 \wedge \cdots \wedge x_k) = \weight(\Em(x_1)) \cdots \weight(\Em(x_k)) .
+\end{equation*}
 
-A special case are the ideal lines.  The homogeneous model treats these purely Euclidean elements as bivectors.  In the Pl\"ucker model, there is no such thing as a purely Euclidean element, which leaves room for interpretation in a projective way.  These elements represent lines at infinity, or ideal lines.  One can visualize an ideal line $l_\infty = m_1 \etd + m_2 \ede + m_3 \eet$ as a horizon, a circle on the heavenly sphere in direction $\dual{(\Em(l_\infty) \wedge \ez)}$.  
+It is clear from \autoref{sec:plucker} that the null vectors of the Pl\"ucker model (those vectors $v$ satisfying the Pl\"ucker identity $\pluckerid(v) = 0$) are interpreted as lines.  Let $l = d_1 \eze + d_2 \ezt + d_3 \ezd + m_1 \etd + m_2 \ede + m_3 \eet$ be a null vector.  The line can be interpreted through the homogeneous model.  The direction of the line corresponds to $(\Em(l) \lcont -\ez) / \weight(l)$, while its moment is $\dual{(\Em(l) \wedge \ez)} / \weight(l) = (\Em(l) \lcont (\ez \lcont \inverse{(\hpseudo)})) / \weight(l) = (\edual{\Em(l)}) / \weight(l)$.  
 
-The vectors that do not square to $0$ can be interpreted as the dual of a helical, or screw motion~\cite[Section 3.1.2]{Pottmann}.  A screw motion simultaneously translates and rotates an object.  The object is translated along the same line as around which the rotation is performed.  The motion can be fully characterized by this line $a$ and the pitch $p$, the amount of translation per rotation.  For the grade 5 screw motion $S = \dual{\plucker{\V{d}}{\V{m}}}$, its pitch and axis are given by ~\cite[Theorem 3.1.9]{Pottmann}:
+A special case are the ideal lines.  The homogeneous model treats these purely Euclidean elements as Euclidean 2-blades.\note{\LeosReply{waarom niet, hoe is dat anders dan het homogene model? Is e12 niet 'purely Euclidean omdat Em(e12) dat is? (ECHTE VRAAG)}
+
+\myReply{Misschien moet ik wel stellen dat ideal lines twee interpretaties hebben; als Euclidean 2-blade, en als horizon?}}
+In the Pl\"ucker model, there is no such thing as a purely Euclidean element, which leaves room for interpretation in a projective way.  These elements represent lines at infinity, or ideal lines.  One can visualize an ideal line $l_\infty = m_1 \etd + m_2 \ede + m_3 \eet$ as a horizon, a circle on the heavenly sphere in direction $\dual{(\Em(l_\infty) \wedge \ez)} / \weight(l)$.  
+
+The vectors that do not square to $0$ can be interpreted as the axis of a helical, or screw motion~\cite[Section 3.1.2]{Pottmann}.  A screw motion simultaneously translates and rotates an object.  The object is translated along the same line as around which the rotation is performed.  The motion can be fully characterized by this line $a$ and the pitch $p$, the amount of translation per rotation.  For the grade 5 screw motion $S = \dual{\plucker{\V{d}}{\V{m}}}$, its pitch and axis are given by~\cite[Theorem 3.1.9]{Pottmann}:
 \begin{align}
   \label{eq:screwparams}
   p &= \V{d} \lcont \V{m} / \V{d}^2 \nonumber \\
   a &= \plucker{\V{d}}{\V{m} - p \V{d}} .
 \end{align}
 
-From this, one can deduce what kind of objects the dual elements of real and ideal lines represent.  For an ideal line $l_\infty$ with $p = 0 \lcont \V{m} / 0^2 = \infty$ and $a = \plucker{0}{\V{m} - \infty 0} = l_\infty$, we see that it is a pure translation; even the slightest bit of rotation lets the object be translated.  Given a real line $l_o$, its pitch is $p = 0 / \V{d}^2 = 0$, because of the Pl\"ucker identity, seen in \autoref{eq:laplucker0}.  Its axis is $a = \plucker{\V{d}}{\V{m} - 0} = l_o$.  No matter how much of the rotation is applied, no translation will occur.  This shows that the real lines are the duals of pure rotational motions.
-
-For all three cases, their direction and moment are algebraically the same; these components are only interpreted differently in the geometric domain.  Computing the weight of all three types of vectors can also be done in a uniform way, again through the homogeneous model:
-\begin{equation*}
-  \weight(x) = 
-      \weight(\Em(x)) = \sqrt{(\Em(x) \lcont -\ez)^2 + (\dual{\Em(x)})^2} 
-\end{equation*}
-
-For non-null vectors, the weight can also be computed as $\sqrt{x \lcont x}$.  In the general case of a $k$-blade $x_1 \wedge \cdots \wedge x_k$, we define its weight as 
-\begin{equation*}
-  \weight(x_1 \wedge \cdots \wedge x_k) = \weight(\Em(x_1)) \cdots \weight(\Em(x_k)) .
-\end{equation*}
+From this, one can deduce what kind of objects the dual elements of real and ideal lines represent.  For an ideal line $l_\infty$ with $p = \lim_{\V{d} \to 0} \V{d} \lcont \V{m} / \V{d}^2 = \infty$ and $a = \lim_{\V{d} \to 0, p \to \infty} \plucker{\V{d}}{\V{m} - p \V{d}} = l_\infty$, we see that it is a pure translation.  Given a real line $l_o$, its pitch is $p = 0 / \V{d}^2 = 0$, because of the Pl\"ucker identity, seen in \autoref{eq:laplucker0}.  Its axis is $a = \plucker{\V{d}}{\V{m} - 0} = l_o$.  No matter how much of the rotation is applied, no translation will occur.  This shows that the dual of real lines represent pure rotational motions.
 
 A list of these elements is presented as a summary in \autoref{tab:inv1}. 
 
 
-\subsection{Elements of grade 2 and 4}
+\subsection{Blades of grade 2 and 4}
 \begin{table}
   \caption{An inventory of the blades of grade 2 and 4.}
   \label{tab:inv2}
   \begin{center}
     \begin{tabular}{|c|r|p{2.7cm}|p{2cm}|p{5cm}|}
       \hline
-      \multicolumn{1}{|c|}{\texttt{g}} & $B^2$ & \multicolumn{1}{|c|}{Form} & \multicolumn{1}{|c|}{Graphical representation} & \multicolumn{1}{|c|}{Name} \\ \hline
+      \multicolumn{1}{|c|}{\texttt{g}} & $B^2$ & \multicolumn{1}{|c|}{Form} & \multicolumn{1}{|c|}{Visualization} & \multicolumn{1}{|c|}{Name} \\ \hline
       \hline
       2 & $= 0$ & $\pline \wedge \pline$, pt.\ int. & & Pencil of linear line complexes~\cite{Pottmann}, pencil of lines~\cite{Hongbo} \\ \hline
       2 & $> 0$ & $\pline \wedge \pline$, skew & & Hyperbolic pencil of linear complexes~\cite{Pottmann}, skew line pair~\newterm \\ \hline
@@ -103,17 +105,14 @@ A list of these elements is presented as a summary in \autoref{tab:inv1}.
   \end{center}
 \end{table}
 
-A two-blade $C = a \wedge b$ represents the set of linear combinations of $a$ and $b$:
+A two-blade\note{\LeosReply{niet alle elementen van graad 2 zijn 2-blades. Dus hier moet iets bij.}
+
+\myReply{Zou je een voorbeeld van een graad 2 niet-blade kunnen geven? Voor zover ik begrijp, zijn alle dingen met een graad blades, en anders multivectors van mixed grade.  Ik kan me geen graad-2-ding voorstellen dat niet een outer product of vectors is (def. van blade op p.195 van The Book).  Ik heb de \texttt{\\subsection}s veranderd van ``Elements of grade $k$'' naar ``Blades of grade $k$''; voldoende?}}
+$C = a \wedge b$ represents the set of linear combinations of $a$ and $b$:
 \begin{equation*}
   \s{C} = \left\{ c \mid c \wedge C = 0 \right\} = \left\{ \lambda a + \mu b \mid \lambda, \mu \in \reals \right\} .
 \end{equation*}
 For the geometric interpretation of these blades, clarity on what kind of objects are in this set is needed.  On first inspection, this can be split in three cases, based on the number of null vectors among the factors.  We will limit this discussion to the case where both $a$ and $b$ are null vectors.
-
-\comment{Easy way out. I don't understand Pottmann enough on this.}
-
-\TODO{Two screws}
-
-\TODO{Line and screw}
 
 A linear combination $c = \lambda a + \mu b$ is a null vector if:
 \begin{align}
@@ -123,7 +122,9 @@ A linear combination $c = \lambda a + \mu b$ is a null vector if:
   &= 2 \lambda \mu a \lcont b
 \end{align}
 
-When $a$ and $b$ are coplanar, their inner product is zero (see \autoref{eq:coplanar}), and each linear combination $c = \lambda a + \mu b$ is a null vector.  This kind of object is called a pencil of linear line complexes~\cite[Section 3.2.1]{Pottmann}, or, a bit shorter, a pencil of lines~\cite{Hongbo}.
+When $a$ and $b$ are coplanar\note{\LeosReply{or parallel}
+
+\myReply{Per subsubsection 2.2.1: coplanar lines = (parallel lines) $\cup$ (intersecting lines)}}, their inner product is zero (see \autoref{eq:coplanar}), and each linear combination $c = \lambda a + \mu b$ is a null vector.  This kind of object is called a pencil of linear line complexes~\cite[Section 3.2.1]{Pottmann}, or, a bit shorter, a pencil of lines~\cite{Hongbo}.
 
 The homogeneous point in which all lines intersect, is called its center~\cite{Hongbo}, and can be computed, as seen in \autoref{eq:intersect}.  The bivector direction containing the pencil can be computed by:
 
@@ -134,30 +135,41 @@ The homogeneous point in which all lines intersect, is called its center~\cite{H
 
 This has no practical results when $a$ and $b$ are parallel.  When they are parallel, $\Em(a) \lcont \ez$ differs from $\Em(b) \lcont \ez$ only in a scalar factor, and therefore their outer product is $0$.  The intersection of $a$ and $b$ happens at a point at infinity.  For visualizations, it proves useful to know the pencil's bivector direction, as well as a finite point on the pencil.  
 
-Often one takes the point on the object closest to the chosen origin.  For a line $l = \plucker{\V{d}}{\V{m}}$, this is given by $p = \V{m} \times \V{d} + \V{d}^2 \ez$~\cite{Shoemake}.  Let $p_a$ and $p_b$ be such points for $a$ and $b$.  Define such a third point $p_c$ for line $c = p_a \wedge p_b$.  This is the point on the pencil closest to the origin.  
-
 As discussed, the intersection of two parallel lines results in a Euclidean vector, which can be interpreted as either a point at infinity in the homogeneous model, or a direction in the Euclidean model.  We can define the bivector direction of a pencil of parallel lines as:
 
 \begin{equation*}
   \V{D} = \left(\Em(a) \cap \Em(b)\right) \wedge \left(p_b - p_a\right)
 \end{equation*}
 
-The dual of a pencil of lines contains the same set of lines~\cite[Section 3.2.1]{Pottmann}.  This can be easily shown.  Stating the definition of $\s{C}$ differently, we are looking for all lines that intersect $C$.  This is expressed as $c \lcont C = 0$.  For the grade-4 object $\dual{C}$, this can be written as $c \lcont \dual{C} = c \lcont (C \lcont \inverse{I_6}) = (c \wedge C) \lcont \inverse{I_6}$, with $I_6$ the pseudoscalar of the space $\reals^{3,3}$.  This is only true for $c \wedge C = 0$, a test for containment of $c$ in $C$.
+Often one takes the point on the object closest to the chosen origin.  For a line $l = \plucker{\V{d}}{\V{m}}$, this is given by $p = \V{m} \times \V{d} + \V{d}^2 \ez$~\cite{Shoemake}.  Let $p_a$ and $p_b$ be such points for $a$ and $b$.  Define such a third point $p_c$ for line $c = p_a \wedge p_b$.  This is the point on the pencil closest to the origin. \note{\LeosReply{is dat zo? is dat echt zo? dat zou het punt zijn van het vlak waarin alle pencil-lijnen liggen. Is dat echt bepaald door de lijn die bepaald wordt door 2 toevallige dichtstbijzijnde punten van willekeurige representanten van die bundel? Misschien wel maar dat moet je dan even bewijzen.}
+
+\myReply{Goed punt. Moet ik nog aan werken.}} 
+
+\TODO{Prove/verify this!}
+
+The dual of a pencil of lines contains the same set of lines~\cite[Section 3.2.1]{Pottmann}.  This can be easily shown.  Stating the definition of $\s{C}$ differently, we are looking for all lines that intersect with $C$.\note{\LeosReply{Wat bedoel je met intersect?
+Als je bedoelt 'coincide'dan is dan de wedge-test.
+Als je bedoelt: staan loodrecht op, dan is het de contraction test.}
+
+\myReply{Dat weet ik nu niet eens zo zeker.  Het lijkt mij dat de contraction test hier ook ``snijdt elkaar in een (ideaal) punt'' betekent?}}  This is expressed as $c \wedge C = 0$.  For the grade-4 object $\dual{C}$, this can be written as $c \lcont \dual{C} = c \lcont (C \lcont \inverse{I_6}) = (c \wedge C) \lcont \inverse{I_6}$, with $I_6$ the pseudoscalar of the space $\reals^{3,3}$.  This is only true for $c \wedge C = 0$, a test for containment of $c$ in $C$.
 
 \askLeo{Above does not make complete sense, does it?}\footnote{If true, this should mean that $\dual{\eze}$ represents the same object as $\eze$; a line and not a scala of reguli.}
 
-Now look at the case where $a$ and $b$ are not coplanar.  \autoref{eq:lincombnull} shows that either $\lambda = 0$ or $\mu = 0$, as $a \lcont b \not= 0$ per definition.  This means that all null vectors in $\s{C}$ must be homogeneously equivalent to $a$ or $b$.  This class of geometric objects is known as the hyperbolic pencils of linear complexes.  Its dual, the hyperbolic linear congruence, contains all lines intersecting both $a$ and $b$~\cite[Proposition 3.2.3]{Pottmann}. That is, for each point $p_a$ on $a$ and $p_b$ on $b$, the line $c$ with embedding $\Em(c) = p_a \wedge p_b$ is in $\dual{C}$.  
+Now look at the case where $a$ and $b$ are not coplanar, but $a \wedge b$ still contains lines.  \autoref{eq:lincombnull} shows that either $\lambda = 0$ or $\mu = 0$, as $a \lcont b \not= 0$ per definition.  This means that all null vectors in $\s{C}$ must be homogeneously equivalent to $a$ or $b$.  This class of geometric objects is known as the hyperbolic pencil\note{\LeosReply{pencil
+maar dit is toch gewoon een skew lijnenpaar? hyperbolic pencil is het 4-blade.}
+
+\myReply{Over Fig. 3.6 zegt Pottmann dat het een hyperbolic linear congruence is, met focal lines $\mathcal A, B$.  Dat zou dus betekenen dat de hyperbolic pencil of linear complexes het skew lijnenpaar is.}} of linear complexes.  Its dual, the hyperbolic linear congruence, contains all lines intersecting both $a$ and $b$~\cite[Proposition 3.2.3]{Pottmann}. That is, for each point $p_a$ on $a$ and $p_b$ on $b$, the line $c$ with embedding $\Em(c) = p_a \wedge p_b$ is in $\dual{C}$.  
 
 Now that we have handled the cases where $a$ and $b$ are both null-vectors, we will investigate the case where .
 
-\subsection{Elements of grade 3}
+\subsection{Blades of grade 3}
 \begin{table}
   \caption{An inventory of the blades of grade 3.}
   \label{tab:inv3}
   \begin{center}
     \begin{tabular}{|c|r|p{2.7cm}|p{2cm}|p{5cm}|}
       \hline
-      \multicolumn{1}{|c|}{\texttt{g}} & $B^2$ & \multicolumn{1}{|c|}{Form} & \multicolumn{1}{|c|}{Graphical representation} & \multicolumn{1}{|c|}{Name} \\ \hline
+      \multicolumn{1}{|c|}{\texttt{g}} & $B^2$ & \multicolumn{1}{|c|}{Form} & \multicolumn{1}{|c|}{Visualization} & \multicolumn{1}{|c|}{Name} \\ \hline
       \hline
       3 & $= 0$ & $\pline \wedge \pline \wedge \pline$, pt.\ int. & & Bundle of lines, point~\newterm \\ \hline
       3 & $\not= 0$ & $\pline \wedge \pline \wedge \pline$, pl.\ int. & & Field of lines, plane~\newterm \\ \hline

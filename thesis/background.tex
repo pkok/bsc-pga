@@ -34,11 +34,9 @@ The system of Pl\"ucker coordinates is another framework for geometric problems;
 \subsection{Pl\"ucker model}
 \label{sec:hongbo}
 \label{sec:plucker}
-\askLeo{This part will be paraphrased from \cite{TheBook} and \cite{Hongbo}.  Where do I put the ref to \cite{TheBook}?}
+We summarize terms and notations of the Pl\"ucker model as treated in Chapter 12 of Dorst et al.~\cite{TheBook}.
 
-\askLeo{Are all weighted lines directed lines?}
-
-Weighted, infinitely-extending lines of $\reals^3$ have 5 degrees of freedom.  Such a line can be fully described by five numerical quantities. First, take a vector $\V{p}$ to a point on the line.  The point should be chosen so that the vector is orthogonal to the line.  The direction and weight of the line are given by a vector $\V{d}$.  These vectors are denoted in \autoref{fig:linedef}.
+Weighted, infinitely-extending lines of $\reals^3$ have 5 degrees of freedom.  Such a line $L$ can be fully described by five numerical quantities.  A common representation follows.  As the first three quantities, we take the weighted direction, given by a vector $\V{d} \in \reals^3$.  The weight is encoded as the norm of $\V{d}$: $\weight(L) = \norm{\V{d}}$.  This implies that the unit direction is given by $\V{d} / \norm{\V{d}}$.  We also need to know its displacement from the origin.  This will be given by a vector $\V{p} \in \reals^3$, directed at a point on $L$.  The point should be chosen so that $\V{p}$ is orthogonal to $\V{d}$.  With this fact, we have limited the degrees of freedom of these 6 parameters to 5.  These vectors are denoted in \autoref{fig:linedef}.
 
 \begin{figure}
   \caption{A weighted line $L$ can be defined by any two of its weighted direction $\V{d}$, a vector $\V{p}$ orthogonal to the line, and its moment $\V{m} = \V{p} \times \V{d}$.}
@@ -50,18 +48,20 @@ Weighted, infinitely-extending lines of $\reals^3$ have 5 degrees of freedom.  S
   \end{center}
 \end{figure}
 
-In the homogeneous model, the line through points $p = \ez + \V{p}$ and $q = \ez + \V{q}$ is represented as 
-\begin{equation*}
-  L = p \wedge q = \ez \wedge (\V{q} - \V{p}) + \V{p} \wedge \V{q} ,
-\end{equation*}
+In the homogeneous model, the line through weighted points $p = \lambda_p (\ez + \V{p})$ and $q = \lambda_q (\ez + \V{q})$ with weight $\lambda_p \lambda_q$ is represented as 
+\begin{align*} 
+  L &= p \wedge q \\
+  &= (\lambda_p \ez) \wedge (\lambda_q \V{q}) + (\lambda_p \V{p}) \wedge (\lambda_q \ez) + (\lambda_p \V{p}) \wedge (\lambda_q \V{q}) \\
+  &= \lambda_p\lambda_q (\ez \wedge (\V{q} - \V{p}) + \V{p} \wedge \V{q}) ,
+\end{align*}
 with the following dependency relationship: 
 \begin{equation} \label{eq:gaplucker0} 
-  \pluckerid(L) = \ez \wedge (\V{q} - \V{p}) \wedge (\V{p} \wedge \V{q}) = 0 .
+  \pluckerid(L) = \lambda_p \lambda_q (\ez \wedge (\V{q} - \V{p}) \wedge (\V{p} \wedge \V{q})) = 0 .
 \end{equation}
 
-This relationship limits the number of degrees of freedom from 6 to 5.
+Through this relation, the 8 parameters of this representation (3 for \V{p}, 3 for \V{q}, 1 for $\lambda_p$ and 1 for $\lambda_q$) have only 5 degrees of freedom.  
 
-The direction and moment of a line are easily recognized in this expression.  The direction $\V{d} = \V{p} - \V{q}$ is encoded in the first factor as $\ez \wedge -\V{d} = \V{d} \wedge \ez = \V{d} \ez$.  
+The classical parameters to characterize a line, its direction and moment, are easily recognized in this expression.  The direction $\V{d} = \V{p} - \V{q}$ is encoded in the first factor as $\ez \wedge -\V{d} = \V{d} \wedge \ez = \V{d} \ez$.  
 The moment $\V{m} = \V{p} \times \V{q} = \edual{(\V{p} \wedge \V{q})}$ can be found in the second term as $\eundual{\V{m}} = \eundual{(\edual{(\V{p} \wedge \V{q})})} = \V{p} \wedge \V{q}$, which results in another general formula for lines:
 \begin{equation*}
   L = \V{d} \ez + \eundual{\V{m}}.
@@ -72,7 +72,17 @@ Within classical literature of linear algebra, the same object is written as $-\
   \pluckerid(L) = \V{d} \dotp \V{m} = 0 .
 \end{equation}
 
-Pottmann and Wallner~\cite[Lemma 2.1.2]{Pottmann} show that \autoref{eq:gaplucker0} and \autoref{eq:laplucker0} indeed express the same relationship, and name it the Pl\"ucker identity.  Based on this identity, a bilinear form is defined as: $\pluckerbilin(L_1, L_2) = \pluckerid(L_1 + L_2) - \pluckerid(L_1) - \pluckerid(L_2)$ and $\pluckerbilin(L, L) = 2 \pluckerid(L)$.  
+The relation from \autoref{eq:gaplucker0} and \autoref{eq:laplucker0} are indeed equal:
+\begin{align*}
+  \ez \wedge (\V{q} - \V{p}) \wedge (\V{p} \wedge \V{q}) 
+  &= \ez \wedge \V{d} \wedge (\eundual{\V{m}}) \\
+  &= \V{d} \wedge (\eundual{\V{m}}) \\
+  &= \V{d} \dotp \edual{(\eundual{\V{m}})} \\
+  &= \V{d} \dotp \V{m} .
+\end{align*}
+Pottmann and Wallner show this as well~\cite[Lemma 2.1.2]{Pottmann}, and name this relationship the Pl\"ucker identity.  Based on this identity, a bilinear form is defined as: $\pluckerbilin(L_1, L_2) = \pluckerid(L_1 + L_2) - \pluckerid(L_1) - \pluckerid(L_2)$.  Note that when $L_1 = L_2$, we have $\pluckerbilin(L_1, L_2) = 2 \pluckerid(L_1)$.
+
+\askLeo{$\pluckerbilin$ gebruik ik nergens meer. Definitie weghalen?}
 
 The set of 6D vectors $-\plucker{\V{d}}{\V{m}}$ that comply with this constraint corresponds to the points on the Klein quadric.
 
@@ -83,31 +93,35 @@ Because of this, the user is often unaware of most of the algebraic structure.  
   L = d_1 \ez\ee + d_2 \ez\et + d_3 \ez\ed + m_1 \et\ed + m_2 \ed\ee + m_3 \ee\et .
 \end{equation*}
 
-The set $\{\ez\ee, \ez\et, \ez\ed, \et\ed, \ed\ee, \ee\et\}$ forms an orthogonal and complete basis of the bivectors of the homogeneous model of $\reals^3$.  It is orthogonal, because for any two elements $x, y$ it holds that $x \lcont y = 0$. It is also complete; it contains $(^4_2) = 6$ linear independent elements.
+The set $\{\ez\ee, \ez\et, \ez\ed, \et\ed, \ed\ee, \ee\et\}$ forms an orthogonal and complete basis of the bivectors of the homogeneous model of $\reals^3$ with inner product $\ez^2 = \ee^2 = \et^2 = \ed^2 = 1$\footnote{The homogeneous model does not have a natural metric.  Some sources choose for $\ez^2 = -1$, while others work with $\ez^2 = 1$.  Its inverse depends on this definition; $\inverse{\ez} = -\ez$ if $\ez^2 = -1$.  With our chosen metric, $\inverse{\ez} = \ez$.}.  The basis is orthogonal, because for any two elements $E_1, E_2$ it holds that $E_1 \lcont E_2 = 0$. It is also complete; it contains $(^4_2) = 6$ linear independent elements.
 
 The Pl\"ucker model uses these six elements as its basis; it treats these bivectors as 1-dimensional elements.  These elements will be known as $\{\eze, \ezt, \ezd, \etd, \ede, \eet\}$.  Li and Zhang~\cite{Hongbo} define an embedding from the Pl\"ucker model to the homogeneous model:
 \begin{equation} \label{eq:Em}
-  \Em(x) = \left\{ 
+  \Em(A) = \left\{ 
     \begin{array}{ll}
-      \ez \wedge \V{e}_i &\mbox{if $x = e_{0i}$}; \\
-      \V{e}_i \wedge \V{e}_j &\mbox{if $x = e_{ij}$}; \\
-      \Em(y) + \Em(z) &\mbox{if $x = y + z$}; \\
-      \Em(y) \wedge \Em(z) &\mbox{if $x = y \wedge z$}; \\
-      \left[\Em(y) \wedge \Em(z)\right] &\mbox{if $x = y \lcont z$}. \\
+      \ez \wedge \V{e}_i &\mbox{if $A = e_{0i}$}; \\
+      \V{e}_i \wedge \V{e}_j &\mbox{if $A = e_{ij}$}; \\
+      \Em(B) + \Em(C) &\mbox{if $A = B + C$}; \\
+      \Em(B) \wedge \Em(C) &\mbox{if $A = B \wedge C$}; \\
+      \left[\Em(B) \wedge \Em(C)\right] &\mbox{if $A = B \lcont C$}. \\
     \end{array}
     \right.
 \end{equation}
+\note{\LeosReply{nu gebruik je de Em net de andere kant op dan ik geloof ik. Dat is natuurlijk geen probleem, maar het maakt de correspondentie met het internal report even wat minder direct. Dat kan je even zeggen in een voetnoot, ik zou niet meer veranderen.}
 
-In the last line, the inner product for the Pl\"ucker model is defined.  The bracket returns the proportionality factor of $\Em(y) \wedge \Em(z)$ to the homogeneous pseudoscalar $\hpseudo$.  Giving the homogeneous space metric structure $\reals^{4,0}$, the bracket construction is the same as dualization with respect to the pseudoscalar.  This metric gives the multiplication table of \autoref{tab:nullmetric}.  Because each of its basis elements correspond to a null vector, this basis is called the null basis.  Li and Zhang show that each null vector of this space satisfies the Pl\"ucker identity, and thus correspond to a line.  Let $v$ be a vector in this model.  $v$ is a line if and only if
+\myReply{Maar kan ik wel verwijzen naar het internal report? Zo ja, waar/hoe? En als ik $\Em$ nu andersom gebruik, is het dan alsnog een embedding function?}}
+
+In the last line, the inner product for the Pl\"ucker model is defined.  The bracket returns the proportionality factor of $\Em(y) \wedge \Em(z)$ to the homogeneous pseudoscalar $\hpseudo$.  Giving the homogeneous space metric structure $\reals^{4,0}$, the bracket construction is the same as dualization with respect to the pseudoscalar.  This metric gives the multiplication table of \autoref{tab:nullmetric}.  Because each of its basis elements correspond to a null vector, this basis is called the null basis.  Li and Zhang show that each null vector of this space satisfies the Pl\"ucker identity, and thus correspond to a line.  Let $a$ be a vector in this model.  $a$ is a line if and only if
 
 \begin{align*}
-  \Em(v \lcont v) &= \left[\Em(v) \wedge \Em(v)\right] \\
-    &= \left[ 2 \left( v_{01} v_{23} \ez\ee \wedge \et\ed + v_{02} v_{31} \ez\et \wedge \ed\ee + v_{03} v_{12} \ez\ed \wedge \ee\et \right) \right] \\
-    &= 2 \left( v_{01} v_{23} + v_{02} v_{31} + v_{03} v_{12} \right) \\
-    &= \pluckerbilin(V, V) \\
-    &= 2 \pluckerid(V),
+  \Em(a \dotp a) &= \left[\Em(a) \wedge \Em(a)\right] \\
+    &= \left[ 2 \left( a_{01} a_{23} \ez\ee \wedge \et\ed + a_{02} a_{31} \ez\et \wedge \ed\ee + a_{03} a_{12} \ez\ed \wedge \ee\et \right) \right] \\
+    &= 2 \left( a_{01} a_{23} + a_{02} a_{31} + a_{03} a_{12} \right) \\
+    &= 2 (a_{01} \ee + a_{02} \et + a_{03} \ed) \dotp (a_{23} \ee + a_{31} \et + a_{23} \ed) \\
+    &= 2 \V{d} \dotp \V{m} \\ 
+    &= 2 \pluckerid(A),
 \end{align*}
-with $V$ the corresponding Pl\"ucker coordinate representation of $v$.
+with $A$ the corresponding Pl\"ucker coordinate representation of $a$.
 
 \begin{table}
   \caption{The multiplication table of the inner product for the Pl\"ucker model on the null basis.}
@@ -115,7 +129,7 @@ with $V$ the corresponding Pl\"ucker coordinate representation of $v$.
   \begin{center}
     \begin{tabular}{|c||c|c|c|c|c|c|}
       \hline
-      $\lcont$ & $\eze$ & $\ezt$ & $\ezt$ & $\etd$ & $\ede$ & $\eet$ \\
+      $\dotp$ & $\eze$ & $\ezt$ & $\ezt$ & $\etd$ & $\ede$ & $\eet$ \\
       \hline \hline
       $\eze$ & 0 & 0 & 0 & 1 & 0 & 0 \\
       \hline
@@ -152,7 +166,7 @@ Without changing the semantics of the inner product, we obtain the multiplicatio
   \begin{center}
     \begin{tabular}{|c||c|c|c|c|c|c|}
       \hline
-      $\lcont$ & $\ap$ & $\bp$ & $\cp$ & $\am$ & $\bm$ & $\cm$ \\
+      $\dotp$ & $\ap$ & $\bp$ & $\cp$ & $\am$ & $\bm$ & $\cm$ \\
       \hline \hline
       $\ap$ & 1 & 0 & 0 & 0 & 0 & 0 \\
       \hline
@@ -170,7 +184,7 @@ Without changing the semantics of the inner product, we obtain the multiplicatio
   \end{center}
 \end{table}
 
-It is also clear that the basis elements do not represent lines, as no basis vectors square to $0$.  \Autoref{ch:research} demonstrates that all non-null vectors of the Pl\"ucker model represent screw axes.  
+It is also clear that the basis elements do not represent lines, as no basis vector squares to $0$.  \Autoref{ch:research} demonstrates that all non-null vectors of the Pl\"ucker model represent screw axes.  
 
 This screw basis is good to demonstrate the metric structure of the model.  However, the null basis makes the connection to the homogeneous model more transparant.  
 
@@ -187,8 +201,9 @@ The classical approach of linear algebra~\cite{Shoemake} gives a formula to test
     &= \Em^{-1}\left( \V{d}_1\ez + \eundual{\V{m}_1} \right) \lcont \Em^{-1}\left( \V{d}_2\ez + \eundual{\V{m}_2} \right) \nonumber \\
     &= l_1 \lcont l_2,
 \end{align}
+with $l_1, l_2$ the null vectors of the Pl\"ucker model corresponding to $L_1, L_2$.  This test for coplanarity is a projective interpretation of intersection.  That is, even two parallel lines have an intersection.  This ``point'' of intersection $\V{p}$ is at infinity, and $\V{p} \dotp \ez = 0$.  Projectively, points at infinity are not any different from other points.
 
-with $l_1, l_2$ the null vectors of the Pl\"ucker model corresponding to $L_1, L_2$.  This test for coplanarity is a projective interpretation of intersection.  Points at infinity are not any different from other points.  Because of this property, one can say they intersect at the point at infinity.  This test for intersection also gives a geometric interpretation to the inner product of the Pl\"ucker model.
+  This test for intersection also gives a geometric interpretation to the inner product of the Pl\"ucker model.
 
 The point of intersection itself cannot easily be computed in the Pl\"ucker model, as it has no direct representation of points.  Therefore, we will use the embedding function to the homogeneous model.  This lets us compute the point of intersection by the meet of $\Em(l_1)$ and $\Em(l_2)$~\cite[Section 11.7.1]{TheBook}:
 \begin{align}

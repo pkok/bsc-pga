@@ -5,6 +5,7 @@
 \usepackage{color}
 \usepackage{etoolbox}
 \usepackage{hyperref}
+\usepackage{soul}
 
 %% Math type specifying fonts
 \newcommand{\V}[1]{\ensuremath{\mathbf{#1}}}
@@ -111,18 +112,26 @@
       linkcolor=niceblue,
       citecolor=nicered,
     }
-    \newcommand{\comment}[1]{\colorbox{red}{\bfseries\color{white}#1}}
-    \newcommand{\TODO}[1]{\colorbox{niceblue}{\bfseries\color{white}TODO: #1}}
-    \newcommand{\askLeo}[1]{\colorbox{yellow}{\bfseries Leo: #1}}
+    \newcommand{\note}[1]{\footnote{#1}}
+    \newcommand{\comment}[1]{\sethlcolor{red}{\bfseries\color{white} \hl{#1}}}
+    \newcommand{\TODO}[1]{\sethlcolor{niceblue}{\bfseries\color{white} \hl{TODO: #1}}}
+    \newcommand{\askLeo}[1]{\sethlcolor{yellow}{\bfseries \hl{Leo: #1}}}
+    %\newcommand{\askLeo}[1]{\colorbox{yellow}{\bfseries Leo: #1}}
+    \newcommand{\LeosReply}[1]{\sethlcolor{green}{\bfseries \hl{Leo says: #1}}}
+    \newcommand{\myReply}[1]{\sethlcolor{yellow}{\bfseries \hl{#1}}}
   }{
     \hypersetup{
       colorlinks=true,
       urlcolor=gray,
       linkcolor=gray,
       citecolor=lightgray,}
+    \newcommand{\note}[1]{}
     \newcommand{\comment}[1]{}
     \newcommand{\TODO}[1]{}
     \newcommand{\askLeo}[1]{}
+    \newcommand{\Leosays}[1]{}
+    \newcommand{\LeosReply}[1]{}
+    \newcommand{\myReply}[1]{}
     }}
 
 \makeatletter
