@@ -709,7 +709,7 @@ bool only_coordinates_set(const l3ga &a, GAIM_FLOAT epsilon, int grade, std::vec
   }
   for (; i < i_max; ++i) {
     if ((std::find(coordinates.begin(), coordinates.end(), i) == coordinates.end()) &&
-        (a[grade][i] >= epsilon)) {
+        (fabs(a[grade][i]) >= epsilon)) {
       return false;
     }
   }
