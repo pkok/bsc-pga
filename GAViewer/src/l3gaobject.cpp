@@ -70,6 +70,13 @@ Fl_Menu_Item gui_l3gaPencilDrawMethods[] = {
   {0}
 };
 
+Fl_Menu_Item gui_l3gaIdealPlaneDrawMethods[] = {
+	{"Sphere", 0, NULL, (void*)DRAW_TV_SPHERE, 0},
+	{"Curly tail", 0, NULL, (void*)DRAW_TV_CROSS, 0},
+	{"Curly tail", 0, NULL, (void*)DRAW_TV_CURLYTAIL, 0},
+	{0}
+};
+
 
 l3gaObject::l3gaObject(const l3ga &mv, const std::string &name /*= std::string("")*/, int drawMode /*= 0*/, int creationFlags /*= 0*/, int forceFlags /*= 0*/) 
 	: object(OT_L3GA, name, drawMode, creationFlags) {
@@ -138,6 +145,12 @@ l3gaObject::l3gaObject(const l3ga &mv, const std::string &name /*= std::string("
           break;
         case MVI_PLANE:
           m_dmMenuIdx = DRAW_PLANE;
+          break;
+        case MVI_IDEAL_PLANE:
+          m_properties |= OP_DRAWMETHOD;
+          m_drawMode |= OD_STIPPLE;
+          m_dmMenu = gui_l3gaIdealPlaneDrawMethods;
+          m_dmMenuIdx = DRAW_TV_SPHERE;
           break;
         case MVI_SPACE: // pseudoscalar
           // don't draw anything
@@ -286,18 +299,23 @@ int l3gaObject::draw(glwindow *window) {
       case MVI_POINT:
         drawPoint(m_int.m_point[0], m_int.m_scalar[0], 0, this);
         break;
+      case MVI_IDEAL_PLANE:
+        glPolygonMode(GL_FRONT_AND_BACK, (m_drawMode & OD_WIREFRAME) ? GL_LINE : GL_FILL);
+        drawTriVector(NULL, (m_drawMode & OD_MAGNITUDE) ? m_int.m_scalar[0] : ((m_int.m_scalar[0] < 0.0) ? -1.0 : 1.0), NULL, m_dmMenuIdx, (m_drawMode & OD_ORI) ? 0x01 : 0, this);
+        break;
       case MVI_PLANE:
         drawPlane(m_int.m_point[0], m_int.m_vector[0], m_int.m_vector[1], m_int.m_vector[2], m_int.m_scalar[0], DRAW_PLANE, 0, this);
+        break;
       case MVI_SPACE:
         // don't draw anything
-        break;
       default:
+        cprintf("Can not (yet) draw the blade object #%d\n", m_int.type());
         break;
     }
   }
   else {
     if (m_int.type() != MVI_UNKNOWN)
-      printf("Can not (yet) draw the object #%d\n", m_int.type());
+      cprintf("Can not (yet) draw the object #%d\n", m_int.type());
     return 0;
   }
 
@@ -338,6 +356,7 @@ int l3gaObject::translate(glwindow *window, double depth, double motionX, double
         break;
       case MVI_IDEAL_LINE:
       case MVI_IDEAL_LINE_PENCIL:
+      case MVI_IDEAL_PLANE:
         // rotate; these elements are translation invariant.
         versor = (v[GRADE1][E3GA_E3] * r3).exp() * (v[GRADE1][E3GA_E2] * r2).exp() * (v[GRADE1][E3GA_E1] * r1).exp();
         m_mv = versor.inverse() * m_mv * versor;
@@ -463,6 +482,13 @@ int l3gaObject::description(char *buf, int bufLen, int sl /* = 0 */) {
 				m_int.m_point[0][0], m_int.m_point[0][1], m_int.m_point[0][2], 
 				m_mv.string());
 			break;
+    case MVI_IDEAL_PLANE:
+      if (sl) sprintf(buf, "%s: l3ga ideal plane%s", m_name.c_str(), (m_int.dual()) ? " dual" : "");
+      else sprintf(buf, "l3ga ideal plane%s\nWeight: %f\nCoordinates: %s",
+          (m_int.dual()) ? " dual" : "",
+          m_int.m_scalar[0],
+          m_mv.string());
+      break;
     case MVI_SPACE: // scalar 0: weight
       if (sl) sprintf(buf, "%s: l3ga %spseudoscalar, weight: %f", m_name.c_str(), (m_int.dual()) ? "dual " : "", m_int.m_scalar[0]);
       else sprintf(buf, "l3ga %spseudoscalar\nWeight: %f", 

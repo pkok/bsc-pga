@@ -30,6 +30,7 @@
 
 double factorize_blade(const l3ga &B, int grade, l3ga (&factors)[7]);
 int is_parallel(l3ga &a, l3ga &b, double epsilon);
+bool only_coordinates_set(const l3ga &a, GAIM_FLOAT epsilon, int grade, int coordinate);
 bool only_coordinates_set(const l3ga &a, GAIM_FLOAT epsilon, int grade, std::vector<int> coordinates);
 
 
@@ -371,7 +372,17 @@ int mvInt::interpret(const l3ga &X, int creationFlags /* = 0*/) {
         }
         break;
       case 3: // ******************** line bundle/point, fied of lines/plane, regulus, double wheel pencil, ...
-        if (!((interpret[0].m_type & MVI_DUAL) || (interpret[1].m_type & MVI_DUAL) || (interpret[2].m_type & MVI_DUAL)) &&
+        if (only_coordinates_set(X, epsilon, GRADE3, L3GA_E23_E31_E12)) {
+          m_type |= MVI_IDEAL_PLANE;
+          printf("ideal plane\n");
+          /*
+          scalar 0: weight
+          */
+          //m_scalar[0] = X[GRADE3][L3GA_E23_E31_E12];
+
+          m_valid = 1;
+        }
+        else if (!((interpret[0].m_type & MVI_DUAL) || (interpret[1].m_type & MVI_DUAL) || (interpret[2].m_type & MVI_DUAL)) &&
             fabs(lcont(factors[0], factors[1]).scalar()) < epsilon && 
             fabs(lcont(factors[1], factors[2]).scalar()) < epsilon &&
             fabs(lcont(factors[2], factors[0]).scalar()) < epsilon) {
@@ -405,7 +416,7 @@ int mvInt::interpret(const l3ga &X, int creationFlags /* = 0*/) {
             scalar0: weight
             point0: position
             */
-            m_scalar[0] = s;
+            //m_scalar[0] = s;
 
             m_point[0][0] = intersection1[GRADE1][P3GA_E1] / intersection1[GRADE1][P3GA_E0];
             m_point[0][1] = intersection1[GRADE1][P3GA_E2] / intersection1[GRADE1][P3GA_E0];
@@ -417,7 +428,7 @@ int mvInt::interpret(const l3ga &X, int creationFlags /* = 0*/) {
             printf("plane\n");
 
             tmpInt.interpret(intersection1 ^ intersection2 ^ intersection3);
-            m_scalar[0] = tmpInt.m_scalar[0];
+            //m_scalar[0] = tmpInt.m_scalar[0];
 
             m_point[0][0] = tmpInt.m_point[0][0];
             m_point[0][1] = tmpInt.m_point[0][1];
@@ -434,6 +445,7 @@ int mvInt::interpret(const l3ga &X, int creationFlags /* = 0*/) {
             m_vector[2][0] = tmpInt.m_vector[2][0];
             m_vector[2][1] = tmpInt.m_vector[2][1];
             m_vector[2][2] = tmpInt.m_vector[2][2];
+
             m_valid = 1;
           }
         }
@@ -449,9 +461,9 @@ int mvInt::interpret(const l3ga &X, int creationFlags /* = 0*/) {
         m_type = tmpInt.m_type;
         m_type |= MVI_DUAL;
         m_valid = tmpInt.m_valid;
-        m_scalar[0] = tmpInt.m_scalar[0];
+        //m_scalar[0] = tmpInt.m_scalar[0];
         m_scalar[1] = tmpInt.m_scalar[1];
-        m_scalar[2] = tmpInt.m_scalar[2];
+        //m_scalar[2] = tmpInt.m_scalar[2];
         if (tmpInt.m_vector[0] != NULL) {
           m_vector[0][0] = tmpInt.m_vector[0][0];
           m_vector[0][1] = tmpInt.m_vector[0][1];
@@ -666,6 +678,13 @@ int is_parallel(l3ga &a, l3ga &b, double epsilon) {
     ((a[GRADE1][L3GA_E03] * b[GRADE1][L3GA_E01]) - (a[GRADE1][L3GA_E01] * b[GRADE1][L3GA_E03])) * e3ga::e2 +
     ((a[GRADE1][L3GA_E01] * b[GRADE1][L3GA_E02]) - (a[GRADE1][L3GA_E02] * b[GRADE1][L3GA_E01])) * e3ga::e3;
   return fabs((x * x).scalar()) < epsilon;
+}
+
+
+bool only_coordinates_set(const l3ga &a, GAIM_FLOAT epsilon, int grade, int coordinate) {
+  std::vector<int> coords;
+  coords.push_back(coordinate);
+  return only_coordinates_set(a, epsilon, grade, coords);
 }
 
 
