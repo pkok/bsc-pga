@@ -597,7 +597,8 @@ int drawPlane(const GAIM_FLOAT point[3], const GAIM_FLOAT normal[3], const GAIM_
   if (o && o->m_drawMode & OD_ORI) { // draw normals
     if (o && o->m_drawMode & OD_MAGNITUDE) scaleMag *= weight;
     glDisable(GL_LIGHTING);
-    T.begin(GL_LINE_STRIP);
+    //T.begin(GL_LINE_STRIP);
+    T.begin(GL_LINES);
     for (y = -scaleConst; y <= scaleConst; y += stepSize * scaleConst) {
       for (x = -scaleConst; x <= scaleConst; x += stepSize * scaleConst) {
         T.vertex3d(
