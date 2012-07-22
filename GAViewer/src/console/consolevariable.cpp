@@ -1035,6 +1035,9 @@ consoleVariable *consoleVariable::castP3gaToL3ga() const {
 	l3ga vl3;
 	const p3ga &vp = p();
 
+  if (fabs(vp[GRADE4][P3GA_I]) > 0.0) {
+    cprintf("Warning! p3ga pseudoscalar is cast to -(e01^e23 + e02^e31 + e03^e12) / 3\n");
+  }
 	// only scalars are preserved
 	vl3 = 
     // grade 0
