@@ -3,57 +3,58 @@
 
 Before an implementation of a visualization can be made for a model, the geometric aspects of the elements of the model must be investigated.  A full inventory of the geometric elements has been done~\cite[Chapter 3]{Pottmann}, but in different terms.  Those terms are traditional, but do not hint at the geometric concept.  Besides the traditional terms, geometric inspired terms will be used.  
 
-The following sections will discuss the geometrically different blades of a certain grade, together with their duals.  The discussion of $n>1$-blades is limited to those composed of null vectors.  Besides text, each part has an accompanying table that contains the following information on the discussed blades:\note{\LeosReply{Als deze dingen van mijn 'internal report' komen moet je dat vermelden, als je ze zelf aanvult is het 'partially based on'.}
-
-\myReply{Hoe verwijs ik naar dit artikel?}}
-\begin{itemize}
-  \item \texttt{g}: the grade of the blade.
-  \item $B^2$: the square of the blade.  The relation of this scalar value to zero is indicated in the table with $> 0$, $= 0$, $< 0$ and $\not= 0$.
-  \item Form: the general formula.  A blade factor can be either a line or screw axis, denoted by $\pline$ and $\screw$.  In certain cases, the difference between a real and ideal line is made with $\rline$ and $\iline$.  Here it does not concern any algebraic difference.  The difference is based on the visualization.  In other cases, a small textual note is given to indicate that the factors coincide at a single point (``pt.\ int.'') or in a plane (``pl.\ int.''), intersect each other pairwise (``pw.\ int''), or no factors intersect at all (``skew'').
-  \item Visualization: the picture of a typical blade of this type.
-  \item Name: what the blade class is named.  Traditional names, if needed, have been referenced.  In case of non-geometrically inspired terms, a more geometric alternative is given.  These are marked with ``\newterm''.
-    
-    \myReply{Leo: Deze namen gebruik ik alleen in de tabel, of meer beschrijvend (``the blade of two skew lines'').  Is het wel gepast om nieuwe namen te introduceren zonder al te veel motivatie, of is dit al genoeg motivatie?}
-\end{itemize}
+The following sections will discuss the geometrically different blades of a certain grade, together with their duals.  The discussion of $n>1$-blades is limited to those composed of null vectors.  
+%Besides text, each part has an accompanying table that contains the following information on the discussed blades:\note{\LeosReply{Als deze dingen van mijn 'internal report' komen moet je dat vermelden, als je ze zelf aanvult is het 'partially based on'.}
+%
+%\myReply{Hoe verwijs ik naar dit artikel?}}
+%\begin{itemize}
+%  \item \texttt{g}: the grade of the blade.
+%  \item $B^2$: the square of the blade.  The relation of this scalar value to zero is indicated in the table with $> 0$, $= 0$, $< 0$ and $\not= 0$.
+%  \item Form: the general formula.  A blade factor can be either a line or screw axis, denoted by $\pline$ and $\screw$.  In certain cases, the difference between a real and ideal line is made with $\rline$ and $\iline$.  Here it does not concern any algebraic difference.  The difference is based on the visualization.  In other cases, a small textual note is given to indicate that the factors coincide at a single point (``pt.\ int.'') or in a plane (``pl.\ int.''), intersect each other pairwise (``pw.\ int''), or no factors intersect at all (``skew'').
+%  \item Visualization: the picture of a typical blade of this type.
+%  \item Name: what the blade class is named.  Traditional names, if needed, have been referenced.  In case of non-geometrically inspired terms, a more geometric alternative is given.  These are marked with ``\newterm''.
+%    
+%    \myReply{Leo: Deze namen gebruik ik alleen in de tabel, of meer beschrijvend (``the blade of two skew lines'').  Is het wel gepast om nieuwe namen te introduceren zonder al te veel motivatie, of is dit al genoeg motivatie?}
+%\end{itemize}
 
 
 \TODO{Add pictures!}
 
 \subsection{Blades of grade 0 and 6}
-\begin{table}
-  \caption{An inventory of the blades of grade 0 and 6.}
-  \label{tab:inv0}
-  \begin{center}
-    \begin{tabular}{|c|r|l|c|l|}
-      \hline
-      \multicolumn{1}{|c|}{\texttt{g}} & $B^2$ & \multicolumn{1}{|c|}{Form} & \multicolumn{1}{|c|}{Visualization} & \multicolumn{1}{|c|}{Name} \\ \hline
-      \hline
-      0 & $\in \reals$ & $1 = \dual{I_6}$ & & Scalar~\cite{TheBook} \\ \hline
-      6 & $\in \reals$ & $I_6 = \dual{1}$ & & Pseudoscalar~\cite{TheBook} \\ \hline
-    \end{tabular}
-  \end{center}
-\end{table}
+%\begin{table}
+%  \caption{An inventory of the blades of grade 0 and 6.}
+%  \label{tab:inv0}
+%  \begin{center}
+%    \begin{tabular}{|c|r|l|c|l|}
+%      \hline
+%      \multicolumn{1}{|c|}{\texttt{g}} & $B^2$ & \multicolumn{1}{|c|}{Form} & \multicolumn{1}{|c|}{Visualization} & \multicolumn{1}{|c|}{Name} \\ \hline
+%      \hline
+%      0 & $\in \reals$ & $1 = \dual{\ppseudo}$ & & Scalar~\cite{TheBook} \\ \hline
+%      6 & $\in \reals$ & $\ppseudo = \dual{1}$ & & Pseudoscalar~\cite{TheBook} \\ \hline
+%    \end{tabular}
+%  \end{center}
+%\end{table}
 
 Scalars and pseudoscalars are interpreted the same as in other models for geometric algebra.  Scalars can be used to represent weights.  Its dual, the pseudoscalar, may be utilized to denote the subspace volume.
 
 \subsection{Blades of grade 1 and 5}
-\begin{table}
-  \caption{An inventory of the blades of grade 1 and 5.}
-  \label{tab:inv1}
-  \begin{center}
-    \begin{tabular}{|c|r|p{2.7cm}|p{2cm}|p{5cm}|}
-      \hline
-      \multicolumn{1}{|c|}{\texttt{g}} & $B^2$ & \multicolumn{1}{|c|}{Form} & \multicolumn{1}{|c|}{Visualization} & \multicolumn{1}{|c|}{Name} \\ \hline
-      \hline
-      1 & $= 0$ & $\rline$ & & Real line, path normal for uniform rotating motion~\cite{Pottmann}\\ \hline
-      1 & $= 0$ & $\iline$ & & Ideal line, path normal for uniform translating motion~\cite{Pottmann}\\ \hline
-      1 & $\not= 0$ & $\screw$ & & Axis of a screw motion~\cite{Pottmann}\\ \hline
-      5 & $= 0$ & $\dual{\rline}$ & & Singular linear complex~\cite{Pottmann}, uniform rotating motion \\ \hline
-      5 & $= 0$ & $\dual{\iline}$ & & Singular linear complex~\cite{Pottmann}, uniform translating motion \\ \hline
-      5 & $\not= 0$ & $\dual{\screw}$ & & Regular linear complex~\cite{Pottmann}, screw motion \\ \hline
-    \end{tabular}
-  \end{center}
-\end{table}
+%\begin{table}
+%  \caption{An inventory of the blades of grade 1 and 5.}
+%  \label{tab:inv1}
+%  \begin{center}
+%    \begin{tabular}{|c|r|p{2.7cm}|p{2cm}|p{5cm}|}
+%      \hline
+%      \multicolumn{1}{|c|}{\texttt{g}} & $B^2$ & \multicolumn{1}{|c|}{Form} & \multicolumn{1}{|c|}{Visualization} & \multicolumn{1}{|c|}{Name} \\ \hline
+%      \hline
+%      1 & $= 0$ & $\rline$ & & Real line, path normal for uniform rotating motion~\cite{Pottmann}\\ \hline
+%      1 & $= 0$ & $\iline$ & & Ideal line, path normal for uniform translating motion~\cite{Pottmann}\\ \hline
+%      1 & $\not= 0$ & $\screw$ & & Axis of a screw motion~\cite{Pottmann}\\ \hline
+%      5 & $= 0$ & $\dual{\rline}$ & & Singular linear complex~\cite{Pottmann}, uniform rotating motion \\ \hline
+%      5 & $= 0$ & $\dual{\iline}$ & & Singular linear complex~\cite{Pottmann}, uniform translating motion \\ \hline
+%      5 & $\not= 0$ & $\dual{\screw}$ & & Regular linear complex~\cite{Pottmann}, screw motion \\ \hline
+%    \end{tabular}
+%  \end{center}
+%\end{table}
 Although all vectors are projectively equivalent, we will distinguish three geometric classes.  For all three classes, their direction and moment are algebraically the same; these components are only interpreted differently in the domain of geometric interpretation.  The weight is computed as well in a uniform way, again through the homogeneous model:
 \begin{equation*}
   \weight(x) = 
@@ -80,32 +81,32 @@ The vectors that do not square to $0$ can be interpreted as the axis of a helica
 \end{align}
 
 From this, one can deduce what kind of objects the dual elements of real and ideal lines represent.  For an ideal line $l_\infty$ with $p = \lim_{\V{d} \to 0} \V{d} \lcont \V{m} / \V{d}^2 = \infty$ and $a = \lim_{\V{d} \to 0, p \to \infty} \plucker{\V{d}}{\V{m} - p \V{d}} = l_\infty$, we see that it is a pure translation.  Given a real line $l_o$, its pitch is $p = 0 / \V{d}^2 = 0$, because of the Pl\"ucker identity, seen in \autoref{eq:laplucker0}.  Its axis is $a = \plucker{\V{d}}{\V{m} - 0} = l_o$.  No matter how much of the rotation is applied, no translation will occur.  This shows that the dual of real lines represent pure rotational motions.
-
-A list of these elements is presented as a summary in \autoref{tab:inv1}. 
+%
+%A list of these elements is presented as a summary in \autoref{tab:inv1}. 
 
 
 \subsection{Blades of grade 2 and 4}
-\begin{table}
-  \caption{An inventory of the blades of grade 2 and 4.}
-  \label{tab:inv2}
-  \begin{center}
-    \begin{tabular}{|c|r|p{2.7cm}|p{2cm}|p{5cm}|}
-      \hline
-      \multicolumn{1}{|c|}{\texttt{g}} & $B^2$ & \multicolumn{1}{|c|}{Form} & \multicolumn{1}{|c|}{Visualization} & \multicolumn{1}{|c|}{Name} \\ \hline
-      \hline
-      2 & $= 0$ & $\pline \wedge \pline$, pt.\ int. & & Pencil of linear line complexes~\cite{Pottmann}, pencil of lines~\cite{Hongbo} \\ \hline
-      2 & $> 0$ & $\pline \wedge \pline$, skew & & Hyperbolic pencil of linear complexes~\cite{Pottmann}, skew line pair~\newterm \\ \hline
-      2 & $\not= 0$ & $\pline \wedge \screw$ & \comment{HIDE THIS ROW} & Parabolic pencil of linear complexes~\cite{Pottmann} \\ \hline
-      2 & $< 0$ & $\screw \wedge \screw$ & \comment{HIDE THIS ROW} & Elliptic pencil of linear complexes~\cite{Pottmann} \\ \hline
-      4 & $= 0$ & $\dual{\left( \pline \wedge \pline \right)}$ & & Pencil of singular linear complexes~\cite{Pottmann}, dual pencil of lines \\ \hline
-      4 & $> 0$ & $\dual{\left( \pline \wedge \pline \right)}$, skew & & Hyperbolic linear congruence~\cite{Pottmann}, dual skew line pair~\newterm \\ \hline
-      4 & $\not= 0$ & $\dual{\left( \pline \wedge \screw \right)}$ & \comment{HIDE THIS ROW} & Parabolic linear congruence~\cite{Pottmann} \\ \hline
-      4 & $< 0$ & $\dual{\left( \screw \wedge \screw \right)}$ & \comment{HIDE THIS ROW} & Elliptic linear congruence~\cite{Pottmann}, pencil of reguli~\newterm \\ \hline
-    \end{tabular}
-  \end{center}
-\end{table}
-
-A two-blade\note{\LeosReply{niet alle elementen van graad 2 zijn 2-blades. Dus hier moet iets bij.}
+%\begin{table}
+%  \caption{An inventory of the blades of grade 2 and 4.}
+%  \label{tab:inv2}
+%  \begin{center}
+%    \begin{tabular}{|c|r|p{2.7cm}|p{2cm}|p{5cm}|}
+%      \hline
+%      \multicolumn{1}{|c|}{\texttt{g}} & $B^2$ & \multicolumn{1}{|c|}{Form} & \multicolumn{1}{|c|}{Visualization} & \multicolumn{1}{|c|}{Name} \\ \hline
+%      \hline
+%      2 & $= 0$ & $\pline \wedge \pline$, pt.\ int. & & Pencil of linear line complexes~\cite{Pottmann}, pencil of lines~\cite{Hongbo} \\ \hline
+%      2 & $> 0$ & $\pline \wedge \pline$, skew & & Hyperbolic pencil of linear complexes~\cite{Pottmann}, skew line pair~\newterm \\ \hline
+%      2 & $\not= 0$ & $\pline \wedge \screw$ & \comment{HIDE THIS ROW} & Parabolic pencil of linear complexes~\cite{Pottmann} \\ \hline
+%      2 & $< 0$ & $\screw \wedge \screw$ & \comment{HIDE THIS ROW} & Elliptic pencil of linear complexes~\cite{Pottmann} \\ \hline
+%      4 & $= 0$ & $\dual{\left( \pline \wedge \pline \right)}$ & & Pencil of singular linear complexes~\cite{Pottmann}, dual pencil of lines \\ \hline
+%      4 & $> 0$ & $\dual{\left( \pline \wedge \pline \right)}$, skew & & Hyperbolic linear congruence~\cite{Pottmann}, dual skew line pair~\newterm \\ \hline
+%      4 & $\not= 0$ & $\dual{\left( \pline \wedge \screw \right)}$ & \comment{HIDE THIS ROW} & Parabolic linear congruence~\cite{Pottmann} \\ \hline
+%      4 & $< 0$ & $\dual{\left( \screw \wedge \screw \right)}$ & \comment{HIDE THIS ROW} & Elliptic linear congruence~\cite{Pottmann}, pencil of reguli~\newterm \\ \hline
+%    \end{tabular}
+%  \end{center}
+%\end{table}
+%
+A 2-blade\note{\LeosReply{niet alle elementen van graad 2 zijn 2-blades. Dus hier moet iets bij.}
 
 \myReply{Zou je een voorbeeld van een graad 2 niet-blade kunnen geven? Voor zover ik begrijp, zijn alle dingen met een graad blades, en anders multivectors van mixed grade.  Ik kan me geen graad-2-ding voorstellen dat niet een outer product of vectors is (def. van blade op p.195 van The Book).  Ik heb de \texttt{\\subsection}s veranderd van ``Elements of grade $k$'' naar ``Blades of grade $k$''; voldoende?}}
 $C = a \wedge b$ represents the set of linear combinations of $a$ and $b$:
@@ -151,7 +152,7 @@ The dual of a pencil of lines contains the same set of lines~\cite[Section 3.2.1
 Als je bedoelt 'coincide'dan is dan de wedge-test.
 Als je bedoelt: staan loodrecht op, dan is het de contraction test.}
 
-\myReply{Dat weet ik nu niet eens zo zeker.  Het lijkt mij dat de contraction test hier ook ``snijdt elkaar in een (ideaal) punt'' betekent?}}  This is expressed as $c \wedge C = 0$.  For the grade-4 object $\dual{C}$, this can be written as $c \lcont \dual{C} = c \lcont (C \lcont \inverse{I_6}) = (c \wedge C) \lcont \inverse{I_6}$, with $I_6$ the pseudoscalar of the space $\reals^{3,3}$.  This is only true for $c \wedge C = 0$, a test for containment of $c$ in $C$.
+\myReply{Dat weet ik nu niet eens zo zeker.  Het lijkt mij dat de contraction test hier ook ``snijdt elkaar in een (ideaal) punt'' betekent?}}  This is expressed as $c \wedge C = 0$.  For the grade-4 object $\dual{C}$, this can be written as $c \lcont \dual{C} = c \lcont (C \lcont \inverse{\ppseudo}) = (c \wedge C) \lcont \inverse{\ppseudo}$, with $\ppseudo$ the pseudoscalar of the space $\reals^{3,3}$.  This is only true for $c \wedge C = 0$, a test for containment of $c$ in $C$.
 
 \askLeo{Above does not make complete sense, does it?}\footnote{If true, this should mean that $\dual{\eze}$ represents the same object as $\eze$; a line and not a scala of reguli.}
 
@@ -163,21 +164,31 @@ maar dit is toch gewoon een skew lijnenpaar? hyperbolic pencil is het 4-blade.}
 Now that we have handled the cases where $a$ and $b$ are both null-vectors, we will investigate the case where .
 
 \subsection{Blades of grade 3}
-\begin{table}
-  \caption{An inventory of the blades of grade 3.}
-  \label{tab:inv3}
-  \begin{center}
-    \begin{tabular}{|c|r|p{2.7cm}|p{2cm}|p{5cm}|}
-      \hline
-      \multicolumn{1}{|c|}{\texttt{g}} & $B^2$ & \multicolumn{1}{|c|}{Form} & \multicolumn{1}{|c|}{Visualization} & \multicolumn{1}{|c|}{Name} \\ \hline
-      \hline
-      3 & $= 0$ & $\pline \wedge \pline \wedge \pline$, pt.\ int. & & Bundle of lines, point~\newterm \\ \hline
-      3 & $\not= 0$ & $\pline \wedge \pline \wedge \pline$, pl.\ int. & & Field of lines, plane~\newterm \\ \hline
-      3 & $\not= 0$ & $\pline \wedge \pline \wedge \pline$, skew & & Regulus~\cite{Hongbo} \\ \hline
-      3 & $\not= 0$ & $\pline \wedge \pline \wedge \pline$, pw.\ int. & & Couple-wheel pencil~\cite{Hongbo}, line pencil pair~\newterm \\ \hline
-    \end{tabular}
-  \end{center}
-\end{table}
+%\begin{table}
+%  \caption{An inventory of the blades of grade 3.}
+%  \label{tab:inv3}
+%  \begin{center}
+%    \begin{tabular}{|c|r|p{2.7cm}|p{2cm}|p{5cm}|}
+%      \hline
+%      \multicolumn{1}{|c|}{\texttt{g}} & $B^2$ & \multicolumn{1}{|c|}{Form} & \multicolumn{1}{|c|}{Visualization} & \multicolumn{1}{|c|}{Name} \\ \hline
+%      \hline
+%      3 & $= 0$ & $\pline \wedge \pline \wedge \pline$, pt.\ int. & & Bundle of lines, point~\newterm \\ \hline
+%      3 & $\not= 0$ & $\pline \wedge \pline \wedge \pline$, pl.\ int. & & Field of lines, plane~\newterm \\ \hline
+%      3 & $\not= 0$ & $\pline \wedge \pline \wedge \pline$, skew & & Regulus~\cite{Hongbo} \\ \hline
+%      3 & $\not= 0$ & $\pline \wedge \pline \wedge \pline$, pw.\ int. & & Couple-wheel pencil~\cite{Hongbo}, line pencil pair~\newterm \\ \hline
+%    \end{tabular}
+%  \end{center}
+%\end{table}
+%
+When talking about three lines $a, b, c$ in 3D space, we can distinguish several cases:
 
-None implemented.  Difficult to draw reguli correctly.
+\begin{itemize}
+  \item Each line intersects the other lines.  These intersecting points are all the same.  This is called a 2D concurrent pencil or point~\cite{Hongbo}.
+  \item Each line intersects the other lines.  These intersection points are all different.  Li and Zhang name this object a 2D coplanar pencil, or plane~\cite{Hongbo}.
+  \item One line intersects two lines, which do not intersect each other.  This is a couple-wheel pencil~\cite{Hongbo}.
+  \item Each line does not intersect any other line.  The geometric entity is named a regulus~\cite[Section 3.3]{Pottmann}.
+\end{itemize}
 
+Unlike blades of other grades, the dual of a 3-blade $B = a \wedge b \wedge c$ is $-B$; when dualized, only the orientation of the 3-blade is switched.  From here on, we will not give any attention to the duals of the 3-blades.
+
+We will discuss each geometric case separately.  Unlike in earlier sections, we will not discuss the duals below.  When a 3-blade $B$ is dualized, only its orientation is switched: $\dual{B} = -B$.
