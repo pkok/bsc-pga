@@ -167,7 +167,7 @@ int mvInt::interpret(const l3ga &X, int creationFlags /* = 0*/) {
           If pitch > 0, screw is called right-handed, otherwise left-handed.
           */
 
-          m_scalar[0] = sqrt(X2);
+          m_scalar[0] = sqrt(fabs(X2));
 
           m_scalar[2] = (X[GRADE1][L3GA_E01] * X[GRADE1][L3GA_E23] + X[GRADE1][L3GA_E02] * X[GRADE1][L3GA_E31] + X[GRADE1][L3GA_E03] * X[GRADE1][L3GA_E12]) / (X[GRADE1][L3GA_E01] * X[GRADE1][L3GA_E01] + X[GRADE1][L3GA_E02] * X[GRADE1][L3GA_E02] + X[GRADE1][L3GA_E03] * X[GRADE1][L3GA_E03]);
 
@@ -378,7 +378,6 @@ int mvInt::interpret(const l3ga &X, int creationFlags /* = 0*/) {
           /*
           scalar 0: weight
           */
-          //m_scalar[0] = X[GRADE3][L3GA_E23_E31_E12];
 
           m_valid = 1;
         }
@@ -416,7 +415,6 @@ int mvInt::interpret(const l3ga &X, int creationFlags /* = 0*/) {
             scalar0: weight
             point0: position
             */
-            //m_scalar[0] = s;
 
             m_point[0][0] = intersection1[GRADE1][P3GA_E1] / intersection1[GRADE1][P3GA_E0];
             m_point[0][1] = intersection1[GRADE1][P3GA_E2] / intersection1[GRADE1][P3GA_E0];
@@ -428,7 +426,6 @@ int mvInt::interpret(const l3ga &X, int creationFlags /* = 0*/) {
             printf("plane\n");
 
             tmpInt.interpret(intersection1 ^ intersection2 ^ intersection3);
-            //m_scalar[0] = tmpInt.m_scalar[0];
 
             m_point[0][0] = tmpInt.m_point[0][0];
             m_point[0][1] = tmpInt.m_point[0][1];
