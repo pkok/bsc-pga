@@ -143,6 +143,9 @@ l3gaObject::l3gaObject(const l3ga &mv, const std::string &name /*= std::string("
           break;
         case MVI_POINT:
           break;
+        case MVI_IDEAL_POINT:
+          m_drawMode |= OD_STIPPLE;
+          break;
         case MVI_PLANE:
           m_dmMenuIdx = DRAW_PLANE;
           break;
@@ -299,6 +302,9 @@ int l3gaObject::draw(glwindow *window) {
       case MVI_POINT:
         drawPoint(m_int.m_point[0], m_int.m_scalar[0], 0, this);
         break;
+      case MVI_IDEAL_POINT:
+        drawVector(NULL, m_int.m_vector[0], m_int.m_scalar[0]);
+        break;
       case MVI_IDEAL_PLANE:
         glPolygonMode(GL_FRONT_AND_BACK, (m_drawMode & OD_WIREFRAME) ? GL_LINE : GL_FILL);
         drawTriVector(NULL, (m_drawMode & OD_MAGNITUDE) ? m_int.m_scalar[0] : ((m_int.m_scalar[0] < 0.0) ? -1.0 : 1.0), NULL, m_dmMenuIdx, (m_drawMode & OD_ORI) ? 0x01 : 0, this);
@@ -333,6 +339,7 @@ int l3gaObject::translate(glwindow *window, double depth, double motionX, double
 	e3ga v;
 	window->vectorAtDepth(depth, motionX, -motionY, v);
   l3ga versor;
+  GAIM_FLOAT m, mnew;
   int modified = 0;
 
   if (m_int.blade()) {
@@ -344,7 +351,6 @@ int l3gaObject::translate(glwindow *window, double depth, double motionX, double
       case MVI_RULED_PLANE:
       case MVI_LINE_PENCIL:
       case MVI_LINE_PAIR:
-      case MVI_IDEAL_LINE_PAIR:
       case MVI_POINT:
       case MVI_PLANE:
       case MVI_SPACE:
@@ -356,10 +362,17 @@ int l3gaObject::translate(glwindow *window, double depth, double motionX, double
         break;
       case MVI_IDEAL_LINE:
       case MVI_IDEAL_LINE_PENCIL:
-      case MVI_IDEAL_PLANE:
+      case MVI_IDEAL_POINT:
         // rotate; these elements are translation invariant.
         versor = (v[GRADE1][E3GA_E3] * r3).exp() * (v[GRADE1][E3GA_E2] * r2).exp() * (v[GRADE1][E3GA_E1] * r1).exp();
         m_mv = versor.inverse() * m_mv * versor;
+        modified = 1;
+        break;
+      case MVI_IDEAL_PLANE:
+        m = sqrt(m_mv.norm_a());
+        mnew = (m + (GAIM_FLOAT)(-motionX + motionY) / 30.0);
+        if (mnew < 0.0001) mnew = m;
+        m_mv = (m_mv / m) * mnew;
         modified = 1;
         break;
     }

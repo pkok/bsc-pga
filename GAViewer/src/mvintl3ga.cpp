@@ -394,27 +394,62 @@ int mvInt::interpret(const l3ga &X, int creationFlags /* = 0*/) {
           intersection1.meet(a1, a2);
           intersection2.meet(a2, a3);
           intersection3.meet(a3, a1);
+          int isIdeal = 0;
 
+          // Normalize intersection points
           if (fabs(intersection1[GRADE1][P3GA_E0]) >= epsilon) {
             intersection1 = intersection1 / intersection1[GRADE1][P3GA_E0];
           }
+          else {
+            isIdeal += 1;
+            z = sqrt(intersection1[GRADE1][P3GA_E1] * intersection1[GRADE1][P3GA_E1] + intersection1[GRADE1][P3GA_E2] * intersection1[GRADE1][P3GA_E2] + intersection1[GRADE1][P3GA_E3] * intersection1[GRADE1][P3GA_E3]);
+            intersection1 /= z;
+          }
+            
           if (fabs(intersection2[GRADE1][P3GA_E0]) >= epsilon) {
             intersection2 = intersection2 / intersection2[GRADE1][P3GA_E0];
           }
+          else {
+            isIdeal += 1;
+            z = sqrt(intersection2[GRADE1][P3GA_E1] * intersection2[GRADE1][P3GA_E1] + intersection2[GRADE1][P3GA_E2] * intersection2[GRADE1][P3GA_E2] + intersection2[GRADE1][P3GA_E3] * intersection2[GRADE1][P3GA_E3]);
+            intersection2 /= z;
+          }
+            
           if (fabs(intersection3[GRADE1][P3GA_E0]) >= epsilon) {
             intersection3 = intersection3 / intersection3[GRADE1][P3GA_E0];
           }
+          else {
+            isIdeal += 1;
+            z = sqrt(intersection3[GRADE1][P3GA_E1] * intersection3[GRADE1][P3GA_E1] + intersection3[GRADE1][P3GA_E2] * intersection3[GRADE1][P3GA_E2] + intersection3[GRADE1][P3GA_E3] * intersection3[GRADE1][P3GA_E3]);
+            intersection3 /= z;
+          }
+            
 
-          if (fabs((intersection1 - intersection2).norm_a()) < epsilon &&
+          printf("f1: %s\t\tf2: %s\t\tf3: %s\n", factors[0].string(), factors[1].string(), factors[2].string());
+          printf("i1: %s\t\ti2: %s\t\ti3: %s\n", intersection1.string(), intersection2.string(), intersection3.string());
+          if (isIdeal == 3) {
+            m_type |= MVI_IDEAL_POINT;
+            printf("ideal point\n");
+            /*
+               scalar 0: weight
+               vector 0: direction
+               */
+
+            m_vector[0][0] = m_scalar[1] * intersection2[GRADE1][P3GA_E1];
+            m_vector[0][1] = m_scalar[1] * intersection2[GRADE1][P3GA_E2];
+            m_vector[0][2] = m_scalar[1] * intersection2[GRADE1][P3GA_E3];
+            m_valid = 1;
+          }
+          else if (fabs((intersection1 - intersection2).norm_a()) < epsilon && 
               fabs((intersection2 - intersection3).norm_a()) < epsilon &&
               fabs((intersection3 - intersection1).norm_a()) < epsilon) {
             // a1, a2 and a3 intersect in one point:
             m_type |= MVI_POINT;
             printf("brush/point\n");
             /*
-            scalar0: weight
-            point0: position
-            */
+               scalar 0: weight
+               point 0: position
+               */
 
             m_point[0][0] = intersection1[GRADE1][P3GA_E1] / intersection1[GRADE1][P3GA_E0];
             m_point[0][1] = intersection1[GRADE1][P3GA_E2] / intersection1[GRADE1][P3GA_E0];
