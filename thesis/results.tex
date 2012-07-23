@@ -105,10 +105,20 @@ The weight is visualized by the size of the hooks.
 
 
 \subsubsection{Grade 3}
-\comment{None implemented}
+We have implemented visualization routines for the points, planes and the couple-wheel pencils.  As we have not analyzed the reguli, we do not supply visualization routines.
 
-\TODO{Explain why no g3 are implemented}
+\paragraph{Point} 
+We draw the blades of three concurrent points with the same routines as points of the homogeneous and conformal models.  Consistent with the points of other models, the orientation is not visualized.  Its weight is visualized through the size of the point.
 
+An ideal point is visualized as a pair of dotted points.  When the user wants to see the orientation, a dotted vector is drawn from one point to the other.  The user is informed of the ideal point's weight by the distance between the two graphical points.
+
+\paragraph{Plane} 
+The visual representation of planes of the Pl\"ucker model is generated in the same way as for planes in other models.  When required by the user, the weight is represented by the length of normal lines on one side of the plane.  The side chosen is determined by its orientation. 
+
+Because we can see the ideal plane as the celestial sphere, we draw it as a dotted sphere.  The weight is represented by the sphere's radius, while its orientation is represented in the same way as it is done for the real plane.  This visualization equals that of the Euclidean trivector, which is another interpretation of the ideal plane.
+
+\paragraph{Couple-wheel pencil}
+The couple-wheel pencil is visualized by the visualization of its two pencils, joined together with a line piece between the two centers.  The weight is visualized through the length of the line pieces of the two pencils.  When the orientation should be visualized, the line piece representing the common line is replaced by a vector.
 
 \subsubsection{Grade 4}
 Just as their duals, the dual pencil of linear line complexes as well as the hyperbolic linear congruence are provided with visualizations.
@@ -127,3 +137,17 @@ The orientation of this congruence is defined as the orientation of its dual.  W
 
 \subsubsection{Grade 6}
 The originally implemented models show a slight inconsistency for visualization of their pseudoscalar.  While GAViewer displays a transparant sphere for \ega{}'s pseudoscalar, the other models display nothing.  As in the scalar case, we have chosen for consistency with the largest number of models supplied, and do not draw the pseudoscalar.  By duality to scalars, it is safe to say that the semantics of the pseudoscalar have not changed.
+
+\subsection{User interaction}
+For the original models, most visualizations of objects in GAViewer can be dragged with a right mouse click while holding the \texttt{Ctrl} key down.  The objects that can be translated, are translated corresponding to the mouse's movement.  Objects that are translation invariant, are rotated accordingly.  Objects that are invariant under translation and rotation, such as the Euclidean trivector, are only scaled.  Besides rotating, Euclidean vectors are scaled as well.
+
+We have implemented this part of the user interaction for our model.  The real lines, screws, pencils of real lines, line pairs, real points, real planes and couple-wheel pencils are translated.  Ideal lines, pencils of ideal lines are rotated, as their geometric interpretation has no location.  The ideal plane is scaled in the same way the Euclidean trivector is.  
+
+We have used the translation and rotation versors presented in an internal report~\cite{internal}.  Translation over $\V{t} = \tau_1\ee + \tau_2\et + \tau_3\ed$ is performed by the versor $T_\V{t}$: 
+\begin{equation*}
+  T_\V{t} = \exp(\frac{1}{2} (\tau_1 \eet \wedge \ede + \tau_2 \etd \wedge \eet + \tau_3 \ede \wedge \etd)) . 
+\end{equation*}
+Clockwise rotation in the bivector plane $\V{R} = \rho_1 \et\ed + \rho_2\ed\ee + \rho_3\ee\et$ around the origin over $\weight(\V{R})$ radians is performed by $R_\V{R}$:
+\begin{equation*}
+  R_\V{R} = \exp(\frac{1}{2} (\rho_1 (\ezt \wedge \eet - \ezd \wedge \ede) + \rho_2 (\ezd \wedge \etd - \eze \wedge \eet) + \rho_3 (\eze \wedge \ede - \ezt \wedge \etd))) .
+\end{equation*}

@@ -60,7 +60,7 @@ Although all vectors are projectively equivalent, we will distinguish three geom
   \weight(x) = 
       \weight(\Em(x)) = \sqrt{(\Em(x) \lcont -\ez)^2 + (\dual{\Em(x)})^2} 
 \end{equation*}
-For non-null vectors, the weight can also be computed as $\sqrt{x \lcont x}$.  In the general case of a $k$-blade $x_1 \wedge \cdots \wedge x_k$, we define its weight as 
+For non-null vectors, the weight can also be computed as $\sqrt{x \dotp x}$.  In the general case of a $k$-blade $x_1 \wedge \cdots \wedge x_k$, we define its weight as 
 
 \begin{equation*}
   \weight(x_1 \wedge \cdots \wedge x_k) = \weight(\Em(x_1)) \cdots \weight(\Em(x_k)) .
@@ -76,11 +76,11 @@ In the Pl\"ucker model, there is no such thing as a purely Euclidean element, wh
 The vectors that do not square to $0$ can be interpreted as the axis of a helical, or screw motion~\cite[Section 3.1.2]{Pottmann}.  A screw motion simultaneously translates and rotates an object.  The object is translated along the same line as around which the rotation is performed.  The motion can be fully characterized by this line $a$ and the pitch $p$, the amount of translation per rotation.  For the grade 5 screw motion $S = \dual{\plucker{\V{d}}{\V{m}}}$, its pitch and axis are given by~\cite[Theorem 3.1.9]{Pottmann}:
 \begin{align}
   \label{eq:screwparams}
-  p &= \V{d} \lcont \V{m} / \V{d}^2 \nonumber \\
+  p &= \V{d} \dotp \V{m} / \V{d}^2 \nonumber \\
   a &= \plucker{\V{d}}{\V{m} - p \V{d}} .
 \end{align}
 
-From this, one can deduce what kind of objects the dual elements of real and ideal lines represent.  For an ideal line $l_\infty$ with $p = \lim_{\V{d} \to 0} \V{d} \lcont \V{m} / \V{d}^2 = \infty$ and $a = \lim_{\V{d} \to 0, p \to \infty} \plucker{\V{d}}{\V{m} - p \V{d}} = l_\infty$, we see that it is a pure translation.  Given a real line $l_o$, its pitch is $p = 0 / \V{d}^2 = 0$, because of the Pl\"ucker identity, seen in \autoref{eq:laplucker0}.  Its axis is $a = \plucker{\V{d}}{\V{m} - 0} = l_o$.  No matter how much of the rotation is applied, no translation will occur.  This shows that the dual of real lines represent pure rotational motions.
+From this, one can deduce what kind of objects the dual elements of real and ideal lines represent.  For an ideal line $l_\infty$ with $p = \lim_{\V{d} \to 0} \V{d} \dotp \V{m} / \V{d}^2 = \infty$ and $a = \lim_{\V{d} \to 0, p \to \infty} \plucker{\V{d}}{\V{m} - p \V{d}} = l_\infty$, we see that it is a pure translation.  Given a real line $l_o$, its pitch is $p = 0 / \V{d}^2 = 0$, because of the Pl\"ucker identity, seen in \autoref{eq:laplucker0}.  Its axis is $a = \plucker{\V{d}}{\V{m} - 0} = l_o$.  No matter how much of the rotation is applied, no translation will occur.  This shows that the dual of real lines represent pure rotational motions.
 %
 %A list of these elements is presented as a summary in \autoref{tab:inv1}. 
 
@@ -109,18 +109,18 @@ From this, one can deduce what kind of objects the dual elements of real and ide
 A 2-blade\note{\LeosReply{niet alle elementen van graad 2 zijn 2-blades. Dus hier moet iets bij.}
 
 \myReply{Zou je een voorbeeld van een graad 2 niet-blade kunnen geven? Voor zover ik begrijp, zijn alle dingen met een graad blades, en anders multivectors van mixed grade.  Ik kan me geen graad-2-ding voorstellen dat niet een outer product of vectors is (def. van blade op p.195 van The Book).  Ik heb de \texttt{\\subsection}s veranderd van ``Elements of grade $k$'' naar ``Blades of grade $k$''; voldoende?}}
-$C = a \wedge b$ represents the set of linear combinations of $a$ and $b$:
+$B = a \wedge b$ represents the set of linear combinations of $a$ and $b$:
 \begin{equation*}
-  \s{C} = \left\{ c \mid c \wedge C = 0 \right\} = \left\{ \lambda a + \mu b \mid \lambda, \mu \in \reals \right\} .
+  \s{C} = \left\{ c \mid c \wedge B = 0 \right\} = \left\{ \lambda a + \mu b \mid \lambda, \mu \in \reals \right\} .
 \end{equation*}
 For the geometric interpretation of these blades, clarity on what kind of objects are in this set is needed.  On first inspection, this can be split in three cases, based on the number of null vectors among the factors.  We will limit this discussion to the case where both $a$ and $b$ are null vectors.
 
 A linear combination $c = \lambda a + \mu b$ is a null vector if:
 \begin{align}
   \label{eq:lincombnull}
-  c^2 &= (\lambda a + \mu b) \lcont (\lambda a + \mu b) \nonumber \\
-  &= \lambda^2 a^2 + 2 \lambda \mu a \lcont b + \mu^2 b^2 \nonumber \\
-  &= 2 \lambda \mu a \lcont b
+  c^2 &= (\lambda a + \mu b) \dotp (\lambda a + \mu b) \nonumber \\
+  &= \lambda^2 a^2 + 2 \lambda \mu a \dotp b + \mu^2 b^2 \nonumber \\
+  &= 2 \lambda \mu a \dotp b
 \end{align}
 
 When $a$ and $b$ are coplanar\note{\LeosReply{or parallel}
@@ -142,24 +142,20 @@ As discussed, the intersection of two parallel lines results in a Euclidean vect
   \V{D} = \left(\Em(a) \cap \Em(b)\right) \wedge \left(p_b - p_a\right)
 \end{equation*}
 
-Often one takes the point on the object closest to the chosen origin.  For a line $l = \plucker{\V{d}}{\V{m}}$, this is given by $p = \V{m} \times \V{d} + \V{d}^2 \ez$~\cite{Shoemake}.  Let $p_a$ and $p_b$ be such points for $a$ and $b$.  Define such a third point $p_c$ for line $c = p_a \wedge p_b$.  This is the point on the pencil closest to the origin. \note{\LeosReply{is dat zo? is dat echt zo? dat zou het punt zijn van het vlak waarin alle pencil-lijnen liggen. Is dat echt bepaald door de lijn die bepaald wordt door 2 toevallige dichtstbijzijnde punten van willekeurige representanten van die bundel? Misschien wel maar dat moet je dan even bewijzen.}
+Often one takes the point on the object closest to the chosen origin.  For a line $l = \plucker{\V{d}}{\V{m}}$, this is given by $p = \V{m} \times \V{d} + \V{d}^2 \ez$~\cite{Shoemake}.  Let $p_a$ and $p_b$ be such points for $a$ and $b$.  The homogeneous line $C = p_a \wedge p_b$ is the line that intersects each line in their point closest to the origin.  We define a third point $p_C$ that is the point nearest the origin and on $C$.  This point lies on line $C$, as well as on a line contained by $B$, as $C$ contains the point nearest the origin of each line in $B$.
 
-\myReply{Goed punt. Moet ik nog aan werken.}} 
-
-\TODO{Prove/verify this!}
-
-The dual of a pencil of lines contains the same set of lines~\cite[Section 3.2.1]{Pottmann}.  This can be easily shown.  Stating the definition of $\s{C}$ differently, we are looking for all lines that intersect with $C$.\note{\LeosReply{Wat bedoel je met intersect?
+The dual of a pencil of lines contains the same set of lines~\cite[Section 3.2.1]{Pottmann}.  This can be easily shown.  Stating the definition of $\s{C}$ differently, we are looking for all lines that intersect with $B$.\note{\LeosReply{Wat bedoel je met intersect?
 Als je bedoelt 'coincide'dan is dan de wedge-test.
 Als je bedoelt: staan loodrecht op, dan is het de contraction test.}
 
-\myReply{Dat weet ik nu niet eens zo zeker.  Het lijkt mij dat de contraction test hier ook ``snijdt elkaar in een (ideaal) punt'' betekent?}}  This is expressed as $c \wedge C = 0$.  For the grade-4 object $\dual{C}$, this can be written as $c \lcont \dual{C} = c \lcont (C \lcont \inverse{\ppseudo}) = (c \wedge C) \lcont \inverse{\ppseudo}$, with $\ppseudo$ the pseudoscalar of the space $\reals^{3,3}$.  This is only true for $c \wedge C = 0$, a test for containment of $c$ in $C$.
+\myReply{Dat weet ik nu niet eens zo zeker.  Het lijkt mij dat de contraction test hier ook ``snijdt elkaar in een (ideaal) punt'' betekent?}}  This is expressed as $c \wedge B = 0$.  For the grade-4 object $\dual{B}$, this can be written as $c \lcont \dual{B} = c \lcont (B \lcont \inverse{\ppseudo}) = (c \wedge B) \lcont \inverse{\ppseudo}$, with $\ppseudo$ the pseudoscalar of the space $\reals^{3,3}$.  This is only true for $c \wedge B = 0$, a test for containment of $c$ in $B$.
 
 \askLeo{Above does not make complete sense, does it?}\footnote{If true, this should mean that $\dual{\eze}$ represents the same object as $\eze$; a line and not a scala of reguli.}
 
-Now look at the case where $a$ and $b$ are not coplanar, but $a \wedge b$ still contains lines.  \autoref{eq:lincombnull} shows that either $\lambda = 0$ or $\mu = 0$, as $a \lcont b \not= 0$ per definition.  This means that all null vectors in $\s{C}$ must be homogeneously equivalent to $a$ or $b$.  This class of geometric objects is known as the hyperbolic pencil\note{\LeosReply{pencil
+Now look at the case where $a$ and $b$ are not coplanar, but $a \wedge b$ still contains lines.  \autoref{eq:lincombnull} shows that either $\lambda = 0$ or $\mu = 0$, as $a \dotp b \not= 0$ per definition.  This means that all null vectors in $\s{C}$ must be homogeneously equivalent to $a$ or $b$.  This class of geometric objects is known as the hyperbolic pencil\note{\LeosReply{pencil
 maar dit is toch gewoon een skew lijnenpaar? hyperbolic pencil is het 4-blade.}
 
-\myReply{Over Fig. 3.6 zegt Pottmann dat het een hyperbolic linear congruence is, met focal lines $\mathcal A, B$.  Dat zou dus betekenen dat de hyperbolic pencil of linear complexes het skew lijnenpaar is.}} of linear complexes.  Its dual, the hyperbolic linear congruence, contains all lines intersecting both $a$ and $b$~\cite[Proposition 3.2.3]{Pottmann}. That is, for each point $p_a$ on $a$ and $p_b$ on $b$, the line $c$ with embedding $\Em(c) = p_a \wedge p_b$ is in $\dual{C}$.  
+\myReply{Over Fig. 3.6 zegt Pottmann dat het een hyperbolic linear congruence is, met focal lines $\mathcal A, B$.  Dat zou dus betekenen dat de hyperbolic pencil of linear complexes het skew lijnenpaar is.}} of linear complexes.  Its dual, the hyperbolic linear congruence, contains all lines intersecting both $a$ and $b$~\cite[Proposition 3.2.3]{Pottmann}. That is, for each point $p_a$ on $a$ and $p_b$ on $b$, the line $c$ with embedding $\Em(c) = p_a \wedge p_b$ is in $\dual{B}$.  
 
 Now that we have handled the cases where $a$ and $b$ are both null-vectors, we will investigate the case where .
 
@@ -182,13 +178,47 @@ Now that we have handled the cases where $a$ and $b$ are both null-vectors, we w
 %
 When talking about three lines $a, b, c$ in 3D space, we can distinguish several cases:
 
-\begin{itemize}
-  \item Each line intersects the other lines.  These intersecting points are all the same.  This is called a 2D concurrent pencil or point~\cite{Hongbo}.
-  \item Each line intersects the other lines.  These intersection points are all different.  Li and Zhang name this object a 2D coplanar pencil, or plane~\cite{Hongbo}.
-  \item One line intersects two lines, which do not intersect each other.  This is a couple-wheel pencil~\cite{Hongbo}.
-  \item Each line does not intersect any other line.  The geometric entity is named a regulus~\cite[Section 3.3]{Pottmann}.
-\end{itemize}
+\begin{enumerate}[{Case} 1.]
+  \item All lines are coplanar and intersect in a single point.  This is called a 2D concurrent pencil or point~\cite{Hongbo}.
+  \item All lines are coplanar but intersect in three different points.  Li and Zhang name this object a 2D coplanar pencil, or plane~\cite{Hongbo}.
+  \item One line is coplanar to the other two lines, which are not coplanar to each other.  This is a couple-wheel pencil~\cite{Hongbo}.
+  \item All lines are not coplanar.  The geometric entity is named a regulus~\cite[Section 3.3]{Pottmann}.
+\end{enumerate}
 
 Unlike blades of other grades, the dual of a 3-blade $B = a \wedge b \wedge c$ is $-B$; when dualized, only the orientation of the 3-blade is switched.  From here on, we will not give any attention to the duals of the 3-blades.
 
-We will discuss each geometric case separately.  Unlike in earlier sections, we will not discuss the duals below.  When a 3-blade $B$ is dualized, only its orientation is switched: $\dual{B} = -B$.
+We will only discuss the first three geometric cases.  The last case defines the reguli, a class of hyperboloid and paraboloid ruled surfaces.  We do not treat them here, because of time constraints on the project and expected involved computations of the set of contained lines.  Let $x$ be the axis around which the lines of the regulus $R$ are placed, $p$ a plane perpendicular to $x$, $p_x$ the point where $x$ intersects $p$, and $\s{P}_R$ the set of intersection points of $p$ with the lines in $R$.  We expect that the Euclidean distance between $p_x$ and $p_R \in \s{P}_R$ is not constant for all points in $\s{P}_R$.  That is, for a general regulus $R$, we expect that $\s{P}_R$ describes an ellips.  For this we need to analyze the reguli better, which did not fit in the scope of this project.
+
+Similar to the 2-blades, a 3-blade $B = a \wedge b \wedge c$ represents the set of linear combinations of $a$, $b$ and $c$:
+\begin{equation*}
+  \s{D} = \left\{d \mid d \wedge B = 0 \right\} = \left\{ \lambda a + \mu b + \nu c \mid \lambda, \mu, \nu \in \reals \right\} .
+\end{equation*}
+A linear combination $d = \lambda a + \mu b + \nu c$ is a null vector if:
+\begin{align*}
+  d^2 &= (\lambda a + \mu b + \nu c) \dotp (\lambda a + \mu b + \nu c) \\
+  &= (\lambda a + \mu b) \dotp (\lambda a + \mu b) + (\lambda a + \mu b) \dotp \nu c + \nu c \dotp (\lambda a + \mu b) + \nu c \dotp \nu c \\
+  &= 2 (\lambda \mu a \dotp b + (\lambda a + \mu b) \dotp \nu c) \\
+  &= 2 (\lambda \mu a \dotp b + \lambda \nu a \dotp c + \mu \nu b \dotp c) .
+\end{align*}
+
+For the first two cases we have $a \dotp b = a \dotp c = b \dotp c = 0$, and thus all linear combinations of $a$, $b$ and $c$ are in $\s{D}$.  Their points of intersecting are given by $p_{ab} = \Em(a) \cap \Em(b)$, $p_{bc} = \Em(b) \cap \Em(c)$, $p_{ca} = \Em(c) \cap \Em(a)$.  Projectively, cases 1.\ and 2.\ are equivalent (the point of intersection is not a projective property, but coplanarity is), but their geometric interpretation differs.
+
+The case of three lines intersecting in a single point can be seen as a 3D pencil of lines.  Given a pencil of lines $a \wedge b$, we take the outer product with a third line $c$ that goes through the center of the pencil.  This bundle of lines can be used to represent a point, as it is rotation-invariant.  We have already computed the location of this point; it is the same as the center of $a \wedge b$, as $p_{ab} = p_{bc} = p_{ca}$ per definition.
+
+When three lines are parallel to each other, their meet results in a Euclidean vector.  Just like ideal lines, these elements can be interpreted in two ways.  One way is to look at it as a direction, similar to the Euclidean interpretation.  The homogeneous model gives us the interpretation of a point infinitely far away.  This interpretation is an extension of the notion of a point.  Let $a = \lim_{\alpha \to 0} \V{a} + \alpha \ez$ be a point in the homogeneous model.  Its location is computed by $\lim_{\alpha \to 0} a / (\ez \dotp a) = \infty$~\cite[Section 11.2]{TheBook}.  Both interpretations are correct, however incomplete.  In our interpretation, lines do not only intersect at $a$ on the celestial sphere, but also in $-a$.  Because all elements extend infinitely, they intersect the celestial sphere twice.  This point pair-like characteristic can also be observed when defining ideal points on the celestial sphere.  There we can define an ideal point as the intersection of two horizons.  When visualized, it becomes clear that the horizons intersect twice.
+
+The second case states that $a$, $b$ and $c$ intersect each other in three different points.  Again, any linear combination of $a$, $b$ and $c$ is contained by $\s{D}$, but this represents a plane; $\s{D}$ contains all lines in direction $\V{D} = \frac{1}{3} \V{d}_a \wedge \V{d}_b + \V{d}_b \wedge \V{d}_c + \V{d}_c \wedge \V{d}_a$.  Because $p_{ab}$, $p_{bc}$ and $p_{ca}$ lie in the same plane, we compute the location of $B$ in the same way as it is computed for $p_{ab} \wedge p_{bc} \wedge p_{ca}$.
+
+The outer product of the three ideal lines span an ideal plane.  In our celestial sphere interpretation, they represent the sphere itself.  In the interpretation of the Euclidean directions, as well as the homogeneous model, it corresponds with the Euclidean pseudoscalar.
+
+The third case describes a pair of line pencils, joined through a single common line.  Let $b$ be the connecting line of the two pencils: $a \dotp b = b \dotp c = 0$ and $a \dotp c \not= 0$. The null vectors of $\s{D}$ are exactly those contained by the set of linear combinations of $a \wedge b$ and $b \wedge c$.
+
+Because $b$ intersects both $a$ and $c$, we can rewrite $d^2 = 0$ as $\lambda \nu a \dotp c = 0$.  This only holds for $\lambda = 0$ or $\nu = 0$.  $\s{D}$ corresponds with the union of sets of lines $\s{L}_{ab}$, $\s{L}_{bc}$, $\s{L}_{ca}$ for respectively $a \wedge b$, $b \wedge c$ and $c \wedge a$:
+\begin{align*}
+  \s{L}_{ab} \cup \s{L}_{bc} \cup \s{L}_{ca} &= \left\{ \lambda a + \mu b \right\} \cup \left\{ \mu b + \nu c \right\} \cup \left\{ \nu c + \lambda a \mid \nu = 0 \vee \lambda = 0 \right\} \\
+  &= \left\{ \lambda a + \mu b \right\} \cup \left\{ \mu b + \nu c \right\} \\
+  &= \left\{ \lambda a + \mu b + \nu c \mid \nu = 0 \right\} \cup \left\{ \lambda a + \mu b + \nu c \mid \lambda = 0 \right\} \\
+  &= \left\{ \lambda a + \mu b + \nu c \right\} \\
+  &= \s{D} ,
+\end{align*}
+with $\lambda, \mu, \nu \in \reals$.

@@ -121,7 +121,7 @@ In the last line, the inner product for the Pl\"ucker model is defined.  The bra
     &= 2 \V{d} \dotp \V{m} \\ 
     &= 2 \pluckerid(A),
 \end{align*}
-with $A$ the corresponding Pl\"ucker coordinate representation of $a$.
+with $A = \plucker{\V{d}}{\V{m}}$ the corresponding Pl\"ucker coordinate representation of $a$.
 
 \begin{table}
   \caption{The multiplication table of the inner product for the Pl\"ucker model on the null basis.}
@@ -196,10 +196,10 @@ The classical approach of linear algebra~\cite{Shoemake} gives a formula to test
   0 &= \V{d}_1 \dotp \V{m}_2 + \V{d}_2 \dotp \V{m}_1 \nonumber \\
     &= \left( d_{1,1} m_{2,1} + d_{1,2} m_{2,2} + d_{1,3} m_{2,3} \right) + \left( d_{2,1} m_{1,1} + d_{2,2} m_{1,2} + d_{2,3} m_{1,3} \right) \nonumber \\
     &= d_{1,1} m_{2,1} + d_{1,2} m_{2,2} + d_{1,3} m_{2,3} + m_{1,1} d_{2,1} + m_{1,2} d_{2,2} + m_{1,3} d_{2,3} \nonumber \\
-    &= d_{1,1} \eze \lcont m_{2,1} \etd + d_{1,2} \ezt \lcont m_{2,2} \ede + d_{1,3} \ezd \lcont m_{2,3} \eet \nonumber \\
-    &\quad + m_{1,1} \etd \lcont d_{2,1} \eze + m_{1,2} \ede \lcont d_{2,2} \ezt + m_{1,3} \eet \lcont d_{2,3} \ezd \nonumber \\
-    &= \Em^{-1}\left( \V{d}_1\ez + \eundual{\V{m}_1} \right) \lcont \Em^{-1}\left( \V{d}_2\ez + \eundual{\V{m}_2} \right) \nonumber \\
-    &= l_1 \lcont l_2,
+    &= d_{1,1} \eze \dotp m_{2,1} \etd + d_{1,2} \ezt \dotp m_{2,2} \ede + d_{1,3} \ezd \dotp m_{2,3} \eet \nonumber \\
+    &\quad + m_{1,1} \etd \dotp d_{2,1} \eze + m_{1,2} \ede \dotp d_{2,2} \ezt + m_{1,3} \eet \dotp d_{2,3} \ezd \nonumber \\
+    &= \Em^{-1}\left( \V{d}_1\ez + \eundual{\V{m}_1} \right) \dotp \Em^{-1}\left( \V{d}_2\ez + \eundual{\V{m}_2} \right) \nonumber \\
+    &= l_1 \dotp l_2,
 \end{align}
 with $l_1, l_2$ the null vectors of the Pl\"ucker model corresponding to $L_1, L_2$.  This test for coplanarity is a projective interpretation of intersection.  That is, even two parallel lines have an intersection.  This ``point'' of intersection $\V{p}$ is at infinity, and $\V{p} \dotp \ez = 0$.  Projectively, points at infinity are not any different from other points.
 
@@ -214,7 +214,7 @@ The point of intersection itself cannot easily be computed in the Pl\"ucker mode
 
 This works for the cases of intersecting in both finite and infinite points; infinite points in the homogeneous model are represented as purely Euclidean vectors.
 
-Together with the test for coplanarity, this can be used to see if two lines are parallel: $(l_1 \lcont l_2) (p \lcont \ez) = 0$.  In classical literature~\cite{Shoemake}, one finds a simpler test, although both lines need to be decomposed into their direction and moment vectors:
+Together with the test for coplanarity, this can be used to see if two lines are parallel: $(l_1 \dotp l_2) (p \dotp \ez) = 0$.  In classical literature~\cite{Shoemake}, one finds a similar test, although both lines need to be decomposed into their direction and moment vectors:
 \begin{align*}
   0 &= \V{d}_1 \times \V{d}_2 \\
     &= \left( \V{d}_1 \V{d}_2 \right) \lcont \epseudo .
