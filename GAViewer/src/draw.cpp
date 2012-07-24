@@ -990,3 +990,33 @@ int drawDualLinePair(const GAIM_FLOAT point1[3], const GAIM_FLOAT direction1[3],
   }
   return 0;
 }
+
+
+int drawIdealPoint(const GAIM_FLOAT direction[3], const GAIM_FLOAT weight, int method /*= DRAW_IDEAL_POINT*/, int flags /*= 0*/, object *o /*= NULL*/) {
+  GAIM_FLOAT dir1[3], dir2[3];
+
+  if (o && o->m_drawMode & OD_MAGNITUDE) {
+    dir1[0] = weight * direction[0];
+    dir1[1] = weight * direction[1];
+    dir1[2] = weight * direction[2];
+    dir2[0] = -weight * direction[0];
+    dir2[1] = -weight * direction[1];
+    dir2[2] = -weight * direction[2];
+  }
+  else {
+    dir1[0] = direction[0];
+    dir1[1] = direction[1];
+    dir1[2] = direction[2];
+    dir2[0] = -direction[0];
+    dir2[1] = -direction[1];
+    dir2[2] = -direction[2];
+  }
+
+  drawPoint(dir1, 1.0, 0, o);
+  drawPoint(dir2, 1.0, 0, o);
+
+  if (o && o->m_drawMode & OD_ORI) {
+    drawVector(dir2, dir1, 2.0);
+  }
+  return 0;
+}

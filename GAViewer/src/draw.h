@@ -148,4 +148,8 @@ int drawLinePair(const GAIM_FLOAT point1[3], const GAIM_FLOAT direction1[3], con
 
 #define DRAW_DUAL_LINE_PAIR 0
 int drawDualLinePair(const GAIM_FLOAT point1[3], const GAIM_FLOAT direction1[3], const GAIM_FLOAT point2[3], const GAIM_FLOAT direction2[3], const GAIM_FLOAT weight, int method = DRAW_DUAL_LINE_PAIR, int flags = 0, object *o = NULL);
+
+
+#define DRAW_IDEAL_POINT 0
+int drawIdealPoint(const GAIM_FLOAT direction[3], const GAIM_FLOAT weight, int method = DRAW_IDEAL_POINT, int flags = 0, object *o = NULL);
 #endif /* _DRAW_FUNCTIONS_H_ */

@@ -303,7 +303,7 @@ int l3gaObject::draw(glwindow *window) {
         drawPoint(m_int.m_point[0], m_int.m_scalar[0], 0, this);
         break;
       case MVI_IDEAL_POINT:
-        drawVector(NULL, m_int.m_vector[0], m_int.m_scalar[0]);
+        drawIdealPoint(m_int.m_vector[0], m_int.m_scalar[0], DRAW_IDEAL_POINT, 0, this);
         break;
       case MVI_IDEAL_PLANE:
         glPolygonMode(GL_FRONT_AND_BACK, (m_drawMode & OD_WIREFRAME) ? GL_LINE : GL_FILL);
@@ -362,9 +362,13 @@ int l3gaObject::translate(glwindow *window, double depth, double motionX, double
         break;
       case MVI_IDEAL_LINE:
       case MVI_IDEAL_LINE_PENCIL:
-      case MVI_IDEAL_POINT:
         // rotate; these elements are translation invariant.
         versor = (v[GRADE1][E3GA_E3] * r3).exp() * (v[GRADE1][E3GA_E2] * r2).exp() * (v[GRADE1][E3GA_E1] * r1).exp();
+        m_mv = versor.inverse() * m_mv * versor;
+        modified = 1;
+        break;
+      case MVI_IDEAL_POINT:
+        versor = (v[GRADE1][E3GA_E3] * r3).exp() * (v[GRADE1][E3GA_E2] * r2).exp() * (-v[GRADE1][E3GA_E1] * r1).exp();
         m_mv = versor.inverse() * m_mv * versor;
         modified = 1;
         break;
@@ -483,6 +487,14 @@ int l3gaObject::description(char *buf, int bufLen, int sl /* = 0 */) {
           (m_int.dual()) ? " dual" : "",
           m_int.m_scalar[0], 
           m_int.m_point[0][0], m_int.m_point[0][1], m_int.m_point[0][2], 
+          m_mv.string());
+      break;
+    case MVI_IDEAL_POINT:
+      if (sl) sprintf(buf, "%s: l3ga ideal point%s", m_name.c_str(), (m_int.dual()) ? " dual" : "");
+      else sprintf(buf, "l3ga ideal point%s\nWeight: %f\nLocation: %2.2f %2.2f %2.2f\nCoordinates: %s",
+          (m_int.dual()) ? " dual" : "",
+          m_int.m_scalar[0],
+          m_int.m_vector[0][0], m_int.m_vector[0][1], m_int.m_vector[0][2], 
           m_mv.string());
       break;
     case MVI_PLANE:
