@@ -3,7 +3,7 @@
 
 Before an implementation of a visualization can be made for a model, the geometric aspects of the elements of the model must be investigated.  A full inventory of the geometric elements has been done~\cite[Chapter 3]{Pottmann}, but in different terms.  Those terms are traditional, but do not hint at the geometric concept.  Besides the traditional terms, geometric inspired terms will be used.  
 
-The following sections will discuss the geometrically different blades of a certain grade, together with their duals.  The discussion of $n>1$-blades is limited to those composed of null vectors.  
+The following sections will discuss the geometrically different blades of a certain grade, together with their duals.  The discussion of $(n>1)$-blades is limited to those composed of null vectors.  
 %Besides text, each part has an accompanying table that contains the following information on the discussed blades:\note{\LeosReply{Als deze dingen van mijn 'internal report' komen moet je dat vermelden, als je ze zelf aanvult is het 'partially based on'.}
 %
 %\myReply{Hoe verwijs ik naar dit artikel?}}
@@ -68,10 +68,7 @@ For non-null vectors, the weight can also be computed as $\sqrt{x \dotp x}$.  In
 
 It is clear from \autoref{sec:plucker} that the null vectors of the Pl\"ucker model (those vectors $v$ satisfying the Pl\"ucker identity $\pluckerid(v) = 0$) are interpreted as lines.  Let $l = d_1 \eze + d_2 \ezt + d_3 \ezd + m_1 \etd + m_2 \ede + m_3 \eet$ be a null vector.  The line can be interpreted through the homogeneous model.  The direction of the line corresponds to $(\Em(l) \lcont -\ez) / \weight(l)$, while its moment is $\dual{(\Em(l) \wedge \ez)} / \weight(l) = (\Em(l) \lcont (\ez \lcont \inverse{(\hpseudo)})) / \weight(l) = (\edual{\Em(l)}) / \weight(l)$.  
 
-A special case are the ideal lines.  The homogeneous model treats these purely Euclidean elements as Euclidean 2-blades.\note{\LeosReply{waarom niet, hoe is dat anders dan het homogene model? Is e12 niet 'purely Euclidean omdat Em(e12) dat is? (ECHTE VRAAG)}
-
-\myReply{Misschien moet ik wel stellen dat ideal lines twee interpretaties hebben; als Euclidean 2-blade, en als horizon?}}
-In the Pl\"ucker model, there is no such thing as a purely Euclidean element, which leaves room for interpretation in a projective way.  These elements represent lines at infinity, or ideal lines.  One can visualize an ideal line $l_\infty = m_1 \etd + m_2 \ede + m_3 \eet$ as a horizon, a circle on the heavenly sphere in direction $\dual{(\Em(l_\infty) \wedge \ez)} / \weight(l)$.  
+A special case are the ideal lines.  The homogeneous model allows two interpretations.  Its first, and most common interpretation is a 2D direction, the same interpretation as it is given in the Euclidean model.  For the second interpretation, we have to look a bit closer at the homogeneous model.  A homogeneous line can be defined as the outer product of two homogeneous points.  A homogeneous point $a = \V{a} + \alpha \ez$ has location $\V{a} / (\ez \dotp a)$.  In the case of ideal lines, we are dealing with points of the form $a = \lim_{\alpha \to 0} \V{a} + \alpha \ez$.  Its location then becomes $\lim_{\alpha \to 0} \V{a} / (\ez \dotp a) = \infty$.  Because $\V{a}$ is not depending on $\lim_{\alpha \to 0} \ez \dotp a$, the model allows more than one point on that location, each with a different direction.\footnote{A similar definition found in other sources~\cite[Section 11.3]{TheBook} is $a = \lim_{\norm{\V{a}} \to \infty}$.  This avoids division by zero, but is less appropriate in our case.}  Lines of two of these points at infinity are at infinity as well.  One can visualize such an ideal line $\l_\infty = m_1 \etd + m_2 \ede + m_3 \eet$ as a horizon, a circle on the celestial sphere in direction $\dual{(Em(l_\infty) \wedge \ez)} / \weight(l)$.  We will use this last interpretation as the default interpretation.  When the 2D direction interpretation is used, it will be explicitly stated.
 
 The vectors that do not square to $0$ can be interpreted as the axis of a helical, or screw motion~\cite[Section 3.1.2]{Pottmann}.  A screw motion simultaneously translates and rotates an object.  The object is translated along the same line as around which the rotation is performed.  The motion can be fully characterized by this line $a$ and the pitch $p$, the amount of translation per rotation.  For the grade 5 screw motion $S = \dual{\plucker{\V{d}}{\V{m}}}$, its pitch and axis are given by~\cite[Theorem 3.1.9]{Pottmann}:
 \begin{align}
@@ -106,10 +103,7 @@ From this, one can deduce what kind of objects the dual elements of real and ide
 %  \end{center}
 %\end{table}
 %
-A 2-blade\note{\LeosReply{niet alle elementen van graad 2 zijn 2-blades. Dus hier moet iets bij.}
-
-\myReply{Zou je een voorbeeld van een graad 2 niet-blade kunnen geven? Voor zover ik begrijp, zijn alle dingen met een graad blades, en anders multivectors van mixed grade.  Ik kan me geen graad-2-ding voorstellen dat niet een outer product of vectors is (def. van blade op p.195 van The Book).  Ik heb de \texttt{\\subsection}s veranderd van ``Elements of grade $k$'' naar ``Blades of grade $k$''; voldoende?}}
-$B = a \wedge b$ represents the set of linear combinations of $a$ and $b$:
+A 2-blade $B = a \wedge b$ represents the set of linear combinations of $a$ and $b$:
 \begin{equation*}
   \s{C} = \left\{ c \mid c \wedge B = 0 \right\} = \left\{ \lambda a + \mu b \mid \lambda, \mu \in \reals \right\} .
 \end{equation*}
@@ -123,9 +117,7 @@ A linear combination $c = \lambda a + \mu b$ is a null vector if:
   &= 2 \lambda \mu a \dotp b
 \end{align}
 
-When $a$ and $b$ are coplanar\note{\LeosReply{or parallel}
-
-\myReply{Per subsubsection 2.2.1: coplanar lines = (parallel lines) $\cup$ (intersecting lines)}}, their inner product is zero (see \autoref{eq:coplanar}), and each linear combination $c = \lambda a + \mu b$ is a null vector.  This kind of object is called a pencil of linear line complexes~\cite[Section 3.2.1]{Pottmann}, or, a bit shorter, a pencil of lines~\cite{Hongbo}.
+When $a$ and $b$ are coplanar, their inner product is zero (see \autoref{eq:coplanar}), and each linear combination $c = \lambda a + \mu b$ is a null vector.  This kind of object is called a pencil of linear line complexes~\cite[Section 3.2.1]{Pottmann}, or, a bit shorter, a pencil of lines~\cite{Hongbo}.
 
 The homogeneous point in which all lines intersect, is called its center~\cite{Hongbo}, and can be computed, as seen in \autoref{eq:intersect}.  The bivector direction containing the pencil can be computed by:
 
@@ -150,12 +142,9 @@ Als je bedoelt: staan loodrecht op, dan is het de contraction test.}
 
 \myReply{Dat weet ik nu niet eens zo zeker.  Het lijkt mij dat de contraction test hier ook ``snijdt elkaar in een (ideaal) punt'' betekent?}}  This is expressed as $c \wedge B = 0$.  For the grade-4 object $\dual{B}$, this can be written as $c \lcont \dual{B} = c \lcont (B \lcont \inverse{\ppseudo}) = (c \wedge B) \lcont \inverse{\ppseudo}$, with $\ppseudo$ the pseudoscalar of the space $\reals^{3,3}$.  This is only true for $c \wedge B = 0$, a test for containment of $c$ in $B$.
 
-\askLeo{Above does not make complete sense, does it?}\footnote{If true, this should mean that $\dual{\eze}$ represents the same object as $\eze$; a line and not a scala of reguli.}
+\askLeo{Above does not make complete sense, does it?  If true, this should mean that $\dual{\eze}$ represents the same object as $\eze$; a line and not a scala of reguli.}
 
-Now look at the case where $a$ and $b$ are not coplanar, but $a \wedge b$ still contains lines.  \autoref{eq:lincombnull} shows that either $\lambda = 0$ or $\mu = 0$, as $a \dotp b \not= 0$ per definition.  This means that all null vectors in $\s{C}$ must be homogeneously equivalent to $a$ or $b$.  This class of geometric objects is known as the hyperbolic pencil\note{\LeosReply{pencil
-maar dit is toch gewoon een skew lijnenpaar? hyperbolic pencil is het 4-blade.}
-
-\myReply{Over Fig. 3.6 zegt Pottmann dat het een hyperbolic linear congruence is, met focal lines $\mathcal A, B$.  Dat zou dus betekenen dat de hyperbolic pencil of linear complexes het skew lijnenpaar is.}} of linear complexes.  Its dual, the hyperbolic linear congruence, contains all lines intersecting both $a$ and $b$~\cite[Proposition 3.2.3]{Pottmann}. That is, for each point $p_a$ on $a$ and $p_b$ on $b$, the line $c$ with embedding $\Em(c) = p_a \wedge p_b$ is in $\dual{B}$.  
+Now look at the case where $a$ and $b$ are not coplanar, but $a \wedge b$ still contains lines.  \autoref{eq:lincombnull} shows that either $\lambda = 0$ or $\mu = 0$, as $a \dotp b \not= 0$ per definition.  This means that all null vectors in $\s{C}$ must be homogeneously equivalent to $a$ or $b$.  This class of geometric objects is known as the hyperbolic pencil of linear complexes.  Its dual, the hyperbolic linear congruence, contains all lines intersecting both $a$ and $b$~\cite[Proposition 3.2.3]{Pottmann}. That is, for each point $p_a$ on $a$ and $p_b$ on $b$, the line $c$ with embedding $\Em(c) = p_a \wedge p_b$ is in $\dual{B}$.  
 
 Now that we have handled the cases where $a$ and $b$ are both null-vectors, we will investigate the case where .
 
@@ -179,10 +168,10 @@ Now that we have handled the cases where $a$ and $b$ are both null-vectors, we w
 When talking about three lines $a, b, c$ in 3D space, we can distinguish several cases:
 
 \begin{enumerate}[{Case} 1.]
-  \item All lines are coplanar and intersect in a single point.  This is called a 2D concurrent pencil or point~\cite{Hongbo}.
-  \item All lines are coplanar but intersect in three different points.  Li and Zhang name this object a 2D coplanar pencil, or plane~\cite{Hongbo}.
+  \item All lines are pairwise coplanar and intersect in a single point.  This is called a 2D concurrent pencil or point~\cite{Hongbo}.
+  \item All lines are pairwise coplanar but intersect in three different points.  Li and Zhang name this object a 2D coplanar pencil, or plane~\cite{Hongbo}.
   \item One line is coplanar to the other two lines, which are not coplanar to each other.  This is a couple-wheel pencil~\cite{Hongbo}.
-  \item All lines are not coplanar.  The geometric entity is named a regulus~\cite[Section 3.3]{Pottmann}.
+  \item No line is coplanar to the other lines.  The geometric entity is named a regulus~\cite[Section 3.3]{Pottmann}.
 \end{enumerate}
 
 Unlike blades of other grades, the dual of a 3-blade $B = a \wedge b \wedge c$ is $-B$; when dualized, only the orientation of the 3-blade is switched.  From here on, we will not give any attention to the duals of the 3-blades.
