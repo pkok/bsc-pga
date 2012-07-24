@@ -22,51 +22,21 @@
 
 \begin{document}
 %\frontmatter
-\iftoggle{draft}{
-\thispagestyle{empty}
-\begin{tiny}
-\begin{flushright}
-Patrick de Kok, 5640318
-\end{flushright}
-\end{tiny}
-  \begin{center}
-    \begin{Huge}
-      {\color{red} NOTE!}
-    \end{Huge}
-  \end{center}
-  This document contains some notes. Explanation of the notes:
-  \begin{itemize}
-    \item {\bfseries\color{white}\sethlcolor{red}\hl{Red comments}}: directed to the reader in general.  These include questions like how to cite, how something could be rephrased, and questions on spelling.
-    \item {\bfseries\sethlcolor{yellow}\hl{Yellow notes}}: directed at Leo, which are on the subject of the thesis.
-    \item {\bfseries\sethlcolor{green}\hl{Green notes}}: comments from Leo.
-    \item {\bfseries\color{white}\sethlcolor{niceblue}\hl{Blue todos}}: directed mostly at myself, but might be convenient for the general reader as well.
-  \end{itemize}
-
-~ small caution:
-
-\TODO{Fix figure and table placement.}
-
-\TODO{Replace $X = \plucker{\V{d}}{\V{m}}$ notation with $x = \plucker{\V{x}}{\V{\bar{x}}} = \V{x}\ez + \edual{\V{\bar{x}}}$}
-
-\TODO{Redefine $X = -\plucker{\V{d}}{\V{m}}$ to $X = \plucker{\V{d}}{\V{m}}$, if possible???}
-
-\addtocounter{page}{-1}
-  \newpage
-  \thispagestyle{empty}
-  \addtocounter{page}{-1}
-  \hspace{3cm}
-  \newpage
-}{}
-
+\pagenumbering{roman}
 \maketitle
+
+\pdfbookmark[2]{Abstract}{table}
 \begin{abstract}
 \input{abstract}
 \end{abstract}
 
+\newpage
 \pdfbookmark[1]{Contents}{table}
 \tableofcontents
+\newpage
 
 %\mainmatter
+\pagenumbering{arabic}
 \include{introduction}
 \include{background}
 \include{research}
@@ -74,6 +44,7 @@ Patrick de Kok, 5640318
 \include{conclusion}
 
 \appendix
+\include{pictures}
 
 %\backmatter
 \clearpage

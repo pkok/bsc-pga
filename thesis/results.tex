@@ -87,7 +87,7 @@ Its weight can be shown visually by the radius of the spiral.
 As an alternate visualization, the user can choose to show a whole column of joined spirals.
 
 \subsubsection{Grade 2}
-The visualization of the pencil of linear line complexes, and the hyperbolic pencil of linear complexes are provided. 
+The visualization of the pencil of linear line complexes, and the hyperbolic linear congruence are provided. 
 
 \paragraph{Pencil of linear line complexes}
 Pencils of real, not parallel lines are visualized as a sample of the lines contained by the blade.  For the pencil of real lines $B = a \wedge b$, 64 evenly distributed line pieces of length $w(B)$ are drawn that intersect at the center of $B$.  We have chosen to limit the sample to this number of line pieces, as the interface might get cluttered.  We draw line pieces instead of full lines with the same reason.  If the user desires to have the orientation visualized, the line pieces are replaced with four times fewer vectors of the same length.  For a positive orientation, the vectors point to the center.  For a negative orientation, the vectors point the other way.
@@ -96,7 +96,7 @@ In case of a pencil of real, parallel lines, a set of parallel lines in directio
 
 When the pencil contains only ideal lines, 32 evenly distributed ideal lines in the horizon representation are drawn.  These result in a set of rotated circles.  If the orientation is displayed, a vector is drawn on either of the intersection of the circles, pointing at the other intersection.
 
-\paragraph{Hyperbolic pencil of linear complexes}
+\paragraph{Hyperbolic linear congruence}
 The 2-blade of two lines that are not coplanar contains only these two lines.  We only draw these two lines for their visualization.  These lines can be both real, or one real and one ideal.  To indicate the orientation in the case of two real lines, a vector is drawn between the points nearest to the origin of both lines, as well as the hooks that are default for lines.  If the blade contains one real and one ideal line, only the hooks are displayed.  
 
 The weight is visualized by the size of the hooks.
@@ -119,14 +119,14 @@ Because we can see the ideal plane as the celestial sphere, we draw it as a dott
 The couple-wheel pencil is visualized by the visualization of its two pencils, joined together with a line piece between the two centers.  The weight is visualized through the length of the line pieces of the two pencils.  When the orientation should be visualized, the line piece representing the common line is replaced by a vector.
 
 \subsubsection{Grade 4}
-Just as their duals, the dual pencil of linear line complexes as well as the hyperbolic linear congruence are provided with visualizations.
+Just as their duals, the dual pencil of linear line complexes as well as the hyperbolic pencil of linear complexes are provided with visualizations.
 %The visualization of the parabolic linear congruence and the elliptic linear congruence are not implemented.
 
 \paragraph{Dual pencil of linear line complexes}
 Pottmann and Wallner show that the dual of a pencil of linear line complexes contains the same lines as its direct representation~\cite[Section 3.2.1]{Pottmann}.  Therefore, the computations needed for the visualizations are done with the dual element.  The visual representation is equivalent to that of the grade 2 element.
 
-\paragraph{Hyperbolic linear congruence}
-The location and orientation of a hyperbolic linear congruence is also computed with its dual, a pair of skew lines.  The visualization shows a sample of the direct representation of the 4-blade.  The sample takes 31 evenly spaced points on both lines of its dual, and connects them.  The lines are not drawn with the same length as the grade 1 lines.  We believe that this amount of long lines clutter the interface and obscures the geometrical structure of the object.  The line pieces are only drawn from a point from one line to a point on the other line.
+\paragraph{Hyperbolic pencil of linear complexes}
+The location and orientation of a hyperbolic pencil of linear complexes is also computed with its dual, a pair of skew lines.  The visualization shows a sample of the direct representation of the 4-blade.  The sample takes 31 evenly spaced points on both lines of its dual, and connects them.  The lines are not drawn with the same length as the grade 1 lines.  We believe that this amount of long lines clutter the interface and obscures the geometrical structure of the object.  The line pieces are only drawn from a point from one line to a point on the other line.
 
 The orientation of this congruence is defined as the orientation of its dual.  When the orientation is shown, the line pieces are replaced with vector objects, pointing in the same direction as the single vector points in the case of the dual.
 

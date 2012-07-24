@@ -5,6 +5,8 @@
 \usepackage{color}
 \usepackage{etoolbox}
 \usepackage{hyperref}
+%\usepackage{mathabx}
+\usepackage{stmaryrd}
 \usepackage{soul}
 
 %% Math type specifying fonts
@@ -30,7 +32,12 @@
 %\newcommand{\eundual}[1]{\ensuremath{#1^{-\bigstar}}}
 \newcommand{\norm}[1]{\ensuremath{\left\|#1\right\|}}
 
+%% LA operator
+\newcommand{\transpose}{\ensuremath{\intercal}}
+\newcommand{\m}[1]{\ensuremath{\left\llbracket #1 \right\rrbracket}}
+
 \DeclareMathOperator{\pluckerid}{\Omega_q}
+\DeclareMathOperator{\pluckerbilin}{\Omega}
 \DeclareMathOperator{\Em}{Em}
 \DeclareMathOperator{\grade}{\mathtt{grade}}
 \DeclareMathOperator{\weight}{w}
@@ -117,7 +124,6 @@
     \newcommand{\comment}[1]{\sethlcolor{red}{\bfseries\color{white} \hl{#1}}}
     \newcommand{\TODO}[1]{\sethlcolor{niceblue}{\bfseries\color{white} \hl{TODO: #1}}}
     \newcommand{\askLeo}[1]{\sethlcolor{yellow}{\bfseries \hl{Leo: #1}}}
-    %\newcommand{\askLeo}[1]{\colorbox{yellow}{\bfseries Leo: #1}}
     \newcommand{\LeosReply}[1]{\sethlcolor{green}{\bfseries \hl{Leo says: #1}}}
     \newcommand{\myReply}[1]{\sethlcolor{yellow}{\bfseries \hl{#1}}}
   }{
@@ -192,65 +198,63 @@
 
 \renewcommand{\maketitle}{
 \begin{titlepage}
-\begin{center}
+  \begin{center}
 
-\vspace{2.5cm}
+    \vspace{2.5cm}
 
-\begin{Huge}
-\@title
-\end{Huge}
-\rule{\linewidth}{0.1pt}
+    \begin{Huge}
+      \@title
+    \end{Huge}
+    \rule{\linewidth}{0.1pt}
 
-\ifdef{\@subtitle}{
-\begin{large}
-\@subtitle
-\end{large}}{}
+    \ifdef{\@subtitle}{
+      \begin{large}
+        \@subtitle
+      \end{large}}{}
 
-\vspace{1.5cm}
+      \vspace{1.5cm}
 
-\@author\\
-\@studentid
+      \@author\\
+      \@studentid
 
-\vspace{1.5cm}
+      \vspace{1.5cm}
 
 % [DO NOT CHANGE]
-Bachelor thesis\\
+      Bachelor thesis\\
 % [CHANGE] Whether your Bachelor thesis is 6 ECTS (regular) or 9 ECTS (Honours
 % programme).
-Credits: \@ects{}EC
+      Credits: \@ects{}EC
 
-\vspace{0.5cm}
+      \vspace{0.5cm}
 
 % [DO NOT CHANGE] The name of the educational programme.
-\@programme
+      \@programme
 
-\vspace{0.25cm}
+      \vspace{0.25cm}
 
 % [DO NOT CHANGE] The addess of the educational programme.
-\@programmeaddress
+      \@programmeaddress
 
-\vspace{4cm}
+      \vspace{4cm}
 
-\emph{Supervisor}\\
+      \emph{Supervisor}\\
 % [CHANGE] The name of your supervisor. Include the titles of your supervisor,
 % as well as the initials for *all* of his/her first names.
-\@supervisor
+      \@supervisor
 
-\vspace{0.25cm}
+      \vspace{0.25cm}
 
 % [CHANGE] The address of the institute at which your supervisor is working.
 % Be sure to include (1) institute (is appropriate), (2) faculty (if
 % appropriate), (3) organisation name, (4) organisation address (2 lines).
-\@supervisoraddress
+      \@supervisoraddress
 
-\vspace{1.5cm}
+      \vspace{1.5cm}
 
 % [CHANGE] The date at which you will finalize and submit your thesis.
-\ifdef{\@finaldate}{\@finaldate}{\@date}
+      \ifdef{\@finaldate}{\@finaldate}{\@date}
 
-\end{center}
-\addtocounter{page}{-1}
-\end{titlepage}
-
+    \end{center}
+  \end{titlepage} 
 }
 \makeatother

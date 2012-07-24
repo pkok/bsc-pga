@@ -3,7 +3,7 @@
 
 Before an implementation of a visualization can be made for a model, the geometric aspects of the elements of the model must be investigated.  A full inventory of the geometric elements has been done~\cite[Chapter 3]{Pottmann}, but in different terms.  Those terms are traditional, but do not hint at the geometric concept.  Besides the traditional terms, geometric inspired terms will be used.  
 
-The following sections will discuss the geometrically different blades of a certain grade, together with their duals.  The discussion of $(n>1)$-blades is limited to those composed of null vectors.  
+The following sections will discuss the geometrically different blades of a certain grade, together with their duals.  The discussion of $(n>1)$-blades is limited to those composed of null vectors.  Visual representations of the analyzed elements are presented in \autoref{ch:visualization}.
 %Besides text, each part has an accompanying table that contains the following information on the discussed blades:\note{\LeosReply{Als deze dingen van mijn 'internal report' komen moet je dat vermelden, als je ze zelf aanvult is het 'partially based on'.}
 %
 %\myReply{Hoe verwijs ik naar dit artikel?}}
@@ -17,8 +17,6 @@ The following sections will discuss the geometrically different blades of a cert
 %    \myReply{Leo: Deze namen gebruik ik alleen in de tabel, of meer beschrijvend (``the blade of two skew lines'').  Is het wel gepast om nieuwe namen te introduceren zonder al te veel motivatie, of is dit al genoeg motivatie?}
 %\end{itemize}
 
-
-\TODO{Add pictures!}
 
 \subsection{Blades of grade 0 and 6}
 %\begin{table}
@@ -117,7 +115,7 @@ A linear combination $c = \lambda a + \mu b$ is a null vector if:
   &= 2 \lambda \mu a \dotp b
 \end{align}
 
-When $a$ and $b$ are coplanar, their inner product is zero (see \autoref{eq:coplanar}), and each linear combination $c = \lambda a + \mu b$ is a null vector.  This kind of object is called a pencil of linear line complexes~\cite[Section 3.2.1]{Pottmann}, or, a bit shorter, a pencil of lines~\cite{Hongbo}.
+When $a$ and $b$ are coplanar (that is, they intersect or are parallel), their inner product is zero (see \autoref{eq:coplanar}), and each linear combination $c = \lambda a + \mu b$ is a null vector.  This kind of object is called a pencil of linear line complexes~\cite[Section 3.2.1]{Pottmann}, or, a bit shorter, a pencil of lines~\cite{Hongbo}.
 
 The homogeneous point in which all lines intersect, is called its center~\cite{Hongbo}, and can be computed, as seen in \autoref{eq:intersect}.  The bivector direction containing the pencil can be computed by:
 
@@ -136,15 +134,9 @@ As discussed, the intersection of two parallel lines results in a Euclidean vect
 
 Often one takes the point on the object closest to the chosen origin.  For a line $l = \plucker{\V{d}}{\V{m}}$, this is given by $p = \V{m} \times \V{d} + \V{d}^2 \ez$~\cite{Shoemake}.  Let $p_a$ and $p_b$ be such points for $a$ and $b$.  The homogeneous line $C = p_a \wedge p_b$ is the line that intersects each line in their point closest to the origin.  We define a third point $p_C$ that is the point nearest the origin and on $C$.  This point lies on line $C$, as well as on a line contained by $B$, as $C$ contains the point nearest the origin of each line in $B$.
 
-The dual of a pencil of lines contains the same set of lines~\cite[Section 3.2.1]{Pottmann}.  This can be easily shown.  Stating the definition of $\s{C}$ differently, we are looking for all lines that intersect with $B$.\note{\LeosReply{Wat bedoel je met intersect?
-Als je bedoelt 'coincide'dan is dan de wedge-test.
-Als je bedoelt: staan loodrecht op, dan is het de contraction test.}
+The dual of a pencil of lines contains the same set of lines~\cite[Section 3.2.1]{Pottmann}.  This can be easily shown.  Stating the definition of $\s{C}$ differently, we are looking for all lines that are contained in $B$.  This is expressed as $c \wedge B = 0$.  For the grade-4 object $\dual{B}$, this can be written as $c \lcont \dual{B} = c \lcont (B \lcont \inverse{\ppseudo}) = (c \wedge B) \lcont \inverse{\ppseudo}$, with $\ppseudo$ the pseudoscalar of the space $\reals^{3,3}$.  This is only true for $c \wedge B = 0$, a test for containment of $c$ in $B$.
 
-\myReply{Dat weet ik nu niet eens zo zeker.  Het lijkt mij dat de contraction test hier ook ``snijdt elkaar in een (ideaal) punt'' betekent?}}  This is expressed as $c \wedge B = 0$.  For the grade-4 object $\dual{B}$, this can be written as $c \lcont \dual{B} = c \lcont (B \lcont \inverse{\ppseudo}) = (c \wedge B) \lcont \inverse{\ppseudo}$, with $\ppseudo$ the pseudoscalar of the space $\reals^{3,3}$.  This is only true for $c \wedge B = 0$, a test for containment of $c$ in $B$.
-
-\askLeo{Above does not make complete sense, does it?  If true, this should mean that $\dual{\eze}$ represents the same object as $\eze$; a line and not a scala of reguli.}
-
-Now look at the case where $a$ and $b$ are not coplanar, but $a \wedge b$ still contains lines.  \autoref{eq:lincombnull} shows that either $\lambda = 0$ or $\mu = 0$, as $a \dotp b \not= 0$ per definition.  This means that all null vectors in $\s{C}$ must be homogeneously equivalent to $a$ or $b$.  This class of geometric objects is known as the hyperbolic pencil of linear complexes.  Its dual, the hyperbolic linear congruence, contains all lines intersecting both $a$ and $b$~\cite[Proposition 3.2.3]{Pottmann}. That is, for each point $p_a$ on $a$ and $p_b$ on $b$, the line $c$ with embedding $\Em(c) = p_a \wedge p_b$ is in $\dual{B}$.  
+Now look at the case where $a$ and $b$ are not coplanar, but $a \wedge b$ still contains lines.  \autoref{eq:lincombnull} shows that either $\lambda = 0$ or $\mu = 0$, as $a \dotp b \not= 0$ per definition.  This means that all null vectors in $\s{C}$ must be homogeneously equivalent to $a$ or $b$.  This class of geometric objects is known as the hyperbolic linear congruence.  Its dual, the hyperbolic pencil of linear complexes, contains all lines intersecting both $a$ and $b$~\cite[Proposition 3.2.3]{Pottmann}. That is, for each point $p_a$ on $a$ and $p_b$ on $b$, the line $c$ with embedding $\Em(c) = p_a \wedge p_b$ is in $\dual{B}$.  
 
 Now that we have handled the cases where $a$ and $b$ are both null-vectors, we will investigate the case where .
 
