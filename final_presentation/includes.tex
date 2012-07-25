@@ -1,0 +1,124 @@
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{caption}
+\usepackage{catoptions}
+\usepackage{color}
+\usepackage{etoolbox}
+\usepackage{stmaryrd}
+\usepackage{soul}
+
+%% Math type specifying fonts
+\newcommand{\V}[1]{\ensuremath{\mathbf{#1}}}
+\newcommand{\s}[1]{\ensuremath{\mathcal{#1}}}
+
+%% GA operators
+\newcommand{\gp}{\ensuremath{\;}}
+\newcommand{\gpi}{\ensuremath{\mathbin{/}}}
+\newcommand{\lcont}{\ensuremath{\mathbin{\rfloor}}}
+\newcommand{\rcont}{\ensuremath{\mathbin{\lfloor}}}
+\newcommand{\dotp}{\ensuremath{\mathbin{\cdot}}}
+\newcommand{\inverse}[1]{\ensuremath{#1^{-1}}}
+\newcommand{\dual}[1]{\ensuremath{#1^\ast}}
+\newcommand{\undual}[1]{\ensuremath{#1^{-\ast}}}
+\newcommand{\edotp}{\ensuremath{\mathbin{\dotp_\mathbb{E}}}}
+\newcommand{\elcont}{\ensuremath{\mathbin{\lcont_\mathbb{E}}}}
+\newcommand{\ercont}{\ensuremath{\mathbin{\rcont_\mathbb{E}}}}
+\newcommand{\edual}[1]{\ensuremath{#1 \lcont \inverse{\epseudo}}}
+\newcommand{\eundual}[1]{\ensuremath{#1 \lcont \epseudo}}
+\newcommand{\reverse}[1]{\ensuremath{\widetilde{#1}}}
+%\newcommand{\edual}[1]{\ensuremath{#1^\bigstar}}
+%\newcommand{\eundual}[1]{\ensuremath{#1^{-\bigstar}}}
+\newcommand{\norm}[1]{\ensuremath{\left\|#1\right\|}}
+
+%% LA operator
+\newcommand{\transpose}{\ensuremath{\intercal}}
+\newcommand{\m}[1]{\ensuremath{\left\llbracket #1 \right\rrbracket}}
+
+\DeclareMathOperator{\pluckerid}{\Omega_q}
+\DeclareMathOperator{\pluckerbilin}{\Omega}
+\DeclareMathOperator{\Em}{Em}
+\DeclareMathOperator{\grade}{\mathtt{grade}}
+\DeclareMathOperator{\weight}{w}
+\DeclareMathOperator{\dir}{d}
+\newcommand{\pdual}[1]{\ensuremath{#1^\natural}}
+
+\newcommand{\heq}{\ensuremath{\mathbin{=_{H}}}} % Homogeneous equality
+
+%% Pl\"ucker notation
+\newcommand{\plucker}[2]{\ensuremath{\{#1 \mathbin{:} #2\}}}
+%\newcommand{\pluckerpoint}[2]{\ensuremath{(#1 \mathbin{:} #2)}}
+%\newcommand{\pluckerplane}[2]{\ensuremath{[#1 \mathbin{:} #2]}}
+
+%% Math-like symbols
+\newcommand{\reals}{\ensuremath{\mathbb{R}}}
+\newcommand{\en}{\ensuremath{\mathbin{\mbox{and}}}}
+\newcommand{\of}{\ensuremath{\mathbin{\mbox{or}}}}
+\newcommand{\eql}{\ensuremath{\Leftrightarrow}}
+
+%% Math constants and shorthands
+\newcommand{\pline}{\ensuremath{\ell}}
+\newcommand{\rline}{\ensuremath{\ell_o}}
+\newcommand{\iline}{\ensuremath{\ell_\infty}}
+\newcommand{\screw}{\ensuremath{s}}
+
+\newcommand{\ez}{\ensuremath{e_0}}
+\newcommand{\ee}{\ensuremath{\V{e}_1}}
+\newcommand{\et}{\ensuremath{\V{e}_2}}
+\newcommand{\ed}{\ensuremath{\V{e}_3}}
+\newcommand{\eze}{\ensuremath{e_{01}}}
+\newcommand{\ezt}{\ensuremath{e_{02}}}
+\newcommand{\ezd}{\ensuremath{e_{03}}}
+\newcommand{\etd}{\ensuremath{e_{23}}}
+\newcommand{\ede}{\ensuremath{e_{31}}}
+\newcommand{\eet}{\ensuremath{e_{12}}}
+\newcommand{\epseudo}{\ensuremath{\V{I}_3}}
+\newcommand{\hpseudo}{\ensuremath{\ez\V{I}_3}}
+\newcommand{\ppseudo}{\ensuremath{I_6}}
+
+\newcommand{\ap}{\ensuremath{a_{+}}}
+\newcommand{\am}{\ensuremath{a_{-}}}
+\newcommand{\bp}{\ensuremath{b_{+}}}
+\newcommand{\bm}{\ensuremath{b_{-}}}
+\newcommand{\cp}{\ensuremath{c_{+}}}
+\newcommand{\cm}{\ensuremath{c_{-}}}
+
+%% Text symbols
+\newcommand{\newterm}{$^\dagger$}
+
+\newcommand{\ega}{\texttt{e3ga}}
+\newcommand{\pga}{\texttt{p3ga}}
+\newcommand{\cga}{\texttt{c3ga}}
+\newcommand{\cbga}{\texttt{c5ga}}
+\newcommand{\iga}{\texttt{i2ga}}
+\newcommand{\lga}{\texttt{l3ga}}
+
+%% Setting color definitions
+\definecolor{nicered}{rgb}{0.6, 0, 0.24}
+\definecolor{nicegreen}{rgb}{0.0, 0.5, 0.24}
+\definecolor{niceblue}{rgb}{0, 0.4, 1}
+\definecolor{gray}{rgb}{0.2, 0.2, 0.2}
+\definecolor{lightgray}{rgb}{0.4, 0.4, 0.4}
+
+%% We want also \paragraph and \subparagraph to work!
+\setcounter{secnumdepth}{5}
+
+\captionsetup{
+  margin=10pt,
+  font=small,
+  labelfont=bf,
+  position=top,
+}
+
+\newcommand{\appendixfigure}[3][]{%
+  \begin{figure}[#1]
+    \caption{#3}
+    \label{fig:#2}
+    \begin{center}
+      \fbox{
+        \includegraphics[width=0.6\textwidth]{#2}
+      }
+    \end{center}
+  \end{figure}
+}
+
+\newtoggle{draft}
