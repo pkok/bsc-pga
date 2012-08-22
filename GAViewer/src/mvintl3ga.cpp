@@ -48,7 +48,7 @@ int mvInt::interpret(const l3ga &X, int creationFlags /* = 0*/) {
   double s, x, y, z;
   int null_vectors = 0;
   int ideal_lines = 0;
-
+  int intersection_count = 0;
   m_type = 0;
   m_type = MVI_L3GA;
 
@@ -202,6 +202,7 @@ int mvInt::interpret(const l3ga &X, int creationFlags /* = 0*/) {
               printf("pencil of ideal lines\n");
               /*
               scalar 0: weight
+              scalar 1: orientation
               vector 0: normal
               vector 1: orthogonal to vector 0 and 2
               vector 2: orthogonal to vector 0 and 1
@@ -227,6 +228,7 @@ int mvInt::interpret(const l3ga &X, int creationFlags /* = 0*/) {
               printf("ruled plane\n");
               /*
               scalar 0: weight;
+              scalar 1: orientation
               point 0: point on plane closest to chosen origin
               vector 0: normal
               vector 1: line direction
@@ -316,7 +318,7 @@ int mvInt::interpret(const l3ga &X, int creationFlags /* = 0*/) {
             printf("line pair\n");
             /*
             scalar 0: weight;
-            scalar 1: signed radius(? is that meaningful? --> not set!)
+            scalar 1: orientation
             point 0: point closest to origin of line 1
             vector 0: direction of line 1
             point 1: point closest to origin of line 2
@@ -326,7 +328,7 @@ int mvInt::interpret(const l3ga &X, int creationFlags /* = 0*/) {
               m_type |= MVI_IDEAL_LINE_PAIR;
               /*
               scalar 0: weight;
-              scalar 1: signed radius(? is that meaningful? --> not set!)
+              scalar 1: orientation
               vector 0: normal to the ideal line
               point 1: point closest to origin of the real line
               vector 1: direction of the real line
@@ -372,20 +374,22 @@ int mvInt::interpret(const l3ga &X, int creationFlags /* = 0*/) {
         }
         break;
       case 3: // ******************** line bundle/point, fied of lines/plane, regulus, double wheel pencil, ...
+        intersection_count = (fabs(lcont(factors[0], factors[1]).scalar()) < epsilon)
+          + (fabs(lcont(factors[1], factors[2]).scalar()) < epsilon)
+          + (fabs(lcont(factors[2], factors[0]).scalar()) < epsilon);
+
         if (only_coordinates_set(X, epsilon, GRADE3, L3GA_E23_E31_E12)) {
           m_type |= MVI_IDEAL_PLANE;
           printf("ideal plane\n");
           /*
           scalar 0: weight
+          scalar 1: orientation
           */
 
           m_valid = 1;
         }
         else if (!((interpret[0].m_type & MVI_DUAL) || (interpret[1].m_type & MVI_DUAL) || (interpret[2].m_type & MVI_DUAL)) &&
-            fabs(lcont(factors[0], factors[1]).scalar()) < epsilon && 
-            fabs(lcont(factors[1], factors[2]).scalar()) < epsilon &&
-            fabs(lcont(factors[2], factors[0]).scalar()) < epsilon) {
-
+            intersection_count == 3) {
           // point of intersection is the meet of the two homogeneous lines!
           p3ga a1 = (consoleVariable("", factors[0]).castToP3ga())->p(),
                a2 = (consoleVariable("", factors[1]).castToP3ga())->p(),
@@ -425,15 +429,14 @@ int mvInt::interpret(const l3ga &X, int creationFlags /* = 0*/) {
           }
             
 
-          printf("f1: %s\t\tf2: %s\t\tf3: %s\n", factors[0].string(), factors[1].string(), factors[2].string());
-          printf("i1: %s\t\ti2: %s\t\ti3: %s\n", intersection1.string(), intersection2.string(), intersection3.string());
           if (isIdeal == 3) {
             m_type |= MVI_IDEAL_POINT;
             printf("ideal point\n");
             /*
-               scalar 0: weight
-               vector 0: direction
-               */
+            scalar 0: weight
+            scalar 1: orientation
+            vector 0: direction
+            */
 
             m_vector[0][0] = m_scalar[1] * intersection2[GRADE1][P3GA_E1];
             m_vector[0][1] = m_scalar[1] * intersection2[GRADE1][P3GA_E2];
@@ -447,9 +450,10 @@ int mvInt::interpret(const l3ga &X, int creationFlags /* = 0*/) {
             m_type |= MVI_POINT;
             printf("brush/point\n");
             /*
-               scalar 0: weight
-               point 0: position
-               */
+            scalar 0: weight
+            scalar 1: orientation
+            point 0: position
+            */
 
             m_point[0][0] = intersection1[GRADE1][P3GA_E1] / intersection1[GRADE1][P3GA_E0];
             m_point[0][1] = intersection1[GRADE1][P3GA_E2] / intersection1[GRADE1][P3GA_E0];
@@ -481,6 +485,63 @@ int mvInt::interpret(const l3ga &X, int creationFlags /* = 0*/) {
             m_valid = 1;
           }
         }
+        else if (intersection_count == 2) {
+          m_type |= MVI_LINE_PENCIL_PAIR;
+          printf("line pencil pair\n");
+          /*
+          scalar 0: weight
+          scalar 1: orientation
+          point 0: center of pencil 1
+          point 1: center of pencil 2
+          vector 0: normal of pencil 1
+          vector 1: normal of pencil 2
+          vector 2: common line of pencil 1 and 2, orthogonal to vector 0 and 1
+          */
+          m_valid = 0;
+
+          printf("f0: %s\nf1: %s\nf2: %s\n", factors[0].string(), factors[1].string(), factors[2].string());
+          printf("f0.f1: %s\nf1.f2: %s\nf2.f0: %s\n", (factors[0] << factors[1]).string(), (factors[1] << factors[2]).string(), (factors[2] << factors[0]).string());
+          if (fabs(lcont(factors[0], factors[1]).scalar()) >= epsilon) {
+            printf("0\n");
+            interpret[0].interpret(factors[0] ^ factors[2]);
+            interpret[1].interpret(factors[1] ^ factors[2]);
+          }
+          else if (fabs(lcont(factors[1], factors[2]).scalar()) >= epsilon) {
+            printf("1\n");
+            interpret[0].interpret(factors[1] ^ factors[0]);
+            interpret[1].interpret(factors[2] ^ factors[0]);
+          }
+          else if (fabs(lcont(factors[2], factors[0]).scalar()) >= epsilon) {
+            printf("2\n");
+            interpret[0].interpret(factors[2] ^ factors[1]);
+            interpret[1].interpret(factors[0] ^ factors[1]);
+          }
+
+          m_point[0][0] = interpret[0].m_point[0][0];
+          m_point[0][1] = interpret[0].m_point[0][1];
+          m_point[0][2] = interpret[0].m_point[0][2];
+
+          m_point[1][0] = interpret[1].m_point[0][0];
+          m_point[1][1] = interpret[1].m_point[0][1];
+          m_point[1][2] = interpret[1].m_point[0][2];
+
+          m_vector[0][0] = interpret[0].m_vector[0][0];
+          m_vector[0][1] = interpret[0].m_vector[0][1];
+          m_vector[0][2] = interpret[0].m_vector[0][2];
+
+          m_vector[1][0] = interpret[1].m_vector[0][0];
+          m_vector[1][1] = interpret[1].m_vector[0][1];
+          m_vector[1][2] = interpret[1].m_vector[0][2];
+
+          m_vector[2][0] = m_point[1][0] - m_point[0][0];
+          m_vector[2][1] = m_point[1][1] - m_point[0][1];
+          m_vector[2][2] = m_point[1][2] - m_point[0][2];
+        }
+        else if (intersection_count == 0) {
+          m_type |= MVI_REGULUS;
+          printf("regulus\n");
+          m_valid = 0;
+        }
         else {
           m_type |= MVI_UNKNOWN;
           printf("grade 3 unknown;\n\tX²:\t%2.2f\n\tf0:\t%s\n\tf1:\t%s\n\tf2:\t%s\n\t#0:\t%d\n", X2, factors[0].string(), factors[1].string(), factors[2].string(), null_vectors);
@@ -490,6 +551,8 @@ int mvInt::interpret(const l3ga &X, int creationFlags /* = 0*/) {
         /* Temporary solution. Interpretation through dualization. */
       case 4: // ******************** regulus pencil, dual line pair, parabolic linear congruence, "[hyperbolic linear congruence], bundle + field"
       case 5: // ******************** regulus bundle, rotation invariants, translation invariants
+        printf("dual ");
+        tmpInt.interpret(X.dual());
         m_type = tmpInt.m_type;
         m_type |= MVI_DUAL;
         m_valid = tmpInt.m_valid;
@@ -536,7 +599,8 @@ int mvInt::interpret(const l3ga &X, int creationFlags /* = 0*/) {
         m_type |= MVI_SPACE;
         //printf("pseudoscalar\n");
         /*
-        scalar0: weight
+        scalar 0: weight
+        scalar 1: orientation
         */
         m_scalar[0] = X[GRADE6][L3GA_I];
         m_valid = 1;
@@ -546,7 +610,8 @@ int mvInt::interpret(const l3ga &X, int creationFlags /* = 0*/) {
           m_type |= MVI_SPACE;
           //printf("pseudoscalar\n");
           /*
-          scalar0: weight
+          scalar 0: weight
+          scalar 1: orientation
           */
           m_scalar[0] = X[GRADE6][L3GA_I];
           m_valid;
@@ -558,7 +623,6 @@ int mvInt::interpret(const l3ga &X, int creationFlags /* = 0*/) {
         }
         break;
     }
-    //printf("o: %2.2f\tw: %2.2f\t#0: %d\n", m_scalar[1], m_scalar[0], null_vectors);
   }
   // TODO: Add interpretation for versors
   else if (type == GA_VERSOR) {

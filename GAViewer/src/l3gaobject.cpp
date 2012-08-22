@@ -294,10 +294,14 @@ int l3gaObject::draw(glwindow *window) {
         }
         break;
       case MVI_IDEAL_LINE_PAIR:
-        drawLine(m_int.m_point[1], m_int.m_vector[1], m_int.m_scalar[0], DRAW_LINE_HOOKS, (m_drawMode & OD_ORI) ? 0x01 : 0, this);
+        glPushAttrib(GL_POLYGON_STIPPLE_BIT);
+        glPushAttrib(GL_LINE_BIT);
         glEnable(GL_POLYGON_STIPPLE);
         glEnable(GL_LINE_STIPPLE);
         drawIdealLine(m_int.m_point[0], m_int.m_vector[0], m_int.m_scalar[0], DRAW_IDEAL_LINE_HOOKS, m_drawMode, this);
+        glPopAttrib();
+        glPopAttrib();
+        drawLine(m_int.m_point[1], m_int.m_vector[1], m_int.m_scalar[0], DRAW_LINE_HOOKS, (m_drawMode & OD_ORI) ? 0x01 : 0, this);
         break;
       case MVI_POINT:
         drawPoint(m_int.m_point[0], m_int.m_scalar[0], 0, this);
@@ -312,6 +316,26 @@ int l3gaObject::draw(glwindow *window) {
       case MVI_PLANE:
         drawPlane(m_int.m_point[0], m_int.m_vector[0], m_int.m_vector[1], m_int.m_vector[2], m_int.m_scalar[0], DRAW_PLANE, 0, this);
         break;
+      case MVI_LINE_PENCIL_PAIR:
+        scale = (m_drawMode & OD_MAGNITUDE)
+          ? sqrt(fabs(m_int.m_scalar[0]) / M_PI) 
+          : 1.0;
+        dir[0] = m_int.m_vector[0][1] * m_int.m_vector[2][2] - m_int.m_vector[0][2] * m_int.m_vector[2][1];
+        dir[1] = m_int.m_vector[0][2] * m_int.m_vector[2][0] - m_int.m_vector[0][0] * m_int.m_vector[2][2];
+        dir[2] = m_int.m_vector[0][0] * m_int.m_vector[2][1] - m_int.m_vector[0][1] * m_int.m_vector[2][0];
+        drawLinePencil(m_int.m_point[0], scale, m_int.m_vector[0], m_int.m_vector[2], dir, m_dmMenuIdx, m_drawMode, this);
+        drawVector(m_int.m_point[0], m_int.m_vector[0], 2.0);
+        drawVector(m_int.m_point[0], m_int.m_vector[2], 2.0);
+        drawVector(m_int.m_point[0], dir, 2.0);
+        dir[0] = m_int.m_vector[1][1] * m_int.m_vector[2][2] - m_int.m_vector[1][2] * m_int.m_vector[2][1];
+        dir[1] = m_int.m_vector[1][2] * m_int.m_vector[2][0] - m_int.m_vector[1][0] * m_int.m_vector[2][2];
+        dir[2] = m_int.m_vector[1][0] * m_int.m_vector[2][1] - m_int.m_vector[1][1] * m_int.m_vector[2][0];
+        drawLinePencil(m_int.m_point[1], scale, dir, m_int.m_vector[1], m_int.m_vector[2], m_dmMenuIdx, m_drawMode, this);
+        drawVector(m_int.m_point[1], m_int.m_vector[1], 1.0);
+        drawVector(m_int.m_point[1], m_int.m_vector[2], 1.0);
+        drawVector(m_int.m_point[1], dir, 1.0);
+        break;
+      case MVI_REGULUS:
       case MVI_SPACE:
         // don't draw anything
       default:
